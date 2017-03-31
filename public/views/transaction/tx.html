@@ -199,8 +199,8 @@
 
 <div class="line-top row" data-ng-hide="!tx">
   <div class="col-xs-6 col-sm-4 col-md-4">
-    <span data-ng-show="!tx.isCoinBase &&  !isNaN(parseFloat(tx.fees))"
-      class="txvalues txvalues-default"><span translate>Fee</span>: {{$root.currency.getConvertion(tx.fees) || tx.fees + 'QTUM'}} </span>
+    <span data-ng-show="!tx.isCoinBase && !isNaN(parseFloat(tx.fees)) && (tx.fees >= 0)"
+      class="txvalues txvalues-default"><span translate>Fee</span>: {{$root.currency.getConvertion(tx.fees) || tx.fees + 'QTUM'}}</span>
   </div>
   <div class="col-xs-6 col-sm-8 col-md-8 text-right">
     <span data-ng-show="tx.confirmations" class="txvalues
