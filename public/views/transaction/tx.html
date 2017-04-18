@@ -196,7 +196,19 @@
   <strong translate>Included in Block</strong> <a class="text-muted" href="block/{{tx.blockhash}}">{{tx.blockhash}}</a>
   <span class="btn-copy" clip-copy="tx.blockhash"></span>
 </div>
+<div class="line-mid row " data-ng-hide="!tx.contractBytecode">
+  <h3>Contract creation</h3>
 
+  <div class="panel panel-default">
+    <div class="panel-body">
+      Contract code
+    </div>
+    <div class="panel-body contract-creation-block">
+      {{tx.contractBytecode}}
+    </div>
+  </div>
+
+</div>
 <div class="line-top row" data-ng-hide="!tx">
   <div class="col-xs-6 col-sm-4 col-md-4">
     <span data-ng-show="!tx.isCoinBase && !isNaN(parseFloat(tx.fees)) && (tx.fees >= 0)"

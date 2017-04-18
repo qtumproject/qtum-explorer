@@ -14,6 +14,7 @@
     "ngprogress": "~1.0.4",
     "angular-ui-utils": "~0.1.1",
     "angular-gettext": "~1.1.0",
-    "angular-moment": "~0.8.0"
+    "angular-moment": "~0.8.0",
+    "bitcore-lib": "^0.14.0"
   }
 }

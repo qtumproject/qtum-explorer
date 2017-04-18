@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.transactions').controller('transactionsController',
-function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress) {
+function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress, Bitcorelib) {
   $scope.global = Global;
   $scope.loading = false;
   $scope.loadedBy = null;
@@ -74,9 +74,53 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     return ret;
   };
 
+  var _getContractCode = function (items) {
+      var l = items.length;
+      var CONTRACT_CALL = 194;
+      var CONTRACT_CREATE = 193;
+
+      for(var i=0; i < l; i++) {
+
+          if (items[i].scriptPubKey && items[i].scriptPubKey.hex) {
+
+              try {
+
+                  var script = Bitcorelib.Script(items[i].scriptPubKey.hex);
+
+                  if (script.chunks && script.chunks.length) {
+
+                    for(var k=0; k < script.chunks.length; k++) {
+
+                          if (script.chunks[k] && script.chunks[k]['opcodenum'] && [CONTRACT_CALL, CONTRACT_CREATE].indexOf(script.chunks[k]['opcodenum']) !== -1) {
+
+                              switch (script.chunks[k]['opcodenum']) {
+                                  case  CONTRACT_CALL:
+                                      return script.chunks[k - 2]['buf'].toString('hex');
+                                    break;
+                                  case CONTRACT_CREATE:
+                                      return script.chunks[k - 1]['buf'].toString('hex');
+                                    break;
+                              }
+
+                          }
+
+                      }
+
+                  }
+
+              } catch(e) {
+
+              }
+          }
+      }
+
+      return null;
+  };
+
   var _processTX = function(tx) {
     tx.vinSimple = _aggregateItems(tx.vin);
     tx.voutSimple = _aggregateItems(tx.vout);
+    tx.contractBytecode = _getContractCode(tx.vout);
   };
 
   var _paginate = function(data) {
