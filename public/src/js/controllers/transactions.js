@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.transactions').controller('transactionsController',
-function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress, Bitcorelib) {
+function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress, Bitcorelib, Contracts) {
   $scope.global = Global;
   $scope.loading = false;
   $scope.loadedBy = null;
@@ -10,7 +10,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   var pagesTotal = 1;
   var COIN = 100000000;
 
-  var _aggregateItems = function(items) {
+  var _aggregateItems = function(txId, items) {
     if (!items) return [];
 
     var l = items.length;
@@ -31,9 +31,21 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
       // non standard output
       if (items[i].scriptPubKey && !items[i].scriptPubKey.addresses) {
+
+        var contractAddress;
+
+        if (items[i].scriptPubKey.hex) {
+            contractAddress = Contracts.getContractAddressByHex(txId, items[i]['n'], items[i].scriptPubKey.hex);
+        }
+
+        if (contractAddress) {
+            items[i].contractAddress = contractAddress;
+        }
+
         items[i].scriptPubKey.addresses = ['Unparsed address [' + u++ + ']'];
         items[i].notAddr = true;
         notAddr = true;
+
       }
 
       // multiple addr at output
@@ -60,6 +72,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
       tmp[addr].valueSat += Math.round(items[i].value * COIN);
       tmp[addr].items.push(items[i]);
       tmp[addr].notAddr = notAddr;
+      tmp[addr].contractAddress = items[i].contractAddress || null;
 
       if (items[i].unconfirmedInput)
         tmp[addr].unconfirmedInput = true;
@@ -74,43 +87,20 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     return ret;
   };
 
-  var _getContractCode = function (items) {
+  var _getContractBytecode = function (tx) {
+      var items = tx.vout;
       var l = items.length;
-      var CONTRACT_CALL = 194;
-      var CONTRACT_CREATE = 193;
 
       for(var i=0; i < l; i++) {
 
           if (items[i].scriptPubKey && items[i].scriptPubKey.hex) {
 
-              try {
+            var bytecode = Contracts.getContractBytecode(items[i].scriptPubKey.hex);
 
-                  var script = Bitcorelib.Script(items[i].scriptPubKey.hex);
+            if (bytecode) {
+              return bytecode;
+            }
 
-                  if (script.chunks && script.chunks.length) {
-
-                    for(var k=0; k < script.chunks.length; k++) {
-
-                          if (script.chunks[k] && script.chunks[k]['opcodenum'] && [CONTRACT_CALL, CONTRACT_CREATE].indexOf(script.chunks[k]['opcodenum']) !== -1) {
-
-                              switch (script.chunks[k]['opcodenum']) {
-                                  case  CONTRACT_CALL:
-                                      return script.chunks[k - 2]['buf'].toString('hex');
-                                    break;
-                                  case CONTRACT_CREATE:
-                                      return script.chunks[k - 1]['buf'].toString('hex');
-                                    break;
-                              }
-
-                          }
-
-                      }
-
-                  }
-
-              } catch(e) {
-
-              }
           }
       }
 
@@ -118,9 +108,14 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   };
 
   var _processTX = function(tx) {
-    tx.vinSimple = _aggregateItems(tx.vin);
-    tx.voutSimple = _aggregateItems(tx.vout);
-    tx.contractBytecode = _getContractCode(tx.vout);
+    tx.vinSimple = _aggregateItems(tx.txid, tx.vin);
+    tx.voutSimple = _aggregateItems(tx.txid, tx.vout);
+    tx.contractBytecode = _getContractBytecode(tx);
+
+    if (tx.contractBytecode) {
+        tx.contractAsm = Contracts.getContractOpcodesString(tx.contractBytecode, 'testnet');
+    }
+
   };
 
   var _paginate = function(data) {
@@ -147,6 +142,15 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   var _byAddress = function () {
     TransactionsByAddress.get({
       address: $routeParams.addrStr,
+      pageNum: pageNum
+    }, function(data) {
+      _paginate(data);
+    });
+  };
+
+  var _byContractAddress = function () {
+    TransactionsByAddress.get({
+      address: Contracts.getBitAddressFromContractAddress($routeParams.contractAddressStr),
       pageNum: pageNum
     }, function(data) {
       _paginate(data);
@@ -192,12 +196,22 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     if (pageNum < pagesTotal && !$scope.loading) {
       $scope.loading = true;
 
-      if ($scope.loadedBy === 'address') {
-        _byAddress();
+      switch($scope.loadedBy) {
+          case 'address':
+              _byAddress();
+            break;
+          case 'contractAddress':
+              _byContractAddress();
+              break;
+          default:
+              _byBlock();
       }
-      else {
-        _byBlock();
-      }
+      // if ($scope.loadedBy === 'address') {
+      //   _byAddress();
+      // }
+      // else {
+      //   _byBlock();
+      // }
     }
   };
 

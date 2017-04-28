@@ -718,6 +718,7 @@ a.v_highlight_more {
   overflow-y: scroll;
   overflow-x: auto;
   height: 200px;
+  word-break: break-all;
 }
 
 @media (max-width: 991px) {

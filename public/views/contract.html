@@ -1,0 +1,96 @@
+<div data-ng-include src="'views/includes/connection.html'"></div>
+<section data-ng-controller="ContractsController" data-ng-init="findOne()">
+
+    <h1><span translate>Address</span> <small data-ng-show="info.address">{{$root.currency.getConvertion(info.balance) || info.balance + ' QTUM'}}</small></h1>
+    <div class="text-muted" data-ng-if="!info.address">
+        <span translate>Loading Address Information</span> <span class="loader-gif"></span>
+    </div>
+
+    <div data-ng-if="info.address">
+        <div class="well well-sm ellipsis">
+            <strong translate>Address</strong>
+            <span class="text-muted">{{info.address}} ({{bitAddress}})</span>
+            <span class="btn-copy" clip-copy="address.addrStr"></span>
+        </div>
+        <h2 translate>Summary <small>confirmed</small></h2>
+        <div class="row" data-ng-hide="!info.address">
+            <div class="col-md-10">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><strong translate>Total Received</strong></td>
+                        <td class="ellipsis text-right">{{$root.currency.getConvertion(address.totalReceived) || address.totalReceived + ' QTUM'}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong translate>Total Sent</strong></td>
+                        <td class="ellipsis text-right">{{$root.currency.getConvertion(address.totalSent) || address.totalSent + ' QTUM'}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong translate>Final Balance</strong></td>
+                        <td class="ellipsis text-right">{{$root.currency.getConvertion(address.balance) || address.balance + ' QTUM'}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong translate>No. Transactions</strong></td>
+                        <td class="ellipsis text-right">{{address.txApperances}}</td>
+                    </tr>
+                    <!--<tr>
+                        <td><strong translate>Balance</strong></td>
+                        <td class="ellipsis text-right">{{$root.currency.getConvertion(info.balance) || info.balance + ' QTUM'}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong translate>Storage</strong></td>
+                        <td class="ellipsis">
+
+                                <div ng-repeat="(key, value) in info.storage">
+                                    <span>{{key}}</span> <span>{{value}}</span>
+                                </div>
+
+                        </td>
+                    </tr>-->
+                    <tr>
+                        <td><strong translate>Bytecode</strong></td>
+                        <td>
+                            <div class="contract-creation-block">
+                                {{info.code}}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong translate>Asm</strong></td>
+                        <td>
+                            <div class="contract-creation-block">
+                                {{opcodesStr}}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2 text-center">
+                <qrcode size="160" data="{{info.address}}"></qrcode>
+            </div>
+        </div>
+        <div data-ng-show="address.unconfirmedTxApperances">
+            <h3 translate>Unconfirmed</h3>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td class="small" translate>Unconfirmed Txs Balance</td>
+                    <td class="address ellipsis text-right">{{$root.currency.getConvertion(address.unconfirmedBalance)}}</td>
+                </tr>
+                <tr>
+                    <td class="small" translate>No. Transactions</td>
+                    <td class="address ellipsis text-right">{{address.unconfirmedTxApperances}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div data-ng-if="info.address" data-ng-controller="transactionsController" data-ng-init="load('contractAddress')">
+        <h2 translate>Transactions</h2>
+        <div data-ng-include src="'views/transaction/list.html'" when-scrolled="loadMore()"></div>
+    </div>
+
+</section>

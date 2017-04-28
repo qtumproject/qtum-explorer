@@ -35,6 +35,10 @@ angular.module('insight').config(function($routeProvider) {
       templateUrl: 'views/address.html',
       title: 'Quantum Address '
     }).
+    when('/contracts/:contractAddressStr', {
+      templateUrl: 'views/contract.html',
+      title: 'Quantum Contract '
+    }).
     when('/status', {
       templateUrl: 'views/status.html',
       title: 'Status'

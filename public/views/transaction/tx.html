@@ -136,7 +136,8 @@
               </div>
 
               <div class="ellipsis">
-                <span data-ng-show="vout.notAddr">{{vout.addr}}</span>
+                <span data-ng-show="vout.notAddr && !vout.contractAddress">{{vout.addr}}</span>
+                <a data-ng-show="vout.notAddr && vout.contractAddress" href="contracts/{{vout.contractAddress}}">{{vout.contractAddress}}</a>
                 <span class="text-muted" title="Current Quantum Address" data-ng-show="address == $root.currentAddr" data-ng-repeat="address in vout.addr.split(',')">{{vout.addr}}</span>
                 <a href="address/{{address}}"  data-ng-show="!vout.notAddr && address != $root.currentAddr" data-ng-repeat="address in vout.addr.split(',')">{{address}}</a>
               </div>
@@ -163,7 +164,8 @@
                 </span>
               </div>
               <div class="ellipsis">
-                <a href="address/{{address}}" data-ng-repeat="address in vout.scriptPubKey.addresses">{{address}}</a>
+                <a data-ng-show="!vout.contractAddress" href="address/{{address}}" data-ng-repeat="address in vout.scriptPubKey.addresses">{{address}}</a>
+                <a data-ng-show="vout.contractAddress" href="contracts/{{vout.contractAddress}}">{{vout.contractAddress}}</a>
               </div>
             </div>
           </div>
@@ -205,6 +207,15 @@
     </div>
     <div class="panel-body contract-creation-block">
       {{tx.contractBytecode}}
+    </div>
+  </div>
+
+  <div data-ng-show="tx.contractAsm" class="panel panel-default">
+    <div class="panel-body">
+      Asm
+    </div>
+    <div class="panel-body contract-creation-block">
+      {{tx.contractAsm}}
     </div>
   </div>
 

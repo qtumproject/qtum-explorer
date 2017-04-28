@@ -1,7 +1,7 @@
 'use strict';
 
 var defaultLanguage = localStorage.getItem('insight-language') || 'en';
-var defaultCurrency = localStorage.getItem('insight-currency') || 'QTUM';//BTC
+var defaultCurrency = localStorage.getItem('insight-currency') || 'QTUM';
 
 angular.module('insight',[
   'ngAnimate',
@@ -23,7 +23,9 @@ angular.module('insight',[
   'insight.connection',
   'insight.currency',
   'insight.messages',
-  'insight.bitcorelib'
+  'insight.bitcorelib',
+  'insight.contracts',
+  'insight.opcodes'
 ]);
 
 angular.module('insight.system', []);
@@ -38,3 +40,5 @@ angular.module('insight.currency', []);
 angular.module('insight.messages', []);
 angular.module('insight.messages', []);
 angular.module('insight.bitcorelib', []);
+angular.module('insight.contracts', []);
+angular.module('insight.opcodes', []);
