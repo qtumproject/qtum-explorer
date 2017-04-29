@@ -6,44 +6,27 @@ angular.module('insight.contracts')
             return $resource(window.apiPrefix + '/contracts/:contractAddressStr/info');
         })
     .factory('Contracts',
-    function(Bitcorelib, Opcodes) {
+    function(Bitcorelib, Opcodes, Networks) {
 
         var CONTRACT_CALL = 194;
         var CONTRACT_CREATE = 193;
 
         return {
-            getBitAddressFromContractAddress: function (contractAddress, networkType) {
+            getBitAddressFromContractAddress: function (contractAddress) {
 
-                if (!networkType) {
-                    networkType = 'testnet';//TODO::!!
-                }
-
-                var networks = {
-                    testnet: {
-                        name: 'testnet',
-                        pubkeyhash: 0x6f,
-                        pubkeystr: '6f',
-                        privatekey: 0xef
-                    },
-                    livenet: {
-                        name: 'livenet',
-                        pubkeyhash: 0x00,
-                        pubkeystr: '00',
-                        privatekey: 0x80
-                    }
-                };
-
-                var networkId = networks[networkType]['pubkeystr'];
-                var checksum = Bitcorelib.crypto.Hash.sha256sha256(new Bitcorelib.deps.Buffer(networkId + contractAddress, 'hex'));
-                var hexBitAddress = networkId + contractAddress + checksum.toString('hex').slice(0, 8);
+                var network = Networks.getCurrentNetwork(),
+                    networkId = network.pubkeystr,
+                    checksum = Bitcorelib.crypto.Hash.sha256sha256(new Bitcorelib.deps.Buffer(networkId + contractAddress, 'hex')),
+                    hexBitAddress = networkId + contractAddress + checksum.toString('hex').slice(0, 8);
 
                 return Bitcorelib.encoding.Base58.encode(new Bitcorelib.deps.Buffer(hexBitAddress, 'hex'));
 
             },
             getContractOpcodesString: function (hex) {
-                var contractCode = new Bitcorelib.deps.Buffer(hex, 'hex');
 
-                var ops = []
+                var contractCode = new Bitcorelib.deps.Buffer(hex, 'hex'),
+                    ops = [];
+
                 for (var index = 0; index < contractCode.length; index++) {
                     var currentOp = Opcodes.lookupOpcode(contractCode[index], true);
                     // record the program counter
@@ -61,6 +44,7 @@ angular.module('insight.contracts')
                         index += pushDataLength;
                     }
                 }
+
                 var opcodesStr = '';
 
                 for(var i = 0; i < ops.length; i++) {
@@ -72,7 +56,6 @@ angular.module('insight.contracts')
                     }
 
                 }
-
 
                 return opcodesStr;
 

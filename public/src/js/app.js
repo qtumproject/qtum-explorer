@@ -25,7 +25,8 @@ angular.module('insight',[
   'insight.messages',
   'insight.bitcorelib',
   'insight.contracts',
-  'insight.opcodes'
+  'insight.opcodes',
+  'insight.networks'
 ]);
 
 angular.module('insight.system', []);
@@ -42,3 +43,4 @@ angular.module('insight.messages', []);
 angular.module('insight.bitcorelib', []);
 angular.module('insight.contracts', []);
 angular.module('insight.opcodes', []);
+angular.module('insight.networks', []);

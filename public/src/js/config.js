@@ -1,5 +1,9 @@
 'use strict';
 
+angular.module('insight').constant('Config', {
+    NETWORK: 'testnet'//TODO::config
+});
+
 //Setting up route
 angular.module('insight').config(function($routeProvider) {
   $routeProvider.
