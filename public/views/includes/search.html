@@ -9,8 +9,8 @@
          placeholder="{{'Search for block, transaction or address'|translate}}"
          data-ng-submit="search()" 
          focus="true"/>
-  <div class="no_matching text-danger" ng-if="badQuery" translate>
-    No matching records found!
+  <div class="search__notFound active" ng-if="badQuery" translate>
+    <p>No matching records found!</p>
   </div>
 </form>
 
