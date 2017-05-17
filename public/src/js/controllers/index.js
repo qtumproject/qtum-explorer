@@ -1,53 +1,57 @@
 'use strict';
 
 var TRANSACTION_DISPLAYED = 10;
-var BLOCKS_DISPLAYED = 5;
+var BLOCKS_DISPLAYED = 8;
 
 angular.module('insight.system').controller('IndexController',
-  function($scope, Global, getSocket, Blocks) {
-    $scope.global = Global;
+	function($scope, Global, getSocket, Blocks) {
 
-    var _getBlocks = function() {
-      Blocks.get({
-        limit: BLOCKS_DISPLAYED
-      }, function(res) {
-        $scope.blocks = res.blocks;
-        $scope.blocksLength = res.length;
-      });
-    };
+		$scope.global = Global;
 
-    var socket = getSocket($scope);
+		var _getBlocks = function() {
+			Blocks.get({
+				limit: BLOCKS_DISPLAYED
+			}, function(res) {
+				$scope.blocks = res.blocks;
+				$scope.blocksLength = res.length;
+			});
+		};
 
-    var _startSocket = function() { 
-      socket.emit('subscribe', 'inv');
-      socket.on('tx', function(tx) {
-        $scope.txs.unshift(tx);
-        if (parseInt($scope.txs.length, 10) >= parseInt(TRANSACTION_DISPLAYED, 10)) {
-          $scope.txs = $scope.txs.splice(0, TRANSACTION_DISPLAYED);
-        }
-      });
+		var socket = getSocket($scope);
 
-      socket.on('block', function() {
-        _getBlocks();
-      });
-    };
+		var _startSocket = function() {
 
-    socket.on('connect', function() {
-      _startSocket();
-    });
+			socket.emit('subscribe', 'inv');
+			socket.on('tx', function(tx) {
+				
+				tx.time = $scope.humanSince(new Date());
+				$scope.txs.unshift(tx);
 
+				if ($scope.txs.length >= TRANSACTION_DISPLAYED) {
+					
+					$scope.txs.length = TRANSACTION_DISPLAYED;
+				}
+			});
 
+			socket.on('block', function() {
+				_getBlocks();
+			});
+		};
 
-    $scope.humanSince = function(time) {
-      var m = moment.unix(time);
-      return m.max().fromNow();
-    };
+		socket.on('connect', function() {
+			_startSocket();
+		});
 
-    $scope.index = function() {
-      _getBlocks();
-      _startSocket();
-    };
+		$scope.humanSince = function(time) {
+			var m = moment.unix(time);
+			return m.max().fromNow();
+		};
 
-    $scope.txs = [];
-    $scope.blocks = [];
-  });
+		$scope.index = function() {
+			_getBlocks();
+			_startSocket();
+		};
+
+		$scope.txs = [];
+		$scope.blocks = [];
+	});
