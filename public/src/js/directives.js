@@ -3,89 +3,174 @@
 var ZeroClipboard = window.ZeroClipboard;
 
 angular.module('insight')
-  .directive('scroll', function ($window) {
-    return function(scope, element, attrs) {
-      angular.element($window).bind('scroll', function() {
-        if (this.pageYOffset >= 200) {
-          scope.secondaryNavbar = true;
-        } else {
-          scope.secondaryNavbar = false;
-        }
-        scope.$apply();
-      });
-    };
-  })
-  .directive('whenScrolled', function($window) {
-    return {
-      restric: 'A',
-      link: function(scope, elm, attr) {
-        var pageHeight, clientHeight, scrollPos;
-        $window = angular.element($window);
+	.directive('scroll', function ($window) {
+		return function(scope, element, attrs) {
+			angular.element($window).bind('scroll', function() {
+				if (this.pageYOffset >= 200) {
+					scope.secondaryNavbar = true;
+				} else {
+					scope.secondaryNavbar = false;
+				}
+				scope.$apply();
+			});
+		};
+	})
+	.directive('whenScrolled', function($window) {
+		return {
+			restric: 'A',
+			link: function(scope, elm, attr) {
+				var pageHeight, clientHeight, scrollPos;
+				$window = angular.element($window);
 
-        var handler = function() {
-          pageHeight = window.document.documentElement.scrollHeight;
-          clientHeight = window.document.documentElement.clientHeight;
-          scrollPos = window.pageYOffset;
+				var handler = function() {
+					pageHeight = window.document.documentElement.scrollHeight;
+					clientHeight = window.document.documentElement.clientHeight;
+					scrollPos = window.pageYOffset;
 
-          if (pageHeight - (scrollPos + clientHeight) === 0) {
-            scope.$apply(attr.whenScrolled);
-          }
-        };
+					if (pageHeight - (scrollPos + clientHeight) === 0) {
+						scope.$apply(attr.whenScrolled);
+					}
+				};
 
-        $window.on('scroll', handler);
+				$window.on('scroll', handler);
 
-        scope.$on('$destroy', function() {
-          return $window.off('scroll', handler);
-        });
-      }
-    };
-  })
-  .directive('clipCopy', function() {
-    ZeroClipboard.config({
-      moviePath: '/lib/zeroclipboard/ZeroClipboard.swf',
-      trustedDomains: ['*'],
-      allowScriptAccess: 'always',
-      forceHandCursor: true
-    });
+				scope.$on('$destroy', function() {
+					return $window.off('scroll', handler);
+				});
+			}
+		};
+	})
+	.directive('clipCopy', function() {
+		ZeroClipboard.config({
+			moviePath: '/lib/zeroclipboard/ZeroClipboard.swf',
+			trustedDomains: ['*'],
+			allowScriptAccess: 'always',
+			forceHandCursor: true
+		});
 
-    return {
-      restric: 'A',
-      scope: { clipCopy: '=clipCopy' },
-      template: '<div class="tooltip fade right in"><div class="tooltip-arrow"></div><div class="tooltip-inner">Copied!</div></div>',
-      link: function(scope, elm) {
-        var clip = new ZeroClipboard(elm);
+		return {
+			restric: 'A',
+			scope: { clipCopy: '=clipCopy' },
+			template: '<div class="tooltip fade right in"><div class="tooltip-arrow"></div><div class="tooltip-inner">Copied!</div></div>',
+			link: function(scope, elm) {
+				var clip = new ZeroClipboard(elm);
 
-        clip.on('load', function(client) {
-          var onMousedown = function(client) {
-            client.setText(scope.clipCopy);
-          };
+				clip.on('load', function(client) {
+					var onMousedown = function(client) {
+						client.setText(scope.clipCopy);
+					};
 
-          client.on('mousedown', onMousedown);
+					client.on('mousedown', onMousedown);
 
-          scope.$on('$destroy', function() {
-            client.off('mousedown', onMousedown);
-          });
-        });
+					scope.$on('$destroy', function() {
+						client.off('mousedown', onMousedown);
+					});
+				});
 
-        clip.on('noFlash wrongflash', function() {
-          return elm.remove();
-        });
-      }
-    };
-  })
-  .directive('focus', function ($timeout) {
-    return {
-      scope: {
-        trigger: '@focus'
-      },
-      link: function (scope, element) {
-        scope.$watch('trigger', function (value) {
-          if (value === "true") {
-            $timeout(function () {
-              element[0].focus();
-            });
-          }
-        });
-      }
-    };
-  });
+				clip.on('noFlash wrongflash', function() {
+					return elm.remove();
+				});
+			}
+		};
+	})
+	.directive('focus', function ($timeout) {
+		return {
+			scope: {
+				trigger: '@focus'
+			},
+			link: function (scope, element) {
+				scope.$watch('trigger', function (value) {
+					if (value === "true") {
+						$timeout(function () {
+							element[0].focus();
+						});
+					}
+				});
+			}
+		};
+	});
+
+
+	angular.module("ngJScrollPane", []);
+	angular.module("ngJScrollPane").directive("scrollPane", [
+		'$timeout', function($timeout) {
+			return {
+				restrict: 'A',
+				transclude: true,
+				scope: {
+					'transLength': '@transLength',
+					'blocksLength': '@blocksLength'
+				},
+				template: '<div class="scroll-pane"><div ng-transclude></div></div>',
+				link: function($scope, $elem, $attrs, controller) {
+
+					var config, fn, selector;
+					config = {};
+					selector = "#" + $attrs.id;
+
+					fn = function() {
+
+						jQuery(selector).jScrollPane(config);
+						return $scope.pane = jQuery(selector).data("jsp");
+					};
+
+					if ($attrs.scrollConfig) {
+
+						config = $scope.$eval($attrs.scrollConfig);
+					}
+					if ($attrs.scrollName) {
+
+						selector = "[scroll-name='" + $attrs.scrollName + "']";
+					}
+					if ($attrs.scrollTimeout) {
+
+						$timeout(fn, $scope.$eval($attrs.scrollTimeout));
+					} else {
+						$timeout(fn, 0);
+					}
+					
+					$scope.$watch((function() {
+
+						return $attrs.scrollAlwaysTop;
+					}), function(newVal, oldVal) {
+
+						if (newVal && $scope.pane) {
+							$scope.pane.scrollToY(0);
+						}
+					});
+
+					$scope.$watch('blocksLength', function(newVal, oldVal) {
+
+						if(jQuery('#transPane').data("jsp")){
+							
+							jQuery('#blocksPane').data("jsp").destroy();
+							jQuery('#blocksPane').jScrollPane(config);
+						}
+					});
+
+					$scope.$watch('transLength', function(newVal, oldVal) {
+
+						if(jQuery('#transPane').data("jsp")){
+
+							$timeout(function(){
+
+								jQuery('#transPane').data("jsp").destroy();
+								jQuery('#transPane').jScrollPane(config);
+							}, 100);
+						}
+					});
+
+					return $scope.$on("reinit-pane", function(event, id) {
+						if (id === $attrs.id && $scope.pane) {
+							console.log("Reinit pane " + id);
+							return $scope.$apply(function() {
+								$scope.pane.destroy();
+								return fn();
+							});
+						}
+					});
+				},
+				replace: true
+			};
+		}
+	]);

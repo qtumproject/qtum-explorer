@@ -15,37 +15,38 @@
 		</div>
 		<div class="content__list content__list-blocks">
 			<div class="content__listScroll js-scroll-blocks"
-				 scroll-pane
+				 blocks-length="{{ blocksLength }}"
 				 ng-if="blocksLength"
-				 id="blockPane">
-				<ul class="list list-blocks" 
-					data-ng-repeat='b in blocks'>
-					<li class="list__item">
-						<a href="block/{{ b.hash }}" class="list-blocks__left">
+				 scroll-pane
+				 id="blocksPane">
+				<ul class="list list-blocks">
+					<li class="list__item"
+						data-ng-repeat='block in blocks'>
+						<a href="block/{{ block.hash }}" class="list-blocks__left">
 							<span class="list__row" translate>
-								Block {{ b.height }}
+								Block {{ block.height }}
 							</span>
 							<span class="list__row fsz-13">
-								{{ humanSince(b.time) }}
+								{{ humanSince(block.time) }}
 							</span>
 						</a>
 						<div class="list-blocks__right">
 							<div class="list__row">
 								<span class="" translate>Mined By</span>
-								<span class="mark" data-ng-show="b.poolInfo.poolName">
-									{{ b.poolInfo.poolName }}
+								<span class="mark" data-ng-show="block.poolInfo.poolName">
+									{{ block.poolInfo.poolName }}
 								</span>
 							</div>
 							<div class="list__row">
 								<span class="label" translate>Size:</span>
 								<span class="labeled">
-									{{ b.size }}
+									{{ block.size }}
 								</span>
 							</div>
 							<div class="list__row">
 								<span class="label" translate>Transactions:</span>
 								<span class="labeled">
-									{{ b.txlength }}
+									{{ block.txlength }}
 								</span>
 							</div>
 						</div>
@@ -66,14 +67,18 @@
 		</div>
 		<div class="content__list content__list-transactions">
 			<div class="content__listScroll js-scroll-transactions"
-				 ng-if="txs.length" 
-				 scroll-pane  
+				 trans-length="{{ txs.length }}"
+				 scroll-config="paneConf"
+				 ng-if="txs.length"
+				 scroll-pane 
 				 id="transPane">
 				<ul class="list list-transactions">
 					<li class="list__item"
 						data-ng-repeat='tx in txs'>
 						<div class="list-transactions__right">
-							<div class="list__row fsz-13">20 sec ago</div>
+							<div class="list__row fsz-13">
+								{{ humanSince(tx.createTime) }}
+							</div>
 						</div>
 						<div class="list-transactions__left">
 							<div class="list__row">
