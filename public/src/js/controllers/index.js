@@ -4,12 +4,15 @@ var TRANSACTION_DISPLAYED = 10;
 var BLOCKS_DISPLAYED = 5;
 
 angular.module('insight.system').controller('IndexController',
-	function($scope, Global, getSocket, Blocks) {
+	function($scope, $rootScope, deviceDetector, Global, getSocket, Blocks) {
 
 		$scope.global = Global;
 		$scope.paneConf = {
 			autoReinitialise : true
 		}
+		$scope.device = deviceDetector.isMobile() ? 'mobile' : 
+						deviceDetector.isTablet() ? 'tablet' :
+						deviceDetector.isDesktop() ? 'desktop' : null;
 
 		var _getBlocks = function() {
 			Blocks.get({
@@ -31,16 +34,10 @@ angular.module('insight.system').controller('IndexController',
 				tx.createTime = Date.now() / 1000;
 				$scope.txs.unshift(tx);
 
-				$scope.txs = $scope.txs.map(function (tx) {
+				$scope.txs = $scope.txs.map(function(it){
 
-					return {
-						isRBF: tx.isRBF,
-						createTime: tx.createTime,
-						time: $scope.humanSince(tx.createTime),
-						txid: tx.txid,
-						valueOut: tx.valueOut,
-						vout: tx.vout
-					};
+					it.time = $scope.humanSince(it.createTime);
+					return it;
 				});
 
 				if ($scope.txs.length > TRANSACTION_DISPLAYED) {
@@ -57,8 +54,6 @@ angular.module('insight.system').controller('IndexController',
 		socket.on('connect', function() {
 			_startSocket();
 		});
-
-		
 
 		$scope.humanSince = function(time) {
 			var m = moment.unix(time);

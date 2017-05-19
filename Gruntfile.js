@@ -34,7 +34,19 @@ module.exports = function(grunt) {
         dest: 'public/js/vendors.js'
       },
       angular: {
-        src: ['public/lib/angular/angular.min.js', 'public/lib/angular-resource/angular-resource.min.js', 'public/lib/angular-route/angular-route.min.js', 'public/lib/angular-qrcode/qrcode.js', 'public/lib/angular-animate/angular-animate.min.js', 'public/lib/angular-bootstrap/ui-bootstrap.js', 'public/lib/angular-bootstrap/ui-bootstrap-tpls.js', 'public/lib/angular-ui-utils/ui-utils.min.js', 'public/lib/ngprogress/build/ngProgress.min.js', 'public/lib/angular-gettext/dist/angular-gettext.min.js', 'public/lib/angular-moment/angular-moment.min.js'
+        src: ['public/lib/angular/angular.min.js', 
+        'public/lib/re-tree/re-tree.min.js',
+        'public/lib/ng-device-detector/ng-device-detector.js', 
+        'public/lib/angular-resource/angular-resource.min.js', 
+        'public/lib/angular-route/angular-route.min.js', 
+        'public/lib/angular-qrcode/qrcode.js', 
+        'public/lib/angular-animate/angular-animate.min.js', 
+        'public/lib/angular-bootstrap/ui-bootstrap.js', 
+        'public/lib/angular-bootstrap/ui-bootstrap-tpls.js', 
+        'public/lib/angular-ui-utils/ui-utils.min.js', 
+        'public/lib/ngprogress/build/ngProgress.min.js', 
+        'public/lib/angular-gettext/dist/angular-gettext.min.js', 
+        'public/lib/angular-moment/angular-moment.min.js'
         ],
         dest: 'public/js/angularjs-all.js'
       },

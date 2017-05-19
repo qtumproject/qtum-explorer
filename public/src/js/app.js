@@ -8,6 +8,7 @@ angular.module('insight',[
   'ngResource',
   'ngRoute',
   'ngProgress',
+  "ng.deviceDetector",
   'ui.bootstrap',
   'ui.route',
   'monospaced.qrcode',
@@ -29,7 +30,7 @@ angular.module('insight',[
   'insight.networks'
 ]);
 
-angular.module('insight.system', ['ngJScrollPane']);
+angular.module('insight.system', [ 'ngJScrollPane' ]);
 angular.module('insight.socket', []);
 angular.module('insight.blocks', []);
 angular.module('insight.transactions', []);
