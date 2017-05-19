@@ -146,7 +146,6 @@ angular.module("ngJScrollPane")
 
 					if(newVal > 6 && !$scope.pane){
 
-						console.log(newVal)
 						$timeout(function(){
 							fn();
 						}, 0);
@@ -155,13 +154,11 @@ angular.module("ngJScrollPane")
 
 				$scope.$watch('transSize', function(newVal) {
 
-					if(newVal > 8){
+					if(newVal > 8 && !$scope.pane){
 
-						if(!$scope.pane) {
-							// fn()
-						}
-						
-						// $scope.$broadcast('reinit-pane', $attrs.id);
+						$timeout(function(){
+							fn();
+						}, 0);
 					}
 				});
 
