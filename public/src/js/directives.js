@@ -91,107 +91,106 @@ angular.module('insight')
 	});
 
 
-	angular.module("ngJScrollPane", []);
-	angular.module("ngJScrollPane").directive("scrollPane", [
-		'$timeout', '$window', function($timeout, $window) {
-			return {
-				restrict: 'A',
-				transclude: true,
-				scope: {
-					'transLength'	: '@transLength',
-					'blocksLength'	: '@blocksLength'
-				},
-				template: '<div class="scroll-pane"><div ng-transclude></div></div>',
-				link: function($scope, $elem, $attrs, controller) {
+angular.module("ngJScrollPane", [ 'ng.deviceDetector' ]);
+angular.module("ngJScrollPane")
+	.directive("scrollPane", [ '$timeout', '$window', 'deviceDetector', function($timeout, $window, deviceDetector) {
+		return {
+			restrict: 'A',
+			transclude: true,
+			scope: {
+				'transSize'	: '@transSize',
+				'blocksSize': '@blocksSize'
+			},
+			template: '<div class="scroll-pane"><div ng-transclude></div></div>',
+			link: function($scope, $elem, $attrs, controller) {
 
-					var config, fn, selector, reinitialize, resize;
-					config = {};
-					selector = "#" + $attrs.id;
+				var config = {};
+				var selector = "#" + $attrs.id;
+				var fn = function() {
 
-					fn = function() {
+					jQuery(selector).jScrollPane(config);
+					$scope.pane = jQuery(selector).data("jsp");
+				};
+				var resize = function(){
 
-						jQuery(selector).jScrollPane(config);
-						return $scope.pane = jQuery(selector).data("jsp");
-					};
+					$scope.$broadcast('reinit-pane', $attrs.id);
+				};
 
-					reinitialize = function(selector){
+				if ($attrs.scrollConfig) {
 
-						var pane = jQuery(selector).data("jsp");
+					config = $scope.$eval($attrs.scrollConfig);
+				}
+				if ($attrs.scrollName) {
 
-						if(pane && $attrs.device === 'desktop'){
+					selector = "[scroll-name='" + $attrs.scrollName + "']";
+				}
+				// if ($attrs.scrollTimeout) {
 
-							$timeout(function(){
+				// 	$timeout(fn, $scope.$eval($attrs.scrollTimeout));
+				// } else {
+				// 	$timeout(fn, 0);
+				// }
+				
+				$scope.$watch((function() {
 
-								jQuery(selector).data("jsp").destroy();
-								jQuery(selector).jScrollPane(config);
-							}, 100);
+					return $attrs.scrollAlwaysTop;
+				}), function(newVal) {
+
+					if (newVal && $scope.pane) {
+
+						$scope.pane.scrollToY(0);
+					}
+				});
+
+				$scope.$watch('blocksSize', function(newVal) {
+
+					if(newVal > 6 && !$scope.pane){
+
+						console.log(newVal)
+						$timeout(function(){
+							fn();
+						}, 0);
+					}
+				});
+
+				$scope.$watch('transSize', function(newVal) {
+
+					if(newVal > 8){
+
+						if(!$scope.pane) {
+							// fn()
 						}
+						
+						// $scope.$broadcast('reinit-pane', $attrs.id);
 					}
+				});
 
-					resize = function(){
+				$elem.on('DOMMouseScroll mousewheel onmousewheel', function(e){
 
-						reinitialize('#blocksPane');
-						reinitialize('#transPane');
-					}
+					e.preventDefault();
+				});
 
-					if ($attrs.scrollConfig) {
+				$scope.$on('$destroy', function(){
 
-						config = $scope.$eval($attrs.scrollConfig);
-					}
-					if ($attrs.scrollName) {
+					angular.element($window).off('resize', resize);
+				});
 
-						selector = "[scroll-name='" + $attrs.scrollName + "']";
-					}
-					if ($attrs.scrollTimeout) {
-
-						$timeout(fn, $scope.$eval($attrs.scrollTimeout));
-					} else {
-						$timeout(fn, 0);
-					}
-					
-					$scope.$watch((function() {
-
-						return $attrs.scrollAlwaysTop;
-					}), function(newVal, oldVal) {
-
-						if (newVal && $scope.pane) {
-							$scope.pane.scrollToY(0);
-						}
-					});
-
-					$scope.$watch('blocksLength', function(newVal, oldVal) {
-
-						reinitialize('#blocksPane');
-					});
-
-					$scope.$watch('transLength', function(newVal, oldVal) {
-
-						reinitialize('#transPane');
-					});
-
-					$scope.$on('$destroy', function(){
-
-						angular.element($window).off('resize', resize)
-					});
-
-					$elem.on('DOMMouseScroll mousewheel onmousewheel', function(e){
-
-						e.preventDefault();
-					});
-
-					angular.element($window).on('resize', resize);
-
-					return $scope.$on("reinit-pane", function(event, id) {
-						if (id === $attrs.id && $scope.pane) {
-							console.log("Reinit pane " + id);
-							return $scope.$apply(function() {
+				angular.element($window).on('resize', resize);
+				
+				return $scope.$on("reinit-pane", function(event, id) {
+					if (id === $attrs.id && $scope.pane) {
+						
+						// return (
+							// $scope.$apply(function() {
+								// console.log("Reinit pane " + id);
 								$scope.pane.destroy();
-								return fn();
-							});
-						}
-					});
-				},
-				replace: true
-			};
-		}
-	]);
+								fn();
+							// });
+						// )
+					}
+				});
+			},
+			replace: true
+		};
+	}
+]);

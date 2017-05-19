@@ -2,21 +2,21 @@
 
 angular.module('insight.search').controller('SearchController',
   function($scope, $routeParams, $location, $timeout, Global, Block, Transaction, Address, BlockByHeight) {
-  $scope.global = Global;
-  $scope.loading = false;
+	$scope.global = Global;
+	$scope.loading = false;
 
-  var _badQuery = function() {
-    $scope.badQuery = true;
+	var _badQuery = function() {
+		$scope.badQuery = true;
 
-    $timeout(function() {
-      $scope.badQuery = false;
-    }, 2000);
-  };
+		$timeout(function() {
+			$scope.badQuery = false;
+		}, 2000);
+	};
 
-  var _resetSearch = function() {
-    $scope.q = '';
-    $scope.loading = false;
-  };
+	var _resetSearch = function() {
+		$scope.q = '';
+		$scope.loading = false;
+	};
 
 	$scope.search = function() {
 

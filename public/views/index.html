@@ -1,8 +1,8 @@
 
 
 <div class="box" 
-	 data-ng-controller="IndexController" 
-	 data-ng-init="index()">
+	 data-ng-controller="IndexController as indexC" 
+	 data-ng-init="indexC.index()">
 	<div class="content__left">
 		<div class="heading">
 			<div class="heading__pic">
@@ -15,20 +15,18 @@
 		</div>
 		<div class="content__list content__list-blocks">
 			<div class="content__listScroll js-scroll-blocks"
-				 blocks-length="{{ blocksLength }}"
-				 ng-if="blocksLength"
-				 device="{{ device }}"
+				 blocks-size="{{ indexC.blocksLength }}"
+				 ng-if="indexC.blocksLength"
 				 scroll-pane
 				 id="blocksPane">
 				<ul class="list list-blocks">
 					<li class="list__item"
-						data-ng-repeat='block in blocks'>
+						data-ng-repeat='block in indexC.blocks'>
 						<a href="block/{{ block.hash }}" class="list-blocks__left">
 							<span class="list__row" translate>
 								Block {{ block.height }}
 							</span>
-							<span class="list__row fsz-13">
-								{{ humanSince(block.time) }}
+							<span class="list__row fsz-13" am-time-ago="block.time * 1000">
 							</span>
 						</a>
 						<div class="list-blocks__right">
@@ -68,18 +66,16 @@
 		</div>
 		<div class="content__list content__list-transactions">
 			<div class="content__listScroll js-scroll-transactions"
-				 trans-length="{{ txs.length }}"
+				 trans-size="{{ indexC.txs.length }}"
+				 ng-if="indexC.txs.length"
 				 scroll-config="paneConf"
-				 ng-if="txs.length"
-				 device="{{ device }}"
 				 scroll-pane 
 				 id="transPane">
 				<ul class="list list-transactions">
 					<li class="list__item"
-						data-ng-repeat='tx in txs'>
+						data-ng-repeat='tx in indexC.txs'>
 						<div class="list-transactions__right">
-							<div class="list__row fsz-13">
-								{{ tx.time }} 
+							<div class="list__row fsz-13" am-time-ago="tx.createTime">
 							</div>
 						</div>
 						<div class="list-transactions__left">

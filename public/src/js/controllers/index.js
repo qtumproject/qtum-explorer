@@ -4,23 +4,23 @@ var TRANSACTION_DISPLAYED = 10;
 var BLOCKS_DISPLAYED = 5;
 
 angular.module('insight.system').controller('IndexController',
-	function($scope, $rootScope, deviceDetector, Global, getSocket, Blocks) {
+	function($scope, $timeout, Global, getSocket, Blocks) {
 
-		$scope.global = Global;
-		$scope.paneConf = {
+		var self = this;
+		self.global = Global;
+		self.paneConf = {
 			autoReinitialise : true
-		}
-		$scope.device = deviceDetector.isMobile() ? 'mobile' : 
-						deviceDetector.isTablet() ? 'tablet' :
-						deviceDetector.isDesktop() ? 'desktop' : null;
+		};
+		self.txs = [];
+		self.blocks = [];
 
-		var _getBlocks = function() {
+		var _getBlocks = function(limit) {
 			Blocks.get({
-				limit: BLOCKS_DISPLAYED
+				limit: limit ? limit : BLOCKS_DISPLAYED
 			}, function(res) {
 
-				$scope.blocks = res.blocks;
-				$scope.blocksLength = res.length;
+				self.blocks = res.blocks;
+				self.blocksLength = res.length;
 			});
 		};
 
@@ -31,18 +31,12 @@ angular.module('insight.system').controller('IndexController',
 			socket.emit('subscribe', 'inv');
 			socket.on('tx', function(tx) {
 
-				tx.createTime = Date.now() / 1000;
-				$scope.txs.unshift(tx);
+				tx.createTime = Date.now();
+				self.txs.unshift(tx);
 
-				$scope.txs = $scope.txs.map(function(it){
-
-					it.time = $scope.humanSince(it.createTime);
-					return it;
-				});
-
-				if ($scope.txs.length > TRANSACTION_DISPLAYED) {
+				if (self.txs.length > TRANSACTION_DISPLAYED) {
 					
-					$scope.txs.length = TRANSACTION_DISPLAYED;
+					self.txs.length = TRANSACTION_DISPLAYED;
 				}
 			});
 
@@ -55,16 +49,9 @@ angular.module('insight.system').controller('IndexController',
 			_startSocket();
 		});
 
-		$scope.humanSince = function(time) {
-			var m = moment.unix(time);
-			return m.max().fromNow();
-		};
+		self.index = function() {
 
-		$scope.index = function() {
 			_getBlocks();
 			_startSocket();
 		};
-
-		$scope.txs = [];
-		$scope.blocks = [];
 	});
