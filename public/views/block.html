@@ -1,4 +1,480 @@
 <div data-ng-include src="'views/includes/connection.html'"></div>
+
+
+
+<div class="box" data-ng-controller="BlocksController as blockC" data-ng-init="blockC.findOne()">
+	<div class="heading margin1">
+		<h1 class="heading__title">
+			Block #{{ blockC.block.height }}
+		</h1>
+		<div class="heading__sm">
+			<div class="heading__smLabel" translate>BlockHash</div>
+			<div class="heading__smLabeled">
+				<div class=" copyParent copyParent-right">
+					<a href="" class="copyBtn icon-copy" clip-copy="blockC.block.hash"></a>
+					<div class="copyText text">
+						{{ blockC.block.hash }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="section section-summaryBlock">
+		<div class="section__heading">
+			<h2 class="section__title in_bl" translate>Summary</h2>
+			<span class="section__status" translate>(confirmed)</span>
+		</div>
+		<div class="summaryBlock">
+			<div class="col col-6">
+				<ul class="list">
+					<li class="list__item">
+						<div class="list__left">
+							<b translate>Number Of Transactions</b>
+						</div>
+						<div class="list__right">
+							<div class="">
+								{{ blockC.block.tx.length }}
+							</div>
+						</div>
+					</li>
+					<li class="list__item">
+						<div class="list__left">
+							<b translate>Height</b>
+						</div>
+						<div class="list__right">
+							<div class="">
+								{{ blockC.block.height }} 
+								<span data-ng-show="blockC.block.isMainChain" class="special">
+									(Mainchain)
+								</span>
+								<span data-ng-show="!blockC.block.isMainChain" class="special">
+									(Orphaned)
+								</span>
+							</div>
+						</div>
+					</li>
+					<li class="list__item">
+						<div class="list__left">
+							<b translate>Block Reward</b>
+						</div>
+						<div class="list__right">
+							<div class="">
+								{{ $root.currency.getConvertion(block.reward) || block.reward }} QTUM
+							</div>
+						</div>
+					</li>
+					<li class="list__item">
+						<div class="list__left">
+							<b>Timestamp</b>
+						</div>
+						<div class="list__right">
+							<div class="">May 15, 2017 1:40:06 PM</div>
+						</div>
+					</li>
+					<li class="list__item">
+						<div class="list__left">
+							<b>Mined by</b>
+						</div>
+						<div class="list__right">
+							<div class=""></div>
+						</div>
+					</li>
+					<li class="list__item">
+						<div class="list__left">
+							<b>Merkle Root</b>
+						</div>
+						<div class="list__right">
+							<div class="copyParent copyParent-left pull-right">
+								<a href="" class="copyBtn icon-copy"></a>
+								<div class="copyText text"> 669f7898d9340de699aa4697627dbeab669f7898d9340de699aa4697627dbeab</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="col col-6">
+				<ul class="list">
+					<li class="list__item">
+						<div class="list__left">
+							<b>Previous Block</b>
+						</div>
+						<div class="list__right">
+							<div class=""><span class="mark">15139</span></div>
+						</div>
+					</li>
+					<li class="list__item">
+						<div class="list__left">
+							<b>Difficulty</b>
+						</div>
+						<div class="list__right">
+							<div class="additional">667674.41781493</div>
+						</div>
+					</li>
+					<li class="list__item">
+						<div class="list__left">
+							<b>Bits</b>
+						</div>
+						<div class="list__right">
+							<div class="additional">1a1920a1</div>
+						</div>
+					</li>
+					<li class="list__item">
+						<div class="list__left">
+							<b>Size (bytes)</b>
+						</div>
+						<div class="list__right">
+							<div class="additional">507</div>
+						</div>
+					</li>
+					<li class="list__item">
+						<div class="list__left">
+							<b>Version</b>
+						</div>
+						<div class="list__right">
+							<div class="additional">536870912</div>
+						</div>
+					</li>
+					<li class="list__item">
+						<div class="list__left">
+							<b>Nonce</b>
+						</div>
+						<div class="list__right">
+							<div class="additional">
+								0
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="section section-transactionsBlock">
+		<div class="section__heading">
+			<h2 class="section__title">Transactions</h2>
+		</div>
+		<div class="section__transactions">
+			<div class="transactions__item">
+				<div class="transactions__head">
+					<div class="transactions__headLeft">
+						<a href="" class="transactions__moreBtn js-block-more">
+							<span class="icon-plus"></span>
+							<span class="icon-minus"></span>
+						</a>
+						<div class=" copyParent copyParent-right">
+							<a href="" class="copyBtn icon-copy"></a>
+							<a href="" class="copyText mark">
+								21de65422600ff89b17e58aabe47720c501ff1c81589255c76ca2ecbdbafb72d
+							</a>
+						</div>
+					</div>
+					<div class="transactions__headRight">
+						<div class="date">mined May 11, 2017 11:02:12 AM</div>
+					</div>
+				</div>
+				<div class="transactions__body">
+					<div class="col">
+						<div class="transactions__row">
+							<a href="" class="arrow">
+								<span class="arrowIcon icon-arrows-right"></span>
+							</a>
+							<a href="" class="name">
+								<span class="name__arrow">></span>
+								<span class="name__text mark">myGCtCMznQiaAMkA9EuBop28HpXJEBAK6h</span>
+							</a>
+							<div class="data attn">
+								171.17 QTUM
+							</div>
+						</div>
+						<div class="transactions__addInfo">
+							<div class="transactions__row">
+								<div class="label"><b>Confirmations:</b></div>
+								<div class="labeled"></div>
+							</div>
+							<div class="transactions__row">
+								<div class="label"><b>scriptSig</b></div>
+								<div class="labeled">
+									<div class=" copyParent copyParent-right">
+										<a href="" class="copyBtn icon-copy"></a>
+										<span class="copyText">
+											21de65422600ff89b17e58aabe47720c501ff1c81589255c76ca2ecbdbafb72d
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="transactions__row">
+							<span class="name">
+								<span class="name__text">Unparsed address [0]</span>
+							</span>
+							<div class="data">
+								0 QTUM <span class="special">(U)</span>
+							</div>
+						</div>
+						<div class="transactions__addInfo">
+							<div class="transactions__row">
+								<div class="label"><b>Type</b></div>
+								<div class="labeled"></div>
+							</div>
+							<div class="transactions__row">
+								<div class="label"><b>scriptPubKey</b></div>
+								<div class="labeled"></div>
+							</div>
+						</div>
+
+
+						<div class="transactions__row">
+							<a href="" class="name">
+								<span class="name__text mark">myGCtCMznQiaAMkA9EuBop28HpXJEBAK6h</span>
+							</a>
+							<div class="data">
+								<span class="special">166.17 QTUM (U)</span>
+							</div>
+						</div>
+						<div class="transactions__addInfo">
+							<div class="transactions__row">
+								<div class="label"><b>Type</b></div>
+								<div class="labeled op-60">pubkeyhash</div>
+							</div>
+							<div class="transactions__row">
+								<div class="label"><b>scriptPubKey</b></div>
+								<div class="labeled">
+									<div class=" copyParent copyParent-right">
+										<a href="" class="copyBtn icon-copy"></a>
+										<span class="copyText">
+											026b0c3b7d6e91aafd0fd9d9db5392b829f4cc59eff55538fa4a89c29026b0c3b7d6e91aafd0fd9d9db5392b829f4cc59eff55538fa4a89c29
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="transactions__row text_r">
+							<div class="transactions__info">2 CONFIRMATIONS</div>
+							<div class="transactions__info">191.17 QTUM</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="transactions__item">
+				<div class="transactions__head">
+					<div class="transactions__headLeft">
+						<a href="" class="transactions__moreBtn js-block-more">
+							<span class="icon-plus"></span>
+							<span class="icon-minus"></span>
+						</a>
+						<div class=" copyParent copyParent-right">
+							<a href="" class="copyBtn icon-copy"></a>
+							<a href="" class="copyText mark">
+								21de65422600ff89b17e58aabe47720c501ff1c81589255c76ca2ecbdbafb72d
+							</a>
+						</div>
+					</div>
+					<div class="transactions__headRight">
+						<div class="date">mined May 11, 2017 11:02:12 AM</div>
+					</div>
+				</div>
+				<div class="transactions__body">
+					<div class="col">
+						<div class="transactions__row">
+							<a href="" class="arrow">
+								<span class="arrowIcon icon-arrows-right"></span>
+							</a>
+							<a href="" class="name">
+								<span class="name__arrow">></span>
+								<span class="name__text mark">myGCtCMznQiaAMkA9EuBop28HpXJEBAK6h</span>
+							</a>
+							<div class="data attn">
+								171.17 QTUM
+							</div>
+						</div>
+						<div class="transactions__addInfo">
+							<div class="transactions__row">
+								<div class="label"><b>Confirmations:</b></div>
+								<div class="labeled"></div>
+							</div>
+							<div class="transactions__row">
+								<div class="label"><b>scriptSig</b></div>
+								<div class="labeled">
+									<div class=" copyParent copyParent-right">
+										<a href="" class="copyBtn icon-copy"></a>
+										<span class="copyText">
+											21de65422600ff89b17e58aabe47720c501ff1c81589255c76ca2ecbdbafb72d
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="transactions__row">
+							<span class="name">
+								<span class="name__text">Unparsed address [0]</span>
+							</span>
+							<div class="data">
+								0 QTUM <span class="special">(U)</span>
+							</div>
+						</div>
+						<div class="transactions__addInfo">
+							<div class="transactions__row">
+								<div class="label"><b>Type</b></div>
+								<div class="labeled"></div>
+							</div>
+							<div class="transactions__row">
+								<div class="label"><b>scriptPubKey</b></div>
+								<div class="labeled"></div>
+							</div>
+						</div>
+
+
+						<div class="transactions__row">
+							<a href="" class="name">
+								<span class="name__text mark">myGCtCMznQiaAMkA9EuBop28HpXJEBAK6h</span>
+							</a>
+							<div class="data">
+								<span class="special">166.17 QTUM (U)</span>
+							</div>
+						</div>
+						<div class="transactions__addInfo">
+							<div class="transactions__row">
+								<div class="label"><b>Type</b></div>
+								<div class="labeled op-60">pubkeyhash</div>
+							</div>
+							<div class="transactions__row">
+								<div class="label"><b>scriptPubKey</b></div>
+								<div class="labeled">
+									<div class=" copyParent copyParent-right">
+										<a href="" class="copyBtn icon-copy"></a>
+										<span class="copyText">
+											026b0c3b7d6e91aafd0fd9d9db5392b829f4cc59eff55538fa4a89c29026b0c3b7d6e91aafd0fd9d9db5392b829f4cc59eff55538fa4a89c29
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="transactions__row text_r">
+							<div class="transactions__info">2 CONFIRMATIONS</div>
+							<div class="transactions__info">191.17 QTUM</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="transactions__item">
+				<div class="transactions__head">
+					<div class="transactions__headLeft">
+						<a href="" class="transactions__moreBtn js-block-more">
+							<span class="icon-plus"></span>
+							<span class="icon-minus"></span>
+						</a>
+						<div class=" copyParent copyParent-right">
+							<a href="" class="copyBtn icon-copy"></a>
+							<a href="" class="copyText mark">
+								21de65422600ff89b17e58aabe47720c501ff1c81589255c76ca2ecbdbafb72d
+							</a>
+						</div>
+					</div>
+					<div class="transactions__headRight">
+						<div class="date">mined May 11, 2017 11:02:12 AM</div>
+					</div>
+				</div>
+				<div class="transactions__body">
+					<div class="col">
+						<div class="transactions__row">
+							<a href="" class="arrow">
+								<span class="arrowIcon icon-arrows-right"></span>
+							</a>
+							<a href="" class="name">
+								<span class="name__arrow">></span>
+								<span class="name__text mark">myGCtCMznQiaAMkA9EuBop28HpXJEBAK6h</span>
+							</a>
+							<div class="data attn">
+								171.17 QTUM
+							</div>
+						</div>
+						<div class="transactions__addInfo">
+							<div class="transactions__row">
+								<div class="label"><b>Confirmations:</b></div>
+								<div class="labeled"></div>
+							</div>
+							<div class="transactions__row">
+								<div class="label"><b>scriptSig</b></div>
+								<div class="labeled">
+									<div class=" copyParent copyParent-right">
+										<a href="" class="copyBtn icon-copy"></a>
+										<span class="copyText">
+											21de65422600ff89b17e58aabe47720c501ff1c81589255c76ca2ecbdbafb72d
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="transactions__row">
+							<span class="name">
+								<span class="name__text">Unparsed address [0]</span>
+							</span>
+							<div class="data">
+								0 QTUM <span class="special">(U)</span>
+							</div>
+						</div>
+						<div class="transactions__addInfo">
+							<div class="transactions__row">
+								<div class="label"><b>Type</b></div>
+								<div class="labeled"></div>
+							</div>
+							<div class="transactions__row">
+								<div class="label"><b>scriptPubKey</b></div>
+								<div class="labeled"></div>
+							</div>
+						</div>
+
+
+						<div class="transactions__row">
+							<a href="" class="name">
+								<span class="name__text mark">myGCtCMznQiaAMkA9EuBop28HpXJEBAK6h</span>
+							</a>
+							<div class="data">
+								<span class="special">166.17 QTUM (U)</span>
+							</div>
+						</div>
+						<div class="transactions__addInfo">
+							<div class="transactions__row">
+								<div class="label"><b>Type</b></div>
+								<div class="labeled op-60">pubkeyhash</div>
+							</div>
+							<div class="transactions__row">
+								<div class="label"><b>scriptPubKey</b></div>
+								<div class="labeled">
+									<div class=" copyParent copyParent-right">
+										<a href="" class="copyBtn icon-copy"></a>
+										<span class="copyText">
+											026b0c3b7d6e91aafd0fd9d9db5392b829f4cc59eff55538fa4a89c29026b0c3b7d6e91aafd0fd9d9db5392b829f4cc59eff55538fa4a89c29
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="transactions__row text_r">
+							<div class="transactions__info">2 CONFIRMATIONS</div>
+							<div class="transactions__info">191.17 QTUM</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+
+
 <section data-ng-controller="BlocksController" data-ng-init="findOne()">
   <div class="secondary_navbar hidden-xs hidden-sm" scroll data-ng-class="{'hidden': !secondaryNavbar}" data-ng-show="block.hash" data-ng-init="hideSNavbar=0">
     <div class="container" data-ng-if="!hideSNavbar">
