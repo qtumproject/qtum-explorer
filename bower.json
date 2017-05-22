@@ -13,13 +13,12 @@
     "zeroclipboard": "~1.3.2",
     "ngprogress": "~1.0.4",
     "angular-ui-utils": "~0.1.1",
-    "angular-smooth-scrollbar": "^7.2.0",
     "angular-gettext": "~1.1.0",
     "angular-moment": "~0.8.0",
     "bitcore-lib": "^0.14.0",
-    "angular-scroll-pane": "^1.1.3",
     "jquery": "^3.2.1",
     "ng-device-detector": "^4.0.3",
-    "re-tree": "^0.0.2"
+    "re-tree": "^0.0.2",
+    "ng-scrollbars": "^0.0.11"
   }
 }

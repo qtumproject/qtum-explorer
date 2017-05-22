@@ -55,7 +55,6 @@ angular.module('insight.blocks').controller('BlocksController',
 		return m.max().from(b);
 	};
 
-
 	$scope.list = function() {
 
 		$scope.loading = true;

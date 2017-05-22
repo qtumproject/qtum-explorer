@@ -49,8 +49,8 @@ module.exports = function(grunt) {
 				'public/lib/momentjs/min/moment.min.js', 
 				'public/lib/moment/lang/es.js',
 				'public/lib/jquery/dist/jquery.min.js',
-				'public/lib/jScrollPane/script/jquery.jscrollpane.min.js',
-				'public/lib/jScrollPane/script/jquery.mousewheel.js',
+				'public/lib/ng-scrollbars/dist/jquery.mCustomScrollbar.concat.min.js',
+				'public/lib/ng-scrollbars/dist/scrollbars.min.js',
 				'public/lib/zeroclipboard/ZeroClipboard.min.js', 
 				'public/lib/bitcore-lib/bitcore-lib.js'
 			],

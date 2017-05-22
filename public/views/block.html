@@ -91,7 +91,7 @@
 						<div class="list__right">
 							<div class="copyParent copyParent-left pull-right">
 								<a ng-href="" class="copyBtn icon-copy"></a>
-								<div class="copyText text" clip-copy="block.merkleroot"> 
+								<div class="copyText text" clip-copy="blockC.block.merkleroot"> 
 									{{ blockC.block.merkleroot }}
                                 </div>
 							</div>
@@ -107,10 +107,10 @@
 						</div>
 						<div class="list__right">
 							<div class="">
-                                <span class="mark">
-                                    {{ blockC.block.height - 1 }}
-                                </span>
-                            </div>
+								<span class="mark">
+									{{ blockC.block.height - 1 }}
+								</span>
+							</div>
 						</div>
 					</li>
 					<li class="list__item">
@@ -119,8 +119,8 @@
 						</div>
 						<div class="list__right">
 							<div class="additional">
-                                {{ blockC.block.difficulty }}
-                            </div>
+								{{ blockC.block.difficulty }}
+							</div>
 						</div>
 					</li>
 					<li class="list__item">
@@ -129,8 +129,8 @@
 						</div>
 						<div class="list__right">
 							<div class="additional">
-                                {{ blockC.block.bits }}
-                            </div>
+								{{ blockC.block.bits }}
+							</div>
 						</div>
 					</li>
 					<li class="list__item">
@@ -139,8 +139,8 @@
 						</div>
 						<div class="list__right">
 							<div class="additional">
-                                {{ blockC.block.size }}
-                            </div>
+								{{ blockC.block.size }}
+							</div>
 						</div>
 					</li>
 					<li class="list__item">
@@ -170,13 +170,13 @@
 
 	<div class="section section-transactionsBlock">
 		<div class="section__heading">
-			<h2 class="section__title">Transactions</h2>
+			<h2 class="section__title" translate>Transactions</h2>
 		</div>
 		<div class="section__transactions">
-			<div class="transactions__item">
+			<div class="transactions__item" ng-class="'open': blockC.txMoreInfo" ng-repeat="tx in blockC.block.tx">
 				<div class="transactions__head">
 					<div class="transactions__headLeft">
-						<a ng-href="" class="transactions__moreBtn js-block-more">
+						<a ng-href="" class="transactions__moreBtn js-block-more" ng-click="blockC.txMoreInfo = !blockC.txMoreInfo">
 							<span class="icon-plus"></span>
 							<span class="icon-minus"></span>
 						</a>

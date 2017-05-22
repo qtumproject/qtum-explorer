@@ -14,10 +14,11 @@
 			</div>
 		</div>
 		<div class="content__list content__list-blocks">
-			<div class="content__listScroll js-scroll-blocks"
+			<div class="content__listScroll"
 				 blocks-size="{{ indexC.blocksLength }}"
 				 ng-if="indexC.blocksLength"
-				 scroll-pane
+				 ng-scrollbars 
+				 ng-scrollbars-config="indexC.scrollConfig"
 				 id="blocksPane">
 				<ul class="list list-blocks">
 					<li class="list__item"
@@ -65,11 +66,11 @@
 			</div>
 		</div>
 		<div class="content__list content__list-transactions">
-			<div class="content__listScroll js-scroll-transactions"
+			<div class="content__listScroll"
 				 trans-size="{{ indexC.txs.length }}"
 				 ng-if="indexC.txs.length"
-				 scroll-config="paneConf"
-				 scroll-pane 
+				 ng-scrollbars 
+				 ng-scrollbars-config="indexC.scrollConfig"
 				 id="transPane">
 				<ul class="list list-transactions">
 					<li class="list__item"

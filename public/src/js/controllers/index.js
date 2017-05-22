@@ -7,9 +7,18 @@ angular.module('insight.system').controller('IndexController',
 	function($scope, $timeout, Global, getSocket, Blocks) {
 
 		var self = this;
-		self.global = Global;
-		self.txs = [];
-		self.blocks = [];
+			self.global = Global;
+			self.txs = [];
+			self.blocks = [];
+			self.scrollConfig = {
+				autoHideScrollbar: false,
+				theme: 'custom',
+				advanced: {
+					updateOnContentResize: true
+				},
+				setHeight: 620,
+				scrollInertia: 0
+			}
 
 		var _getBlocks = function(limit) {
 			Blocks.get({
