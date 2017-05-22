@@ -29,7 +29,7 @@ angular.module('insight',[
 	'insight.networks'
 ]);
 
-angular.module('insight.system', [ 'ngJScrollPane' ]);
+angular.module('insight.system', [ 'ngScrollbars' ]);
 angular.module('insight.socket', []);
 angular.module('insight.blocks', []);
 angular.module('insight.transactions', []);
