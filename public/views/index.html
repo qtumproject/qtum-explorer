@@ -13,11 +13,8 @@
 		</div>
 		<div class="content__list content__list-blocks">
 			<div class="content__listScroll"
-				 blocks-size="{{ IC.blocksLength }}"
-				 ng-if="IC.blocksLength"
 				 ng-scrollbars 
-				 ng-scrollbars-config="IC.scrollConfig"
-				 id="blocksPane">
+				 ng-scrollbars-config="IC.scrollConfig">
 				<ul class="list list-blocks">
 					<li class="list__item"
 						data-ng-repeat='block in IC.blocks'>
@@ -65,11 +62,8 @@
 		</div>
 		<div class="content__list content__list-transactions">
 			<div class="content__listScroll"
-				 trans-size="{{ IC.txs.length }}"
-				 ng-if="IC.txs.length"
 				 ng-scrollbars 
-				 ng-scrollbars-config="IC.scrollConfig"
-				 id="transPane">
+				 ng-scrollbars-config="IC.scrollConfig">
 				<ul class="list list-transactions">
 					<li class="list__item"
 						data-ng-repeat='tx in IC.txs'>
