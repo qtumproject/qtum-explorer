@@ -2,7 +2,7 @@
 
 
 
-<div class="box" ng-controller="BlocksController as BC" data-ng-init="BC.findOne()">
+<div class="box" ng-controller="BlocksController as BC" ng-init="BC.findOne()">
 	<div class="heading margin1">
 		<h1 class="heading__title">
 			Block #{{ BC.block.height }}
@@ -11,7 +11,10 @@
 			<div class="heading__smLabel" translate>BlockHash</div>
 			<div class="heading__smLabeled">
 				<div class=" copyParent copyParent-right">
-					<a ng-href="" class="copyBtn icon-copy" clip-copy="BC.block.hash"></a>
+					<a href="" 
+					   class="copyBtn icon-copy" 
+					   ngclipboard 
+					   data-clipboard-text="{{ BC.block.hash }}"></a>
 					<div class="copyText text">
 						{{ BC.block.hash }}
 					</div>
@@ -90,8 +93,11 @@
 						</div>
 						<div class="list__right">
 							<div class="copyParent copyParent-left pull-right">
-								<a ng-href="" class="copyBtn icon-copy"></a>
-								<div class="copyText text" clip-copy="BC.block.merkleroot"> 
+								<a href="" 
+								   class="copyBtn icon-copy"
+								   ngclipboard 
+					   			   data-clipboard-text="{{ BC.block.merkleroot }}"></a>
+								<div class="copyText text">
 									{{ BC.block.merkleroot }}
                                 </div>
 							</div>
@@ -169,12 +175,13 @@
 	</div>
 
 	<div class="section section-transactionsBlock" 
-			 ng-controller="TransactionsController as TC" 
-			 ng-init="TC.load( BC.block )">
-			 <div ng-include 
-						ng-src="'views/transaction/list.html'"
-						when-scrolled="TC.loadMore()">
-			 </div>
+		 ng-controller="TransactionsController as TC" 
+		 ng-if="BC.block"
+		 ng-init="TC.load(BC.block.hash)">
+		<div ng-include 
+			 src="'views/transaction/list.html'"
+			 when-scrolled="TC.loadMore()">
+		</div>
 	</div>
 </div>
 

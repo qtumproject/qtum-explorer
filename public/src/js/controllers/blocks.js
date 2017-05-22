@@ -101,7 +101,6 @@ angular.module('insight.blocks').controller('BlocksController',
 			$rootScope.flashMessage = null;
 			self.loading = false;
 			self.block = block;
-			console.log(self.block)
 		}, function(e) {
 
 			if (e.status === 400) {

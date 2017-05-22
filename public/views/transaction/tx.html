@@ -1,48 +1,69 @@
 <div class="transactions__head">
 	<div class="transactions__headLeft">
-		<a ng-href="" 
+		<a href="" 
 		   class="transactions__moreBtn js-block-more" 		
-		   ng-click="blockC.txMoreInfo = !blockC.txMoreInfo">
+		   ng-click="tx.showAdditInfo = !tx.showAdditInfo">
 			<span class="icon-plus"></span>
 			<span class="icon-minus"></span>
 		</a>
 		<div class=" copyParent copyParent-right">
-			<a href="" class="copyBtn icon-copy"></a>
-			<a ng-href="" class="copyText mark">
-				21de65422600ff89b17e58aabe47720c501ff1c81589255c76ca2ecbdbafb72d
+			<a href="" 
+			   class="copyBtn icon-copy"
+			   ngclipboard 
+			   data-clipboard-text="{{ tx.txid }}">
+			</a>
+			<a href="tx/{{ tx.txid }}" class="copyText mark">
+				{{ tx.txid }}
 			</a>
 		</div>
 	</div>
 	<div class="transactions__headRight">
-		<div class="date">mined May 11, 2017 11:02:12 AM</div>
+		<div class="date" ng-if="tx.blocktime">
+			<span translate>mined</span> 
+			{{ tx.blocktime * 1000 | amDateFormat: 'MMMM D, YYYY h:mm:ss A' }}
+		</div>
 	</div>
 </div>
 <div class="transactions__body">
-	<div class="col">
+	<div class="col" ng-repeat="vin in tx.vin">
 		<div class="transactions__row">
-			<a ng-href="" class="arrow">
+			<a href="" class="arrow" ng-if="vin.addr">
 				<span class="arrowIcon icon-arrows-right"></span>
 			</a>
-			<a ng-href="" class="name">
+			<a href="address/{{ vin.addr }}" 
+			   class="name" 
+			   ng-if="vin.addr">
 				<span class="name__arrow">></span>
-				<span class="name__text mark">myGCtCMznQiaAMkA9EuBop28HpXJEBAK6h</span>
+				<span class="name__text mark">
+					{{ vin.addr }}
+				</span>
 			</a>
-			<div class="data attn">
-				171.17 QTUM
+			<div class="data attn" ng-if="vin.addr">
+				{{ vin.value }} QTUM
 			</div>
 		</div>
 		<div class="transactions__addInfo">
 			<div class="transactions__row">
-				<div class="label"><b>Confirmations:</b></div>
-				<div class="labeled"></div>
-			</div>
-			<div class="transactions__row">
-				<div class="label"><b>scriptSig</b></div>
+				<div class="label">
+					<b translate>Confirmations</b>:
+				</div>
 				<div class="labeled">
-					<div class=" copyParent copyParent-right">
-						<a ng-href="" class="copyBtn icon-copy"></a>
+					{{ tx.confirmations }}
+				</div>
+			</div>
+			<div class="transactions__row" ng-if="vin.scriptSig">
+				<div class="label">
+					<b translate>scriptSig</b>
+				</div>
+				<div class="labeled">
+					<div class="copyParent copyParent-right">
+						<a href="" 
+						   class="copyBtn icon-copy"
+						   ngclipboard 
+			   			   data-clipboard-text="{{ vin.scriptSig.asm }}">
+						</a>
 						<span class="copyText">
-							21de65422600ff89b17e58aabe47720c501ff1c81589255c76ca2ecbdbafb72d
+							{{ vin.scriptSig.asm }}
 						</span>
 					</div>
 				</div>
@@ -50,55 +71,51 @@
 		</div>
 	</div>
 	<div class="col">
-		<div class="transactions__row">
-			<span class="name">
-				<span class="name__text">Unparsed address [0]</span>
-			</span>
-			<div class="data">
-				0 QTUM <span class="special">(U)</span>
-			</div>
-		</div>
-		<div class="transactions__addInfo">
+		<div ng-repeat="vout in tx.voutSimple">
 			<div class="transactions__row">
-				<div class="label"><b>Type</b></div>
-				<div class="labeled"></div>
+				<span class="name">
+					<span class="name__text" ng-class="{ 'mark' : !vout.notAddr }">
+						{{ vout.addr }}
+					</span>
+				</span>
+				<div class="data">
+					{{ vout.value }} QTUM 
+					<span class="special" ng-if="vout.isSpent">(S)</span>
+					<span class="special" ng-else>(U)</span>
+				</div>
 			</div>
-			<div class="transactions__row">
-				<div class="label"><b>scriptPubKey</b></div>
-				<div class="labeled"></div>
-			</div>
-		</div>
-
-
-		<div class="transactions__row">
-			<a ng-href="" class="name">
-				<span class="name__text mark">myGCtCMznQiaAMkA9EuBop28HpXJEBAK6h</span>
-			</a>
-			<div class="data">
-				<span class="special">166.17 QTUM (U)</span>
-			</div>
-		</div>
-		<div class="transactions__addInfo">
-			<div class="transactions__row">
-				<div class="label"><b>Type</b></div>
-				<div class="labeled op-60">pubkeyhash</div>
-			</div>
-			<div class="transactions__row">
-				<div class="label"><b>scriptPubKey</b></div>
-				<div class="labeled">
-					<div class=" copyParent copyParent-right">
-						<a ng-href="" class="copyBtn icon-copy"></a>
-						<span class="copyText">
-							026b0c3b7d6e91aafd0fd9d9db5392b829f4cc59eff55538fa4a89c29026b0c3b7d6e91aafd0fd9d9db5392b829f4cc59eff55538fa4a89c29
-						</span>
+			<div class="transactions__addInfo" ng-repeat="item in vout.items">
+				<div class="transactions__row">
+					<div class="label">
+						<b translate>Type</b>
+					</div>
+					<div class="labeled op-60">
+						{{ item.scriptPubKey.type }}
+					</div>
+				</div>
+				<div class="transactions__row">
+					<div class="label">
+						<b>scriptPubKey</b>
+					</div>
+					<div class="labeled" ng-if="item.scriptPubKey.asm">
+						<div class=" copyParent copyParent-right">
+							<a href="" class="copyBtn icon-copy"></a>
+							<span class="copyText">
+								{{ item.scriptPubKey.asm }}
+							</span>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
 		<div class="transactions__row text_r">
-			<div class="transactions__info">2 CONFIRMATIONS</div>
-			<div class="transactions__info">191.17 QTUM</div>
+			<div class="transactions__info">
+				{{ tx.confirmations }} 
+				{{ (tx.confirmations > 1 ? 'CONFIRMATIONS' : 'CONFIRMATION') }} 
+			</div>
+			<div class="transactions__info">
+				{{ tx.valueOut }} QTUM
+			</div>
 		</div>
 	</div>
 </div>
@@ -106,7 +123,7 @@
 
 
 
-<div class="line-bot row" data-ng-hide="!tx">
+<!--<div class="line-bot row" data-ng-hide="!tx">
   <div class="col-xs-7 col-md-8">
     <div class="ellipsis">
       <a class="btn-expand" title="Show/Hide items details" data-ng-click="itemsExpanded = !itemsExpanded">
@@ -126,8 +143,8 @@
       <time>{{tx.time * 1000 | date:'medium'}}</time>
     </div>
   </div>
-</div>
-<div class="row line-mid">
+</div>-->
+<!--<div class="row line-mid">
   <div class="col-md-5">
     <div class="row" data-ng-if="tx.isCoinBase">
       <div class="col-md-12 transaction-vin-vout" data-ng-repeat="vin in tx.vin">
@@ -138,7 +155,7 @@
     </div>
     <div class="row" data-ng-if="!tx.isCoinBase">
 
-      <!-- <<< Simple view -->
+      
       <div data-ng-if="!itemsExpanded" data-ng-init="currentInNoExpanded=0; sizeInNoExpanded=5">
         <div class="panel panel-default" data-ng-repeat="vin in tx.vinSimple| startFrom:currentInNoExpanded*sizeInNoExpanded | limitTo:sizeInNoExpanded">
           <div class="panel-body transaction-vin-vout">
@@ -170,7 +187,7 @@
         </div>
       </div>
 
-      <!-- <<< Full view -->
+      
       <div data-ng-if="itemsExpanded" data-ng-init="currentInExpanded=0; sizeInExpanded=(from_vin) ? tx.vin.length : 5; fromVinCollapsed=(from_vin)">
         <div data-ng-repeat="vin in tx.vin| startFrom:currentInExpanded*sizeInExpanded | limitTo:sizeInExpanded" data-ng-if="fromVinCollapsed ? v_index == vin.n : 1">
           <div class="panel panel-default transaction-vin-vout">
@@ -196,8 +213,8 @@
                 <span translate>Double spent attempt detected. From tx:</span> 
                 <a href="tx/{{<vin class=""></vin>doubleSpentTxID}}">{{vin.doubleSpentTxID}},{{vin.doubleSpentIndex}}</a>
               </div>
-            </div> <!-- END OF PANEL BODY -->
-          </div> <!-- END OF PANEL-DEFAULT -->
+            </div>
+          </div>
           <div class="small" style="margin-left:0.7em; word-wrap:break-word;" data-ng-class="{true: 'v_highlight', false: ''}[from_vin == true && v_index == vin.n]" >
             <p><strong>Confirmations:</strong> {{vin.confirmations}}</p>
             <p><strong>scriptSig</strong></p>
@@ -232,7 +249,7 @@
   </div>
   <div class="col-md-6">
     <div class="row">
-      <!-- Simple view >>> -->
+      
       <div data-ng-if="!itemsExpanded" data-ng-init="currentOutNoExpanded=0; sizeOutNoExpanded=5">
         <div data-ng-repeat="vout in tx.voutSimple| startFrom:currentOutNoExpanded*sizeOutNoExpanded | limitTo:sizeOutNoExpanded">
           <div class="transaction-vin-vout panel panel-default">
@@ -260,7 +277,7 @@
         </div>
       </div>
 
-      <!-- Full view >>> -->
+      
       <div data-ng-if="itemsExpanded" data-ng-init="currentOutExpanded=0; sizeOutExpanded=(from_vout) ? tx.vout.length : 5; fromVoutCollapsed=(from_vout)">
         <div data-ng-repeat="vout in tx.vout| startFrom:currentOutExpanded*sizeOutExpanded | limitTo:sizeOutExpanded" data-ng-if="fromVoutCollapsed ? v_index == vout.n : 1">
           <div class="panel panel-default transaction-vin-vout">
@@ -300,9 +317,9 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 
-<div class="well well-sm bgwhite ellipsis" data-ng-if="itemsExpanded && !block.hash && tx.blockhash">
+<!--<div class="well well-sm bgwhite ellipsis" data-ng-if="itemsExpanded && !block.hash && tx.blockhash">
   <strong translate>Included in Block</strong> <a class="text-muted" href="block/{{tx.blockhash}}">{{tx.blockhash}}</a>
   <span class="btn-copy" clip-copy="tx.blockhash"></span>
 </div>
@@ -339,4 +356,4 @@
     <span data-ng-show="!tx.confirmations" class="txvalues txvalues-danger" translate>Unconfirmed Transaction!</span>
     <span class="txvalues txvalues-primary">{{$root.currency.getConvertion(tx.valueOut) || tx.valueOut + ' QTUM' }}</span>
   </div>
-</div>
+</div>-->
