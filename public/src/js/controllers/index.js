@@ -4,50 +4,59 @@ var TRANSACTION_DISPLAYED = 10;
 var BLOCKS_DISPLAYED = 5;
 
 angular.module('insight.system').controller('IndexController',
-  function($scope, Global, getSocket, Blocks) {
-    $scope.global = Global;
+	function($scope, getSocket, Blocks) {
 
-    var _getBlocks = function() {
-      Blocks.get({
-        limit: BLOCKS_DISPLAYED
-      }, function(res) {
-        $scope.blocks = res.blocks;
-        $scope.blocksLength = res.length;
-      });
-    };
+		var self = this;
+			self.txs = [];
+			self.blocks = [];
+			self.scrollConfig = {
+				autoHideScrollbar: false,
+				theme: 'custom',
+				advanced: {
+					updateOnContentResize: true
+				},
+				setHeight: 620,
+				scrollInertia: 0
+			};
 
-    var socket = getSocket($scope);
+		var _getBlocks = function() {
+			Blocks.get({
+				limit: BLOCKS_DISPLAYED
+			}, function(res) {
 
-    var _startSocket = function() { 
-      socket.emit('subscribe', 'inv');
-      socket.on('tx', function(tx) {
-        $scope.txs.unshift(tx);
-        if (parseInt($scope.txs.length, 10) >= parseInt(TRANSACTION_DISPLAYED, 10)) {
-          $scope.txs = $scope.txs.splice(0, TRANSACTION_DISPLAYED);
-        }
-      });
+				self.blocks = res.blocks;
+				self.blocksLength = res.length;
+			});
+		};
 
-      socket.on('block', function() {
-        _getBlocks();
-      });
-    };
+		var socket = getSocket($scope);
 
-    socket.on('connect', function() {
-      _startSocket();
-    });
+		var _startSocket = function() {
 
+			socket.emit('subscribe', 'inv');
+			socket.on('tx', function(tx) {
 
+				tx.createTime = Date.now();
+				self.txs.unshift(tx);
 
-    $scope.humanSince = function(time) {
-      var m = moment.unix(time);
-      return m.max().fromNow();
-    };
+				if (self.txs.length > TRANSACTION_DISPLAYED) {
+					
+					self.txs.length = TRANSACTION_DISPLAYED;
+				}
+			});
 
-    $scope.index = function() {
-      _getBlocks();
-      _startSocket();
-    };
+			socket.on('block', function() {
+				_getBlocks();
+			});
+		};
 
-    $scope.txs = [];
-    $scope.blocks = [];
-  });
+		socket.on('connect', function() {
+			_startSocket();
+		});
+
+		self.index = function() {
+
+			_getBlocks();
+			_startSocket();
+		};
+	});

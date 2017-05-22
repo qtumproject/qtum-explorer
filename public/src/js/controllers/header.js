@@ -1,47 +1,74 @@
 'use strict';
 
 angular.module('insight.system').controller('HeaderController',
-  function($scope, $rootScope, $modal, getSocket, Global, Block) {
-    $scope.global = Global;
+	function($scope, $rootScope, $route, $modal, gettextCatalog, amMoment, getSocket, Global, Block, $templateCache) {
 
-    $rootScope.currency = {
-      factor: 1,
-      bitstamp: 0,
-      symbol: 'QTUM'
-    };
+	$scope.global = Global;
+	$scope.defaultLanguage = defaultLanguage;
 
-    $scope.menu = [{
-      'title': 'Blocks',
-      'link': 'blocks'
-    }, {
-      'title': 'Status',
-      'link': 'status'
-    }];
+	$rootScope.currency = {
+		factor: 1,
+		bitstamp: 0,
+		symbol: 'QTUM'
+	};
 
-    $scope.openScannerModal = function() {
-      var modalInstance = $modal.open({
-        templateUrl: 'scannerModal.html',
-        controller: 'ScannerController'
-      });
-    };
+	$scope.menu = [{
+		'title': 'Blocks',
+		'link': 'blocks'
+	}, {
+		'title': 'Status',
+		'link': 'status'
+	}];
 
-    var _getBlock = function(hash) {
-      Block.get({
-        blockHash: hash
-      }, function(res) {
-        $scope.totalBlocks = res.height;
-      });
-    };
+	$scope.availableLanguages = [{
+		name: 'Deutsch',
+		isoCode: 'de_DE',
+	}, {
+		name: 'English',
+		isoCode: 'en',
+	}, {
+		name: 'Spanish',
+		isoCode: 'es',
+	}, {
+		name: 'Japanese',
+		isoCode: 'ja',
+	}];
 
-    var socket = getSocket($scope);
-    socket.on('connect', function() {
-      socket.emit('subscribe', 'inv');
+	$scope.openScannerModal = function() {
+		var modalInstance = $modal.open({
+			templateUrl: 'scannerModal.html',
+			controller: 'ScannerController'
+		});
+	};
 
-      socket.on('block', function(block) {
-        var blockHash = block.toString();
-        _getBlock(blockHash);
-      });
-    });
+	var _getBlock = function(hash) {
+		Block.get({
+			blockHash: hash
+		}, function(res) {
+			$scope.totalBlocks = res.height;
+		});
+	};
 
-    $rootScope.isCollapsed = true;
-  });
+	var socket = getSocket($scope);
+	socket.on('connect', function() {
+		socket.emit('subscribe', 'inv');
+
+		socket.on('block', function(block) {
+			var blockHash = block.toString();
+			_getBlock(blockHash);
+		});
+	});
+
+	$scope.setLanguage = function(isoCode) {
+
+		var currentPageTemplate = $route.current.templateUrl;
+
+		gettextCatalog.currentLanguage = $scope.defaultLanguage = defaultLanguage = isoCode;
+		amMoment.changeLocale(isoCode);
+		localStorage.setItem('insight-language', isoCode);
+		$templateCache.remove(currentPageTemplate);
+		$route.reload();
+	};
+
+	$rootScope.isCollapsed = true;
+	});
