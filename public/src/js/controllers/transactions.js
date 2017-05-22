@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('insight.transactions').controller('transactionsController',
+angular.module('insight.transactions').controller('TransactionsController',
 function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress, Bitcorelib, Contracts) {
   $scope.global = Global;
   $scope.loading = false;
