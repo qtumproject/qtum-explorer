@@ -2,18 +2,18 @@
 
 
 
-<div class="box" ng-controller="BlocksController as blockC" data-ng-init="blockC.findOne()">
+<div class="box" ng-controller="BlocksController as BC" data-ng-init="BC.findOne()">
 	<div class="heading margin1">
 		<h1 class="heading__title">
-			Block #{{ blockC.block.height }}
+			Block #{{ BC.block.height }}
 		</h1>
 		<div class="heading__sm">
 			<div class="heading__smLabel" translate>BlockHash</div>
 			<div class="heading__smLabeled">
 				<div class=" copyParent copyParent-right">
-					<a ng-href="" class="copyBtn icon-copy" clip-copy="blockC.block.hash"></a>
+					<a ng-href="" class="copyBtn icon-copy" clip-copy="BC.block.hash"></a>
 					<div class="copyText text">
-						{{ blockC.block.hash }}
+						{{ BC.block.hash }}
 					</div>
 				</div>
 			</div>
@@ -34,7 +34,7 @@
 						</div>
 						<div class="list__right">
 							<div class="">
-								{{ blockC.block.tx.length }}
+								{{ BC.block.tx.length }}
 							</div>
 						</div>
 					</li>
@@ -44,11 +44,11 @@
 						</div>
 						<div class="list__right">
 							<div class="">
-								{{ blockC.block.height }} 
-								<span class="special" ng-if="blockC.block.isMainChain">
+								{{ BC.block.height }} 
+								<span class="special" ng-if="BC.block.isMainChain">
 									(Mainchain)
 								</span>
-								<span ng-if="!blockC.block.isMainChain" class="special">
+								<span ng-if="!BC.block.isMainChain" class="special">
 									(Orphaned)
 								</span>
 							</div>
@@ -60,7 +60,7 @@
 						</div>
 						<div class="list__right">
 							<div class="">
-								{{ $root.currency.getConvertion(blockC.block.reward) || blockC.block.reward }} QTUM
+								{{ $root.currency.getConvertion(BC.block.reward) || BC.block.reward }} QTUM
 							</div>
 						</div>
 					</li>
@@ -70,7 +70,7 @@
 						</div>
 						<div class="list__right">
 							<div class="">
-								{{ blockC.block.time * 1000 | amDateFormat: 'MMMM D, YYYY h:mm:ss A' }}
+								{{ BC.block.time * 1000 | amDateFormat: 'MMMM D, YYYY h:mm:ss A' }}
 							</div>
 						</div>
 					</li>
@@ -79,8 +79,8 @@
 							<b translate>Mined by</b>
 						</div>
 						<div class="list__right">
-							<div class="" ng-if="blockC.block.poolInfo.poolName">
-								{{ blockC.block.poolInfo.poolName }}
+							<div class="" ng-if="BC.block.poolInfo.poolName">
+								{{ BC.block.poolInfo.poolName }}
 							</div>
 						</div>
 					</li>
@@ -91,8 +91,8 @@
 						<div class="list__right">
 							<div class="copyParent copyParent-left pull-right">
 								<a ng-href="" class="copyBtn icon-copy"></a>
-								<div class="copyText text" clip-copy="blockC.block.merkleroot"> 
-									{{ blockC.block.merkleroot }}
+								<div class="copyText text" clip-copy="BC.block.merkleroot"> 
+									{{ BC.block.merkleroot }}
                                 </div>
 							</div>
 						</div>
@@ -108,7 +108,7 @@
 						<div class="list__right">
 							<div class="">
 								<span class="mark">
-									{{ blockC.block.height - 1 }}
+									{{ BC.block.height - 1 }}
 								</span>
 							</div>
 						</div>
@@ -119,7 +119,7 @@
 						</div>
 						<div class="list__right">
 							<div class="additional">
-								{{ blockC.block.difficulty }}
+								{{ BC.block.difficulty }}
 							</div>
 						</div>
 					</li>
@@ -129,7 +129,7 @@
 						</div>
 						<div class="list__right">
 							<div class="additional">
-								{{ blockC.block.bits }}
+								{{ BC.block.bits }}
 							</div>
 						</div>
 					</li>
@@ -139,7 +139,7 @@
 						</div>
 						<div class="list__right">
 							<div class="additional">
-								{{ blockC.block.size }}
+								{{ BC.block.size }}
 							</div>
 						</div>
 					</li>
@@ -149,7 +149,7 @@
 						</div>
 						<div class="list__right">
 							<div class="additional">
-                                {{ blockC.block.version }}
+                                {{ BC.block.version }}
                             </div>
 						</div>
 					</li>
@@ -159,7 +159,7 @@
 						</div>
 						<div class="list__right">
 							<div class="additional">
-								{{ blockC.block.nonce }}
+								{{ BC.block.nonce }}
 							</div>
 						</div>
 					</li>
@@ -169,13 +169,13 @@
 	</div>
 
 	<div class="section section-transactionsBlock" 
-			 ng-controller="TransactionsController as transC" 
-			 ng-init="transC.load('block')"
-			 ng-include 
-			 ng-src="'views/transaction/list.html'" 
-			 when-scrolled="transC.loadMore()">
+			 ng-controller="TransactionsController as TC" 
+			 ng-init="TC.load( BC.block )">
+			 <div ng-include 
+						ng-src="'views/transaction/list.html'"
+						when-scrolled="TC.loadMore()">
+			 </div>
 	</div>
-
 </div>
 
 

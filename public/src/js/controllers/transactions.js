@@ -6,6 +6,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   $scope.loading = false;
   $scope.loadedBy = null;
 
+  var self = this;
   var pageNum = 0;
   var pagesTotal = 1;
   var COIN = 100000000;
@@ -186,13 +187,14 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   };
 
   //Initial load
-  $scope.load = function(from) {
-    $scope.loadedBy = from;
-    $scope.loadMore();
+  self.load = function(from) {
+    console.log(from)
+    self.loadedBy = from;
+    self.loadMore();
   };
 
   //Load more transactions for pagination
-  $scope.loadMore = function() {
+  self.loadMore = function() {
     if (pageNum < pagesTotal && !$scope.loading) {
       $scope.loading = true;
 
