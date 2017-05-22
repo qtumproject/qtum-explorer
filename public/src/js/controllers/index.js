@@ -4,10 +4,9 @@ var TRANSACTION_DISPLAYED = 10;
 var BLOCKS_DISPLAYED = 5;
 
 angular.module('insight.system').controller('IndexController',
-	function($scope, Global, getSocket, Blocks) {
+	function($scope, getSocket, Blocks) {
 
 		var self = this;
-			self.global = Global;
 			self.txs = [];
 			self.blocks = [];
 			self.scrollConfig = {
