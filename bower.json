@@ -17,8 +17,6 @@
     "angular-moment": "~0.8.0",
     "bitcore-lib": "^0.14.0",
     "jquery": "^3.2.1",
-    "ng-device-detector": "^4.0.3",
-    "re-tree": "^0.0.2",
     "ng-scrollbars": "^0.0.11"
   }
 }

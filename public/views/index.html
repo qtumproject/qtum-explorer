@@ -1,8 +1,6 @@
-
-
 <div class="box" 
-	 data-ng-controller="IndexController as indexC" 
-	 data-ng-init="indexC.index()">
+	 data-ng-controller="IndexController as IC" 
+	 data-ng-init="IC.index()">
 	<div class="content__left">
 		<div class="heading">
 			<div class="heading__pic">
@@ -15,14 +13,14 @@
 		</div>
 		<div class="content__list content__list-blocks">
 			<div class="content__listScroll"
-				 blocks-size="{{ indexC.blocksLength }}"
-				 ng-if="indexC.blocksLength"
+				 blocks-size="{{ IC.blocksLength }}"
+				 ng-if="IC.blocksLength"
 				 ng-scrollbars 
-				 ng-scrollbars-config="indexC.scrollConfig"
+				 ng-scrollbars-config="IC.scrollConfig"
 				 id="blocksPane">
 				<ul class="list list-blocks">
 					<li class="list__item"
-						data-ng-repeat='block in indexC.blocks'>
+						data-ng-repeat='block in IC.blocks'>
 						<a href="block/{{ block.hash }}" class="list-blocks__left">
 							<span class="list__row" translate>
 								Block {{ block.height }}
@@ -67,14 +65,14 @@
 		</div>
 		<div class="content__list content__list-transactions">
 			<div class="content__listScroll"
-				 trans-size="{{ indexC.txs.length }}"
-				 ng-if="indexC.txs.length"
+				 trans-size="{{ IC.txs.length }}"
+				 ng-if="IC.txs.length"
 				 ng-scrollbars 
-				 ng-scrollbars-config="indexC.scrollConfig"
+				 ng-scrollbars-config="IC.scrollConfig"
 				 id="transPane">
 				<ul class="list list-transactions">
 					<li class="list__item"
-						data-ng-repeat='tx in indexC.txs'>
+						data-ng-repeat='tx in IC.txs'>
 						<div class="list-transactions__right">
 							<div class="list__row fsz-13" am-time-ago="tx.createTime">
 							</div>

@@ -50,7 +50,6 @@ module.exports = function(grunt) {
 				'public/lib/moment/lang/es.js',
 				'public/lib/jquery/dist/jquery.min.js',
 				'public/lib/ng-scrollbars/dist/jquery.mCustomScrollbar.concat.min.js',
-				'public/lib/ng-scrollbars/dist/scrollbars.min.js',
 				'public/lib/zeroclipboard/ZeroClipboard.min.js', 
 				'public/lib/bitcore-lib/bitcore-lib.js'
 			],
@@ -59,8 +58,6 @@ module.exports = function(grunt) {
 		angular: {
 			src: [
 				'public/lib/angular/angular.min.js', 
-				'public/lib/re-tree/re-tree.min.js',
-				'public/lib/ng-device-detector/ng-device-detector.js', 
 				'public/lib/angular-resource/angular-resource.min.js', 
 				'public/lib/angular-route/angular-route.min.js', 
 				'public/lib/angular-qrcode/qrcode.js', 
@@ -70,7 +67,8 @@ module.exports = function(grunt) {
 				'public/lib/angular-ui-utils/ui-utils.min.js', 
 				'public/lib/ngprogress/build/ngProgress.min.js', 
 				'public/lib/angular-gettext/dist/angular-gettext.min.js', 
-				'public/lib/angular-moment/angular-moment.min.js'
+				'public/lib/angular-moment/angular-moment.min.js',
+				'public/lib/ng-scrollbars/dist/scrollbars.min.js'
 			],
 			dest: 'public/js/angularjs-all.js'
 		},
