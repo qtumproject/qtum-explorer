@@ -11,7 +11,7 @@
 			<div class="heading__smLabel" translate>BlockHash</div>
 			<div class="heading__smLabeled">
 				<div class=" copyParent copyParent-right">
-					<a href="" class="copyBtn icon-copy" clip-copy="blockC.block.hash"></a>
+					<a ng-href="" class="copyBtn icon-copy" clip-copy="blockC.block.hash"></a>
 					<div class="copyText text">
 						{{ blockC.block.hash }}
 					</div>
@@ -45,10 +45,10 @@
 						<div class="list__right">
 							<div class="">
 								{{ blockC.block.height }} 
-								<span data-ng-show="blockC.block.isMainChain" class="special">
+								<span class="special" ng-if="blockC.block.isMainChain">
 									(Mainchain)
 								</span>
-								<span data-ng-show="!blockC.block.isMainChain" class="special">
+								<span ng-if="!blockC.block.isMainChain" class="special">
 									(Orphaned)
 								</span>
 							</div>
@@ -60,34 +60,40 @@
 						</div>
 						<div class="list__right">
 							<div class="">
-								{{ $root.currency.getConvertion(block.reward) || block.reward }} QTUM
+								{{ $root.currency.getConvertion(blockC.block.reward) || blockC.block.reward }} QTUM
 							</div>
 						</div>
 					</li>
 					<li class="list__item">
 						<div class="list__left">
-							<b>Timestamp</b>
+							<b translate>Timestamp</b>
 						</div>
 						<div class="list__right">
-							<div class="">May 15, 2017 1:40:06 PM</div>
+							<div class="">
+								{{ blockC.block.time * 1000 | amDateFormat: 'MMMM D, YYYY h:mm:ss A' }}
+							</div>
 						</div>
 					</li>
 					<li class="list__item">
 						<div class="list__left">
-							<b>Mined by</b>
+							<b translate>Mined by</b>
 						</div>
 						<div class="list__right">
-							<div class=""></div>
+							<div class="" ng-if="blockC.block.poolInfo.poolName">
+								{{ blockC.block.poolInfo.poolName }}
+							</div>
 						</div>
 					</li>
 					<li class="list__item">
 						<div class="list__left">
-							<b>Merkle Root</b>
+							<b translate>Merkle Root</b>
 						</div>
 						<div class="list__right">
 							<div class="copyParent copyParent-left pull-right">
-								<a href="" class="copyBtn icon-copy"></a>
-								<div class="copyText text"> 669f7898d9340de699aa4697627dbeab669f7898d9340de699aa4697627dbeab</div>
+								<a ng-href="" class="copyBtn icon-copy"></a>
+								<div class="copyText text" clip-copy="block.merkleroot"> 
+									{{ blockC.block.merkleroot }}
+                                </div>
 							</div>
 						</div>
 					</li>
@@ -97,51 +103,63 @@
 				<ul class="list">
 					<li class="list__item">
 						<div class="list__left">
-							<b>Previous Block</b>
+							<b translate>Previous Block</b>
 						</div>
 						<div class="list__right">
-							<div class=""><span class="mark">15139</span></div>
+							<div class="">
+                                <span class="mark">
+                                    {{ blockC.block.height - 1 }}
+                                </span>
+                            </div>
 						</div>
 					</li>
 					<li class="list__item">
 						<div class="list__left">
-							<b>Difficulty</b>
-						</div>
-						<div class="list__right">
-							<div class="additional">667674.41781493</div>
-						</div>
-					</li>
-					<li class="list__item">
-						<div class="list__left">
-							<b>Bits</b>
-						</div>
-						<div class="list__right">
-							<div class="additional">1a1920a1</div>
-						</div>
-					</li>
-					<li class="list__item">
-						<div class="list__left">
-							<b>Size (bytes)</b>
-						</div>
-						<div class="list__right">
-							<div class="additional">507</div>
-						</div>
-					</li>
-					<li class="list__item">
-						<div class="list__left">
-							<b>Version</b>
-						</div>
-						<div class="list__right">
-							<div class="additional">536870912</div>
-						</div>
-					</li>
-					<li class="list__item">
-						<div class="list__left">
-							<b>Nonce</b>
+							<b translate>Difficulty</b>
 						</div>
 						<div class="list__right">
 							<div class="additional">
-								0
+                                {{ blockC.block.difficulty }}
+                            </div>
+						</div>
+					</li>
+					<li class="list__item">
+						<div class="list__left">
+							<b translate>Bits</b>
+						</div>
+						<div class="list__right">
+							<div class="additional">
+                                {{ blockC.block.bits }}
+                            </div>
+						</div>
+					</li>
+					<li class="list__item">
+						<div class="list__left">
+							<b translate>Size (bytes)</b>
+						</div>
+						<div class="list__right">
+							<div class="additional">
+                                {{ blockC.block.size }}
+                            </div>
+						</div>
+					</li>
+					<li class="list__item">
+						<div class="list__left">
+							<b translate>Version</b>
+						</div>
+						<div class="list__right">
+							<div class="additional">
+                                {{ blockC.block.version }}
+                            </div>
+						</div>
+					</li>
+					<li class="list__item">
+						<div class="list__left">
+							<b translate>Nonce</b>
+						</div>
+						<div class="list__right">
+							<div class="additional">
+								{{ blockC.block.nonce }}
 							</div>
 						</div>
 					</li>
@@ -158,13 +176,13 @@
 			<div class="transactions__item">
 				<div class="transactions__head">
 					<div class="transactions__headLeft">
-						<a href="" class="transactions__moreBtn js-block-more">
+						<a ng-href="" class="transactions__moreBtn js-block-more">
 							<span class="icon-plus"></span>
 							<span class="icon-minus"></span>
 						</a>
 						<div class=" copyParent copyParent-right">
 							<a href="" class="copyBtn icon-copy"></a>
-							<a href="" class="copyText mark">
+							<a ng-href="" class="copyText mark">
 								21de65422600ff89b17e58aabe47720c501ff1c81589255c76ca2ecbdbafb72d
 							</a>
 						</div>
@@ -176,10 +194,10 @@
 				<div class="transactions__body">
 					<div class="col">
 						<div class="transactions__row">
-							<a href="" class="arrow">
+							<a ng-href="" class="arrow">
 								<span class="arrowIcon icon-arrows-right"></span>
 							</a>
-							<a href="" class="name">
+							<a ng-href="" class="name">
 								<span class="name__arrow">></span>
 								<span class="name__text mark">myGCtCMznQiaAMkA9EuBop28HpXJEBAK6h</span>
 							</a>
@@ -196,7 +214,7 @@
 								<div class="label"><b>scriptSig</b></div>
 								<div class="labeled">
 									<div class=" copyParent copyParent-right">
-										<a href="" class="copyBtn icon-copy"></a>
+										<a ng-href="" class="copyBtn icon-copy"></a>
 										<span class="copyText">
 											21de65422600ff89b17e58aabe47720c501ff1c81589255c76ca2ecbdbafb72d
 										</span>
@@ -227,7 +245,7 @@
 
 
 						<div class="transactions__row">
-							<a href="" class="name">
+							<a ng-href="" class="name">
 								<span class="name__text mark">myGCtCMznQiaAMkA9EuBop28HpXJEBAK6h</span>
 							</a>
 							<div class="data">
@@ -243,7 +261,7 @@
 								<div class="label"><b>scriptPubKey</b></div>
 								<div class="labeled">
 									<div class=" copyParent copyParent-right">
-										<a href="" class="copyBtn icon-copy"></a>
+										<a ng-href="" class="copyBtn icon-copy"></a>
 										<span class="copyText">
 											026b0c3b7d6e91aafd0fd9d9db5392b829f4cc59eff55538fa4a89c29026b0c3b7d6e91aafd0fd9d9db5392b829f4cc59eff55538fa4a89c29
 										</span>
@@ -262,13 +280,13 @@
 			<div class="transactions__item">
 				<div class="transactions__head">
 					<div class="transactions__headLeft">
-						<a href="" class="transactions__moreBtn js-block-more">
+						<a ng-href="" class="transactions__moreBtn js-block-more">
 							<span class="icon-plus"></span>
 							<span class="icon-minus"></span>
 						</a>
 						<div class=" copyParent copyParent-right">
-							<a href="" class="copyBtn icon-copy"></a>
-							<a href="" class="copyText mark">
+							<a ng-href="" class="copyBtn icon-copy"></a>
+							<a ng-href="" class="copyText mark">
 								21de65422600ff89b17e58aabe47720c501ff1c81589255c76ca2ecbdbafb72d
 							</a>
 						</div>
@@ -280,10 +298,10 @@
 				<div class="transactions__body">
 					<div class="col">
 						<div class="transactions__row">
-							<a href="" class="arrow">
+							<a ng-href="" class="arrow">
 								<span class="arrowIcon icon-arrows-right"></span>
 							</a>
-							<a href="" class="name">
+							<a ng-href="" class="name">
 								<span class="name__arrow">></span>
 								<span class="name__text mark">myGCtCMznQiaAMkA9EuBop28HpXJEBAK6h</span>
 							</a>
@@ -300,7 +318,7 @@
 								<div class="label"><b>scriptSig</b></div>
 								<div class="labeled">
 									<div class=" copyParent copyParent-right">
-										<a href="" class="copyBtn icon-copy"></a>
+										<a ng-href="" class="copyBtn icon-copy"></a>
 										<span class="copyText">
 											21de65422600ff89b17e58aabe47720c501ff1c81589255c76ca2ecbdbafb72d
 										</span>
@@ -331,7 +349,7 @@
 
 
 						<div class="transactions__row">
-							<a href="" class="name">
+							<a ng-href="" class="name">
 								<span class="name__text mark">myGCtCMznQiaAMkA9EuBop28HpXJEBAK6h</span>
 							</a>
 							<div class="data">
@@ -347,7 +365,7 @@
 								<div class="label"><b>scriptPubKey</b></div>
 								<div class="labeled">
 									<div class=" copyParent copyParent-right">
-										<a href="" class="copyBtn icon-copy"></a>
+										<a ng-href="" class="copyBtn icon-copy"></a>
 										<span class="copyText">
 											026b0c3b7d6e91aafd0fd9d9db5392b829f4cc59eff55538fa4a89c29026b0c3b7d6e91aafd0fd9d9db5392b829f4cc59eff55538fa4a89c29
 										</span>
@@ -366,13 +384,13 @@
 			<div class="transactions__item">
 				<div class="transactions__head">
 					<div class="transactions__headLeft">
-						<a href="" class="transactions__moreBtn js-block-more">
+						<a ng-href="" class="transactions__moreBtn js-block-more">
 							<span class="icon-plus"></span>
 							<span class="icon-minus"></span>
 						</a>
 						<div class=" copyParent copyParent-right">
-							<a href="" class="copyBtn icon-copy"></a>
-							<a href="" class="copyText mark">
+							<a ng-href="" class="copyBtn icon-copy"></a>
+							<a ng-href="" class="copyText mark">
 								21de65422600ff89b17e58aabe47720c501ff1c81589255c76ca2ecbdbafb72d
 							</a>
 						</div>
@@ -384,10 +402,10 @@
 				<div class="transactions__body">
 					<div class="col">
 						<div class="transactions__row">
-							<a href="" class="arrow">
+							<a ng-href="" class="arrow">
 								<span class="arrowIcon icon-arrows-right"></span>
 							</a>
-							<a href="" class="name">
+							<a ng-href="" class="name">
 								<span class="name__arrow">></span>
 								<span class="name__text mark">myGCtCMznQiaAMkA9EuBop28HpXJEBAK6h</span>
 							</a>
@@ -404,7 +422,7 @@
 								<div class="label"><b>scriptSig</b></div>
 								<div class="labeled">
 									<div class=" copyParent copyParent-right">
-										<a href="" class="copyBtn icon-copy"></a>
+										<a ng-href="" class="copyBtn icon-copy"></a>
 										<span class="copyText">
 											21de65422600ff89b17e58aabe47720c501ff1c81589255c76ca2ecbdbafb72d
 										</span>
@@ -435,7 +453,7 @@
 
 
 						<div class="transactions__row">
-							<a href="" class="name">
+							<a ng-href="" class="name">
 								<span class="name__text mark">myGCtCMznQiaAMkA9EuBop28HpXJEBAK6h</span>
 							</a>
 							<div class="data">
@@ -451,7 +469,7 @@
 								<div class="label"><b>scriptPubKey</b></div>
 								<div class="labeled">
 									<div class=" copyParent copyParent-right">
-										<a href="" class="copyBtn icon-copy"></a>
+										<a ng-href="" class="copyBtn icon-copy"></a>
 										<span class="copyText">
 											026b0c3b7d6e91aafd0fd9d9db5392b829f4cc59eff55538fa4a89c29026b0c3b7d6e91aafd0fd9d9db5392b829f4cc59eff55538fa4a89c29
 										</span>
@@ -477,127 +495,127 @@
 
 <section data-ng-controller="BlocksController" data-ng-init="findOne()">
   <div class="secondary_navbar hidden-xs hidden-sm" scroll data-ng-class="{'hidden': !secondaryNavbar}" data-ng-show="block.hash" data-ng-init="hideSNavbar=0">
-    <div class="container" data-ng-if="!hideSNavbar">
-      <div class="row">
-        <div class="col-md-1">
-          <a href="block/{{block.previousblockhash}}"><span class="lead glyphicon glyphicon-chevron-left"></span></a>
-        </div>
-        <div class="col-md-10">
-          <div class="row">
-            <div class="col-md-5">
-              <h3 class="text-left"><span translate>Block</span> #{{block.height}}</h3>
-            </div>
-            <p class="col-md-6 ellipsis text-left">
-                <strong>Hash</strong> {{block.hash}}
-            </p>
-            <div class="col-md-1 text-left">
-                <span class="btn-copy" clip-copy="block.hash"></span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-1">
-          <a data-ng-show="block.nextblockhash" href="block/{{block.nextblockhash}}"><span class="lead glyphicon glyphicon-chevron-right"></span></a>
-        </div>
-      </div>
-    </div> <!-- END OF CONTAINER -->
-    <div class="hide_snavbar">
-      <a href="#" data-ng-click="hideSNavbar=!hideSNavbar">
-        <span data-ng-show="hideSNavbar"><span class="text-muted glyphicon glyphicon-chevron-down"></span></span>
-        <span data-ng-show="!hideSNavbar"><span class="text-muted glyphicon glyphicon-chevron-up"></span></span>
-      </a>
-    </div>
+	<div class="container" data-ng-if="!hideSNavbar">
+	  <div class="row">
+		<div class="col-md-1">
+		  <a ng-href="block/{{block.previousblockhash}}"><span class="lead glyphicon glyphicon-chevron-left"></span></a>
+		</div>
+		<div class="col-md-10">
+		  <div class="row">
+			<div class="col-md-5">
+			  <h3 class="text-left"><span translate>Block</span> #{{block.height}}</h3>
+			</div>
+			<p class="col-md-6 ellipsis text-left">
+				<strong>Hash</strong> {{block.hash}}
+			</p>
+			<div class="col-md-1 text-left">
+				<span class="btn-copy" clip-copy="block.hash"></span>
+			</div>
+		  </div>
+		</div>
+		<div class="col-md-1">
+		  <a data-ng-show="block.nextblockhash" ng-href="block/{{block.nextblockhash}}"><span class="lead glyphicon glyphicon-chevron-right"></span></a>
+		</div>
+	  </div>
+	</div> <!-- END OF CONTAINER -->
+	<div class="hide_snavbar">
+	  <a ng-href="#" data-ng-click="hideSNavbar=!hideSNavbar">
+		<span data-ng-show="hideSNavbar"><span class="text-muted glyphicon glyphicon-chevron-down"></span></span>
+		<span data-ng-show="!hideSNavbar"><span class="text-muted glyphicon glyphicon-chevron-up"></span></span>
+	  </a>
+	</div>
   </div>
   <h1>Block #{{block.height}}</h1>
   <div class="text-muted" data-ng-if="!block.hash">
-    <span translate>Loading Block Information</span>  <span class="loader-gif"></span>
+	<span translate>Loading Block Information</span>  <span class="loader-gif"></span>
   </div>
   <div data-ng-if="block.hash">
-    <div class="well well-sm ellipsis">
-      <strong>BlockHash</strong> 
-      <span class="txid text-muted">{{block.hash}}</span>
-      <span class="btn-copy" clip-copy="block.hash"></span>
-    </div>
-    <h2 translate>Summary</h2>
-    <div class="row">
-      <div class="col-md-6">
-        <table class="table" style="table-layout: fixed">
-          <tbody>
-          <tr>
-            <td><strong translate>Number Of Transactions</strong></td>
-            <td class="text-right text-muted">{{block.tx.length}}</td>
-          </tr>
-          <tr>
-            <td><strong translate>Height</strong></td>
-            <td class="text-right text-muted">{{block.height}}
-              <span data-ng-show="block.isMainChain" class="text-success">(Mainchain)</span>
-              <span data-ng-show="!block.isMainChain" class="text-danger"> <span class="glyphicon glyphicon-warning-sign"></span> (Orphaned)</span>
-            </td>
-          </tr>
-          <tr>
-            <td><strong translate>Block Reward</strong></td>
-            <td class="text-right text-muted">{{$root.currency.getConvertion(block.reward) || block.reward + ' QTUM'}}</td>
-          </tr> 
-          <tr>
-            <td><strong translate>Timestamp</strong></td>
-            <td class="text-right text-muted">{{block.time * 1000 | date:'medium'}}</td>
-          </tr>
-          <tr data-ng-show="block.poolInfo">
-            <td><strong translate>Mined by</strong></td>
-            <td class="text-right text-muted">
-              <a href="{{block.poolInfo.url}}" target="_blank" title="{{block.poolInfo.poolName}}">{{block.poolInfo.poolName}}</a>
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Merkle Root</strong></td>
-            <td class="text-right text-muted">
-              <div class="ellipsis">
-                <span class="btn-copy" clip-copy="block.merkleroot"></span>
-                <span>{{block.merkleroot}}</span>
-              </div>
-            </td>
-          </tr>
-          <tr data-ng-show="block.previousblockhash">
-            <td><strong translate>Previous Block</strong></td>
-            <td class="text-right"><a href="block/{{block.previousblockhash}}">{{block.height-1}}</a></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-md-6">
-        <table class="table">
-          <tbody>
-          <tr>
-            <td> <strong translate>Difficulty</strong></td>
-            <td class="text-right text-muted">{{block.difficulty}}</td>
-          </tr>
-          <tr>
-            <td> <strong>Bits</strong></td>
-            <td class="text-right text-muted">{{block.bits}}</td>
-          </tr>
-          <tr>
-            <td> <strong translate>Size (bytes)</strong></td>
-            <td class="text-right text-muted">{{block.size}}</td>
-          </tr>
-          <tr>
-            <td> <strong translate>Version</strong></td>
-            <td class="text-right text-muted">{{block.version}}</td>
-          </tr>
-          <tr>
-            <td> <strong>Nonce</strong></td>
-            <td class="text-right text-muted">{{block.nonce}}</td>
-          </tr>
-          <tr data-ng-show="block.nextblockhash">
-            <td><strong translate>Next Block</strong></td>
-            <td class="text-right"><a href="block/{{block.nextblockhash}}">{{block.height+1}}</a></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+	<div class="well well-sm ellipsis">
+	  <strong>BlockHash</strong> 
+	  <span class="txid text-muted">{{block.hash}}</span>
+	  <span class="btn-copy" clip-copy="block.hash"></span>
+	</div>
+	<h2 translate>Summary</h2>
+	<div class="row">
+	  <div class="col-md-6">
+		<table class="table" style="table-layout: fixed">
+		  <tbody>
+		  <tr>
+			<td><strong translate>Number Of Transactions</strong></td>
+			<td class="text-right text-muted">{{block.tx.length}}</td>
+		  </tr>
+		  <tr>
+			<td><strong translate>Height</strong></td>
+			<td class="text-right text-muted">{{block.height}}
+			  <span data-ng-show="block.isMainChain" class="text-success">(Mainchain)</span>
+			  <span data-ng-show="!block.isMainChain" class="text-danger"> <span class="glyphicon glyphicon-warning-sign"></span> (Orphaned)</span>
+			</td>
+		  </tr>
+		  <tr>
+			<td><strong translate>Block Reward</strong></td>
+			<td class="text-right text-muted">{{$root.currency.getConvertion(block.reward) || block.reward + ' QTUM'}}</td>
+		  </tr> 
+		  <tr>
+			<td><strong translate>Timestamp</strong></td>
+			<td class="text-right text-muted">{{block.time * 1000 | date:'medium'}}</td>
+		  </tr>
+		  <tr data-ng-show="block.poolInfo">
+			<td><strong translate>Mined by</strong></td>
+			<td class="text-right text-muted">
+			  <a ng-href="{{block.poolInfo.url}}" target="_blank" title="{{block.poolInfo.poolName}}">{{block.poolInfo.poolName}}</a>
+			</td>
+		  </tr>
+		  <tr>
+			<td><strong>Merkle Root</strong></td>
+			<td class="text-right text-muted">
+			  <div class="ellipsis">
+				<span class="btn-copy" clip-copy="block.merkleroot"></span>
+				<span>{{block.merkleroot}}</span>
+			  </div>
+			</td>
+		  </tr>
+		  <tr data-ng-show="block.previousblockhash">
+			<td><strong translate>Previous Block</strong></td>
+			<td class="text-right"><a ng-href="block/{{block.previousblockhash}}">{{block.height-1}}</a></td>
+		  </tr>
+		  </tbody>
+		</table>
+	  </div>
+	  <div class="col-md-6">
+		<table class="table">
+		  <tbody>
+		  <tr>
+			<td> <strong translate>Difficulty</strong></td>
+			<td class="text-right text-muted">{{block.difficulty}}</td>
+		  </tr>
+		  <tr>
+			<td> <strong>Bits</strong></td>
+			<td class="text-right text-muted">{{block.bits}}</td>
+		  </tr>
+		  <tr>
+			<td> <strong translate>Size (bytes)</strong></td>
+			<td class="text-right text-muted">{{block.size}}</td>
+		  </tr>
+		  <tr>
+			<td> <strong translate>Version</strong></td>
+			<td class="text-right text-muted">{{block.version}}</td>
+		  </tr>
+		  <tr>
+			<td> <strong>Nonce</strong></td>
+			<td class="text-right text-muted">{{block.nonce}}</td>
+		  </tr>
+		  <tr data-ng-show="block.nextblockhash">
+			<td><strong translate>Next Block</strong></td>
+			<td class="text-right"><a ng-href="block/{{block.nextblockhash}}">{{block.height+1}}</a></td>
+		  </tr>
+		  </tbody>
+		</table>
+	  </div>
+	</div>
   </div>
   <div data-ng-if="block.hash" data-ng-controller="transactionsController" data-ng-init="load('block')">
-    <h3 translate>Transactions</h3>
-    <div data-ng-include src="'views/transaction/list.html'" when-scrolled="loadMore()"></div>
+	<h3 translate>Transactions</h3>
+	<div data-ng-include src="'views/transaction/list.html'" when-scrolled="loadMore()"></div>
   </div>
 
 </section>

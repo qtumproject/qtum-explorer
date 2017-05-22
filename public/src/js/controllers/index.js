@@ -8,9 +8,6 @@ angular.module('insight.system').controller('IndexController',
 
 		var self = this;
 		self.global = Global;
-		self.paneConf = {
-			autoReinitialise : true
-		};
 		self.txs = [];
 		self.blocks = [];
 
