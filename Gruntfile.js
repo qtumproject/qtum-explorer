@@ -59,8 +59,6 @@ module.exports = function(grunt) {
 		angular: {
 			src: [
 				'public/lib/angular/angular.min.js', 
-				'public/lib/re-tree/re-tree.min.js',
-				'public/lib/ng-device-detector/ng-device-detector.js', 
 				'public/lib/angular-resource/angular-resource.min.js', 
 				'public/lib/angular-route/angular-route.min.js', 
 				'public/lib/angular-qrcode/qrcode.js', 
