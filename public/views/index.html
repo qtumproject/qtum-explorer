@@ -1,3 +1,4 @@
+<div ng-include src="'views/includes/connection.html'"></div>
 <div class="box" 
 	 data-ng-controller="IndexController as IC" 
 	 data-ng-init="IC.index()">
@@ -28,7 +29,8 @@
 						<div class="list-blocks__right">
 							<div class="list__row">
 								<span class="" translate>Mined By</span>
-								<span class="mark" data-ng-if="block.poolInfo.poolName">
+								<span class="mark" 
+									  ng-if="block.poolInfo.poolName">
 									{{ block.poolInfo.poolName }}
 								</span>
 							</div>

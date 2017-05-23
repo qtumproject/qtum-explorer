@@ -68,8 +68,7 @@ module.exports = function(grunt) {
 				'public/lib/ngprogress/build/ngProgress.min.js', 
 				'public/lib/angular-gettext/dist/angular-gettext.min.js', 
 				'public/lib/angular-moment/angular-moment.min.js',
-				'public/lib/ng-scrollbars/dist/scrollbars.min.js',
-				'public/lib/ngclipboard/dist/ngclipboard.min.js'
+				'public/lib/ng-scrollbars/dist/scrollbars.min.js'
 			],
 			dest: 'public/js/angularjs-all.js'
 		},

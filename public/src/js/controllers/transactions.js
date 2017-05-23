@@ -9,6 +9,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 	var COIN = 100000000;
 	self.loading = false;
 	self.loadedBy = null;
+	self.isCopied = false;
 
 	var _aggregateItems = function(txId, items) {
 
@@ -128,12 +129,11 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
 	var _paginate = function(data) {
 
-		$scope.loading = false;
+		self.loading = false;
 		pagesTotal = data.pagesTotal;
 		pageNum += 1;
 
 		data.txs.forEach(function(tx) {
-			console.log(tx)
 
 			tx.showAdditInfo = false;
 			_processTX(tx);
@@ -182,7 +182,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
 			$rootScope.titleDetail = tx.txid.substring(0,7) + '...';
 			$rootScope.flashMessage = null;
-			$scope.tx = tx;
+			self.tx = tx;
 
 			_processTX(tx);
 
@@ -206,7 +206,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 		});
 	};
 
-	$scope.findThis = function() {
+	self.findThis = function() {
 		
 		_findTx($routeParams.txId);
 	};
@@ -221,73 +221,86 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 	//Load more transactions for pagination
 	self.loadMore = function() {
 
-		if (pageNum < pagesTotal && !$scope.loading) {
+		if (pageNum < pagesTotal && !self.loading) {
 		
-		self.loading = true;
+			self.loading = true;
 
-		switch(self.loadedBy) {
-			case 'address':
-				_byAddress();
-				break;
-			case 'contractAddress':
-				_byContractAddress();
-				break;
-			default:
-				_byBlock();
-		}
+			switch(self.loadedBy) {
+				case 'address':
+					_byAddress();
+					break;
+				case 'contractAddress':
+					_byContractAddress();
+					break;
+				default:
+					_byBlock();
+			}
 		}
 	};
 
 	// Highlighted txout
 	if ($routeParams.v_type == '>' || $routeParams.v_type == '<') {
-		$scope.from_vin = $routeParams.v_type == '<' ? true : false;
-		$scope.from_vout = $routeParams.v_type == '>' ? true : false;
-		$scope.v_index = parseInt($routeParams.v_index);
-		$scope.itemsExpanded = true;
+		self.from_vin = $routeParams.v_type == '<' ? true : false;
+		self.from_vout = $routeParams.v_type == '>' ? true : false;
+		self.v_index = parseInt($routeParams.v_index);
+		self.itemsExpanded = true;
 	}
 
 	//Init without txs
 	self.txs = [];
 
+	self.toFixed = function(number) {
+
+		return typeof Number(number) === 'number' ? Number(number).toFixed(2) : number
+	}
+
 	$scope.$on('tx', function(event, txid) {
 		_findTx(txid);
 	});
 
-	});
+});
 
-	angular.module('insight.transactions').controller('SendRawTransactionController',
-	function($scope, $http) {
+angular.module('insight.transactions').controller('SendRawTransactionController', 
+function($scope, $http) {
+	
 	$scope.transaction = '';
 	$scope.status = 'ready';  // ready|loading|sent|error
 	$scope.txid = '';
 	$scope.error = null;
 
 	$scope.formValid = function() {
+		
 		return !!$scope.transaction;
 	};
 	$scope.send = function() {
+
 		var postData = {
-		rawtx: $scope.transaction
+			rawtx: $scope.transaction
 		};
 		$scope.status = 'loading';
+
 		$http.post(window.apiPrefix + '/tx/send', postData)
 		.success(function(data, status, headers, config) {
 			if(typeof(data.txid) != 'string') {
 			// API returned 200 but the format is not known
-			$scope.status = 'error';
-			$scope.error = 'The transaction was sent but no transaction id was got back';
-			return;
+				$scope.status = 'error';
+				$scope.error = 'The transaction was sent but no transaction id was got back';
+
+				return;
 			}
 
 			$scope.status = 'sent';
 			$scope.txid = data.txid;
 		})
 		.error(function(data, status, headers, config) {
-			$scope.status = 'error';
+
+				$scope.status = 'error';
+
 			if(data) {
-			$scope.error = data;
+
+				$scope.error = data;
 			} else {
-			$scope.error = "No error message given (connection error?)"
+				$scope.error = "No error message given (connection error?)"
 			}
 		});
 	};

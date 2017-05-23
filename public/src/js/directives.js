@@ -56,3 +56,47 @@ angular.module('insight')
 			}
 		};
 	});
+
+    angular.module('ngclipboard', [])
+	.directive('ngclipboard', [ '$timeout', function($timeout) {
+        return {
+            restrict: 'A',
+            scope: {
+                ngclipboardSuccess: '&',
+                ngclipboardError: '&'
+            },
+			transclude: true,
+            link: function(scope, element) {
+
+                var clipboard = new window.Clipboard(element[0]);
+				var copiedElement = angular.element('<div class="copied">Copied</div>');
+
+				element.before(copiedElement);
+
+                clipboard.on('success', function(e) {
+                	scope.$apply(function () {
+
+						copiedElement.addClass('active');
+
+						$timeout(function(){
+
+							copiedElement.removeClass('active');
+						}, 2000);
+
+						scope.ngclipboardSuccess({
+							e: e
+						});
+                	});
+                });
+
+                clipboard.on('error', function(e) {
+					scope.$apply(function () {
+
+						scope.ngclipboardError({
+							e: e
+						});
+					});
+                });
+            }
+        };
+    }]);
