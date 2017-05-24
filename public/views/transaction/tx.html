@@ -122,14 +122,51 @@
 				</div>
 			</div>
 		</div>
-		<div class="transactions__row text_r">
-			<div class="transactions__info">
-				{{ tx.confirmations }} 
-				{{ (tx.confirmations > 1 ? 'CONFIRMATIONS' : 'CONFIRMATION') }} 
+	</div>
+</div>
+<div class="transactions__contract" ng-if="tx.contractBytecode">
+	<div class="transactions__contractTitle" translate>Contract Creation</div>
+	<div class="transactions__contractBody">
+		<div class="transactions__contractItem">
+			<div class="transactions__contractItemTitle" translate>Contract Code</div>
+			<div class="transactions__contractItemBody " 
+					ng-scrollbars 
+					ng-scrollbars-config="TC.scrollConfig">
+				<div class="list">
+					{{ tx.contractBytecode }}
+				</div>
 			</div>
-			<div class="transactions__info">
-				{{ tx.valueOut }} QTUM
+		</div>
+		<div class="transactions__contractItem">
+			<div class="transactions__contractItemTitle" translate>Asm</div>
+			<div class="transactions__contractItemBody" 
+					ng-scrollbars 
+					ng-scrollbars-config="TC.scrollConfig">
+				<div class="list">
+					{{ tx.contractAsm }}
+				</div>
 			</div>
+		</div>
+	</div>
+</div>
+<div class="transactions__row">
+	<div class="pull-left" ng-if="!tx.isCoinBase && Number(tx.fees) >= 0">
+		<div class="transactions__info transp">
+			<span translate>Fee</span>: 
+			{{ $root.currency.getConvertion(tx.fees) || tx.fees }} QTUM
+		</div>
+	</div>
+	<div class="pull-right text_r" 
+		 ng-class="{ 
+			'pull-right' : !tx.isCoinBase && Number(tx.fees) >= 0 && tx.contractBytecode, 
+			'transactions__row' : tx.isCoinBase && Number(tx.fees) < 0 && !tx.contractBytecode
+		}">
+		<div class="transactions__info">
+			{{ tx.confirmations }} 
+			{{ (tx.confirmations > 1 ? 'CONFIRMATIONS' : 'CONFIRMATION') }}
+		</div>
+		<div class="transactions__info">
+			{{ tx.valueOut }} QTUM
 		</div>
 	</div>
 </div>

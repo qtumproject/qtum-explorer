@@ -10,6 +10,15 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 	self.loading = false;
 	self.loadedBy = null;
 	self.isCopied = false;
+	self.scrollConfig = {
+		autoHideScrollbar: false,
+		theme: 'custom',
+		advanced:{
+			updateOnContentResize: true
+		},
+		setHeight: 230,
+		scrollInertia: 0
+	}
 
 	var _aggregateItems = function(txId, items) {
 
@@ -138,6 +147,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 			tx.showAdditInfo = false;
 			_processTX(tx);
 			self.txs.push(tx);
+			console.log(tx);
 		});
 	};
 
