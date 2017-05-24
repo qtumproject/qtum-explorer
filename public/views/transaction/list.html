@@ -1,11 +1,13 @@
-<div class="alert alert-warning" 
-  data-ng-show="!txs[0].txid && !loading"
-  translate>There are no transactions involving this address.</div>
-<div class="block-tx" data-ng-show="txs && txs[0].txid" data-ng-repeat="tx in txs">
-  <div data-ng-include src="'views/transaction/tx.html'"></div>
+<div class="section__heading">
+	<h2 class="section__title" translate>Transactions</h2>
 </div>
-<div class="progress progress-striped active" data-ng-show="loading">
-  <div class="progress-bar progress-bar-info" style="width: 100%">
-    <span translate>Loading Transactions...</span>
-  </div>
+<div class="section__transactions" ng-if="TC.txs.length">
+	<div ng-repeat="tx in TC.txs">
+		<div class="transactions__item" 
+			 ng-class="{'open': tx.showAdditInfo}" 
+			 ng-include 
+			 src="'views/transaction/tx.html'">
+		</div>
+	</div>
 </div>
+
