@@ -1,6 +1,6 @@
 <div class="box" 
-	 data-ng-controller="IndexController as IC" 
-	 data-ng-init="IC.index()">
+	 ng-controller="IndexController as IC" 
+	 ng-init="IC.index()">
 	<div class="content__left">
 		<div class="heading">
 			<div class="heading__pic">
@@ -17,7 +17,7 @@
 				 ng-scrollbars-config="IC.scrollConfig">
 				<ul class="list list-blocks">
 					<li class="list__item"
-						data-ng-repeat='block in IC.blocks'>
+						ng-repeat='block in IC.blocks'>
 						<a href="block/{{ block.hash }}" class="list-blocks__left">
 							<span class="list__row" translate>
 								Block {{ block.height }}
@@ -28,7 +28,7 @@
 						<div class="list-blocks__right">
 							<div class="list__row">
 								<span class="" translate>Mined By</span>
-								<span class="mark" data-ng-show="block.poolInfo.poolName">
+								<span class="mark" ng-show="block.poolInfo.poolName">
 									{{ block.poolInfo.poolName }}
 								</span>
 							</div>
@@ -66,7 +66,7 @@
 				 ng-scrollbars-config="IC.scrollConfig">
 				<ul class="list list-transactions">
 					<li class="list__item"
-						data-ng-repeat='tx in IC.txs'>
+						ng-repeat='tx in IC.txs'>
 						<div class="list-transactions__right">
 							<div class="list__row fsz-13" am-time-ago="tx.createTime">
 							</div>
