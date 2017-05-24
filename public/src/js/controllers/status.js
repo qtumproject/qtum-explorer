@@ -24,6 +24,11 @@ angular.module('insight.status').controller('StatusController',
 
 	var _onSyncUpdate = function(sync) {
 
+		if(!sync.startTs){
+
+			sync.startTs = Date.now();
+		}
+
 		self.sync = sync;
 	};
 
@@ -40,6 +45,11 @@ angular.module('insight.status').controller('StatusController',
 
 		_startSocket();
 	});
+
+	self.humanSince = function(time) {
+      var m = moment.unix(time / 1000);
+      return m.max().fromNow();
+    };
 
 	self.getSync = function() {
 

@@ -17,7 +17,9 @@
 							<b translate>Sync Progress</b>
 						</div>
 						<div class="list__right">
-							<div class="loader" style="width : {{ SC.sync.syncPercentage }}%">
+							<div class="loader" 
+								 style="width : {{ SC.sync.syncPercentage }}%"
+								 ng-if="SC.sync.syncPercentage">
 								<div class="loader__text">
 									{{ SC.sync.syncPercentage }}% Complete
 								</div>
