@@ -147,7 +147,6 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 			tx.showAdditInfo = false;
 			_processTX(tx);
 			self.txs.push(tx);
-			console.log(tx);
 		});
 	};
 
