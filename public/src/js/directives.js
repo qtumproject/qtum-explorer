@@ -68,7 +68,7 @@ angular.module('insight')
 			transclude: true,
             link: function(scope, element) {
 
-                var clipboard = new window.Clipboard(element[0]);
+				var clipboard = new window.Clipboard(element[0]);
 				var copiedElement = angular.element('<div class="copied">Copied</div>');
 
 				element.before(copiedElement);

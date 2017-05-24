@@ -40,7 +40,6 @@
   ],
   "bitcoreNode": "bitcore-node",
   "dependencies": {
-    "clipboard": "^1.6.1"
   },
   "devDependencies": {
     "bower": "~1.2.8",

@@ -96,7 +96,7 @@
 					   			   data-clipboard-text="{{ BC.block.merkleroot }}"></a>
 								<div class="copyText text">
 									{{ BC.block.merkleroot }}
-                                </div>
+								</div>
 							</div>
 						</div>
 					</li>
@@ -175,8 +175,7 @@
 		 ng-controller="TransactionsController as TC" 
 		 ng-if="BC.block"
 		 ng-init="TC.load(BC.block.hash)">
-		<div ng-include 
-			 src="'views/transaction/list.html'">
+		<div ng-include src="'views/transaction/list.html'">
 		</div>
 	</div>
 </div>
