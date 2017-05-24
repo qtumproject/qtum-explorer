@@ -1,11 +1,10 @@
 'use strict';
 
 angular.module('insight.blocks').controller('BlocksController',
-	function($scope, $rootScope, $routeParams, $location, Global, Block, Blocks, BlockByHeight) {
+	function($scope, $rootScope, $routeParams, $location, Block, Blocks, BlockByHeight) {
 
 	var self = this;
-	$scope.global = Global;
-	$scope.loading = false;
+	self.loading = false;
 
 	if ($routeParams.blockHeight) {
 
@@ -44,7 +43,7 @@ angular.module('insight.blocks').controller('BlocksController',
 		$event.preventDefault();
 		$event.stopPropagation();
 
-		$scope.opened = true;
+		self.opened = true;
 	};
 
 	$scope.humanSince = function(time) {
@@ -57,23 +56,24 @@ angular.module('insight.blocks').controller('BlocksController',
 
 	$scope.list = function() {
 
-		$scope.loading = true;
+		self.loading = true;
 
 		if ($routeParams.blockDate) {
-			$scope.detail = 'On ' + $routeParams.blockDate;
+
+			self.detail = 'On ' + $routeParams.blockDate;
 		}
 
 		if ($routeParams.startTimestamp) {
 
-			var d=new Date($routeParams.startTimestamp*1000);
-			var m=d.getMinutes();
+			var d = new Date($routeParams.startTimestamp * 1000);
+			var m = d.getMinutes();
 
-			if (m<10){ 
+			if (m < 10){ 
 
 				m = '0' + m
 			};
 
-			$scope.before = ' before ' + d.getHours() + ':' + m;
+			self.before = ' before ' + d.getHours() + ':' + m;
 		}
 
 		$rootScope.titleDetail = $scope.detail;
@@ -83,9 +83,9 @@ angular.module('insight.blocks').controller('BlocksController',
 			startTimestamp: $routeParams.startTimestamp
 		}, function(res) {
 			
-			$scope.loading = false;
-			$scope.blocks = res.blocks;
-			$scope.pagination = res.pagination;
+			self.loading = false;
+			self.blocks = res.blocks;
+			self.pagination = res.pagination;
 		});
 	};
 

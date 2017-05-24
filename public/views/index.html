@@ -84,7 +84,8 @@
 							<div class="list__row">
 								<span class="label" translate>Value Out:</span>
 								<span class="fsz-16 upp">
-									{{ $root.currency.getConvertion(tx.valueOut) || tx.valueOut }} QTUM
+									{{ $root.currency.getConvertion(tx.valueOut) || tx.valueOut }} 
+									{{ Constants.CURRENCY }}
 								</span>
 							</div>
 						</div>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.transactions').controller('TransactionsController',
-function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress, Bitcorelib, Contracts) {
+function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsByBlock, TransactionsByAddress, Bitcorelib, Contracts) {
 
 	var self = this;
 	var pageNum = 0;
@@ -126,13 +126,13 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
 	var _processTX = function(tx) {
 
-		tx.vinSimple = 			_aggregateItems(tx.txid, tx.vin);
-		tx.voutSimple = 		_aggregateItems(tx.txid, tx.vout);
-		tx.contractBytecode = 	_getContractBytecode(tx);
+		tx.vinSimple = _aggregateItems(tx.txid, tx.vin);
+		tx.voutSimple = _aggregateItems(tx.txid, tx.vout);
+		tx.contractBytecode = _getContractBytecode(tx);
 
 		if (tx.contractBytecode) {
 
-			tx.contractAsm = Contracts.getContractOpcodesString(tx.contractBytecode, 'testnet');
+			tx.contractAsm = Contracts.getContractOpcodesString(tx.contractBytecode);
 		}
 	};
 

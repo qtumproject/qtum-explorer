@@ -31,9 +31,9 @@ angular.module('insight',[
 
 angular.module('insight.system', [ 'ngScrollbars' ]);
 angular.module('insight.socket', []);
-angular.module('insight.blocks', [ 'ngclipboard' ]);
-angular.module('insight.transactions', [ 'ngclipboard' ]);
-angular.module('insight.address', [ 'ngclipboard' ]);
+angular.module('insight.blocks', []);
+angular.module('insight.transactions', []);
+angular.module('insight.address', []);
 angular.module('insight.search', []);
 angular.module('insight.status', []);
 angular.module('insight.connection', []);
