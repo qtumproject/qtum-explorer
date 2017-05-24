@@ -38,7 +38,8 @@
 				</span>
 			</a>
 			<div class="data attn" ng-if="vin.addr">
-				{{ vin.value }} QTUM
+				{{ vin.value }}
+				{{ Constants.CURRENCY }}
 			</div>
 		</div>
 		<div class="transactions__addInfo">
@@ -72,7 +73,7 @@
 	</div>
   	<div class="col" ng-repeat="vin in tx.vin" ng-if="!vin.addr">
 		<div class="transactions__row">
-			<span class="name__text">
+			<span class="name__text" translate>
 				No Inputs (Newly Generated Coins)
 			</span>
 		</div>
@@ -88,7 +89,8 @@
 					</span>
 					<div class="data" ng-class="{ 'special' : vout.value }">
 						{{ TC.toFixed($root.currency.getConvertion(!tx.showAdditInfo ? vout.value : item.value) || 
-							!tx.showAdditInfo ? vout.value : item.value) }} QTUM 
+							!tx.showAdditInfo ? vout.value : item.value) }} 
+						{{ Constants.CURRENCY }} 
 						<span class="special" ng-if="vout.isSpent">(S)</span>
 						<span class="special" ng-if="!vout.isSpent">(U)</span>
 					</div>
@@ -125,10 +127,11 @@
 		<div class="transactions__row text_r">
 			<div class="transactions__info">
 				{{ tx.confirmations }} 
-				{{ (tx.confirmations > 1 ? 'CONFIRMATIONS' : 'CONFIRMATION') }} 
+				{{ tx.confirmations > 1 ? ('confirmations' | translate) : ('confirmation' | translate) }} 
 			</div>
 			<div class="transactions__info">
-				{{ tx.valueOut }} QTUM
+				{{ tx.valueOut }}
+				{{ Constants.CURRENCY }}
 			</div>
 		</div>
 	</div>
