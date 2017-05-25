@@ -1,69 +1,242 @@
-<div data-ng-include src="'views/includes/connection.html'"></div>
-<section data-ng-controller="BlocksController" data-ng-init="list()">
-  <div class="row">
-    <div class="col-xs-12 col-gray col-gray-fixed">
-      <div class="block-id">
-        <div class="icon-block text-center">
-          <span class="glyphicon glyphicon-list"></span>
-          <h3><span translate>Blocks</span> <br> 
-            <span translate>mined on:</span></h3>
-        </div>
-      </div>
-      <p class="lead text-center m20v">
-      {{pagination.current}} UTC
-      <a href="#" class="btn btn-primary btn-xs" datepicker-popup show-button-bar="false" data-ng-click="openCalendar($event)" data-ng-model="dt" is-open="opened" data-ng-required="true"><span class="glyphicon glyphicon-calendar"></span></a>
-      </p>
-      <div class="m20v text-center text-muted" data-ng-if="!pagination.current">
-        <span translate>Loading Selected Date...</span>
-      </div>
-      <div data-ng-if="pagination.current">
-        <p class="lead text-center m20v"  data-ng-show="loading">&nbsp;</p>
-        <p class="text-center m20v"  data-ng-show="pagination.isToday && !loading" translate>Today</p>
-        <p class="text-center m20v"  data-ng-show="!pagination.isToday && !loading">{{humanSince(pagination.currentTs)}}
-        <p class="text-center m20v"  data-ng-show="loading">&nbsp;</p>
-        <div class="m50v text-center">
-          <a class="btn btn-primary" href="blocks-date/{{pagination.prev}}"><small>&larr; {{pagination.prev}}</small></a>
-          <a class="btn btn-primary" href="blocks-date/{{pagination.next}}" data-ng-show="!pagination.isToday"><small>{{pagination.next}} &rarr;</small></a>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-md-9 col-md-offset-3">
-      <div class="page-header">
-        <h1>
-          <span translate>Blocks</span>
-          <small><span translate>by date.</span> {{detail}} {{before}}</small>
-        </h1>
-      </div>
-      <table class="table table-hover table-striped">
-        <thead>
-          <tr>
-            <th translate>Height</th>
-            <th translate>Timestamp</th>
-            <th class="text-right" translate>Transactions</th>
-            <th class="text-right hidden-xs" translate>Mined by</th>
-            <th class="text-right" translate>Size</th>
-          </tr>
-        </thead>
-        <tbody>
-        <tr data-ng-show="loading">
-          <td colspan="5"><span translate>Waiting for blocks...</span> <span class="loader-gif"></span></td>
-        </tr>
-        <tr class="fader" data-ng-repeat='b in blocks'>
-          <td><a href="block/{{b.hash}}">{{b.height}}</a></td>
-          <td>{{b.time * 1000 | date:'medium'}}</td>
-          <td class="text-right">{{b.txlength}}</td>
-          <td class="text-right hidden-xs"><a href="{{b.poolInfo.url}}" title="{{b.poolInfo.poolName}}" target="_blank" data-ng-show="b.poolInfo">{{b.poolInfo.poolName}}</a></td>
-          <td class="text-right">{{b.size}}</td>
-        </tr>
-        </tbody>
-      </table>
-      <div data-ng-if="pagination.more">
-        <a class="btn btn-primary" href="blocks-date/{{pagination.current}}" data-ng-show="{{before}}">Lastest block from date</a>
-        <a class="btn btn-primary" href="blocks-date/{{pagination.current}}/{{pagination.moreTs}}">Older blocks from this date</a>
-      </div>
-    </div>
-  </div>
-  <h2 class="text-center text-muted" data-ng-show="!blocks.length && !loading"
-    translate>No blocks yet.</h2>
-</section>
+<div ng-include src="'views/includes/connection.html'"></div>
+<div class="box">
+	<div class="heading margin1">
+		<h1 class="heading__title" translate>Blocks by Date</h1>
+	</div>
+	<div class="date__wrap">
+		<div class="pull-right">
+			<a href="" class="date__btn prev">
+				<span class="icon-arrow-left"></span>
+				2017-02-05
+			</a>
+			<a href="" class="date__btn next">
+				2017-02-05
+				<span class="icon-arrow-right2"></span>
+			</a>
+
+			<div class="date__textWrap">
+				<div class="" >
+
+						<div ng-app="calPicker" ng-controller="DatepickerCtrl">
+							<a href="" class="date__trigger  icon-calendar" ng-click="open($event)"></a>
+
+							<div class="date__text">
+								<input type="text" class="date__textField"
+										uib-datepicker-popup="{{format}}"
+										ng-model="dt"
+										is-open="opened"
+										datepicker-options="dateOptions"
+										date-disabled="disabled(date, mode)"
+										ng-required="true"
+										close-text="Close"
+										id="date-picker"
+										readonly
+										/>
+								<div class="fsz-13">a few seconds ago</div>
+							</div>
+
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="section section-blocks">
+		<div class="table">
+			<div class="tr tr-head">
+				<div class="th">Height</div>
+				<div class="th">Timestamp</div>
+				<div class="th text_r">Transactions</div>
+				<div class="th">Mined by</div>
+				<div class="th text_r">Size</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+			<div class="tr">
+				<div class="td">
+					<a href="" class="link mark">1087931</a>
+				</div>
+				<div class="td">
+					Feb 7, 2017 3:28:31 PM
+				</div>
+				<div class="td text_r">115</div>
+				<div class="td">-</div>
+				<div class="td text_r">506</div>
+			</div>
+		</div>
+	</div>
+	<div class="pag__wrap">
+		<div class="pag">
+			<a href="" class="pag__item active">1</a>
+			<a href="" class="pag__item">2</a>
+			<a href="" class="pag__item">3</a>
+			<span class="pag__item no-hover">...</span>
+			<a href="" class="pag__item">37</a>
+			<a href="" class="pag__item next">></a>
+		</div>
+	</div>
+</div>
 
