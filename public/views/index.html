@@ -1,6 +1,7 @@
+<div ng-include src="'views/includes/connection.html'"></div>
 <div class="box" 
-	 ng-controller="IndexController as IC" 
-	 ng-init="IC.index()">
+	 data-ng-controller="IndexController as IC" 
+	 data-ng-init="IC.index()">
 	<div class="content__left">
 		<div class="heading">
 			<div class="heading__pic">
@@ -17,7 +18,7 @@
 				 ng-scrollbars-config="IC.scrollConfig">
 				<ul class="list list-blocks">
 					<li class="list__item"
-						ng-repeat='block in IC.blocks'>
+						data-ng-repeat='block in IC.blocks'>
 						<a href="block/{{ block.hash }}" class="list-blocks__left">
 							<span class="list__row" translate>
 								Block {{ block.height }}
@@ -28,7 +29,8 @@
 						<div class="list-blocks__right">
 							<div class="list__row">
 								<span class="" translate>Mined By</span>
-								<span class="mark" ng-show="block.poolInfo.poolName">
+								<span class="mark" 
+									  ng-if="block.poolInfo.poolName">
 									{{ block.poolInfo.poolName }}
 								</span>
 							</div>
@@ -66,7 +68,7 @@
 				 ng-scrollbars-config="IC.scrollConfig">
 				<ul class="list list-transactions">
 					<li class="list__item"
-						ng-repeat='tx in IC.txs'>
+						data-ng-repeat='tx in IC.txs'>
 						<div class="list-transactions__right">
 							<div class="list__row fsz-13" am-time-ago="tx.createTime">
 							</div>
@@ -82,7 +84,8 @@
 							<div class="list__row">
 								<span class="label" translate>Value Out:</span>
 								<span class="fsz-16 upp">
-									{{ $root.currency.getConvertion(tx.valueOut) || tx.valueOut }} QTUM
+									{{ $root.currency.getConvertion(tx.valueOut) || tx.valueOut }} 
+									{{ Constants.CURRENCY }}
 								</span>
 							</div>
 						</div>
