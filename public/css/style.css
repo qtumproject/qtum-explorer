@@ -495,6 +495,21 @@ sub {
 .icon-arrow-right2:before {
   content: "\e91f"; }
 
+.icon-close:before {
+  content: "\e920";
+  color: #2e9ad0; }
+
+.icon-plus2:before {
+  content: "\e921";
+  color: #2e9ad0; }
+
+.icon-error:before {
+  content: "\e922"; }
+
+.icon-minus_act:before {
+  content: "\e923";
+  color: #2e9ad0; }
+
 html {
   height: 100%;
   font-size: 100%; }
@@ -640,9 +655,18 @@ b, strong {
   font-weight: 500; }
 
 .mark {
-  background: #2c82ae;
+  background: rgba(44, 130, 174, 0.8);
   color: #232328;
-  padding: 1px 2px; }
+  padding: 1px 2px;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease; }
+  .mark:hover {
+    background: #2c82ae; }
+  .mark.disabled {
+    background: rgba(44, 130, 174, 0.5);
+    cursor: default; }
 
 .mark-bd {
   display: inline-block;
@@ -656,6 +680,10 @@ b, strong {
   .mark-bd.disabled {
     color: rgba(46, 154, 208, 0.5);
     cursor: default; }
+    .mark-bd.disabled:hover {
+      background: rgba(46, 154, 208, 0.1); }
+  .mark-bd:hover {
+    background: rgba(46, 154, 208, 0.2); }
 
 .section {
   clear: both; }
@@ -711,7 +739,7 @@ b, strong {
   float: left;
   text-align: left;
   background-color: #2e9ad0;
-  padding: 10px; }
+  padding: 20px; }
 
 .uib-datepicker-popup .uib-button-bar {
   display: none; }
@@ -2888,7 +2916,7 @@ corresponds to the arrow we want to display */
     top: 0;
     left: 0;
     right: 0;
-    z-index: 2;
+    z-index: 11;
     min-width: 1300px; }
   .header .box {
     margin: 0 260px;
@@ -2925,8 +2953,7 @@ corresponds to the arrow we want to display */
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease; }
-    v
-.nav__item:hover {
+    .nav__item:hover {
       color: #232328;
       background-color: #e75647; }
 
@@ -2953,6 +2980,43 @@ corresponds to the arrow we want to display */
   display: none; }
   .search__notFound.active {
     display: block; }
+
+.search__del {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  line-height: 38px;
+  right: 15px;
+  font-size: 16px;
+  color: #2e9ad0;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease; }
+  .search__del:hover {
+    opacity: .6; }
+  .search__del.active {
+    display: block; }
+
+.search__results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background: #2e9ad0;
+  display: none; }
+  .search__results.active {
+    display: block; }
+  .search__resultsItemLink {
+    display: block;
+    padding: 15px 18px;
+    font-size: 16px;
+    color: #232328; }
+    .search__resultsItemLink:hover {
+      color: #e75647;
+      background-color: #232328; }
 
 .header__lang-switcher {
   float: right;
@@ -2995,6 +3059,9 @@ corresponds to the arrow we want to display */
     @media only screen and (max-width: 1024px) {
       .language-switcher__selected, .language-switcher__item {
         max-width: none; } }
+  .language-switcher__item:hover {
+    background: #232328 !important;
+    color: #e75647 !important; }
   .language-switcher__container {
     -webkit-transform: translateY(100%);
     -moz-transform: translateY(100%);
@@ -3048,6 +3115,9 @@ corresponds to the arrow we want to display */
     text-align: center;
     padding: 24px 0 0;
     height: 90px; }
+    .list-blocks__left:hover {
+      background: #2e9ad0;
+      color: #232328; }
   .list-blocks__right {
     float: left;
     overflow: hidden;
@@ -3057,7 +3127,10 @@ corresponds to the arrow we want to display */
     .list-blocks__right .list__row:first-child {
       margin-bottom: 0; }
   .list-blocks .list__item {
-    padding-right: 20px; }
+    padding: 0 20px 0 0;
+    margin-bottom: 15px; }
+    .list-blocks .list__item:hover {
+      background: transparent; }
   .list-blocks .label {
     font-size: 13px;
     opacity: .6; }
@@ -3080,11 +3153,11 @@ corresponds to the arrow we want to display */
     text-overflow: ellipsis;
     white-space: nowrap;
     max-width: 100%; }
-    .list-transactions .hash__data:hover {
-      text-decoration: underline; }
   .list-transactions .list__item {
-    padding-right: 20px;
-    margin-bottom: 26px; }
+    margin-bottom: 26px;
+    padding: 0 20px 0 0; }
+    .list-transactions .list__item:hover {
+      background: transparent; }
   .list-transactions .list__row {
     margin-bottom: 6px; }
   .list-transactions .label {
@@ -3104,7 +3177,10 @@ corresponds to the arrow we want to display */
   .list__item {
     overflow: hidden;
     display: block;
-    margin-bottom: 15px; }
+    margin-bottom: 5px;
+    padding: 5px 7px; }
+    .list__item:hover {
+      background: rgba(46, 154, 208, 0.12); }
   .list__row {
     display: block;
     margin-bottom: 4px; }
@@ -3175,6 +3251,8 @@ corresponds to the arrow we want to display */
     padding: 0 0 14px;
     margin-bottom: 45px;
     border-bottom: 1px dashed #253b4a; }
+  .storage .tr:hover {
+    background: transparent; }
   .storage .trMore {
     padding: 6px 0 0;
     margin-left: -13px;
@@ -3221,6 +3299,13 @@ corresponds to the arrow we want to display */
   top: 50%;
   margin-top: -9px;
   font-size: 18px; }
+  .copyBtn:before {
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
+  .copyBtn:hover:before {
+    color: #e75647; }
 
 .copyText {
   overflow: hidden;
@@ -3228,6 +3313,37 @@ corresponds to the arrow we want to display */
   white-space: nowrap;
   max-width: 100%;
   display: block; }
+
+.copied {
+  position: absolute;
+  top: 50%;
+  margin-top: -12px;
+  height: 24px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 10;
+  background: #2e9ad0;
+  color: #232328;
+  font-size: 14px;
+  line-height: 24px;
+  padding: 0 5px;
+  font-weight: 500;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  -webkit-transition: opacity 0.2s ease;
+  -moz-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+  opacity: 0; }
+  .copied.active {
+    opacity: 1; }
+  .copyParent-left .copied {
+    margin-left: 30px; }
+  .copyParent-right .copied {
+    margin-right: 30px; }
 
 .powered__wrap {
   margin: 17px 0; }
@@ -3268,8 +3384,10 @@ corresponds to the arrow we want to display */
       color: #2e9ad0; }
 
 .tr {
-  padding: 6px 0;
+  padding: 6px 2px;
   overflow: hidden; }
+  .tr:hover {
+    background: rgba(46, 154, 208, 0.12); }
   .trMain {
     overflow: hidden; }
   .trMore {
@@ -3278,7 +3396,9 @@ corresponds to the arrow we want to display */
   .tr-head {
     border-bottom: 1px dashed #253b4a;
     padding: 0 0 15px !important;
-    margin-bottom: 14px; }
+    margin-bottom: 14px !important; }
+    .tr-head:hover {
+      background: transparent; }
   .tr.open .trMore {
     display: block; }
   .tr.open .table__moreArrowIcon {
@@ -3287,12 +3407,27 @@ corresponds to the arrow we want to display */
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     -o-transform: rotate(90deg);
-    transform: rotate(90deg); }
+    transform: rotate(90deg);
+    opacity: 1; }
+  .tr.open .trMain .mark-bd {
+    background: rgba(46, 154, 208, 0.2); }
+  .tr.open .trMain .mark-bd.disabled {
+    color: #2e9ad0; }
 
 .td, .th {
   float: left;
   min-width: 1px;
   min-height: 1px; }
+  .td.hover:hover, .th.hover:hover {
+    cursor: pointer; }
+    .td.hover:hover .table__moreArrowIcon, .th.hover:hover .table__moreArrowIcon {
+      opacity: 1;
+      cursor: pointer; }
+    .td.hover:hover .mark-bd, .th.hover:hover .mark-bd {
+      cursor: pointer;
+      background: rgba(46, 154, 208, 0.2); }
+    .td.hover:hover .mark-bd.disabled, .th.hover:hover .mark-bd.disabled {
+      color: #2e9ad0; }
 
 .th {
   font-size: 21px;
@@ -3301,101 +3436,106 @@ corresponds to the arrow we want to display */
 .td {
   position: relative; }
 
-.tumbler__label {
-  position: relative;
-  display: block;
-  margin: 0;
-  line-height: 0;
-  font-size: 0;
-  cursor: pointer;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none; }
-  .tumbler__label.inline {
-    display: inline-block;
-    vertical-align: middle; }
-
-.tumbler__input {
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  cursor: pointer;
-  z-index: 1;
-  height: 100%;
-  padding: 0; }
-  .tumbler__input:checked ~ .tumbler__slider:before {
-    left: 29px; }
-  .tumbler__input[disabled] {
-    right: auto;
-    width: 30px;
-    cursor: default; }
-    .tumbler__input[disabled] ~ .tumbler__slider {
-      background: #e5e5e5 !important; }
-      .tumbler__input[disabled] ~ .tumbler__slider:before {
-        background: #cacaca !important; }
-
-.tumbler__slider {
-  display: inline-block;
-  vertical-align: top;
-  width: 56px;
-  height: 28px;
-  position: relative;
-  border-radius: 20px; }
-  .tumbler__slider:before {
+.tumbler {
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease; }
+  .tumbler:hover {
+    opacity: .8; }
+  .tumbler__label {
+    position: relative;
+    display: block;
+    margin: 0;
+    line-height: 0;
+    font-size: 0;
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none; }
+    .tumbler__label.inline {
+      display: inline-block;
+      vertical-align: middle; }
+  .tumbler__input {
+    opacity: 0;
     position: absolute;
-    content: "";
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    top: 50%;
-    left: 3px;
-    margin-top: -12px;
-    -webkit-transition: all 0.1s ease;
-    -moz-transition: all 0.1s ease;
-    -o-transition: all 0.1s ease;
-    transition: all 0.1s ease; }
-
-.tumbler__text {
-  overflow: hidden;
-  white-space: nowrap;
-  display: inline-block;
-  vertical-align: top;
-  font-size: 24px;
-  line-height: 24px; }
-  .tumbler__text ~ .tumbler__slider {
-    margin-left: 15px; }
-
-.tumbler.blue-gray .tumbler__slider {
-  background: #656569; }
-  .tumbler.blue-gray .tumbler__slider:before {
-    background: #232328; }
-
-.tumbler.blue-gray .tumbler__input:checked ~ .tumbler__slider {
-  background: #2e9ad0; }
-
-.tumbler.c-black .tumbler__input ~ .tumbler__text {
-  color: #9d9d9d; }
-
-.tumbler.c-black .tumbler__input + .tumbler__text {
-  color: #000; }
-
-.tumbler.c-black .tumbler__input:checked ~ .tumbler__text {
-  color: #000; }
-
-.tumbler.c-black .tumbler__input:checked + .tumbler__text {
-  color: #9d9d9d; }
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+    z-index: 1;
+    height: 100%;
+    padding: 0; }
+    .tumbler__input:checked ~ .tumbler__slider:before {
+      left: 29px; }
+    .tumbler__input[disabled] {
+      right: auto;
+      width: 30px;
+      cursor: default; }
+      .tumbler__input[disabled] ~ .tumbler__slider {
+        background: #e5e5e5 !important; }
+        .tumbler__input[disabled] ~ .tumbler__slider:before {
+          background: #cacaca !important; }
+  .tumbler__slider {
+    display: inline-block;
+    vertical-align: top;
+    width: 56px;
+    height: 28px;
+    position: relative;
+    border-radius: 20px; }
+    .tumbler__slider:before {
+      position: absolute;
+      content: "";
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      top: 50%;
+      left: 3px;
+      margin-top: -12px;
+      -webkit-transition: all 0.1s ease;
+      -moz-transition: all 0.1s ease;
+      -o-transition: all 0.1s ease;
+      transition: all 0.1s ease; }
+  .tumbler__text {
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 24px;
+    line-height: 24px; }
+    .tumbler__text ~ .tumbler__slider {
+      margin-left: 15px; }
+  .tumbler.blue-gray .tumbler__slider {
+    background: #656569; }
+    .tumbler.blue-gray .tumbler__slider:before {
+      background: #232328; }
+  .tumbler.blue-gray .tumbler__text {
+    color: rgba(46, 154, 208, 0.8); }
+  .tumbler.blue-gray .tumbler__input:checked ~ .tumbler__slider {
+    background: #2e9ad0; }
+  .tumbler.blue-gray .tumbler__input:checked ~ .tumbler__text {
+    color: #2e9ad0; }
+  .tumbler.c-black .tumbler__input ~ .tumbler__text {
+    color: #9d9d9d; }
+  .tumbler.c-black .tumbler__input + .tumbler__text {
+    color: #000; }
+  .tumbler.c-black .tumbler__input:checked ~ .tumbler__text {
+    color: #000; }
+  .tumbler.c-black .tumbler__input:checked + .tumbler__text {
+    color: #9d9d9d; }
 
 .loader {
+  position: relative;
   text-align: center;
   font-size: 0;
   height: 30px;
   line-height: 30px;
   width: 100%;
-  background: #2e9ad0 url("../images/pattern.png") 0 0 repeat; }
+  background: #2e9ad0; }
   .loader__text {
+    position: relative;
+    z-index: 1;
     display: inline-block;
     vertical-align: middle;
     font-size: 14px;
@@ -3404,6 +3544,12 @@ corresponds to the arrow we want to display */
     height: 20px;
     line-height: 20px;
     background: #2e9ad0; }
+  .loader__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: url("../images/pattern.png") 0 0 repeat; }
 
 .date__wrap {
   margin: -3px 0 90px; }
@@ -3453,7 +3599,13 @@ corresponds to the arrow we want to display */
 .date__trigger {
   float: right;
   font-size: 23px;
-  padding: 4px 0 4px 15px; }
+  padding: 4px 0 4px 15px;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease; }
+  .date__trigger:hover {
+    opacity: .6; }
 
 .pag {
   display: inline-block; }
@@ -3490,6 +3642,21 @@ corresponds to the arrow we want to display */
       border-color: #232328; }
     .pag__item.next {
       margin-left: 5px; }
+
+.error {
+  display: inline-block;
+  background: #e75647;
+  padding: 0 10px; }
+  .error__icon {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+    color: #232328; }
+  .error__text {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+    color: #232328; }
 
 .row {
   position: relative; }
@@ -3767,7 +3934,7 @@ corresponds to the arrow we want to display */
 .section-blocks {
   margin-bottom: 110px; }
   .section-blocks .tr {
-    padding: 7px 0 11px; }
+    margin: 0 0 6px; }
   .section-blocks .th:nth-child(1),
   .section-blocks .td:nth-child(1) {
     width: 18%; }
@@ -3799,10 +3966,8 @@ corresponds to the arrow we want to display */
       padding-right: 45px; }
     .section-appStatusWrap .col:nth-child(2) {
       padding-left: 20px; }
-  .section-appStatus .list {
-    padding-left: 10px; }
   .section-appStatus .list__item {
-    margin-bottom: 27px; }
+    margin-bottom: 17px; }
   .section-appStatus .link {
     display: inline-block;
     vertical-align: text-bottom;
@@ -3829,10 +3994,10 @@ corresponds to the arrow we want to display */
     max-height: 200px;
     padding-top: 5px;
     padding-bottom: 7px; }
-  .transactions__item.open .transactions__row .name {
-    opacity: 1; }
-    .transactions__item.open .transactions__row .name__arrow {
-      display: block; }
+  .transactions__item.open .transactions__row .name__arrow {
+    display: block; }
+  .transactions__item.open .transactions__moreBtn:hover .icon-minus:before {
+    content: "\e923"; }
 
 .transactions__head {
   overflow: hidden;
@@ -3869,6 +4034,8 @@ corresponds to the arrow we want to display */
   font-size: 18px; }
   .transactions__moreBtn .icon-minus {
     display: none; }
+  .transactions__moreBtn:hover .icon-plus:before {
+    content: "\e921"; }
 
 .transactions__row {
   overflow: hidden;
@@ -3877,19 +4044,19 @@ corresponds to the arrow we want to display */
   margin-bottom: 3px; }
   .transactions__row .name {
     float: left;
-    opacity: .7;
     line-height: 0;
-    font-size: 0; }
+    font-size: 0;
+    padding: 0 2px; }
     .transactions__row .name__arrow {
       display: none;
       float: left;
       margin-right: 3px;
+      border-right: 3px solid #232328;
       width: 17px;
       height: 18px;
       line-height: 18px;
       top: auto;
       font-size: 16px;
-      background: #2c82ae;
       color: #232328;
       text-align: center;
       font-weight: 600;
