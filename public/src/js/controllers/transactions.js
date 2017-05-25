@@ -18,7 +18,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 		},
 		setHeight: 230,
 		scrollInertia: 0
-	}
+	};
 
 	var _aggregateItems = function(txId, items) {
 
@@ -262,7 +262,6 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 	$scope.$on('tx', function(event, txid) {
 		_findTx(txid);
 	});
-
 });
 
 angular.module('insight.transactions').controller('SendRawTransactionController', 
