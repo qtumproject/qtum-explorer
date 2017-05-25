@@ -4,7 +4,7 @@ var TRANSACTION_DISPLAYED = 10;
 var BLOCKS_DISPLAYED = 5;
 
 angular.module('insight.system').controller('IndexController',
-	function($scope, getSocket, Blocks) {
+	function($scope, $timeout, getSocket, Blocks) {
 
 		var self = this;
 			self.txs = [];
@@ -15,19 +15,25 @@ angular.module('insight.system').controller('IndexController',
 				advanced: {
 					updateOnContentResize: true
 				},
-				setHeight: 620,
 				scrollInertia: 0
 			};
 
-		var _getBlocks = function() {
+		var _getBlocks = function(limit) {
 			Blocks.get({
-				limit: BLOCKS_DISPLAYED
+				limit: limit ? limit : BLOCKS_DISPLAYED
 			}, function(res) {
 
 				self.blocks = res.blocks;
 				self.blocksLength = res.length;
 			});
 		};
+
+		$scope.$watch(function(){
+
+			if($scope.updateScrollbar){
+				$scope.updateScrollbar();
+			}
+		});
 
 		var socket = getSocket($scope);
 

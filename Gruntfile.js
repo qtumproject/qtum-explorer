@@ -51,8 +51,7 @@ module.exports = function(grunt) {
 				'public/lib/angular-ui-utils/ui-utils.min.js', 
 				'public/lib/ngprogress/build/ngProgress.min.js', 
 				'public/lib/angular-gettext/dist/angular-gettext.min.js', 
-				'public/lib/angular-moment/angular-moment.min.js',
-				'public/lib/ng-scrollbars/dist/scrollbars.min.js'
+				'public/lib/angular-moment/angular-moment.min.js'
 			],
 			dest: 'public/js/angularjs-all.js'
 		},
@@ -61,7 +60,7 @@ module.exports = function(grunt) {
 				'public/src/js/app.js', 
 				'public/src/js/controllers/*.js', 
 				'public/src/js/services/*.js', 
-				'public/src/js/directives.js', 
+				'public/src/js/directives/*.js', 
 				'public/src/js/filters.js', 
 				'public/src/js/config.js', 
 				'public/src/js/init.js', 
