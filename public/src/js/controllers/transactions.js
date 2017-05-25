@@ -249,6 +249,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 	// Highlighted txout
 	if ($routeParams.v_type == '>' || $routeParams.v_type == '<') {
+
 		self.from_vin = $routeParams.v_type == '<' ? true : false;
 		self.from_vout = $routeParams.v_type == '>' ? true : false;
 		self.v_index = parseInt($routeParams.v_index);
@@ -257,11 +258,6 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 	//Init without txs
 	self.txs = [];
-
-	self.toFixed = function(number) {
-
-		return typeof Number(number) === 'number' ? Number(number).toFixed(2) : number
-	}
 
 	$scope.$on('tx', function(event, txid) {
 		_findTx(txid);

@@ -1,7 +1,7 @@
 <div ng-include src="'views/includes/connection.html'"></div>
 <div class="box" 
-	 data-ng-controller="IndexController as IC" 
-	 data-ng-init="IC.index()">
+	 ng-controller="IndexController as IC" 
+	 ng-init="IC.index()">
 	<div class="content__left">
 		<div class="heading">
 			<div class="heading__pic">
@@ -9,7 +9,7 @@
 			</div>
 			<h2 class="heading__title" translate>Blocks</h2>
 			<div class="heading__linkWrap">
-				<a href="blocks" class="heading__link" translate>See All Blocks</a>
+				<a href="blocks" class="heading__link" translate>See all blocks</a>
 			</div>
 		</div>
 		<div class="content__list content__list-blocks">
@@ -18,30 +18,31 @@
 				 ng-scrollbars-config="IC.scrollConfig">
 				<ul class="list list-blocks">
 					<li class="list__item"
-						data-ng-repeat='block in IC.blocks'>
+						ng-repeat='block in IC.blocks'>
 						<a href="block/{{ block.hash }}" class="list-blocks__left">
-							<span class="list__row" translate>
-								Block {{ block.height }}
+							<span class="list__row">
+								{{ 'Block' | translate }} 
+								{{ block.height }}
 							</span>
 							<span class="list__row fsz-13" am-time-ago="block.time * 1000">
 							</span>
 						</a>
 						<div class="list-blocks__right">
 							<div class="list__row">
-								<span class="" translate>Mined By</span>
+								<span translate>Mined by</span>
 								<span class="mark" 
 									  ng-if="block.poolInfo.poolName">
 									{{ block.poolInfo.poolName }}
 								</span>
 							</div>
 							<div class="list__row">
-								<span class="label" translate>Size:</span>
+								<span class="label">{{ 'Size' | translate }}:</span>
 								<span class="labeled">
 									{{ block.size }}
 								</span>
 							</div>
 							<div class="list__row">
-								<span class="label" translate>Transactions:</span>
+								<span class="label" translate>{{ 'Transactions' | translate }}:</span>
 								<span class="labeled">
 									{{ block.txlength }}
 								</span>
@@ -59,7 +60,7 @@
 			</div>
 			<h2 class="heading__title" translate>Transactions</h2>
 			<div class="heading__linkWrap">
-				<a href="txs" class="heading__link" translate>View All</a>
+				<a href="txs" class="heading__link" translate>View all</a>
 			</div>
 		</div>
 		<div class="content__list content__list-transactions">
@@ -68,7 +69,7 @@
 				 ng-scrollbars-config="IC.scrollConfig">
 				<ul class="list list-transactions">
 					<li class="list__item"
-						data-ng-repeat='tx in IC.txs'>
+						ng-repeat='tx in IC.txs'>
 						<div class="list-transactions__right">
 							<div class="list__row fsz-13" am-time-ago="tx.createTime">
 							</div>
@@ -84,8 +85,7 @@
 							<div class="list__row">
 								<span class="label" translate>Value Out:</span>
 								<span class="fsz-16 upp">
-									{{ $root.currency.getConvertion(tx.valueOut) || tx.valueOut }} 
-									{{ Constants.CURRENCY }}
+									{{ $root.currency.getConvertion(tx.valueOut) }}
 								</span>
 							</div>
 						</div>

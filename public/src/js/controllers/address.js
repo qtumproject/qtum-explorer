@@ -6,10 +6,6 @@ function($scope, $rootScope, $routeParams, $location, Address, getSocket) {
 	var self = this;
 	var socket = getSocket($scope);
 	var addrStr = $routeParams.addrStr;
-	self.QRCOLOR = { 
-		color: '#2e9ad0',
-		background: '#232328'
-	};
 
 	var _startSocket = function() {
 		socket.on('bitcoind/addresstxid', function(data) {

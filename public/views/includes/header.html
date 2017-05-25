@@ -1,45 +1,42 @@
-<div data-ng-controller="HeaderController">
+<a href="." class="logo">
+	<img src="images/logo.png" alt="" class="logoPic-def"/>
+	<img src="images/logo-hover.png" alt="" class="logoPic-hover"/>
+</a>
 
-	<a href="." class="logo">
-		<img src="images/logo.png" alt="" class="logoPic-def"/>
-		<img src="images/logo-hover.png" alt="" class="logoPic-hover"/>
-	</a>
-
-	<div class="header__lang-switcher" >
-		<div class="language-switcher">
-			<div class="language-switcher__selected" 
-					ng-repeat="l in availableLanguages | filter: { isoCode: defaultLanguage }">
-				{{ l.name }}
-				<span class="language-switcher__icon">
-					<img src="images/arrow.png" alt="" class="arrow-def"/>
-					<img src="images/arrow-black.png" alt="" class="arrow-hover"/>
-				</span>
-			</div>
-			<nav class="language-switcher__container"
-					ng-show="availableLanguages.0">
-				<a ng-click="setLanguage(l.isoCode)"
-					ng-repeat="l in availableLanguages"
-					ng-class="{'selected': defaultLanguage == l.isoCode}"
-					href="#" 
-					class="language-switcher__item">
-					{{ l.name }}
-				</a>
-			</nav>
+<div class="header__lang-switcher" >
+	<div class="language-switcher">
+		<div class="language-switcher__selected" 
+			 ng-repeat="l in HC.availableLanguages | filter: { isoCode: HC.defaultLanguage }">
+			{{ l.name }}
+			<span class="language-switcher__icon">
+				<img src="images/arrow.png" alt="" class="arrow-def"/>
+				<img src="images/arrow-black.png" alt="" class="arrow-hover"/>
+			</span>
 		</div>
-	</div>
-
-	<div class="box">
-		<nav class="nav">
-			<a data-ng-repeat="item in menu" 
-				ui-route="{{ item.link }}"  
-				href="{{ item.link }}" 
-				class="nav__item">
-				{{ item.title|translate }}
+		<nav class="language-switcher__container" ng-if="HC.availableLanguages.0">
+			<a ng-click="HC.setLanguage(l.isoCode)"
+			   ng-repeat="l in HC.availableLanguages"
+			   ng-class="{ 'selected' : HC.defaultLanguage == l.isoCode }"
+			   href="#" 
+			   class="language-switcher__item">
+				{{ l.name }}
 			</a>
 		</nav>
-		<div class="search__wrap" 
-				data-ng-include 
-				src="'views/includes/search.html'">
-		</div>
+	</div>
+</div>
+
+<div class="box">
+	<nav class="nav">
+		<a ng-repeat="item in HC.menu" 
+		   ui-route="{{ item.link }}"  
+		   href="{{ item.link }}" 
+		   class="nav__item"
+		   translate>
+			{{ item.title }}
+		</a>
+	</nav>
+	<div class="search__wrap" 
+		 ng-include 
+		 src="'views/includes/search.html'">
 	</div>
 </div>

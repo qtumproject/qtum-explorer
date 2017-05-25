@@ -7,7 +7,16 @@ angular.module('insight')
 })
 .constant('Constants', {
 
-	CURRENCY: 'QTUM'
+	CURRENCY: {
+		QTUM : 'QTUM',
+		USD : 'USD',
+		mBTC : 'mBTC',
+		bits : 'bits'
+	},
+	QRCOLOR : { 
+		color: '#2e9ad0',
+		background: '#232328'
+	}
 });
 
 //Setting up route

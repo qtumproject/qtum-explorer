@@ -4,7 +4,7 @@
 		<div class="ov">
 			<h1 class="heading__title pull-left" translate>Address</h1>
 			<div class="heading__address pull-right" ng-if="AC.address.addrStr">
-				{{ $root.currency.getConvertion(AC.address.balance) || AC.address.balance }} QTUM
+				{{ $root.currency.getConvertion(AC.address.balance) }}
 			</div>
 		</div>
 		<div class="heading__sm">
@@ -36,7 +36,7 @@
 						</div>
 						<div class="list__right">
 							<div class="">
-								{{ $root.currency.getConvertion(AC.address.totalReceived) || AC.address.totalReceived }} QTUM
+								{{ $root.currency.getConvertion(AC.address.totalReceived) }}
 							</div>
 						</div>
 					</li>
@@ -46,7 +46,7 @@
 						</div>
 						<div class="list__right">
 							<div class="">
-								{{ $root.currency.getConvertion(AC.address.totalSent) || AC.address.totalSent }} QTUM
+								{{ $root.currency.getConvertion(AC.address.totalSent) }}
 							</div>
 						</div>
 					</li>
@@ -56,7 +56,7 @@
 						</div>
 						<div class="list__right">
 							<div class="">
-								{{ $root.currency.getConvertion(address.balance) || address.balance }} QTUM
+								{{ $root.currency.getConvertion(AC.address.balance) }}
 							</div>
 						</div>
 					</li>
@@ -66,7 +66,7 @@
 						</div>
 						<div class="list__right">
 							<div class="">
-								{{ address.txApperances }}
+								{{ AC.address.txApperances }}
 							</div>
 						</div>
 					</li>
@@ -74,8 +74,8 @@
 			</div>
 			<div class="col col-5">
 				<a href='' class="qr__link">
-					<qrcode color="{{ AC.QRCOLOR.color }}" 
-							background="{{ AC.QRCOLOR.background }}"
+					<qrcode color="{{ $root.Constants.QRCOLOR.color }}" 
+							background="{{ $root.Constants.QRCOLOR.background }}"
 							size="160" 
 							data="{{ AC.address.addrStr }}">
 					</qrcode>

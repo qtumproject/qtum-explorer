@@ -38,8 +38,7 @@
 				</span>
 			</a>
 			<div class="data attn" ng-if="vin.addr">
-				{{ vin.value }}
-				{{ Constants.CURRENCY }}
+				{{ $root.currency.getConvertion(vin.value) }}
 			</div>
 		</div>
 		<div class="transactions__addInfo">
@@ -62,7 +61,6 @@
 						   ngclipboard 
 			  		 	   data-clipboard-text="{{ vin.scriptSig.asm }}">
 						</a>
-		
 						<span class="copyText">
 							{{ vin.scriptSig.asm }}
 						</span>
@@ -90,9 +88,7 @@
 						</span>
 					</a>
 					<div class="data" ng-class="{ 'special' : vout.value }">
-						{{ TC.toFixed($root.currency.getConvertion(!tx.showAdditInfo ? vout.value : item.value) || 
-							!tx.showAdditInfo ? vout.value : item.value) }} 
-						{{ Constants.CURRENCY }} 
+						{{ !tx.showAdditInfo ? $root.currency.getConvertion(vout.value) : $root.currency.getConvertion(item.value) }} 
 						<span class="special" ng-if="vout.isSpent">(S)</span>
 						<span class="special" ng-if="!vout.isSpent">(U)</span>
 					</div>
@@ -157,7 +153,8 @@
 	<div class="pull-left" ng-if="!tx.isCoinBase && Number(tx.fees) >= 0">
 		<div class="transactions__info transp">
 			<span translate>Fee</span>: 
-			{{ $root.currency.getConvertion(tx.fees) || tx.fees }} QTUM
+			{{ $root.currency.getConvertion(tx.fees) }} 
+			{{ CC.currency.symbol }}
 		</div>
 	</div>
 	<div class="pull-right text_r" 
@@ -167,11 +164,10 @@
 		}">
 		<div class="transactions__info">
 			{{ tx.confirmations }} 
-			{{ tx.confirmations > 1 ? ('confirmations' | translate) : ('confirmation' | translate) }}
+			{{ 'confirmations' | translate }}
 		</div>
 		<div class="transactions__info">
-			{{ tx.valueOut }}
-			{{ Constants.CURRENCY }}
+			{{ $root.currency.getConvertion(tx.valueOut) }}
 		</div>
 	</div>
 </div>
