@@ -1,41 +1,40 @@
 <div ng-include src="'views/includes/connection.html'"></div>
-<div class="box" ng-controller="BlocksController as BC">
+<div class="box" ng-controller="BlocksController as BC" ng-init="BC.list()">
 	<div class="heading margin1">
 		<h1 class="heading__title" translate>Blocks by Date</h1>
 	</div>
 	<div class="date__wrap">
 		<div class="pull-right">
-			<a href="blocks-date/{{ Date.now() }}" class="date__btn prev">
+			<a href="blocks-date/{{ BC.datepicker.date - (1000 * 60 * 60 * 24) | amDateFormat: 'YYYY-MM-DD' }}" class="date__btn prev">
 				<span class="icon-arrow-left"></span>
-				{{ BC.today - (1000 * 60 * 60 * 24) | amDateFormat: 'YYYY-MM-DD' }}
+				{{ BC.datepicker.date - (1000 * 60 * 60 * 24) | amDateFormat: 'YYYY-MM-DD' }}
 			</a>
-			<a href="" class="date__btn next">
-				{{ BC.today + (1000 * 60 * 60 * 24) | amDateFormat: 'YYYY-MM-DD' }}
+			<a href="blocks-date/{{ BC.datepicker.date + (1000 * 60 * 60 * 24) | amDateFormat: 'YYYY-MM-DD' }}" class="date__btn next">
+				{{ BC.datepicker.date + (1000 * 60 * 60 * 24) | amDateFormat: 'YYYY-MM-DD' }}
 				<span class="icon-arrow-right2"></span>
 			</a>
 
 			<div class="date__textWrap">
 				<div class="" >
-
-						<div ng-app="calPicker" ng-controller="DatepickerCtrl">
-							<a href="" class="date__trigger  icon-calendar" ng-click="open($event)"></a>
-
-							<div class="date__text">
-								<input type="text" class="date__textField"
-										uib-datepicker-popup="{{format}}"
-										ng-model="dt"
-										is-open="opened"
-										datepicker-options="dateOptions"
-										date-disabled="disabled(date, mode)"
-										ng-required="true"
-										close-text="Close"
-										id="date-picker"
-										readonly
-										/>
-								<div class="fsz-13">a few seconds ago</div>
-							</div>
-
+					<div>
+						<a href="" 
+						   class="date__trigger  icon-calendar" 
+						   ng-click="BC.openDatepicker($event)"></a>
+						<div class="date__text">
+							<input type="text" 
+								   class="date__textField"
+								   uib-datepicker-popup="'yyyy-MM-dd'"
+								   ng-model="BC.date"
+								   is-open="BC.datepicker.opened"
+								   datepicker-options="BC.datepicker.dateOptions"
+								   date-disabled="BC.disableDatepicker(date, mode)"
+								   ng-required="true"
+								   close-text="{{ 'Close' | translate }}"
+								   id="date-picker"
+								   readonly />
+							<div class="fsz-13" am-time-ago="BC.datepicker.date"></div>
 						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -44,198 +43,90 @@
 	<div class="section section-blocks">
 		<div class="table">
 			<div class="tr tr-head">
-				<div class="th">Height</div>
-				<div class="th">Timestamp</div>
-				<div class="th text_r">Transactions</div>
-				<div class="th">Mined by</div>
-				<div class="th text_r">Size</div>
+				<div class="th" translate>Height</div>
+				<div class="th" translate>Timestamp</div>
+				<div class="th text_r" translate>Transactions</div>
+				<div class="th" translate>Mined by</div>
+				<div class="th text_r" translate>Size</div>
 			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
+			<div class="tr" ng-if="BC.loading">
+				<div>
+					<span translate>Waiting for blocks...</span> 
+					<span class="loader-gif"></span>
 				</div>
-				<div class="td">
-					Feb 7, 2017 3:28:31 PM
-				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
 			</div>
-			<div class="tr">
+			<div class="tr" ng-repeat='block in BC.paginationState.blocks'>
 				<div class="td">
-					<a href="" class="link mark">1087931</a>
+					<a href="block/{{ block.hash }}" class="link mark">{{ block.height }}</a>
 				</div>
 				<div class="td">
-					Feb 7, 2017 3:28:31 PM
+					{{ block.time * 1000 | amDateFormat: 'MMM D, YYYY h:mm:ss A' }}
 				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
-			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
+				<div class="td text_r">
+					{{ block.txlength }}
 				</div>
 				<div class="td">
-					Feb 7, 2017 3:28:31 PM
+					{{ b.poolInfo.poolName ? b.poolInfo.poolName : '-' }}
 				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
-			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
+				<div class="td text_r">
+					{{ block.size }}
 				</div>
-				<div class="td">
-					Feb 7, 2017 3:28:31 PM
-				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
-			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
-				</div>
-				<div class="td">
-					Feb 7, 2017 3:28:31 PM
-				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
-			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
-				</div>
-				<div class="td">
-					Feb 7, 2017 3:28:31 PM
-				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
-			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
-				</div>
-				<div class="td">
-					Feb 7, 2017 3:28:31 PM
-				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
-			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
-				</div>
-				<div class="td">
-					Feb 7, 2017 3:28:31 PM
-				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
-			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
-				</div>
-				<div class="td">
-					Feb 7, 2017 3:28:31 PM
-				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
-			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
-				</div>
-				<div class="td">
-					Feb 7, 2017 3:28:31 PM
-				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
-			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
-				</div>
-				<div class="td">
-					Feb 7, 2017 3:28:31 PM
-				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
-			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
-				</div>
-				<div class="td">
-					Feb 7, 2017 3:28:31 PM
-				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
-			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
-				</div>
-				<div class="td">
-					Feb 7, 2017 3:28:31 PM
-				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
-			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
-				</div>
-				<div class="td">
-					Feb 7, 2017 3:28:31 PM
-				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
-			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
-				</div>
-				<div class="td">
-					Feb 7, 2017 3:28:31 PM
-				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
-			</div>
-			<div class="tr">
-				<div class="td">
-					<a href="" class="link mark">1087931</a>
-				</div>
-				<div class="td">
-					Feb 7, 2017 3:28:31 PM
-				</div>
-				<div class="td text_r">115</div>
-				<div class="td">-</div>
-				<div class="td text_r">506</div>
 			</div>
 		</div>
 	</div>
 	<div class="pag__wrap">
 		<div class="pag">
-			<a href="" class="pag__item active">1</a>
-			<a href="" class="pag__item">2</a>
-			<a href="" class="pag__item">3</a>
-			<span class="pag__item no-hover">...</span>
-			<a href="" class="pag__item">37</a>
-			<a href="" class="pag__item next">></a>
+			<a href="" 
+			   class="pag__item next" 
+			   ng-if="BC.paginationState.page > 4"  
+			   ng-click="BC.setPage(BC.paginationState.page - 1)"><</a>
+			<a href="" 
+			   class="pag__item" 
+			   ng-if="BC.paginationState.page > 3"
+			   ng-click="BC.setPage(1)">
+				1
+			</a>
+			<span class="pag__item no-hover" ng-if="BC.paginationState.page > 4">...</span>
+			<a href="" 
+			   class="pag__item" 
+			   ng-if="BC.paginationState.page > 2"
+			   ng-click="BC.setPage(BC.paginationState.page - 2)">
+				{{ BC.paginationState.page - 2 }}
+			</a>
+			<a href="" 
+			   class="pag__item" 
+			   ng-if="BC.paginationState.page > 1"
+			   ng-click="BC.setPage(BC.paginationState.page - 1)">
+				{{ BC.paginationState.page - 1 }}
+			</a>
+			<a href="" 
+			   class="pag__item active"
+			   ng-click="BC.setPage(BC.paginationState.page)">
+				{{ BC.paginationState.page }}
+			</a>
+			<a href="" 
+			   class="pag__item" 
+			   ng-if="BC.paginationState.page + 1 <= BC.paginationState.pagesLength"
+			   ng-click="BC.setPage(BC.paginationState.page + 1)">
+				{{ BC.paginationState.page + 1 }}
+			</a>
+			<a href="" 
+			   class="pag__item" 
+			   ng-if="BC.paginationState.page + 2 <= BC.paginationState.pagesLength"
+			   ng-click="BC.setPage(BC.paginationState.page + 2)">
+				{{ BC.paginationState.page + 2 }}
+			</a>
+			<span class="pag__item no-hover" ng-if="BC.paginationState.page + 4 <= BC.paginationState.pagesLength">...</span>
+			<a href="" 
+			   class="pag__item" 
+			   ng-if="BC.paginationState.page + 3 <= BC.paginationState.pagesLength"
+			   ng-click="BC.setPage(BC.paginationState.pagesLength)">
+				{{ BC.paginationState.pagesLength }}
+			</a>
+			<a href="" 
+			   class="pag__item next" 
+			   ng-if="BC.paginationState.page + 4 <= BC.paginationState.pagesLength"
+			   ng-click="BC.setPage(BC.paginationState.page + 1)">></a>
 		</div>
 	</div>
 </div>

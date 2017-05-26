@@ -5,7 +5,22 @@ angular.module('insight.blocks').controller('BlocksController',
 
 	var self = this;
 	self.loading = false;
-	self.today = Date.now();
+	self.date = new Date();
+	self.datepicker = {
+		date : self.date.getTime(),
+		opened : false,
+		format : 'yyyy-MM-dd',
+		dateOptions : {
+			maxDate: new Date(2020, 5, 22),
+			minDate: new Date(),
+			startingDay: 1
+		}
+	}
+	self.paginationState = {
+		page: 1,
+		pagesLength: null,
+		blocks: null
+	}
 
 	if ($routeParams.blockHeight) {
 
@@ -39,23 +54,29 @@ angular.module('insight.blocks').controller('BlocksController',
 		}
 	});
 
-	$scope.openCalendar = function($event) {
+	self.openDatepicker = function(e) {
 
-		$event.preventDefault();
-		$event.stopPropagation();
+		e.preventDefault();
+		e.stopPropagation();
 
-		self.opened = true;
-	};
+		self.datepicker.opened = true;
+	}
 
-	$scope.humanSince = function(time) {
+	self.disableDatepicker = function (data) {
 
-		var m = moment.unix(time).startOf('day');
-		var b = moment().startOf('day');
+		var date = data.date,
+			mode = data.mode;
 
-		return m.max().from(b);
-	};
+		return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+	}
 
-	$scope.list = function() {
+	self.setPage = function(page){
+
+		self.paginationState.page = page;
+		self.paginationState.blocks = self.blocks.slice((self.paginationState.page - 1) * $rootScope.Constants.BLOCKS_AMOUNT, self.paginationState.page * $rootScope.Constants.BLOCKS_AMOUNT);
+	}
+
+	self.list = function() {
 
 		self.loading = true;
 
@@ -77,7 +98,7 @@ angular.module('insight.blocks').controller('BlocksController',
 			self.before = ' before ' + d.getHours() + ':' + m;
 		}
 
-		$rootScope.titleDetail = $scope.detail;
+		$rootScope.titleDetail = self.detail;
 
 		Blocks.get({
 			blockDate: $routeParams.blockDate,
@@ -87,6 +108,8 @@ angular.module('insight.blocks').controller('BlocksController',
 			self.loading = false;
 			self.blocks = res.blocks;
 			self.pagination = res.pagination;
+			self.paginationState.pagesLength = Math.ceil(self.blocks.length / $rootScope.Constants.BLOCKS_AMOUNT);
+			self.paginationState.blocks = self.blocks.slice(0, $rootScope.Constants.BLOCKS_AMOUNT);
 		});
 	};
 

@@ -33,9 +33,9 @@ module.exports = function(grunt) {
 				'public/lib/momentjs/min/moment.min.js', 
 				'public/lib/moment/lang/es.js',
 				'public/lib/jquery/dist/jquery.min.js',
-				'public/lib/ng-scrollbars/dist/jquery.mCustomScrollbar.concat.min.js',
 				'public/lib/bitcore-lib/bitcore-lib.js',
-				'public/lib/clipboard/dist/clipboard.min.js'
+				'public/lib/clipboard/dist/clipboard.min.js',
+				'public/lib/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
 			],
 			dest: 'public/js/vendors.js'
 		},

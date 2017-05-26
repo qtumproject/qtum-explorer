@@ -16,7 +16,8 @@ angular.module('insight')
 	QRCOLOR : { 
 		color: '#2e9ad0',
 		background: '#232328'
-	}
+	},
+	BLOCKS_AMOUNT: 15
 });
 
 //Setting up route
