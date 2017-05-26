@@ -5,6 +5,7 @@ angular.module('insight.blocks').controller('BlocksController',
 
 	var self = this;
 	self.loading = false;
+	self.today = Date.now();
 
 	if ($routeParams.blockHeight) {
 

@@ -1,16 +1,16 @@
 <div ng-include src="'views/includes/connection.html'"></div>
-<div class="box">
+<div class="box" ng-controller="BlocksController as BC">
 	<div class="heading margin1">
 		<h1 class="heading__title" translate>Blocks by Date</h1>
 	</div>
 	<div class="date__wrap">
 		<div class="pull-right">
-			<a href="" class="date__btn prev">
+			<a href="blocks-date/{{ Date.now() }}" class="date__btn prev">
 				<span class="icon-arrow-left"></span>
-				2017-02-05
+				{{ BC.today - (1000 * 60 * 60 * 24) | amDateFormat: 'YYYY-MM-DD' }}
 			</a>
 			<a href="" class="date__btn next">
-				2017-02-05
+				{{ BC.today + (1000 * 60 * 60 * 24) | amDateFormat: 'YYYY-MM-DD' }}
 				<span class="icon-arrow-right2"></span>
 			</a>
 
