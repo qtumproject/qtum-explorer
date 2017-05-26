@@ -3,8 +3,9 @@
 function render(defaults, configuredDefaults, elem, scope) {
 
 	var config = {};
+	console.log(elem.find('.scrollList').children().length, 'before')
 	elem.mCustomScrollbar('destroy');
-	
+	console.log(elem.find('.scrollList').children().length, 'after')
 	if (scope.ngScrollbarsConfig) {
 		config = scope.ngScrollbarsConfig;
 	}
@@ -38,6 +39,7 @@ function render(defaults, configuredDefaults, elem, scope) {
 	}
 
 	elem.mCustomScrollbar(config);
+	console.log(elem.find('.scrollList').children().length, 'afterafter')
 }
 
 angular.module('ngScrollbars', [])
@@ -70,26 +72,32 @@ angular.module('ngScrollbars', [])
 
 			var defaults = ScrollBars.defaults;
 			var configuredDefaults = $.mCustomScrollbar.defaults;
+			
 			scope.elem = elem;
 			scope.ngScrollbarsConfig.setHeight = parseInt(window.getComputedStyle(elem[0]).maxHeight);
 
-			scope.ngScrollbarsUpdate = function () {
+			scope.ngScrollbarsUpdate = function (value) {
 
-				if(elem.find('.scrollList').outerHeight() > scope.ngScrollbarsConfig.setHeight){
+				console.log(value, elem.find('.scrollList').children().length)
 
+				console.log(elem.find('.scrollList').height(),  scope.ngScrollbarsConfig.setHeight);
+
+				if(elem.find('.scrollList').outerHeight() >= scope.ngScrollbarsConfig.setHeight){
+					
 					render(defaults, configuredDefaults, elem, scope);
+					
 				}
 			};
 
-			scope.$watch('ngScrollbarsConfig', function (newVal, oldVal) {
+			// scope.$watch('ngScrollbarsConfig', function (newVal, oldVal) {
 
-				if (newVal !== undefined && elem.find('.scrollList').outerHeight() > scope.ngScrollbarsConfig.setHeight) {
+			// 	if (newVal !== undefined && elem.find('.scrollList').outerHeight() > scope.ngScrollbarsConfig.setHeight) {
 
-					render(defaults, configuredDefaults, elem, scope);
-				}
-			});
+			// 		render(defaults, configuredDefaults, elem, scope);
+			// 	}
+			// });
 
-			if(elem.find('.scrollList').outerHeight() > scope.ngScrollbarsConfig.setHeight){
+			if(elem.find('.scrollList').outerHeight() >= scope.ngScrollbarsConfig.setHeight){
 
 				render(defaults, configuredDefaults, elem, scope);
 			}

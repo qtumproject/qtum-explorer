@@ -17,6 +17,7 @@ angular.module('insight.system').controller('IndexController',
 				},
 				scrollInertia: 0
 			};
+			self.scrollSizeChangeCounter = 0;
 
 		var _getBlocks = function(limit) {
 			Blocks.get({
@@ -25,13 +26,19 @@ angular.module('insight.system').controller('IndexController',
 
 				self.blocks = res.blocks;
 				self.blocksLength = res.length;
+				self.scrollSizeChangeCounter++;
 			});
 		};
 
-		$scope.$watch(function(){
+		$timeout(function(){
+
+			_getBlocks(10)
+		},2000)
+
+		$scope.$watch(function(newValue){
 
 			if($scope.updateScrollbar){
-				$scope.updateScrollbar();
+				$scope.updateScrollbar(self.blocksLength);
 			}
 		});
 
@@ -44,6 +51,7 @@ angular.module('insight.system').controller('IndexController',
 
 				tx.createTime = Date.now();
 				self.txs.unshift(tx);
+				self.scrollSizeChangeCounter++;
 
 				if (self.txs.length > TRANSACTION_DISPLAYED) {
 					

@@ -16,7 +16,6 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 		advanced:{
 			updateOnContentResize: true
 		},
-		setHeight: 230,
 		scrollInertia: 0
 	};
 
