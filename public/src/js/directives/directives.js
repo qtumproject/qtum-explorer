@@ -1,9 +1,8 @@
 'use strict';
 
-var ZeroClipboard = window.ZeroClipboard;
-
 angular.module('insight')
 	.directive('scroll', function ($window) {
+
 		return function(scope, element, attrs) {
 			angular.element($window).bind('scroll', function() {
 				if (this.pageYOffset >= 200) {

@@ -46,7 +46,7 @@ angular.module('ngScrollbars', [])
 .provider('ScrollBars', function() {
 	this.defaults = {
 		scrollButtons: {
-		enable: true //enable scrolling buttons by default
+			enable: true //enable scrolling buttons by default
 		},
 		axis: 'yx' //enable 2 axis scrollbars by default
 	};
