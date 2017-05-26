@@ -1,7 +1,7 @@
 'use strict';
 
 var TRANSACTION_DISPLAYED = 10;
-var BLOCKS_DISPLAYED = 5;
+var BLOCKS_DISPLAYED = 2;
 
 angular.module('insight.system').controller('IndexController',
 	function($scope, $timeout, getSocket, Blocks) {
@@ -11,11 +11,26 @@ angular.module('insight.system').controller('IndexController',
 			self.blocks = [];
 			self.scrollConfig = {
 				autoHideScrollbar: false,
+                axis: 'y',
 				theme: 'custom',
 				advanced: {
 					updateOnContentResize: true
 				},
-				scrollInertia: 0
+				scrollInertia: 0,
+                callbacks: {
+                    onBeforeUpdate: function() {
+                    	var maxHeight = parseInt(window.getComputedStyle(this).maxHeight),
+                        	list = this.getElementsByClassName('scrollList'),
+                        	heightList = list[0].clientHeight;
+
+                    	if (heightList > maxHeight) {
+                            this.style.height = parseInt(window.getComputedStyle(this).maxHeight) + 'px';
+						} else {
+                            this.style.height = heightList + 'px';
+						}
+
+					}
+                }
 			};
 			self.scrollSizeChangeCounter = 0;
 

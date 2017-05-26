@@ -13,11 +13,11 @@
 			</div>
 		</div>
 		<div class="content__list content__list-blocks">
-			<div class="content__listScroll"
+			<div style="overflow-y:hidden;" class="content__listScroll"
 				 ng-scrollbars 
-				 ng-scrollbars-update="updateScrollbar"
+
 				 ng-scrollbars-config="IC.scrollConfig">
-				<ul class="list list-blocks scrollList">
+				<ul style="overflow-y:hidden;" class="list list-blocks scrollList">
 					<li class="list__item"
 						ng-repeat='block in IC.blocks'>
 						<a href="block/{{ block.hash }}" class="list-blocks__left">
@@ -65,11 +65,10 @@
 			</div>
 		</div>
 		<div class="content__list content__list-transactions">
-			<div class="content__listScroll"
-				 ng-scrollbars 
-				 ng-scrollbars-update="updateScrollbar"
+			<div  class="content__listScroll"
+				 ng-scrollbars
 				 ng-scrollbars-config="IC.scrollConfig">
-				<ul class="list list-transactions scrollList">
+				<ul style="overflow-y:hidden;" class="list list-transactions scrollList">
 					<li class="list__item"
 						ng-repeat='tx in IC.txs'>
 						<div class="list-transactions__right">
