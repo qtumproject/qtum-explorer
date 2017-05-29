@@ -16,11 +16,6 @@ angular.module('insight.blocks').controller('BlocksController',
 			startingDay: 1
 		}
 	}
-	self.paginationState = {
-		page: 1,
-		pagesLength: null,
-		blocks: null
-	}
 
 	if ($routeParams.blockHeight) {
 
@@ -70,12 +65,6 @@ angular.module('insight.blocks').controller('BlocksController',
 		return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
 	}
 
-	self.setPage = function(page){
-
-		self.paginationState.page = page;
-		self.paginationState.blocks = self.blocks.slice((self.paginationState.page - 1) * $rootScope.Constants.BLOCKS_AMOUNT, self.paginationState.page * $rootScope.Constants.BLOCKS_AMOUNT);
-	}
-
 	self.list = function() {
 
 		self.loading = true;
@@ -108,8 +97,7 @@ angular.module('insight.blocks').controller('BlocksController',
 			self.loading = false;
 			self.blocks = res.blocks;
 			self.pagination = res.pagination;
-			self.paginationState.pagesLength = Math.ceil(self.blocks.length / $rootScope.Constants.BLOCKS_AMOUNT);
-			self.paginationState.blocks = self.blocks.slice(0, $rootScope.Constants.BLOCKS_AMOUNT);
+			console.log(self.pagination)
 		});
 	};
 

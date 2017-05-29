@@ -5,12 +5,14 @@
 	</div>
 	<div class="date__wrap">
 		<div class="pull-right">
-			<a href="blocks-date/{{ BC.datepicker.date - (1000 * 60 * 60 * 24) | amDateFormat: 'YYYY-MM-DD' }}" class="date__btn prev">
+			<a href="blocks-date/{{ BC.pagination.prev }}" class="date__btn prev">
 				<span class="icon-arrow-left"></span>
-				{{ BC.datepicker.date - (1000 * 60 * 60 * 24) | amDateFormat: 'YYYY-MM-DD' }}
+				{{ BC.pagination.prev }}
 			</a>
-			<a href="blocks-date/{{ BC.datepicker.date + (1000 * 60 * 60 * 24) | amDateFormat: 'YYYY-MM-DD' }}" class="date__btn next">
-				{{ BC.datepicker.date + (1000 * 60 * 60 * 24) | amDateFormat: 'YYYY-MM-DD' }}
+			<a href="blocks-date/{{ BC.pagination.next }}" 
+			   class="date__btn next"
+			   ng-if="!BC.pagination.isToday">
+				{{ BC.pagination.next }}
 				<span class="icon-arrow-right2"></span>
 			</a>
 
@@ -55,7 +57,7 @@
 					<span class="loader-gif"></span>
 				</div>
 			</div>
-			<div class="tr" ng-repeat='block in BC.paginationState.blocks'>
+			<div class="tr" ng-repeat='block in BC.blocks'>
 				<div class="td">
 					<a href="block/{{ block.hash }}" class="link mark">{{ block.height }}</a>
 				</div>
@@ -74,7 +76,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="pag__wrap">
+	<!--<div class="pag__wrap">
 		<div class="pag">
 			<a href="" 
 			   class="pag__item next" 
@@ -128,6 +130,21 @@
 			   ng-if="BC.paginationState.page + 4 <= BC.paginationState.pagesLength"
 			   ng-click="BC.setPage(BC.paginationState.page + 1)">></a>
 		</div>
+	</div>-->
+	<div ng-if="BC.pagination.more">
+		<a class="btn btn-primary" 
+		   href="blocks-date/{{ BC.pagination.current }}" 
+		   ng-if="BC.before"
+		   translate>
+			Lastest block from date
+		</a>
+		<a class="btn btn-primary" 
+		   href="blocks-date/{{ BC.pagination.current }}/{{ BC.pagination.moreTs }}"
+		   translate>
+			Older blocks from this date
+		</a>
 	</div>
+	<h2 class="text-center text-muted" ng-if="!BC.blocks.length && !BC.loading"
+    translate>No blocks yet.</h2>
 </div>
 
