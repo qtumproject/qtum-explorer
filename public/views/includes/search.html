@@ -1,13 +1,13 @@
-<form data-ng-controller="SearchController" 
+<form ng-controller="SearchController" 
 	  role="search" 
-	  data-ng-submit="search()" 
-	  data-ng-class="{'has-error': badQuery}">
+	  ng-submit="search()" 
+	  ng-class="{'has-error': badQuery}">
 	<input type="text" 
 		   class="field search__field" 
-		   data-ng-model="q" 
-		   data-ng-class="{'loading': loading}" 
+		   ng-model="q" 
+		   ng-class="{'loading': loading}" 
 		   placeholder="{{'Search for block, transaction or address'|translate}}"
-		   data-ng-submit="search()" 
+		   ng-submit="search()" 
 		   focus="true"/>
 	<div class="search__notFound active" ng-if="badQuery">
 		<p translate>No matching records found!</p>

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('insight.search').controller('SearchController',
-  function($scope, $routeParams, $location, $timeout, Global, Block, Transaction, Address, BlockByHeight) {
-	$scope.global = Global;
+  function($scope, $location, $timeout, Block, Transaction, Address, BlockByHeight) {
+	
 	$scope.loading = false;
 
 	var _badQuery = function() {

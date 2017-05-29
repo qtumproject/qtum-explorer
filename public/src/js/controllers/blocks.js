@@ -1,18 +1,17 @@
 'use strict';
 
 angular.module('insight.blocks').controller('BlocksController',
-	function($scope, $rootScope, $routeParams, $location, Block, Blocks, BlockByHeight) {
+	function($scope, $rootScope, $routeParams, $location, moment, Block, Blocks, BlockByHeight) {
 
 	var self = this;
 	self.loading = false;
-	self.date = new Date();
+	self.date = null;
 	self.datepicker = {
-		date : self.date.getTime(),
-		opened : false,
-		format : 'yyyy-MM-dd',
+		date: null,
+		isOpened : false,
 		dateOptions : {
-			maxDate: new Date(2020, 5, 22),
-			minDate: new Date(),
+			maxDate: new Date(),
+			minDate: new Date(0),
 			startingDay: 1
 		}
 	}
@@ -41,11 +40,15 @@ angular.module('insight.blocks').controller('BlocksController',
 		return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]); //padding
 	};
 
-	$scope.$watch('dt', function(newValue, oldValue) {
+	$scope.$watch(function () {
+
+		return self.date;
+	}, function(newValue, oldValue) {
 
 		if (newValue !== oldValue) {
 
-			$location.path('/blocks-date/' + _formatTimestamp(newValue));
+			self.datepicker.date = newValue.getTime();
+			$location.path('/blocks-date/' + moment(newValue).format('YYYY-MM-DD') + '/' + ( self.before ? self.pagination.moreTs : ''));
 		}
 	});
 
@@ -54,7 +57,7 @@ angular.module('insight.blocks').controller('BlocksController',
 		e.preventDefault();
 		e.stopPropagation();
 
-		self.datepicker.opened = true;
+		self.datepicker.isOpened = true;
 	}
 
 	self.disableDatepicker = function (data) {
@@ -95,6 +98,7 @@ angular.module('insight.blocks').controller('BlocksController',
 		}, function(res) {
 			
 			self.loading = false;
+			self.datepicker.date = new Date(res.pagination.current).getTime();
 			self.blocks = res.blocks;
 			self.pagination = res.pagination;
 			console.log(self.pagination)

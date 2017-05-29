@@ -5,14 +5,16 @@
 	</div>
 	<div class="date__wrap">
 		<div class="pull-right">
-			<a href="blocks-date/{{ BC.pagination.prev }}" class="date__btn prev">
+			<a href="blocks-date/{{ BC.datepicker.date - (24 * 60 * 60 * 1000) | amDateFormat: 'YYYY-MM-DD' }}" 
+			   class="date__btn prev"
+			   ng-if="BC.datepicker.date">
 				<span class="icon-arrow-left"></span>
-				{{ BC.pagination.prev }}
+				{{ BC.datepicker.date - (24 * 60 * 60 * 1000) | amDateFormat: 'YYYY-MM-DD' }}
 			</a>
-			<a href="blocks-date/{{ BC.pagination.next }}" 
+			<a href="blocks-date/{{ BC.datepicker.date + (24 * 60 * 60 * 1000) | amDateFormat: 'YYYY-MM-DD' }}" 
 			   class="date__btn next"
-			   ng-if="!BC.pagination.isToday">
-				{{ BC.pagination.next }}
+			   ng-if="!BC.pagination.isToday && BC.datepicker.date">
+				{{ BC.datepicker.date + (24 * 60 * 60 * 1000) | amDateFormat: 'YYYY-MM-DD' }}
 				<span class="icon-arrow-right2"></span>
 			</a>
 
@@ -25,16 +27,17 @@
 						<div class="date__text">
 							<input type="text" 
 								   class="date__textField"
-								   uib-datepicker-popup="'yyyy-MM-dd'"
+								   datepicker-popup
 								   ng-model="BC.date"
-								   is-open="BC.datepicker.opened"
+								   is-open="BC.datepicker.isOpened"
 								   datepicker-options="BC.datepicker.dateOptions"
 								   date-disabled="BC.disableDatepicker(date, mode)"
 								   ng-required="true"
 								   close-text="{{ 'Close' | translate }}"
 								   id="date-picker"
 								   readonly />
-							<div class="fsz-13" am-time-ago="BC.datepicker.date"></div>
+							<div class="fsz-13" am-time-ago="(BC.pagination.currentTs - (12 * 60 * 60)) * 1000">
+							</div>
 						</div>
 					</div>
 				</div>
@@ -76,69 +79,14 @@
 			</div>
 		</div>
 	</div>
-	<!--<div class="pag__wrap">
-		<div class="pag">
-			<a href="" 
-			   class="pag__item next" 
-			   ng-if="BC.paginationState.page > 4"  
-			   ng-click="BC.setPage(BC.paginationState.page - 1)"><</a>
-			<a href="" 
-			   class="pag__item" 
-			   ng-if="BC.paginationState.page > 3"
-			   ng-click="BC.setPage(1)">
-				1
-			</a>
-			<span class="pag__item no-hover" ng-if="BC.paginationState.page > 4">...</span>
-			<a href="" 
-			   class="pag__item" 
-			   ng-if="BC.paginationState.page > 2"
-			   ng-click="BC.setPage(BC.paginationState.page - 2)">
-				{{ BC.paginationState.page - 2 }}
-			</a>
-			<a href="" 
-			   class="pag__item" 
-			   ng-if="BC.paginationState.page > 1"
-			   ng-click="BC.setPage(BC.paginationState.page - 1)">
-				{{ BC.paginationState.page - 1 }}
-			</a>
-			<a href="" 
-			   class="pag__item active"
-			   ng-click="BC.setPage(BC.paginationState.page)">
-				{{ BC.paginationState.page }}
-			</a>
-			<a href="" 
-			   class="pag__item" 
-			   ng-if="BC.paginationState.page + 1 <= BC.paginationState.pagesLength"
-			   ng-click="BC.setPage(BC.paginationState.page + 1)">
-				{{ BC.paginationState.page + 1 }}
-			</a>
-			<a href="" 
-			   class="pag__item" 
-			   ng-if="BC.paginationState.page + 2 <= BC.paginationState.pagesLength"
-			   ng-click="BC.setPage(BC.paginationState.page + 2)">
-				{{ BC.paginationState.page + 2 }}
-			</a>
-			<span class="pag__item no-hover" ng-if="BC.paginationState.page + 4 <= BC.paginationState.pagesLength">...</span>
-			<a href="" 
-			   class="pag__item" 
-			   ng-if="BC.paginationState.page + 3 <= BC.paginationState.pagesLength"
-			   ng-click="BC.setPage(BC.paginationState.pagesLength)">
-				{{ BC.paginationState.pagesLength }}
-			</a>
-			<a href="" 
-			   class="pag__item next" 
-			   ng-if="BC.paginationState.page + 4 <= BC.paginationState.pagesLength"
-			   ng-click="BC.setPage(BC.paginationState.page + 1)">></a>
-		</div>
-	</div>-->
-	<div ng-if="BC.pagination.more">
-		<a class="btn btn-primary" 
+	<div class="btn-blocksWrap" ng-if="BC.before">
+		<a class="btn btn-blocks" 
 		   href="blocks-date/{{ BC.pagination.current }}" 
 		   ng-if="BC.before"
 		   translate>
 			Lastest block from date
 		</a>
-		<a class="btn btn-primary" 
+		<a class="btn btn-blocks" 
 		   href="blocks-date/{{ BC.pagination.current }}/{{ BC.pagination.moreTs }}"
 		   translate>
 			Older blocks from this date

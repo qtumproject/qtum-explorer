@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.system').controller('HeaderController',
-function($scope, $rootScope, $route, $modal, gettextCatalog, amMoment, getSocket, Block, $templateCache) {
+function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block, $templateCache) {
 
 	var self = this;
 	var socket = getSocket($scope);
@@ -54,13 +54,13 @@ function($scope, $rootScope, $route, $modal, gettextCatalog, amMoment, getSocket
 		});
 	});
 
-	self.openScannerModal = function() {
+	// self.openScannerModal = function() {
 
-		var modalInstance = $modal.open({
-			templateUrl: 'scannerModal.html',
-			controller: 'ScannerController'
-		});
-	};
+	// 	var modalInstance = $modal.open({
+	// 		templateUrl: 'scannerModal.html',
+	// 		controller: 'ScannerController'
+	// 	});
+	// };
 
 	self.setLanguage = function(isoCode) {
 
