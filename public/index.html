@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-ng-app="insight" data-ng-csp>
+<html lang="en" ng-app="insight" ng-csp>
 	<head>
 	<base href="/" />
 		<meta charset="UTF-8">
@@ -10,16 +10,18 @@
 		<meta name="description" content="Quantum Insight. View detailed information on all quantum transactions and block. {{ $root.title + $root.titleDetail }}">
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
 		<link rel="shortcut icon" href="img/icons/favicon.ico" type="image/x-icon">
-		<title data-ng-bind="$root.title + $root.titleDetail + ' | Insight'">Insight</title>
+		<title ng-bind="$root.title + $root.titleDetail + ' | Insight'">Insight</title>
 	</head>
 	<body ng-cloak class="ng-cloak">
 
 		<div class="wrapper wrapper-with-footer">
 			<header class="header fixed" 
-					data-ng-include="'views/includes/header.html'" 
-					role='navigation'>
+					ng-include
+					src="'views/includes/header.html'" 
+					role='navigation'
+					ng-controller="HeaderController as HC">
 			</header>
-			<section class="content" data-ng-view>
+			<section class="content" ng-view ng-controller="CurrencyController as CC">
 			</section>
 		</div>
 		<footer class="footer">
