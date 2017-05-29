@@ -27,7 +27,7 @@
 <div class="transactions__body">
 	<div class="col" ng-repeat="vin in tx.vin" ng-if="vin.addr">
 		<div class="transactions__row">
-			<a href="" class="arrow">
+			<span href="" clspanss="arrow">
 				<span class="arrowIcon icon-arrows-right"></span>
 			</a>
 			<a href="address/{{ vin.addr }}" 
@@ -130,8 +130,8 @@
 		<div class="transactions__contractItem">
 			<div class="transactions__contractItemTitle" translate>Contract Code</div>
 			<div class="transactions__contractItemBody " 
-					ng-scrollbars 
-					ng-scrollbars-config="TC.scrollConfig">
+				 ng-scrollbars 
+				 ng-scrollbars-config="TC.scrollConfig">
 				<div class="list">
 					{{ tx.contractBytecode }}
 				</div>
@@ -140,8 +140,8 @@
 		<div class="transactions__contractItem">
 			<div class="transactions__contractItemTitle" translate>Asm</div>
 			<div class="transactions__contractItemBody" 
-					ng-scrollbars 
-					ng-scrollbars-config="TC.scrollConfig">
+				 ng-scrollbars 
+				 ng-scrollbars-config="TC.scrollConfig">
 				<div class="list">
 					{{ tx.contractAsm }}
 				</div>
