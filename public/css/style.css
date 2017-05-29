@@ -643,8 +643,7 @@ b, strong {
       overflow: hidden;
       line-height: 1.35; }
       .heading__smLabeled .text {
-        font-size: 21px;
-        text-transform: uppercase; }
+        font-size: 21px; }
   .heading__address {
     float: right;
     padding-top: 50px;
@@ -716,35 +715,6 @@ b, strong {
 
 .tooltip__trigger {
   cursor: pointer; }
-
-.copied {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-  z-index: 10;
-  background: #2e9ad0;
-  color: #232328;
-  font-size: 14px;
-  line-height: 1.25;
-  padding: 5px;
-  font-weight: 500;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  pointer-events: none;
-  -webkit-transition: opacity 0.2s ease;
-  -moz-transition: opacity 0.2s ease;
-  -o-transition: opacity 0.2s ease;
-  transition: opacity 0.2s ease;
-  opacity: 0; }
-  .copied.active {
-    opacity: 1; }
-  .copyParent-left .copied {
-    margin-left: 30px; }
-  .copyParent-right .copied {
-    margin-right: 30px; }
 
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -2931,6 +2901,21 @@ corresponds to the arrow we want to display */
     float: right; }
     .btn-view-chart:hover {
       background: #e75647; }
+  .btn-blocks {
+    display: inline-block;
+    background: #2e9ad0;
+    color: #232328;
+    text-align: center;
+    padding: 0 15px;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
+    .btn-blocksWrap {
+      text-align: left;
+      margin: 50px 0 20px; }
+    .btn-blocks:hover {
+      background: #e75647; }
 
 .header {
   padding: 50px 0;
@@ -3579,6 +3564,155 @@ corresponds to the arrow we want to display */
     left: 0;
     bottom: 0;
     background: url("../images/pattern.png") 0 0 repeat; }
+
+.preload {
+  display: inline-block;
+  vertical-align: middle;
+  width: 29px;
+  height: 29px;
+  position: relative;
+  border: 4px solid #2e9ad0;
+  animation: cssload-loader 2.3s infinite ease;
+  -o-animation: cssload-loader 2.3s infinite ease;
+  -ms-animation: cssload-loader 2.3s infinite ease;
+  -webkit-animation: cssload-loader 2.3s infinite ease;
+  -moz-animation: cssload-loader 2.3s infinite ease; }
+  .preload__box {
+    display: block;
+    height: 300px;
+    line-height: 300px;
+    text-align: center;
+    font-size: 0; }
+  .preloadInner {
+    vertical-align: top;
+    display: inline-block;
+    width: 100%;
+    background-color: #2e9ad0;
+    animation: cssload-loader-inner 2.3s infinite ease-in;
+    -o-animation: cssload-loader-inner 2.3s infinite ease-in;
+    -ms-animation: cssload-loader-inner 2.3s infinite ease-in;
+    -webkit-animation: cssload-loader-inner 2.3s infinite ease-in;
+    -moz-animation: cssload-loader-inner 2.3s infinite ease-in; }
+
+@keyframes cssload-loader {
+  0% {
+    transform: rotate(0deg); }
+  25% {
+    transform: rotate(180deg); }
+  50% {
+    transform: rotate(180deg); }
+  75% {
+    transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+@-o-keyframes cssload-loader {
+  0% {
+    transform: rotate(0deg); }
+  25% {
+    transform: rotate(180deg); }
+  50% {
+    transform: rotate(180deg); }
+  75% {
+    transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+@-ms-keyframes cssload-loader {
+  0% {
+    transform: rotate(0deg); }
+  25% {
+    transform: rotate(180deg); }
+  50% {
+    transform: rotate(180deg); }
+  75% {
+    transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+@-webkit-keyframes cssload-loader {
+  0% {
+    transform: rotate(0deg); }
+  25% {
+    transform: rotate(180deg); }
+  50% {
+    transform: rotate(180deg); }
+  75% {
+    transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+@-moz-keyframes cssload-loader {
+  0% {
+    transform: rotate(0deg); }
+  25% {
+    transform: rotate(180deg); }
+  50% {
+    transform: rotate(180deg); }
+  75% {
+    transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+@keyframes cssload-loader-inner {
+  0% {
+    height: 0%; }
+  25% {
+    height: 0%; }
+  50% {
+    height: 100%; }
+  75% {
+    height: 100%; }
+  100% {
+    height: 0%; } }
+
+@-o-keyframes cssload-loader-inner {
+  0% {
+    height: 0%; }
+  25% {
+    height: 0%; }
+  50% {
+    height: 100%; }
+  75% {
+    height: 100%; }
+  100% {
+    height: 0%; } }
+
+@-ms-keyframes cssload-loader-inner {
+  0% {
+    height: 0%; }
+  25% {
+    height: 0%; }
+  50% {
+    height: 100%; }
+  75% {
+    height: 100%; }
+  100% {
+    height: 0%; } }
+
+@-webkit-keyframes cssload-loader-inner {
+  0% {
+    height: 0%; }
+  25% {
+    height: 0%; }
+  50% {
+    height: 100%; }
+  75% {
+    height: 100%; }
+  100% {
+    height: 0%; } }
+
+@-moz-keyframes cssload-loader-inner {
+  0% {
+    height: 0%; }
+  25% {
+    height: 0%; }
+  50% {
+    height: 100%; }
+  75% {
+    height: 100%; }
+  100% {
+    height: 0%; } }
 
 .date__wrap {
   margin: -3px 0 90px; }
