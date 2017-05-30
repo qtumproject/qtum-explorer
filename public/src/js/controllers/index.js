@@ -101,7 +101,7 @@ function($scope, $rootScope, $timeout, moment, getSocket, Blocks, TransactionsBy
 					}]
 				}
 			}
-		}
+		};
 
 	var _getBlocks = function() {
 
@@ -155,11 +155,11 @@ function($scope, $rootScope, $timeout, moment, getSocket, Blocks, TransactionsBy
 			}
 
 			self.lastTransactionsList = response.reverse();
-			self.chartOptions.labels = self.lastTransactionsList.map(function(it, ind){
+			self.chartOptions.labels = self.lastTransactionsList.map(function(item){
 
 				return moment(it.date).format('MM/DD');
 			});
-			self.chartOptions.data = [ self.lastTransactionsList.map(function(it){
+			self.chartOptions.data = [ self.lastTransactionsList.map(function(item){
 
 				return it.transaction_count;
 			})];

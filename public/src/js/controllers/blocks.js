@@ -49,7 +49,7 @@ angular.module('insight.blocks').controller('BlocksController',
 		e.stopPropagation();
 
 		self.datepicker.isOpened = true;
-	}
+	};
 
 	self.disableDatepicker = function (data) {
 
@@ -57,7 +57,7 @@ angular.module('insight.blocks').controller('BlocksController',
 			mode = data.mode;
 
 		return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-	}
+	};
 
 	self.list = function() {
 
