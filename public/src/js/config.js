@@ -80,19 +80,19 @@ angular.module('insight')
 		$locationProvider.html5Mode(true);
 		$locationProvider.hashPrefix('!');
 	})
-	.run(function($rootScope, $route, $location, $routeParams, $anchorScroll, ngProgress, gettextCatalog, amMoment, Constants) {
+	.run(function($rootScope, $route, $location, $routeParams, $anchorScroll, gettextCatalog, amMoment, Constants) {
 
 		gettextCatalog.currentLanguage = defaultLanguage;
 		amMoment.changeLocale(defaultLanguage);
 
-		$rootScope.$on('$routeChangeStart', function() {
+		// $rootScope.$on('$routeChangeStart', function() {
 
-			ngProgress.start();
-		});
+		// 	ngProgress.start();
+		// });
 
 		$rootScope.$on('$routeChangeSuccess', function() {
 
-			ngProgress.complete();
+			// ngProgress.complete();
 			//Change page title, based on Route information
 			$rootScope.titleDetail = '';
 			$rootScope.title = $route.current.title;

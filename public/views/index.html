@@ -125,7 +125,21 @@
 			</div>
 		</div>
 		<div class="insight__chart">
-			<div class="chart__type01" id="chartLine01"></div>
+			<div class="insight__chartTitle" translate>14 day QTUM Transaction History</div>
+			<div class="">
+				<div class="">
+					<canvas id="line" 
+							class="chart chart-line"
+							chart-data="IC.chartOptions.data"
+							chart-labels="IC.chartOptions.labels" 
+							chart-series="IC.chartOptions.series" 
+							chart-options="IC.chartOptions.options"
+							chart-dataset-override="IC.chartOptions.datasetOverride" 
+							chart-click="IC.chartClick" 
+							height="70">
+					</canvas>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="content__right">

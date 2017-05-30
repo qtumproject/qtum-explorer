@@ -13,7 +13,7 @@
 				<img src="images/arrow-black.png" alt="" class="arrow-hover"/>
 			</span>
 		</div>
-		<nav class="language-switcher__container" ng-if="HC.availableLanguages.0">
+		<nav class="language-switcher__container" ng-if="HC.availableLanguages[0]">
 			<a ng-click="HC.setLanguage(l.isoCode)"
 			   ng-repeat="l in HC.availableLanguages"
 			   ng-class="{ 'selected' : HC.defaultLanguage == l.isoCode }"

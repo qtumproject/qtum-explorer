@@ -5,10 +5,9 @@ var defaultLanguage = localStorage.getItem('insight-language') || 'en';
 var defaultCurrency = localStorage.getItem('insight-currency') || 'QTUM';
 
 angular.module('insight',[
-	'ngAnimate',
+	// 'ngAnimate',
 	'ngResource',
 	'ngRoute',
-	'ngProgress',
 	'ui.bootstrap',
 	'ui.route',
 	'monospaced.qrcode',
@@ -30,7 +29,7 @@ angular.module('insight',[
 	'insight.networks'
 ]);
 
-angular.module('insight.system', [ 'ngScrollbars' ]);
+angular.module('insight.system', [ 'ngScrollbars', 'chart.js' ]);
 angular.module('insight.socket', []);
 angular.module('insight.blocks', []);
 angular.module('insight.transactions', [ 'ngScrollbars' ]);
