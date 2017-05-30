@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.search').controller('SearchController',
-  function($scope, $location, $timeout, Block, Transaction, Address, BlockByHeight) {
+  function($location, $timeout, Block, Transaction, Address, BlockByHeight) {
 	
 	var self = this;
 	self.loading = false;
