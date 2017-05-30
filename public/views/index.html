@@ -125,7 +125,7 @@
 			</div>
 		</div>
 		<div class="insight__chart" ng-init="IC.getListOfTransactions()">
-			<div class="insight__chartTitle" ng-if="IC.chartOptions.data && IC.chartOptions.labels" translate>14 day QTUM Transaction History</div>
+			<div class="insight__chartTitle" ng-if="IC.chartOptions.data && IC.chartOptions.labels" translate>{{ $root.Constants.CHART_DAYS }} day QTUM Transaction History</div>
 			<div class="" ng-if="IC.chartOptions.data && IC.chartOptions.labels">
 				<div class="">
 					<canvas id="line" 
