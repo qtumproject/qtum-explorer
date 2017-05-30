@@ -825,6 +825,101 @@ b, strong {
       color: #232328;
       font-style: normal; }
 
+.datepicker-popup .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  text-align: left;
+  background-color: #2e9ad0;
+  padding: 20px; }
+
+.datepicker-popup .button-bar {
+  display: none; }
+
+.datepicker-popup .datepicker-current {
+  background: #000; }
+
+.datepicker {
+  font-family: SimplonMono, sans-serif; }
+  .datepicker .btn {
+    display: block;
+    background: transparent;
+    text-align: center;
+    width: 100%;
+    padding: 3px;
+    vertical-align: middle;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    white-space: nowrap;
+    color: #232328;
+    min-width: 30px;
+    min-height: 30px;
+    height: auto;
+    font: 500 13px/30px SimplonMono, sans-serif; }
+    .datepicker .btn.active {
+      background: #e75647; }
+      .datepicker .btn.active:hover {
+        background: #e75647; }
+    .datepicker .btn:hover {
+      background: rgba(0, 0, 0, 0.1); }
+    .datepicker .btn[disabled] {
+      opacity: .3;
+      cursor: default; }
+      .datepicker .btn[disabled]:hover {
+        background: transparent; }
+  .datepicker th {
+    text-align: center;
+    font-weight: 500;
+    color: #232328;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    vertical-align: top; }
+    .datepicker th .btn {
+      height: 30px;
+      line-height: 30px;
+      padding: 0;
+      font-style: normal; }
+    .datepicker th strong {
+      font-size: 16px; }
+  .datepicker td {
+    color: #232328;
+    border: 1px solid #232328; }
+    .datepicker td.h6 {
+      font-size: 11px;
+      border: none; }
+      .datepicker td.h6 em {
+        font-style: normal; }
+  .datepicker .pull-left .glyphicon {
+    font-size: 0;
+    line-height: 0; }
+    .datepicker .pull-left .glyphicon:after {
+      font-family: icomoon, sans-serif;
+      content: "\e91e";
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 600;
+      color: #232328;
+      font-style: normal; }
+  .datepicker .pull-right .glyphicon {
+    font-size: 0;
+    line-height: 0; }
+    .datepicker .pull-right .glyphicon:after {
+      font-family: icomoon, sans-serif;
+      content: "\e91f";
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 600;
+      color: #232328;
+      font-style: normal; }
+
 /*
  * CSS Styles that are needed by jScrollPane for it to operate correctly.
  *

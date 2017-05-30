@@ -24,19 +24,20 @@
 						<a href="" 
 						   class="date__trigger  icon-calendar" 
 						   ng-click="BC.openDatepicker($event)"></a>
-						<div class="date__text">
-							<input type="text" 
+						<div class="date__text datepicker-popup datepicker">
+							<input type="text"
 								   class="date__textField"
-								   datepicker-popup
+								   datepicker-popup="{{ BC.datepicker.format }}"
 								   ng-model="BC.date"
 								   is-open="BC.datepicker.isOpened"
+								   min-date="BC.datepicker.minDate"
+								   max-date="BC.datepicker.maxDate"
 								   datepicker-options="BC.datepicker.dateOptions"
 								   date-disabled="BC.disableDatepicker(date, mode)"
-								   ng-required="true"
-								   close-text="{{ 'Close' | translate }}"
-								   id="date-picker"
-								   readonly />
-							<div class="fsz-13" am-time-ago="(BC.pagination.currentTs - (12 * 60 * 60)) * 1000">
+								   show-button-bar="false"
+								   readonly/>
+							<div class="fsz-13" ng-if="BC.pagination.currentTs">
+								{{ BC.pagination.currentTs - 12 * 60 * 60 | amParse : 'X' | amStartOf : 'day' | amTimeAgo }}
 							</div>
 						</div>
 					</div>
@@ -79,7 +80,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="btn-blocksWrap" ng-if="BC.before">
+	<div class="btn-blocksWrap">
 		<a class="btn btn-blocks" 
 		   href="blocks-date/{{ BC.pagination.current }}" 
 		   ng-if="BC.before"

@@ -8,13 +8,14 @@ angular.module('insight.blocks').controller('BlocksController',
 	self.date = null;
 	self.datepicker = {
 		date: null,
+		format: 'yyyy-MM-dd',
 		isOpened : false,
+		maxDate: new Date(),
+		minDate: new Date(0),
 		dateOptions : {
-			maxDate: new Date(),
-			minDate: new Date(0),
 			startingDay: 1
 		}
-	}
+	};
 
 	if ($routeParams.blockHeight) {
 
@@ -30,25 +31,15 @@ angular.module('insight.blocks').controller('BlocksController',
 		});
 	}
 
-	//Datepicker
-	var _formatTimestamp = function (date) {
-
-		var yyyy = date.getUTCFullYear().toString();
-		var mm = (date.getUTCMonth() + 1).toString(); // getMonth() is zero-based
-		var dd  = date.getUTCDate().toString();
-
-		return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]); //padding
-	};
-
 	$scope.$watch(function () {
 
 		return self.date;
-	}, function(newValue, oldValue) {
+	}, function(newValue, oldValue, scope) {
 
-		if (newValue !== oldValue) {
+		if (newValue !== oldValue && scope.BC.datepicker.isOpened) {
 
 			self.datepicker.date = newValue.getTime();
-			$location.path('/blocks-date/' + moment(newValue).format('YYYY-MM-DD') + '/' + ( self.before ? self.pagination.moreTs : ''));
+			$location.path('/blocks-date/' + moment(newValue).format('YYYY-MM-DD'));
 		}
 	});
 
@@ -98,10 +89,10 @@ angular.module('insight.blocks').controller('BlocksController',
 		}, function(res) {
 			
 			self.loading = false;
+			self.date = new Date(res.pagination.current);
 			self.datepicker.date = new Date(res.pagination.current).getTime();
 			self.blocks = res.blocks;
 			self.pagination = res.pagination;
-			console.log(self.pagination)
 		});
 	};
 
