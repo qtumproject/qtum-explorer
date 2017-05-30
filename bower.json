@@ -14,12 +14,13 @@
     "ngprogress": "~1.0.4",
     "angular-ui-utils": "~0.1.1",
     "angular-gettext": "~1.1.0",
-    "angular-moment": "~0.8.0",
+    "angular-moment": "^1.0.1",
     "bitcore-lib": "^0.14.0",
     "jquery": "^3.2.1",
     "clipboard": "^1.6.1",
     "ngclipboard": "^1.1.1",
     "malihu-custom-scrollbar-plugin": "^3.1.5",
-    "ng-scrollbars": "^0.0.11"
+    "ng-scrollbars": "^0.0.11",
+    "moment": "^2.18.1"
   }
 }
