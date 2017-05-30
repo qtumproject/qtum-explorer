@@ -54,14 +54,6 @@ function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block,
 		});
 	});
 
-	// self.openScannerModal = function() {
-
-	// 	var modalInstance = $modal.open({
-	// 		templateUrl: 'scannerModal.html',
-	// 		controller: 'ScannerController'
-	// 	});
-	// };
-
 	self.setLanguage = function(isoCode) {
 
 		var currentPageTemplate = $route.current.templateUrl;

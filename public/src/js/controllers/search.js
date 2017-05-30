@@ -3,27 +3,28 @@
 angular.module('insight.search').controller('SearchController',
   function($scope, $location, $timeout, Block, Transaction, Address, BlockByHeight) {
 	
-	$scope.loading = false;
+	var self = this;
+	self.loading = false;
 
 	var _badQuery = function() {
-		$scope.badQuery = true;
+		self.badQuery = true;
 
 		$timeout(function() {
-			$scope.badQuery = false;
+			self.badQuery = false;
 		}, 2000);
 	};
 
 	var _resetSearch = function() {
-		$scope.q = '';
-		$scope.loading = false;
+		self.q = '';
+		self.loading = false;
 	};
 
-	$scope.search = function() {
+	self.search = function() {
 
-		var q = $scope.q;
+		var q = self.q;
 
-		$scope.badQuery = false;
-		$scope.loading = true;
+		self.badQuery = false;
+		self.loading = true;
 
 		Block.get({
 			blockHash: q
@@ -58,12 +59,12 @@ angular.module('insight.search').controller('SearchController',
 							$location.path('/block/' + hash.blockHash);
 						}, function() { //not found, fail :(
 
-							$scope.loading = false;
+							self.loading = false;
 							_badQuery();
 						});
 					}
 					else {
-						$scope.loading = false;
+						self.loading = false;
 						_badQuery();
 					}
 				});
