@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.system').controller('IndexController',
-function($scope, $rootScope, $timeout, getSocket, Blocks) {
+function($scope, $rootScope, $timeout, moment, getSocket, Blocks, TransactionsByDays) {
 
 	var self = this;
 		self.txs = [];
@@ -31,14 +31,8 @@ function($scope, $rootScope, $timeout, getSocket, Blocks) {
 			}
 		};
 		self.chartOptions = {
-			labels : ['4/22', '4/23','4/24','4/25', '4/26','4/27','4/28', '4/29','4/30','5/1', '5/2','5/23', '5/4','5/5', '5/6' ],
-			series : ['Transactions'],
-			data : [
-				[75, 80, 60, 90, 78, 110, 60, 90, 80, 115,110,80, 100, 80,85]
-			],
+			series : [ 'Transactions' ],
 			datasetOverride : [{
-				label: "Line chart",
-				height: 130,
 				yAxisID: 'y-axis-1' ,
 				borderColor: '#2e9ad0',
 				borderWidth: 1,
@@ -85,15 +79,14 @@ function($scope, $rootScope, $timeout, getSocket, Blocks) {
 							fontFamily: "SimplonMono",
 							fontSize:  14,
 							padding: 25,
-							stepSize: 25,
+							stepSize: 500,
 							callback: function(value, index, values) {
-								return value + ' k';
+								return value + ' t';
 							}
 						}
 					}],
 					xAxes: [{
 						gridLines: {
-							//display: false,
 							color: '#26475b',
 							drawBorder: false,
 							drawOnChartArea: false,
@@ -108,7 +101,7 @@ function($scope, $rootScope, $timeout, getSocket, Blocks) {
 					}]
 				}
 			}
-		};
+		}
 
 	var _getBlocks = function() {
 
@@ -120,8 +113,6 @@ function($scope, $rootScope, $timeout, getSocket, Blocks) {
 			self.blocksLength = res.length;
 		});
 	};
-
-	var socket = getSocket($scope);
 
 	var _startSocket = function() {
 
@@ -143,13 +134,36 @@ function($scope, $rootScope, $timeout, getSocket, Blocks) {
 		});
 	};
 
+	var socket = getSocket($scope);
+
 	socket.on('connect', function() {
 
 		_startSocket();
 	});
 
-	self.chartClick = function (points, evt) {
-		console.log(points, evt);
+	self.getListOfTransactions = function(){
+
+		TransactionsByDays.query({},
+		function(response){
+
+			while(response.length < $rootScope.Constants.CHART_DAYS){
+
+				response.push({
+					date : moment().subtract($rootScope.Constants.CHART_DAYS - ($rootScope.Constants.CHART_DAYS - response.length), 'days').format('YYYY-MM-DD'),
+					transaction_count: 0
+				});
+			}
+
+			self.lastTransactionsList = response.reverse();
+			self.chartOptions.labels = self.lastTransactionsList.map(function(it, ind){
+
+				return moment(it.date).format('MM/DD');
+			});
+			self.chartOptions.data = [ self.lastTransactionsList.map(function(it){
+
+				return it.transaction_count;
+			})];
+		});
 	}
 
 	self.index = function() {

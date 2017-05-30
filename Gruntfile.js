@@ -30,12 +30,13 @@ module.exports = function(grunt) {
 				'public/src/js/ios-imagefile-megapixel/megapix-image.js', 
 				'public/lib/qrcode-generator/js/qrcode.js', 
 				'public/lib/qrcode-generator/js/qrcode_UTF8.js', 
+				'public/lib/jquery/dist/jquery.min.js',
 				'public/lib/moment/min/moment.min.js', 
 				'public/lib/moment/locale/de.js',
 				'public/lib/moment/locale/en-gb.js',
 				'public/lib/moment/locale/es.js',
 				'public/lib/moment/locale/ja.js',
-				'public/lib/jquery/dist/jquery.min.js',
+				'public/lib/bootstrap/dist/js/bootstrap.min.js',
 				'public/lib/bitcore-lib/bitcore-lib.js',
 				'public/lib/clipboard/dist/clipboard.min.js',
 				'public/lib/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
@@ -50,11 +51,12 @@ module.exports = function(grunt) {
 				'public/lib/angular-route/angular-route.min.js', 
 				'public/lib/angular-qrcode/angular-qrcode.js', 
 				// 'public/lib/angular-animate/angular-animate.min.js', 
+				'public/lib/angular-moment/angular-moment.min.js',
 				'public/lib/angular-bootstrap/ui-bootstrap.js', 
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js', 
 				'public/lib/angular-ui-utils/ui-utils.min.js', 
 				// 'public/lib/ngprogress/build/ngProgress.min.js', 
-				'public/lib/angular-gettext/dist/angular-gettext.min.js', 
+				'public/lib/angular-gettext/dist/angular-gettext.min.js',
 				'public/lib/angular-moment/angular-moment.min.js',
 				'public/lib/ng-scrollbars/dist/scrollbars.min.js',
 				'public/lib/angular-chart.js/dist/angular-chart.min.js'
@@ -101,8 +103,8 @@ module.exports = function(grunt) {
 		},
 		cssmin: {
 			css: {
-				src: 'public/css/main.css',
-				dest: 'public/css/main.min.css'
+				src: 'public/css/style.css',
+				dest: 'public/css/style.min.css'
 			}
 		},
 		markdown: {

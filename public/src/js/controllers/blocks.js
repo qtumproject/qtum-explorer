@@ -1,10 +1,21 @@
 'use strict';
 
 angular.module('insight.blocks').controller('BlocksController',
-	function($scope, $rootScope, $routeParams, $location, Block, Blocks, BlockByHeight) {
+	function($scope, $rootScope, $routeParams, $location, moment, Block, Blocks, BlockByHeight) {
 
 	var self = this;
 	self.loading = false;
+	self.date = null;
+	self.datepicker = {
+		date: null,
+		format: 'yyyy-MM-dd',
+		isOpened : false,
+		maxDate: new Date(),
+		minDate: new Date(0),
+		dateOptions : {
+			startingDay: 1
+		}
+	};
 
 	if ($routeParams.blockHeight) {
 
@@ -20,41 +31,35 @@ angular.module('insight.blocks').controller('BlocksController',
 		});
 	}
 
-	//Datepicker
-	var _formatTimestamp = function (date) {
+	$scope.$watch(function () {
 
-		var yyyy = date.getUTCFullYear().toString();
-		var mm = (date.getUTCMonth() + 1).toString(); // getMonth() is zero-based
-		var dd  = date.getUTCDate().toString();
+		return self.date;
+	}, function(newValue, oldValue, scope) {
 
-		return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]); //padding
-	};
+		if (newValue !== oldValue && scope.BC.datepicker.isOpened) {
 
-	$scope.$watch('dt', function(newValue, oldValue) {
-
-		if (newValue !== oldValue) {
-
-			$location.path('/blocks-date/' + _formatTimestamp(newValue));
+			self.datepicker.date = newValue.getTime();
+			$location.path('/blocks-date/' + moment(newValue).format('YYYY-MM-DD'));
 		}
 	});
 
-	$scope.openCalendar = function($event) {
+	self.openDatepicker = function(e) {
 
-		$event.preventDefault();
-		$event.stopPropagation();
+		e.preventDefault();
+		e.stopPropagation();
 
-		self.opened = true;
-	};
+		self.datepicker.isOpened = true;
+	}
 
-	$scope.humanSince = function(time) {
+	self.disableDatepicker = function (data) {
 
-		var m = moment.unix(time).startOf('day');
-		var b = moment().startOf('day');
+		var date = data.date,
+			mode = data.mode;
 
-		return m.max().from(b);
-	};
+		return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+	}
 
-	$scope.list = function() {
+	self.list = function() {
 
 		self.loading = true;
 
@@ -76,7 +81,7 @@ angular.module('insight.blocks').controller('BlocksController',
 			self.before = ' before ' + d.getHours() + ':' + m;
 		}
 
-		$rootScope.titleDetail = $scope.detail;
+		$rootScope.titleDetail = self.detail;
 
 		Blocks.get({
 			blockDate: $routeParams.blockDate,
@@ -84,6 +89,8 @@ angular.module('insight.blocks').controller('BlocksController',
 		}, function(res) {
 			
 			self.loading = false;
+			self.date = new Date(res.pagination.current);
+			self.datepicker.date = new Date(res.pagination.current).getTime();
 			self.blocks = res.blocks;
 			self.pagination = res.pagination;
 		});

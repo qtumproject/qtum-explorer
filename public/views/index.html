@@ -124,9 +124,9 @@
 				</a>
 			</div>
 		</div>
-		<div class="insight__chart">
-			<div class="insight__chartTitle" translate>14 day QTUM Transaction History</div>
-			<div class="">
+		<div class="insight__chart" ng-init="IC.getListOfTransactions()">
+			<div class="insight__chartTitle" ng-if="IC.chartOptions.data && IC.chartOptions.labels" translate>14 day QTUM Transaction History</div>
+			<div class="" ng-if="IC.chartOptions.data && IC.chartOptions.labels">
 				<div class="">
 					<canvas id="line" 
 							class="chart chart-line"
@@ -134,8 +134,7 @@
 							chart-labels="IC.chartOptions.labels" 
 							chart-series="IC.chartOptions.series" 
 							chart-options="IC.chartOptions.options"
-							chart-dataset-override="IC.chartOptions.datasetOverride" 
-							chart-click="IC.chartClick" 
+							chart-dataset-override="IC.chartOptions.datasetOverride"
 							height="70">
 					</canvas>
 				</div>
