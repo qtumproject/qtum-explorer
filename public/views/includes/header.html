@@ -6,20 +6,20 @@
 <div class="header__lang-switcher" >
 	<div class="language-switcher">
 		<div class="language-switcher__selected" 
-			 ng-repeat="l in HC.availableLanguages | filter: { isoCode: HC.defaultLanguage }">
-			{{ l.name }}
+			 ng-repeat="language in HC.availableLanguages | filter: { isoCode: HC.defaultLanguage }">
+			{{ language.name }}
 			<span class="language-switcher__icon">
 				<img src="images/arrow.png" alt="" class="arrow-def"/>
 				<img src="images/arrow-black.png" alt="" class="arrow-hover"/>
 			</span>
 		</div>
-		<nav class="language-switcher__container" ng-if="HC.availableLanguages.0">
-			<a ng-click="HC.setLanguage(l.isoCode)"
-			   ng-repeat="l in HC.availableLanguages"
+		<nav class="language-switcher__container" ng-if="HC.availableLanguages[0]">
+			<a ng-repeat="language in HC.availableLanguages"
+			   ng-click="HC.setLanguage(language.isoCode)"
 			   ng-class="{ 'selected' : HC.defaultLanguage == l.isoCode }"
 			   href="#" 
 			   class="language-switcher__item">
-				{{ l.name }}
+				{{ language.name }}
 			</a>
 		</nav>
 	</div>

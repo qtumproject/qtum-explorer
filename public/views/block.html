@@ -70,7 +70,7 @@
 						</div>
 						<div class="list__right">
 							<div class="">
-								{{ BC.block.time * 1000 | amDateFormat: 'MMMM D, YYYY h:mm:ss A' }}
+								{{ BC.block.time | amParse : 'X' | amDateFormat: 'MMMM D, YYYY h:mm:ss A' }}
 							</div>
 						</div>
 					</li>
@@ -175,6 +175,9 @@
 		 ng-controller="TransactionsController as TC" 
 		 ng-if="BC.block"
 		 ng-init="TC.load(BC.block.hash)">
+		<div class="section__heading">
+			<h2 class="section__title" translate>Transactions</h2>
+		</div>
 		<div ng-include src="'views/transaction/list.html'">
 		</div>
 	</div>

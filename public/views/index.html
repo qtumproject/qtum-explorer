@@ -13,11 +13,10 @@
 			</div>
 		</div>
 		<div class="content__list content__list-blocks">
-			<div style="overflow-y:hidden;" class="content__listScroll"
+			<div class="content__listScroll"
 				 ng-scrollbars 
-
 				 ng-scrollbars-config="IC.scrollConfig">
-				<ul style="overflow-y:hidden;" class="list list-blocks scrollList">
+				<ul class="list list-blocks scrollList">
 					<li class="list__item"
 						ng-repeat='block in IC.blocks'>
 						<a href="block/{{ block.hash }}" class="list-blocks__left">
@@ -68,7 +67,7 @@
 			<div  class="content__listScroll"
 				 ng-scrollbars
 				 ng-scrollbars-config="IC.scrollConfig">
-				<ul style="overflow-y:hidden;" class="list list-transactions scrollList">
+				<ul class="list list-transactions scrollList">
 					<li class="list__item"
 						ng-repeat='tx in IC.txs'>
 						<div class="list-transactions__right">
@@ -124,8 +123,21 @@
 				</a>
 			</div>
 		</div>
-		<div class="insight__chart">
-			<div class="chart__type01" id="chartLine01"></div>
+		<div class="insight__chart" ng-init="IC.getListOfTransactions()">
+			<div class="insight__chartTitle" ng-if="IC.chartOptions.data && IC.chartOptions.labels" translate>{{ $root.Constants.CHART_DAYS }} day QTUM Transaction History</div>
+			<div class="" ng-if="IC.chartOptions.data && IC.chartOptions.labels">
+				<div class="">
+					<canvas id="line" 
+							class="chart chart-line"
+							chart-data="IC.chartOptions.data"
+							chart-labels="IC.chartOptions.labels" 
+							chart-series="IC.chartOptions.series" 
+							chart-options="IC.chartOptions.options"
+							chart-dataset-override="IC.chartOptions.datasetOverride"
+							height="70">
+					</canvas>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="content__right">

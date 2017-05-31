@@ -1,13 +1,8 @@
-<div class="section__heading">
-	<h2 class="section__title" translate>Transactions</h2>
-</div>
-<div class="section__transactions" ng-if="TC.txs.length">
-	<div ng-repeat="tx in TC.txs">
-		<div class="transactions__item" 
-			 ng-class="{ 'open' : tx.showAdditInfo }" 
-			 ng-include 
-			 src="'views/transaction/tx.html'">
-		</div>
+<div ng-if="TC.txs.length" ng-repeat="tx in TC.txs">
+	<div class="transactions__item" 
+		 ng-class="{ 'open' : tx.showAdditInfo }" 
+		 ng-include 
+		 src="'views/transaction/tx.html'">
 	</div>
 </div>
 
