@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('insight.system').controller('IndexController',
-function($scope, $rootScope, $timeout, moment, getSocket, Blocks, TransactionsByDays) {
+function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays) {
 
 	var self = this;
+	var socket = getSocket($scope);
 		self.txs = [];
 		self.blocks = [];
 		self.scrollConfig = {
@@ -17,13 +18,13 @@ function($scope, $rootScope, $timeout, moment, getSocket, Blocks, TransactionsBy
 			callbacks: {
 				onBeforeUpdate: function() {
 
-					var maxHeight = parseInt(window.getComputedStyle(this).maxHeight),
+					var maxHeight = parseInt($window.getComputedStyle(this).maxHeight),
 						list = this.getElementsByClassName('scrollList'),
 						heightList = list[0].clientHeight;
 
 					if (heightList > maxHeight) {
 						
-						this.style.height = parseInt(window.getComputedStyle(this).maxHeight) + 'px';
+						this.style.height = parseInt($window.getComputedStyle(this).maxHeight) + 'px';
 					} else {
 						this.style.height = heightList + 'px';
 					}
@@ -80,7 +81,7 @@ function($scope, $rootScope, $timeout, moment, getSocket, Blocks, TransactionsBy
 							fontSize:  14,
 							padding: 25,
 							stepSize: 500,
-							callback: function(value, index, values) {
+							callback: function(value) {
 								return value + ' t';
 							}
 						}
@@ -134,14 +135,12 @@ function($scope, $rootScope, $timeout, moment, getSocket, Blocks, TransactionsBy
 		});
 	};
 
-	var socket = getSocket($scope);
-
 	socket.on('connect', function() {
 
 		_startSocket();
 	});
 
-	self.getListOfTransactions = function(){
+	self.getListOfTransactions = function() {
 
 		TransactionsByDays.query({},
 		function(response){
@@ -157,14 +156,14 @@ function($scope, $rootScope, $timeout, moment, getSocket, Blocks, TransactionsBy
 			self.lastTransactionsList = response.reverse();
 			self.chartOptions.labels = self.lastTransactionsList.map(function(item){
 
-				return moment(it.date).format('MM/DD');
+				return moment(item.date).format('MM/DD');
 			});
 			self.chartOptions.data = [ self.lastTransactionsList.map(function(item){
 
-				return it.transaction_count;
+				return item.transaction_count;
 			})];
 		});
-	}
+	};
 
 	self.index = function() {
 

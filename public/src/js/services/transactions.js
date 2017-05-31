@@ -2,8 +2,8 @@
 
 angular.module('insight.transactions')
 	.factory('Transaction',
-	function($resource) {
-		return $resource(window.apiPrefix + '/tx/:txId', {
+	function($resource, $window) {
+		return $resource($window.apiPrefix + '/tx/:txId', {
 			txId: '@txId'
 		}, {
 			get: {
@@ -22,22 +22,22 @@ angular.module('insight.transactions')
 		});
 	})
 	.factory('TransactionsByBlock',
-	function($resource) {
-		return $resource(window.apiPrefix + '/txs', {
+	function($resource, $window) {
+		return $resource($window.apiPrefix + '/txs', {
 			block: '@block'
 		});
 	})
 	.factory('TransactionsByAddress',
-	function($resource) {
-		return $resource(window.apiPrefix + '/txs', {
+	function($resource, $window) {
+		return $resource($window.apiPrefix + '/txs', {
 			address: '@address'
 		});
 	})
 	.factory('Transactions',
-	function($resource) {
-		return $resource(window.apiPrefix + '/txs');
+	function($resource, $window) {
+		return $resource($window.apiPrefix + '/txs');
 	})
 	.factory('TransactionsByDays',
-	function($resource) {
-		return $resource(window.apiPrefix + '/statistic/transactions');
+	function($resource, $window) {
+		return $resource($window.apiPrefix + '/statistic/transactions');
 	});

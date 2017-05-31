@@ -3216,35 +3216,37 @@ corresponds to the arrow we want to display */
     font-size: 13px; }
   .list .fsz-16 {
     font-size: 16px; }
-  .list-blocks__left {
-    float: left;
-    width: 180px;
-    margin-right: 20px;
-    border: 1px solid #2e9ad0;
-    text-align: center;
-    padding: 24px 0 0;
-    height: 90px; }
-    .list-blocks__left:hover {
-      background: #2e9ad0;
-      color: #232328; }
-  .list-blocks__right {
-    float: left;
-    overflow: hidden;
-    padding: 15px 0 0; }
-    .list-blocks__right .list__row:first-child {
-      margin-bottom: 5px; }
-    .list-blocks__right .list__row:first-child {
-      margin-bottom: 0; }
-  .list-blocks .list__item {
-    padding: 0 20px 0 0;
-    margin-bottom: 15px; }
-    .list-blocks .list__item:hover {
-      background: transparent; }
-  .list-blocks .label {
-    font-size: 13px;
-    opacity: .6; }
-  .list-blocks .labeled {
-    font-size: 13px; }
+  .list-blocks {
+    overflow: hidden; }
+    .list-blocks__left {
+      float: left;
+      width: 180px;
+      margin-right: 20px;
+      border: 1px solid #2e9ad0;
+      text-align: center;
+      padding: 24px 0 0;
+      height: 90px; }
+      .list-blocks__left:hover {
+        background: #2e9ad0;
+        color: #232328; }
+    .list-blocks__right {
+      float: left;
+      overflow: hidden;
+      padding: 15px 0 0; }
+      .list-blocks__right .list__row:first-child {
+        margin-bottom: 5px; }
+      .list-blocks__right .list__row:first-child {
+        margin-bottom: 0; }
+    .list-blocks .list__item {
+      padding: 0 20px 0 0;
+      margin-bottom: 15px; }
+      .list-blocks .list__item:hover {
+        background: transparent; }
+    .list-blocks .label {
+      font-size: 13px;
+      opacity: .6; }
+    .list-blocks .labeled {
+      font-size: 13px; }
   .list-transactions__left {
     display: block;
     overflow: hidden; }

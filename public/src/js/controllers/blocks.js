@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.blocks').controller('BlocksController',
-	function($scope, $rootScope, $routeParams, $location, moment, Block, Blocks, BlockByHeight) {
+function($scope, $rootScope, $routeParams, $location, moment, Block, Blocks, BlockByHeight) {
 
 	var self = this;
 	self.loading = false;
