@@ -83,9 +83,14 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="section section-storage" ng-class="{ smartMode : AC.storage.smartMode }" ng-init="AC.getStorage()">
-		<div class="section__heading" ng-if="AC.storage">
+<div ng-controller="TransactionsController as TC" 
+	 ng-init="TC.load('address')">
+	<div class="section section-storage" 
+		 ng-controller="ContractsController as CC"
+		 ng-class="{ 'smartMode' : CC.storage.smartMode }" 
+		 ng-init="CC.getStorage(AC.address)"
+		 >
+		<div class="section__heading" ng-if="CC.storage">
 			<div class="ov">
 				<div class="pull-left">
 					<h2 class="section__title in_bl" translate>Storage</h2>
@@ -543,7 +548,8 @@
 		</div>
 	</div>
 
-	<div class="section section-transactionsAddress" ng-if="AC.address.addrStr" ng-controller="TransactionsController as TC" ng-init="TC.load('address')">
+	<div class="section section-transactionsAddress" 
+		 ng-if="AC.address.addrStr">
 		<div class="section__heading">
 			<h2 class="section__title" translate>Transactions</h2>
 		</div>
@@ -552,6 +558,7 @@
 			 data-ng-include 
 			 src="'views/transaction/list.html'">
 		</div>
+	</div>
 	</div>
 </div>
 

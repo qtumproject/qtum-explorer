@@ -10,10 +10,10 @@ function($scope, $rootScope, $routeParams, $location, moment, Block, Blocks, Blo
 		date: null,
 		format: 'yyyy-MM-dd',
 		isOpened : false,
-		maxDate: new Date(),
-		minDate: new Date(0),
 		dateOptions : {
-			startingDay: 1
+			startingDay: 1,
+			maxDate: new Date(),
+			minDate: new Date(0),
 		}
 	};
 

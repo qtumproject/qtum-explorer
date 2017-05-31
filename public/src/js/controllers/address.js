@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.address').controller('AddressController',
-function($scope, $rootScope, $document, $routeParams, $location, Address, StorageByAddress, getSocket) {
+function($scope, $rootScope, $document, $routeParams, $location, Address, getSocket) {
 
 	var self = this;
 	var socket = getSocket($scope);
@@ -53,7 +53,6 @@ function($scope, $rootScope, $document, $routeParams, $location, Address, Storag
 			$rootScope.titleDetail = address.addrStr.substring(0, 7) + '...';
 			$rootScope.flashMessage = null;
 			self.address = address;
-			console.log(self.address)
 		},
 		function(e) {
 
@@ -68,18 +67,6 @@ function($scope, $rootScope, $document, $routeParams, $location, Address, Storag
 			}
 
 			$location.path('/');
-		});
-	};
-
-	self.getStorage = function() {
-
-		StorageByAddress.get({
-			address: $routeParams.addrStr
-		}, function(response) {
-
-			console.log(response);
-
-			self.storage = response;
 		});
 	};
 });

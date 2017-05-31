@@ -1,85 +1,104 @@
 'use strict';
 
 angular.module('insight.contracts').controller('ContractsController',
-    function($scope, $rootScope, $routeParams, $location,$q, Global, Address, getSocket, ContractsInfo, Transaction, Contracts) {
-        $scope.global = Global;
+function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddress, getSocket, ContractsInfo, Transaction, Contracts) {
 
-        var addrStr;
+	var self = this;
+	var addrStr;
+	var socket = getSocket($scope);
 
-        try {
-            addrStr = Contracts.getBitAddressFromContractAddress($routeParams.contractAddressStr);
-        } catch (e) {
+	// try {
+	// 	addrStr = Contracts.getBitAddressFromContractAddress($routeParams.contractAddressStr);
+	// }
+	// catch (e) {
 
-            $rootScope.flashMessage = 'Invalid Address: ' + $routeParams.contractAddressStr;
-            $location.path('/');
+	// 	$rootScope.flashMessage = 'Invalid Address: ' + $routeParams.contractAddressStr;
+	// 	$location.path('/');
 
-            return false;
+	// 	return false;
+	// }
 
-        }
+	var _startSocket = function() {
 
-        var socket = getSocket($scope);
+		socket.on('bitcoind/addresstxid', function(data) {
 
-        var _startSocket = function() {
-            socket.on('bitcoind/addresstxid', function(data) {
-                if (data.address === addrStr) {
-                    $rootScope.$broadcast('tx', data.txid);
-                    var base = document.querySelector('base');
-                    var beep = new Audio(base.href + '/sound/transaction.mp3');
-                    beep.play();
-                }
-            });
-            socket.emit('subscribe', 'bitcoind/addresstxid', [addrStr]);
-        };
+			if (data.address === addrStr) {
 
-        var _stopSocket = function () {
-            socket.emit('unsubscribe', 'bitcoind/addresstxid', [addrStr]);
-        };
+				$rootScope.$broadcast('tx', data.txid);
+				var base = document.querySelector('base');
+				var beep = new Audio(base.href + '/sound/transaction.mp3');
+				beep.play();
+			}
+		});
 
-        socket.on('connect', function() {
-            _startSocket();
-        });
+		socket.emit('subscribe', 'bitcoind/addresstxid', [addrStr]);
+	};
 
-        $scope.$on('$destroy', function(){
-            _stopSocket();
-        });
+	var _stopSocket = function () {
 
-        $scope.params = $routeParams;
+		socket.emit('unsubscribe', 'bitcoind/addresstxid', [addrStr]);
+	};
 
-        $scope.findOne = function() {
+	socket.on('connect', function() {
 
-            $rootScope.contractAddressStr = $routeParams.contractAddressStr;
+		_startSocket();
+	});
 
-            $q.all([ContractsInfo.get({
-                contractAddressStr: $routeParams.contractAddressStr
-            }).$promise, Address.get({
-                addrStr: addrStr
-            }).$promise]).then(function(values) {
+	$scope.$on('$destroy', function(){
 
-                var info = values[0],
-                    address = values[1];
+		_stopSocket();
+	});
 
-                $rootScope.flashMessage = null;
-                $rootScope.titleDetail = $routeParams.contractAddressStr.substring(0, 7) + '...';
+	self.params = $routeParams;
 
-                $scope.info = info;
-                $scope.opcodesStr = Contracts.getContractOpcodesString(info.code);
-                $scope.bitAddress = addrStr;
-                $scope.address = address;
+	self.findOne = function() {
 
-            }).catch(function (e) {
+		$rootScope.contractAddressStr = $routeParams.contractAddressStr;
 
-                if (e.status === 400) {
-                    $rootScope.flashMessage = 'Invalid Address: ' + $routeParams.addrStr;
-                } else if (e.status === 503) {
-                    $rootScope.flashMessage = 'Backend Error. ' + e.data;
-                } else {
-                    $rootScope.flashMessage = 'Address Not Found';
-                }
+		$q.all([ ContractsInfo.get({
+			contractAddressStr: $routeParams.contractAddressStr
+		}).$promise, Address.get({
+			addrStr: addrStr
+		}).$promise])
+		.then(function(values) {
 
-                $location.path('/');
+			var info = values[0];
+			var address = values[1];
 
-            });
+			$rootScope.flashMessage = null;
+			$rootScope.titleDetail = $routeParams.contractAddressStr.substring(0, 7) + '...';
 
-        };
+			self.info = info;
+			self.opcodesStr = Contracts.getContractOpcodesString(info.code);
+			self.bitAddress = addrStr;
+			self.address = address;
 
-    });
+		})
+		.catch(function (e) {
+
+			if (e.status === 400) {
+
+				$rootScope.flashMessage = 'Invalid Address: ' + $routeParams.addrStr;
+			} else if (e.status === 503) {
+
+				$rootScope.flashMessage = 'Backend Error. ' + e.data;
+			} else {
+				$rootScope.flashMessage = 'Address Not Found';
+			}
+
+			$location.path('/');
+		});
+	};
+
+	self.getStorage = function(contractAddress) {
+
+		StorageByAddress.get({
+			address: contractAddress
+		}, function(response) {
+
+			console.log(response);
+
+			self.storage = response;
+		});
+	};
+});

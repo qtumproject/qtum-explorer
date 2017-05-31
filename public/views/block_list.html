@@ -27,17 +27,15 @@
 						<div class="date__text datepicker-popup datepicker">
 							<input type="text"
 								   class="date__textField"
-								   datepicker-popup="{{ BC.datepicker.format }}"
+								   uib-datepicker-popup="{{ BC.datepicker.format }}"
 								   ng-model="BC.date"
 								   is-open="BC.datepicker.isOpened"
-								   min-date="BC.datepicker.minDate"
-								   max-date="BC.datepicker.maxDate"
 								   datepicker-options="BC.datepicker.dateOptions"
 								   date-disabled="BC.disableDatepicker(date, mode)"
 								   show-button-bar="false"
 								   readonly/>
 							<div class="fsz-13" ng-if="BC.pagination.currentTs">
-								{{ BC.pagination.currentTs - 12 * 60 * 60 | amParse : 'X' | amStartOf : 'day' | amTimeAgo }}
+								{{ BC.pagination.isToday ? ('Today' | translate) : (BC.pagination.currentTs | amParse : 'X' | amStartOf : 'day' | amTimeAgo) }}
 							</div>
 						</div>
 					</div>
