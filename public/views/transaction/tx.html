@@ -80,13 +80,24 @@
 		<div ng-repeat="vout in tx.voutSimple" >
 			<div ng-repeat="item in vout.items | limitTo : !tx.showAdditInfo ? 1 : vout.items.length">
 				<div class="transactions__row">
-					<a href="address/{{ vout.addr }}" 
+					<!--<!--<a href="address/{{ vout.addr }}" 
 					   class="name" 
+					   ng-if="!vout.notAddr && $root.currentAttr != vout.addr"
 					   ng-class="{ 'mark' : !vout.notAddr }">
 						<span class="name__text">
 							{{ vout.addr }}
 						</span>
+					</a>-->
+					<a href="contracts/{{ vout.contractAddress }}" 
+					   class="name mark" 
+					   ng-if="vout.notAddr && vout.contractAddress">
+						<span class="name__text">
+							{{ vout.contractAddress }}
+						</span>
 					</a>
+					<span class="name__text" ng-if="!vout.notAddr && $root.currentAddr == vout.addr">
+						{{ vout.addr }}
+					</span>
 					<div class="data" ng-class="{ 'special' : vout.value }">
 						{{ !tx.showAdditInfo ? $root.currency.getConvertion(vout.value) : $root.currency.getConvertion(item.value) }} 
 						<span class="special" ng-if="vout.isSpent">(S)</span>
@@ -150,7 +161,7 @@
 	</div>
 </div>
 <div class="transactions__row">
-	<div class="pull-left" ng-if="!tx.isCoinBase && Number(tx.fees) >= 0">
+	<div class="pull-left" ng-if="!tx.isCoinBase && tx.fees >= 0">
 		<div class="transactions__info transp">
 			<span translate>Fee</span>: 
 			{{ $root.currency.getConvertion(tx.fees) }} 
