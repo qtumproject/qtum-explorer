@@ -1,98 +1,107 @@
 <div data-ng-include src="'views/includes/connection.html'"></div>
-<section data-ng-controller="TransactionsController" data-ng-init="findThis()">
-  <div class="secondary_navbar hidden-xs hidden-sm" scroll data-ng-class="{'hidden': !secondaryNavbar}" data-ng-show="tx.txid" data-ng-init="hideSNavbar=0">
-    <div class="container" data-ng-if="!hideSNavbar">
-      <div class="col-md-6 col-lg-7 text-left">
-          <h3 translate>Transaction</h3>
-          <div class="ellipsis"> 
-            <small>{{tx.txid}}</small> 
-            <span class="btn-copy" clip-copy="tx.txid"></span>
-          </div>
-      </div>
-      <div class="col-md-6 col-lg-5 text-right">
-        <span data-ng-show="tx.confirmations" class="txvalues
-          txvalues-success">{{tx.confirmations}} 
-          <span translate>Confirmations</span>
-        </span>
-        <span data-ng-show="!tx.confirmations" 
-          class="txvalues txvalues-danger" translate>Unconfirmed Transaction!</span>
-        <span class="txvalues txvalues-primary">{{$root.currency.getConvertion(tx.valueOut) || tx.valueOut + ' QTUM' }}</span>
-      </div>
-    </div>
-    <div class="hide_snavbar">
-      <a href="#" data-ng-click="hideSNavbar=!hideSNavbar">
-        <span data-ng-show="hideSNavbar"><span class="text-muted glyphicon glyphicon-chevron-down"></span></span>
-        <span data-ng-show="!hideSNavbar"><span class="text-muted glyphicon glyphicon-chevron-up"></span></span>
-      </a>
-    </div>
-  </div>
-  <div data-ng-if="tx.txid">
-    <h1><span translate>Transaction</span> 
-      <small data-ng-show="from_vin || from_vout">
-        <span data-ng-show="from_vin" translate>Input</span> 
-        <span data-ng-show="from_vout" translate>Output</span> 
-        <span>{{v_index}}</span>
-      </small>
-    </h1>
-    <div class="progress progress-striped active" data-ng-if="!tx.txid">
-      <div class="progress-bar progress-bar-info" style="width: 100%">
-        <span translate>Loading Transaction Details</span> <span class="loader-gif"></span>
-      </div>
-    </div>
-    <div data-ng-if="tx.txid">
-      <div class="well well-sm ellipsis">
-        <strong translate>Transaction</strong> 
-        <span class="txid text-muted">{{tx.txid}}</span>
-        <span class="btn-copy" clip-copy="tx.txid"></span>
-      </div>
-      <h2 translate>Summary</h2>
-      <table class="table" style="table-layout: fixed">
-        <tbody>
-        <tr>
-          <td><strong translate>Size</strong></td>
-          <td class="text-muted text-right">{{tx.size}} (bytes)</td>
-        </tr>
-        <tr data-ng-show="tx.fees">
-          <td><strong translate>Fee Rate</strong></td>
-          <td class="text-muted text-right">{{$root.currency.getConvertion((tx.fees * 1000) / tx.size) + ' per kB' || ((tx.fees * 1000) / tx.size) + 'QTUM per kB'}}</td>
-        </tr>
-        <tr>
-          <td><strong translate>Received Time</strong></td>
-          <td data-ng-show="tx.time" class="text-muted text-right">{{tx.time * 1000|date:'medium'}}</td>
-          <td data-ng-show="!tx.time" class="text-muted text-right">N/A</td>
-        </tr>
-        <tr>
-          <td><strong translate>Mined Time</strong></td>
-          <td data-ng-show="tx.blocktime" class="text-muted text-right">{{tx.blocktime * 1000|date:'medium'}}</td>
-          <td data-ng-show="!tx.blocktime" class="text-muted text-right">N/A</td>
-        </tr>
-        <tr>
-          <td><strong translate>Included in Block</strong></td>
-          <td data-ng-show="tx.blockhash" class="text-muted text-right"> 
-            <div class="ellipsis">
-              <a href="block/{{tx.blockhash}}">{{tx.blockhash}}</a>
-            </div>
-          <td data-ng-show="!tx.blockhash" class="text-muted text-right">Unconfirmed</td>
-        </tr>
-        <tr data-ng-show="tx.locktime">
-          <td><strong>LockTime</strong></td>
-          <td class="text-muted text-right">{{tx.locktime}}</td>
-        </tr>
-        <tr data-ng-show="tx.isCoinBase">
-          <td><strong>Coinbase</strong></td>
-          <td class="text-muted text-right">
-            <div class="ellipsis">
-                <span class="btn-copy ng-isolate-scope" clip-copy="tx.vin[0].coinbase"></span>
-                <span class="ng-binding">{{tx.vin[0].coinbase}}</span>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-    <h2 translate>Details</h2>
-    <div class="block-tx" data-ng-if="tx.txid">
-      <div data-ng-include src="'views/transaction/tx.html'"></div>
-    </div>
-  </div>
-</section>
+<div class="box" ng-controller="TransactionsController as TC" ng-init="TC.findThis()">
+	<div class="heading margin1">
+		<h1 class="heading__title" translate>Transaction</h1>
+		<div class="progress progress-striped active" ng-if="!TC.tx.txid">
+			<div class="progress-bar progress-bar-info">
+				<span translate>Loading Transaction Details</span> 
+				<span class="loader-gif"></span>
+			</div>
+		</div>
+		<div class="heading__sm" ng-if="TC.tx.txid">
+			<div class="heading__smLabel" translate>Transaction</div>
+			<div class="heading__smLabeled">
+				<div class=" copyParent copyParent-right">
+					<a href="" 
+					   class="copyBtn icon-copy" 
+					   ngclipboard 
+					   data-clipboard-text="{{ TC.tx.txid }}"></a>
+					<div class="copyText text">
+						{{ TC.tx.txid }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="section section-summaryTransactions" ng-if="TC.tx.txid">
+		<div class="section__heading">
+			<h2 class="section__title in_bl" translate>Summary</h2>
+		</div>
+		<div class="summaryTransactions">
+			<ul class="list">
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Size</b>
+					</div>
+					<div class="list__right">
+						<div class="">
+							{{ TC.tx.size }} ({{ 'bytes' | translate }})
+						</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Received Time</b>
+					</div>
+					<div class="list__right">
+						<div class="" ng-if="TC.tx.time">
+							{{ TC.tx.time | amParse : 'X' | amDateFormat: 'MMMM D, YYYY h:mm:ss A' }}
+						</div>
+						<div class="" ng-if="!TC.tx.time">
+							N/A
+						</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Mined Time</b>
+					</div>
+					<div class="list__right">
+						<div class="" ng-if="TC.tx.blocktime">
+							{{ TC.tx.blocktime | amParse : 'X' | amDateFormat: 'MMMM D, YYYY h:mm:ss A' }}
+						</div>
+						<div class="" ng-if="!TC.tx.blocktime">
+							N/A
+						</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Included in Block</b>
+					</div>
+					<div class="list__right">
+						<a href="block/{{ TC.tx.blockhash }}" class="mark">
+							{{ TC.tx.blockhash }}
+						</a>
+					</div>
+				</li>
+				<li class="list__item" ng-if="TC.tx.isCoinBase">
+					<div class="list__left">
+						<b translate>Coinbase</b>
+					</div>
+					<div class="list__right">
+						<div class=" copyParent copyParent-left">
+							<a href="" 
+							   class="copyBtn icon-copy"
+							   ngclipboard 
+					   		   data-clipboard-text="{{ TC.tx.vin[0].coinbase }}"></a>
+							<div class="copyText text">
+								{{ TC.tx.vin[0].coinbase }}
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="section section-detailsTransactions">
+		<div class="section__heading">
+			<h2 class="section__title" translate>Details</h2>
+		</div>
+		<div class="section__transactions" 
+			 data-ng-include 
+			 src="'views/transaction/list.html'">
+		</div>
+	</div>
+</div>

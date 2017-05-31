@@ -17,8 +17,10 @@ angular.module('insight')
 		color: '#2e9ad0',
 		background: '#232328'
 	},
+	BLOCKS_AMOUNT: 15,
 	TRANSACTION_DISPLAYED: 10,
-	BLOCKS_DISPLAYED: 5
+	BLOCKS_DISPLAYED: 5,
+	CHART_DAYS: 14
 });
 
 //Setting up route
@@ -80,19 +82,13 @@ angular.module('insight')
 		$locationProvider.html5Mode(true);
 		$locationProvider.hashPrefix('!');
 	})
-	.run(function($rootScope, $route, $location, $routeParams, $anchorScroll, ngProgress, gettextCatalog, amMoment, Constants) {
+	.run(function($rootScope, $route, $location, $routeParams, $anchorScroll, gettextCatalog, amMoment, Constants) {
 
 		gettextCatalog.currentLanguage = defaultLanguage;
 		amMoment.changeLocale(defaultLanguage);
 
-		$rootScope.$on('$routeChangeStart', function() {
-
-			ngProgress.start();
-		});
-
 		$rootScope.$on('$routeChangeSuccess', function() {
 
-			ngProgress.complete();
 			//Change page title, based on Route information
 			$rootScope.titleDetail = '';
 			$rootScope.title = $route.current.title;
