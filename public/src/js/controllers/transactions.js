@@ -191,9 +191,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 			$rootScope.titleDetail = tx.txid.substring(0,7) + '...';
 			$rootScope.flashMessage = null;
 			self.tx = tx;
-
 			_processTX(tx);
-
 			self.txs.unshift(tx);
 
 		}, function(e) {

@@ -14,6 +14,10 @@ function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block,
 		{
 			'title': 'Status',
 			'link': 'status'
+		}, 
+		{
+			'title': 'Stats',
+			'link': 'stats'
 		}
 	];
 	self.availableLanguages = [
