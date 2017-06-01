@@ -22,11 +22,4 @@ angular.module('insight.address')
 			}
 		});
 	}
-)
-.factory('StorageByAddress', function($resource, $window) {
-
-		return $resource($window.apiPrefix + '/contracts/:address/info', {
-			address: '@address'
-		});
-	}
 );

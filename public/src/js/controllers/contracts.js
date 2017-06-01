@@ -6,17 +6,18 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 	var self = this;
 	var addrStr;
 	var socket = getSocket($scope);
+		self.storageSmartMode = true;
 
-	// try {
-	// 	addrStr = Contracts.getBitAddressFromContractAddress($routeParams.contractAddressStr);
-	// }
-	// catch (e) {
+	try {
+		addrStr = Contracts.getBitAddressFromContractAddress($routeParams.contractAddressStr);
+	}
+	catch (e) {
 
-	// 	$rootScope.flashMessage = 'Invalid Address: ' + $routeParams.contractAddressStr;
-	// 	$location.path('/');
+		$rootScope.flashMessage = 'Invalid Address: ' + $routeParams.contractAddressStr;
+		$location.path('/');
 
-	// 	return false;
-	// }
+		return false;
+	}
 
 	var _startSocket = function() {
 
@@ -72,7 +73,7 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 			self.opcodesStr = Contracts.getContractOpcodesString(info.code);
 			self.bitAddress = addrStr;
 			self.address = address;
-
+			console.log(self.address, '============================================', self.info)
 		})
 		.catch(function (e) {
 
@@ -90,15 +91,18 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		});
 	};
 
-	self.getStorage = function(contractAddress) {
+	self.getStorage = function() {
 
 		StorageByAddress.get({
-			address: contractAddress
+			address: $routeParams.contractAddressStr
 		}, function(response) {
-
-			console.log(response);
 
 			self.storage = response;
 		});
+	};
+
+	self.toggleStorageMode = function() {
+
+		self.storageSmartMode = !self.storageSmartMode;
 	};
 });
