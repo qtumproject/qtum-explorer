@@ -127,11 +127,11 @@
 							{{ vout.contractAddress }}
 						</span>
 					</a>
-					<span class="name__text" ng-if="($root.currentAddr == vout.addr && !tx.showAdditInfo) || vout.notAddr">
+					<span class="name__text" ng-if="($root.currentAddr == vout.addr && !tx.showAdditInfo) || vout.notAddr && !vout.contractAddress">
 						{{ vout.addr }}
 					</span>
 
-					<div class="data" ng-class="{ 'special' : vout.value }">
+					<div class="data" ng-class="{ 'special' : vout.value && !tx.showAdditInfo }">
 						{{ !tx.showAdditInfo ? $root.currency.getConvertion(vout.value) : $root.currency.getConvertion(item.value) }} 
 						<span class="special" ng-if="vout.isSpent">(S)</span>
 						<span class="special" ng-if="!vout.isSpent">(U)</span>
@@ -206,7 +206,10 @@
 			'pull-right' : !tx.isCoinBase && Number(tx.fees) >= 0 && tx.contractBytecode, 
 			'transactions__row' : tx.isCoinBase && Number(tx.fees) < 0 && !tx.contractBytecode
 		}">
-		<div class="transactions__info">
+		<div class="transactions__info" ng-if="!tx.confirmations" translate>
+			Unconfirmed Transaction!
+		</div>
+		<div class="transactions__info" ng-if="tx.confirmations">
 			{{ tx.confirmations }} 
 			{{ 'confirmations' | translate }}
 		</div>
