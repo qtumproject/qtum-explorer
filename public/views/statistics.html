@@ -1,0 +1,212 @@
+<div data-ng-include src="'views/includes/connection.html'"></div>
+<div class="box" ng-controller="StatisticsController as SC" ng-init="SC.getStats()">
+	<div class="heading margin1">
+		<h1 class="heading__title" translate>Stats</h1>
+		<div class="heading__sm">
+			<div class="heading__smLabeled fsz-21" translate>
+				Summary of QTUM statistics for the previous 24 hour period.
+			</div>
+		</div>
+	</div>
+
+	<div class="section-statsWrap">
+		<div class="col col-5 ">
+			<div class="section section-stats">
+				<div class="section__heading">
+					<h2 class="section__title" translate>Block Summary</h2>
+				</div>
+				<div class=" summaryStats">
+					<ul class="list">
+						<li class="list__item">
+							<div class="list__left">
+								<b translate>Blocks Mined</b>
+							</div>
+							<div class="list__right">
+								<div class="">180</div>
+							</div>
+						</li>
+						<li class="list__item">
+							<div class="list__left">
+								<b translate>Time Between Blocks</b>
+							</div>
+							<div class="list__right">
+								<div class="">7.44 minutes</div>
+							</div>
+						</li>
+						<li class="list__item">
+							<div class="list__left">
+								<b translate>Bitcoins Mined</b>
+							</div>
+							<div class="list__right">
+								<div class="">2,250.00000000 BTC</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col col-6">
+			<div class="section section-stats">
+				<div class="section__heading">
+					<h2 class="section__title" translate>Market Summary</h2>
+				</div>
+				<div class="summary-marketStats">
+					<ul class="list">
+						<li class="list__item">
+							<div class="list__left">
+								<b translate>Market Price</b>
+							</div>
+							<div class="list__right">
+								<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+								<div class="list__rightText">$1,732.93</div>
+							</div>
+						</li>
+						<li class="list__item">
+							<div class="list__left">
+								<b translate>Trade Volume</b>
+							</div>
+							<div class="list__right">
+								<div class="list__rightText">$71,295,885.21</div>
+							</div>
+						</li>
+						<li class="list__item">
+							<div class="list__left">
+								<b translate>Trade Volume</b>
+							</div>
+							<div class="list__right">
+								<div class="list__rightText">41,141.79111282 BTC</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section section-stats">
+		<div class="section__heading">
+			<h2 class="section__title" translate>Transaction Summary</h2>
+		</div>
+		<div class="transactionsStats">
+			<ul class="list">
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Total Transaction Fees (BTC)</b>
+					</div>
+					<div class="list__right">
+						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">319.41170875 BTC</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Number of Transactions</b>
+					</div>
+					<div class="list__right">
+						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">7.44 minutes</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Total Output Volume (BTC)</b>
+					</div>
+					<div class="list__right">
+						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">2,250.00000000 BTC</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Estimated Transaction Volume (BTC)</b>
+					</div>
+					<div class="list__right">
+						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">332,376.43591470 BTC</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Estimated Transaction Volume (USD)</b>
+					</div>
+					<div class="list__right">
+						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">$575,985,429.47</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="section section-stats">
+		<div class="section__heading">
+			<h2 class="section__title" translate>Mining Cost</h2>
+		</div>
+		<div class="miningCostStats">
+			<ul class="list">
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Total Miners Revenue (USD)</b>
+					</div>
+					<div class="list__right">
+						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">$4,452,613.20</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b>% {{ 'Earned From Transaction Fees' | translate }}</b>
+					</div>
+					<div class="list__right">
+						<div class="list__rightText">12.43%</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b>% {{ 'Of Transaction Volume' | translate }}</b>
+					</div>
+					<div class="list__right">
+						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">0.77%</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Cost per Transaction (USD)</b>
+					</div>
+					<div class="list__right">
+						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">$12.27</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="section section-stats">
+		<div class="section__heading">
+			<h2 class="section__title" translate>Hash Rate and Electricy Consumption</h2>
+		</div>
+		<div class="rateElectricyStats">
+			<ul class="list">
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Difficulty</b>
+					</div>
+					<div class="list__right">
+						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">559,970,892,890</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Hash Rate</b>
+					</div>
+					<div class="list__right">
+						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">5,010,534,733 GH/s</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

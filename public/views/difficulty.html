@@ -1,0 +1,38 @@
+<div data-ng-include src="'views/includes/connection.html'"></div>
+<div class="box" ng-controller="StatisticsController as SC" ng-init="SC.getDifficulties()">
+	<div class="heading margin1">
+		<h1 class="heading__title" translate>Difficulty</h1>
+		<div class="heading__sm">
+			<div class="heading__smLabeled fsz-21" translate>
+				A relative measure of how difficult it is to find a new block. The difficulty is adjusted periodically as a function of how much hashing power has been deployed by the network of miners.
+			</div>
+		</div>
+	</div>
+
+	<div class="section-chartDiff">
+		<div class="insight__chart">
+			<div class="insight__chartPeriodWrap">
+				<a href="difficulty/{{ button.days }}" 
+				   class="insight__chartPeriod" 
+				   ng-class="{ 'active' : SC.difficultyDays == button.days }"
+				   ng-repeat="button in SC.daysButtons">
+				   	{{ button.name }}
+				</a>
+			</div>
+
+			<div class="" ng-app="app">
+				<div class="">
+					<canvas id="line" 
+							class="chart chart-line" 
+							chart-data="SC.difficultiesParams.data"
+							chart-labels="SC.difficultiesParams.labels" 
+							chart-series="SC.difficultiesParams.series" 
+							chart-options="SC.difficultiesParams.options"
+							chart-dataset-override="SC.difficultiesParams.datasetOverride"
+							height="115">
+					</canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

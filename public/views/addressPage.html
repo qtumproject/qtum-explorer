@@ -81,16 +81,15 @@
 		</div>
 	</div>
 </div>
-<div class="section section-storage" 
-	 ng-class="{ 'smartMode' : !C.storageSmartMode }" 
+<div class="section section-storage smartMode" 
 	 ng-init="C.getStorage()">
 	<div class="section__heading" ng-if="C.storage">
 		<div class="ov">
 			<div class="pull-left">
 				<h2 class="section__title in_bl" translate>Storage</h2>
-				<span class="section__status">[29 entries]</span>
+				<span class="section__status">[{{ C.info.storageLength }} {{ 'entries' | translate }}]</span>
 			</div>
-			<div class="pull-right">
+			<!--<div class="pull-right">
 				<div class="tumbler blue-gray tumbler-storage">
 					<label class="tumbler__label">
 						<input type="checkbox" class="tumbler__input js-switch-mode" checked>
@@ -101,15 +100,15 @@
 							  ng-click="C.toggleStorageMode()"></span>
 					</label>
 				</div>
-			</div>
+			</div>-->
 		</div>
 	</div>
-	<!--<div class="storage" ng-controller="TooltipCtrl" ng-if="C.storage">
-		<div class="table table-storage-def">
+	<div class="storage" ng-controller="TooltipCtrl" ng-if="C.storage">
+		<!--<div class="table table-storage-def">
 			<div class="tr tr-head">
-				<div class="th">KEY</div>
+				<div class="th" translate>KEY</div>
 				<div class="th"></div>
-				<div class="th text_r">Value</div>
+				<div class="th text_r" translate>Value</div>
 			</div>
 			<div class="tr">
 				<div class="trMain">
@@ -404,28 +403,32 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 		<div class="table table-smart-mode">
 			<div class="tr tr-head">
-				<div class="th">KEY</div>
+				<div class="th" translate>KEY</div>
 				<div class="th"></div>
-				<div class="th text_r">Value</div>
+				<div class="th text_r" translate>Value</div>
 			</div>
-			<div class="tr">
+			<div class="tr" ng-repeat="storageRow in C.info.storage">
 				<div class="trMain">
 					<div class="td">
 						<div class="storage__tdInFirst ">
-							<a href="" class="mark-bd">number</a>
+							<a href="" 
+							   class="mark-bd"
+							   ng-click="C.toggleStorageRowView($index)" translate>
+								{{ C.storageViews[ $index ] }}
+							</a>
 						</div>
 					</div>
 					<div class="td">
 						<div class="storage__tdInCenter">
 							<div class="storage__num left">
-								<div class="">0</div>
+								<div class="">{{ $index }}</div>
 							</div>
 							<div class="storage__arrow">→</div>
 							<div class="storage__num right">
-								<div class="">2</div>
+								<div class="">{{ storageRow }}</div>
 							</div>
 						</div>
 					</div>
@@ -539,7 +542,7 @@
 			<a href="" class="storage__btn">More</a>
 			<a href="" class="storage__btn">Show All</a>
 		</div>
-	</div>-->
+	</div>
 </div>
 
 <div class="section section-transactionsAddress" 

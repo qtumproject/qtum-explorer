@@ -206,8 +206,9 @@
 			'pull-right' : !tx.isCoinBase && Number(tx.fees) >= 0 && tx.contractBytecode, 
 			'transactions__row' : tx.isCoinBase && Number(tx.fees) < 0 && !tx.contractBytecode
 		}">
-		<div class="transactions__info" ng-if="!tx.confirmations" translate>
-			Unconfirmed Transaction!
+		<div ng-if="!tx.confirmations" 
+			  class="transactions__info attn" translate>
+			  Unconfirmed Transaction!
 		</div>
 		<div class="transactions__info" ng-if="tx.confirmations">
 			{{ tx.confirmations }} 

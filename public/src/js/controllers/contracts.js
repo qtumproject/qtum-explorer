@@ -6,7 +6,9 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 	var self = this;
 	var addrStr;
 	var socket = getSocket($scope);
+	self.storageViews = [ 'data', 'string', 'number', 'address' ];
 		self.storageSmartMode = true;
+		self.storageState = { };
 
 	try {
 		addrStr = Contracts.getBitAddressFromContractAddress($routeParams.contractAddressStr);
@@ -18,6 +20,14 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 
 		return false;
 	}
+
+	var _setStorageState = function() {
+
+		for(var I in self.info.storage){
+
+			self.storageState[I] = 0;
+		}
+	};
 
 	var _startSocket = function() {
 
@@ -35,10 +45,44 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		socket.emit('subscribe', 'bitcoind/addresstxid', [addrStr]);
 	};
 
-	var _stopSocket = function () {
+	var _stopSocket = function() {
 
 		socket.emit('unsubscribe', 'bitcoind/addresstxid', [addrStr]);
 	};
+
+	var _parseStorage = function(hex, type) {
+
+		var newValue;
+
+		switch (type){
+
+			case 'string': {
+
+				var newValue = '';
+
+				for (var i = 0; i < hex.length; i += 2) {
+
+					newValue += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+				}
+				return newValue;
+			}
+			case 'number': {
+
+				return parseInt(hex, 16);
+			}
+			case 'address': {
+
+				return hex.substr(-40);
+			}
+			default: {
+
+				return hex;
+			}
+		}
+		// console.log(parseInt( self.info.storage['04'], 16)); // toNumber
+		// console.log(string); // to String
+		// console.log(self.info.storage['02'].substr(-40)); // to addr
+	}
 
 	socket.on('connect', function() {
 
@@ -73,6 +117,8 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 			self.opcodesStr = Contracts.getContractOpcodesString(info.code);
 			self.bitAddress = addrStr;
 			self.address = address;
+			self.info.storageLength = Object.keys(self.info.storage).length;
+			_setStorageState();
 			console.log(self.address, '============================================', self.info)
 		})
 		.catch(function (e) {
@@ -91,18 +137,25 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		});
 	};
 
+	self.toggleStorageRowView = function(key) {
+
+		if(self.storageState[ key ] + 1 < self.storageViews.length){
+
+			self.storageState[ key ] += 1;
+			return;
+		}
+		self.storageState[ key ] = 0;		
+	};
+
 	self.getStorage = function() {
 
 		StorageByAddress.get({
 			address: $routeParams.contractAddressStr
 		}, function(response) {
 
+			_parseStorage();
+
 			self.storage = response;
 		});
-	};
-
-	self.toggleStorageMode = function() {
-
-		self.storageSmartMode = !self.storageSmartMode;
 	};
 });

@@ -40,7 +40,9 @@ module.exports = function(grunt) {
 				'public/lib/bitcore-lib/bitcore-lib.js',
 				'public/lib/clipboard/dist/clipboard.min.js',
 				'public/lib/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
-				'public/lib/chart.js/dist/Chart.min.js'
+				'public/lib/chart.js/dist/Chart.min.js',
+				'public/lib/web3/dist/web3.min.js',
+				'public/lib/bignumber.js/bignumber.min.js'
 			],
 			dest: 'public/js/vendors.js'
 		},
