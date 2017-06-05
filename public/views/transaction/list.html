@@ -5,4 +5,7 @@
 		 src="'views/transaction/tx.html'">
 	</div>
 </div>
+<div class="alert alert-danger" ng-if="!TC.txs.length" translate>
+	There are no transactions involving this address.
+</div>
 

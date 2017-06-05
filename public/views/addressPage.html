@@ -13,7 +13,7 @@
 					ngclipboard 
 					data-clipboard-text="{{ C.address.addrStr }}"></a>
 				<div class="copyText text">
-					{{ C.address.addrStr }}
+					{{ C.info.address ? C.info.address + ' (' + C.address.addrStr + ')' : C.address.addrStr }}
 				</div>
 			</div>
 		</div>
@@ -83,7 +83,7 @@
 </div>
 <div class="section section-storage smartMode" 
 	 ng-init="C.getStorage()">
-	<div class="section__heading" ng-if="C.storage">
+	<div class="section__heading" ng-if="C.storage.rows.length">
 		<div class="ov">
 			<div class="pull-left">
 				<h2 class="section__title in_bl" translate>Storage</h2>
@@ -91,7 +91,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="storage" ng-if="C.storage">
+	<div class="storage" ng-if="C.storage.rows.length">
 		<div class="table table-smart-mode">
 			<div class="tr tr-head">
 				<div class="th" translate>KEY</div>
@@ -102,31 +102,23 @@
 				<div class="trMain">
 					<div class="td">
 						<div class="storage__tdInFirst ">
-							<a href="" 
-							   class="mark-bd"
-							   ng-click="C.toggleStorageRowView('keyState', $index)" translate>
-								{{ C.storageViews[ storageRow.keyState ] }}
-							</a>
+							<span ng-click="C.toggleStorageRowView('keyState', $index)" translate>
+								{{ C.storageViews[0] }}
+							</span>
 						</div>
 					</div>
 					<div class="td">
 						<div class="storage__tdInCenter">
 							<div class="storage__num left">
-								<a class="storage__link"
-								   ng-class="{ 'mark' : storageRow.keyState == 3 }"
-								   href="contract/{{ storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]]}}"
-								   ng-if="storageRow.keyState == 3">
-									{{ storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]]}}
-								</a>
-								<div ng-if="!storageRow.keyState">
-									<span>{{storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]].substr(0, 20)}}</span><span class="attn tooltip__trigger" 
+								<div ng-if="storageRow.key_data.length > 40">
+									<span>{{ storageRow.key_data.substr(0, 20) }}</span><span class="attn tooltip__trigger" 
 									tooltip
 									tooltip-options="C.tooltipOptions" 
-									tooltip-title="{{ storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]]}}"
-									ng-if="storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]].length > 40">[...]</span><span ng-if="storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]].length > 40">{{storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]].substr(-20)}}</span>
+									tooltip-title="{{ storageRow.key_data }}"
+									ng-if="storageRow.key_data.length > 40">[...]</span><span ng-if="storageRow.key_data.length > 40">{{ storageRow.key_data.substr(-20) }}</span>
 								</div>
-								<div ng-if="storageRow.keyState && storageRow.keyState != 3">
-									{{ storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]]}}
+								<div ng-if="storageRow.key_data <= 40">
+									{{ storageRow.key_data }}
 								</div>
 							</div>
 							<div class="storage__arrow">→</div>
@@ -154,7 +146,7 @@
 						<div class="storage__tdInLast ">
 							<a href="" 
 							   class="mark-bd"
-							   ng-click="C.toggleStorageRowView('valueState', $index)">
+							   ng-click="C.toggleStorageRowView($index)">
 								{{ C.storageViews[ storageRow.valueState ] }}
 							</a>
 						</div>
@@ -182,7 +174,7 @@
 <div class="section section-transactionsAddress" 
 	 ng-if="C.address.addrStr"
 	 ng-controller="TransactionsController as TC" 
-	 ng-init="TC.load('address')">
+	 ng-init="TC.load(C.storage.rows.length ? 'contractAddress' : 'address')">
 	<div class="section__heading" ng-if="TC.txs.length">
 		<h2 class="section__title" translate>Transactions</h2>
 	</div>

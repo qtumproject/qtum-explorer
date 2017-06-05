@@ -6,6 +6,7 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 	var self = this;
 	var addrStr;
 	var socket = getSocket($scope);
+	var hexString = '0000000000000000000000000000000000000000000000000000000000000000';
 	self.storageViews = [ 'data', 'string', 'number', 'address' ];
 	self.storage = {};
 	self.params = $routeParams;
@@ -14,7 +15,7 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		theme: 'tooltipster-black',
 		trigger: 'click',
 		interactive: true
-	}
+	};
 
 	try {
 		addrStr = Contracts.getBitAddressFromContractAddress($routeParams.contractAddressStr);
@@ -69,16 +70,14 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 
 		for(var I in self.info.storage){
 
+			var fullHexData = hexString.substr(self.info.storage[ I ].length).concat(self.info.storage[ I ]);
+
 			rows.push({
 				key_data: I,
-				key_number: _setStorageRowType(I, 'number'),
-				key_string: _setStorageRowType(I, 'string'),
-				key_address: _setStorageRowType(I, 'address'),
-				keyState: 0,
-				value_data: self.info.storage[ I ],
+				value_data: fullHexData,
 				value_number: _setStorageRowType(self.info.storage[ I ], 'number'),
 				value_string: _setStorageRowType(self.info.storage[ I ], 'string'),
-				value_address: _setStorageRowType(self.info.storage[ I ], 'address'),
+				value_address: _setStorageRowType(fullHexData, 'address'),
 				valueState: 0
 			});
 		}
@@ -140,8 +139,6 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 			self.storage.rows = _createStorage();
 			self.storage.storageLength = Object.keys(info.storage).length;
 			self.storage.viewRows = $rootScope.Constants.STORAGE_ROWS;
-			
-			console.log(address, '============================================', info)
 		})
 		.catch(function (e) {
 
@@ -161,12 +158,12 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 
 	self.toggleStorageRowView = function(key, index) {
 
-		if(self.storage.rows[ index ][ key ] + 1 < self.storageViews.length){
+		if(self.storage.rows[ index ].valueState + 1 < self.storageViews.length){
 
-			self.storage.rows[ index ][ key ] += 1;
+			self.storage.rows[ index ].valueState += 1;
 			return;
 		}
-		self.storage.rows[ index ][ key ] = 0;		
+		self.storage.rows[ index ].valueState = 0;		
 	};
 
 	self.showMoreStorageRows = function(limit){
