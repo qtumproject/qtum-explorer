@@ -85,13 +85,15 @@
 		   translate>
 			Lastest block from date
 		</a>
-		<a class="btn btn-blocks" 
+		<a class="btn btn-blocks"
+		   ng-if="BC.blocks.length" 
 		   href="blocks-date/{{ BC.pagination.current }}/{{ BC.pagination.moreTs }}"
 		   translate>
 			Older blocks from this date
 		</a>
 	</div>
-	<h2 class="text-center text-muted" ng-if="!BC.blocks.length && !BC.loading"
-    translate>No blocks yet.</h2>
+	<div class="alert alert-danger" ng-if="!BC.blocks.length && !BC.loading" translate>
+		No blocks yet.
+	</div>
 </div>
 

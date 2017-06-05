@@ -6,7 +6,7 @@
 		"angular-resource": "1.5.0",
 		"angular-route": "~1.5.0",
 		"bootstrap": "~3.1.1",
-		"angular-bootstrap": "~0.12.0",
+		"angular-bootstrap": "^2.5.0",
 		"qrcode-generator": "monospaced/bower-qrcode-generator#^0.2.0",
 		"angular-qrcode": "^7.2.0",
 		"angular-animate": "1.5.0",

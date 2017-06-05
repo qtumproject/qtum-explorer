@@ -16,7 +16,10 @@
 			<div class="content__listScroll"
 				 ng-scrollbars 
 				 ng-scrollbars-config="IC.scrollConfig">
-				<ul class="list list-blocks scrollList">
+				<ul class="list list-blocks">
+					<li ng-if="!IC.blocks.length">
+						Waiting for blocks...
+					</li>
 					<li class="list__item"
 						ng-repeat='block in IC.blocks'>
 						<a href="block/{{ block.hash }}" class="list-blocks__left">
@@ -67,7 +70,10 @@
 			<div  class="content__listScroll"
 				 ng-scrollbars
 				 ng-scrollbars-config="IC.scrollConfig">
-				<ul class="list list-transactions scrollList">
+				<ul class="list list-transactions">
+					<li ng-if="!IC.txs.length">
+						Waiting for transactions...
+					</li>
 					<li class="list__item"
 						ng-repeat='tx in IC.txs'>
 						<div class="list-transactions__right">
