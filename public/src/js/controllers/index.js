@@ -19,13 +19,14 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 				onBeforeUpdate: function() {
 
 					var maxHeight = parseInt($window.getComputedStyle(this).maxHeight),
-						list = this.getElementsByClassName('scrollList'),
+						list = this.getElementsByClassName('mCSB_container'),
 						heightList = list[0].clientHeight;
 
 					if (heightList > maxHeight) {
 						
-						this.style.height = parseInt($window.getComputedStyle(this).maxHeight) + 'px';
-					} else {
+						this.style.height = maxHeight + 'px';
+					} 
+					else {
 						this.style.height = heightList + 'px';
 					}
 				}
@@ -38,11 +39,11 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 				borderColor: '#2e9ad0',
 				borderWidth: 1,
 				fill: false,
-				pointBorderColor: "#2e9ad0",
-				pointBackgroundColor: "#2e9ad0",
+				pointBorderColor: '#2e9ad0',
+				pointBackgroundColor: '#2e9ad0',
 				pointBorderWidth: 1,
-				pointHoverBackgroundColor: "#e75647",
-				pointHoverBorderColor: "#e75647",
+				pointHoverBackgroundColor: '#e75647',
+				pointHoverBorderColor: '#e75647',
 				pointHoverBorderWidth: 1,
 				pointHitRadius: 10,
 				pointStyle: 'rect',
@@ -51,11 +52,11 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 			options : {
 				tooltips:{
 					backgroundColor: '#2e9ad0',
-					titleFontFamily: "SimplonMono",
+					titleFontFamily: 'SimplonMono',
 					titleFontSize: 12,
 					titleFontStyle: '500',
 					titleFontColor: '#232328',
-					bodyFontFamily: "SimplonMono",
+					bodyFontFamily: 'SimplonMono',
 					bodyFontSize: 12,
 					bodyFontStyle: '400',
 					bodyFontColor: '#232328',
@@ -77,7 +78,7 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 						},
 						ticks: {
 							fontColor:'#2e9ad0',
-							fontFamily: "SimplonMono",
+							fontFamily: 'SimplonMono',
 							fontSize:  14,
 							padding: 25,
 							stepSize: 500,
@@ -97,7 +98,7 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 						ticks: {
 							fontColor:'#2e9ad0',
 							fontSize: 10,
-							fontFamily: "SimplonMono"
+							fontFamily: 'SimplonMono'
 						}
 					}]
 				}

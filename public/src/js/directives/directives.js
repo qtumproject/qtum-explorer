@@ -107,7 +107,6 @@ angular.module('insight')
 				tooltipOptions: "="
 			},
 			link: function(scope, element, attrs) {
-				console.log('jj')
 
 				var isTooltipDynamicVariable = (scope.tooltipTitleVariable !== undefined);
 

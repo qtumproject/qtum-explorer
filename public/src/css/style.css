@@ -716,6 +716,10 @@ b, strong {
 .tooltip__trigger {
   cursor: pointer; }
 
+.nf__link {
+  display: inline-block;
+  margin: 50px 0; }
+
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2017 Twitter, Inc.
@@ -3918,6 +3922,15 @@ corresponds to the arrow we want to display */
     font-size: 16px;
     color: #232328; }
 
+.alert {
+  padding: 20px;
+  margin: 20px 0;
+  font-size: 0.875rem;
+  border: 1px solid #e75647; }
+  .alert-danger {
+    background: rgba(231, 86, 71, 0.2);
+    color: #e75546; }
+
 .row {
   position: relative; }
 
@@ -4374,6 +4387,8 @@ corresponds to the arrow we want to display */
     background: transparent;
     border: 1px solid #2e9ad0;
     color: #2e9ad0; }
+  .transactions__info.error {
+    background: #e75647; }
 
 .transactions__contract {
   margin-bottom: 26px; }

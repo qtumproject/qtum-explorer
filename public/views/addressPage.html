@@ -141,7 +141,7 @@
 									<span>{{storageRow[ 'value_' + C.storageViews[ storageRow.valueState ]].substr(0, 20)}}</span><span class="attn tooltip__trigger" 
 									tooltip
 									tooltip-options="C.tooltipOptions" 
-									tooltip-title="{{ storageRow[ 'value_' + C.storageViestorageRow.valueState ]]}}"
+									tooltip-title="{{ storageRow[ 'value_' + C.storageViews[ storageRow.valueState ]]}}"
 									ng-if="storageRow[ 'value_' + C.storageViews[ storageRow.valueState ]].length > 40">[...]</span><span ng-if="storageRow[ 'value_' + C.storageViews[ storageRow.valueState ]].length > 40">{{storageRow[ 'value_' + C.storageViews[ storageRow.valueState ]].substr(-20)}}</span>
 								</div>
 								<div ng-if="storageRow.valueState && storageRow.valueState != 3">
