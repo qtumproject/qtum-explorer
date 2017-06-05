@@ -12,9 +12,16 @@
 			   ngclipboard 
 			   data-clipboard-text="{{ tx.txid }}">
 			</a>
-			<a href="tx/{{ tx.txid }}" class="copyText mark">
+			
+			<a href="tx/{{ tx.txid }}" 
+			   ng-if="!TC.tx" 
+			   class="copyText mark">
 				{{ tx.txid }}
 			</a>
+			<span ng-if="TC.tx" 
+				  class="copyText">
+				{{ tx.txid }}
+			</span>
 		</div>
 	</div>
 	<div class="transactions__headRight">
