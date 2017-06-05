@@ -102,7 +102,7 @@
 				<div class="trMain">
 					<div class="td">
 						<div class="storage__tdInFirst ">
-							<span ng-click="C.toggleStorageRowView('keyState', $index)" translate>
+							<span ng-click="C.toggleStorageRowView($index)" translate>
 								{{ C.storageViews[0] }}
 							</span>
 						</div>
@@ -175,7 +175,7 @@
 	 ng-if="C.address.addrStr"
 	 ng-controller="TransactionsController as TC" 
 	 ng-init="TC.load(C.storage.rows.length ? 'contractAddress' : 'address')">
-	<div class="section__heading" ng-if="TC.txs.length">
+	<div class="section__heading">
 		<h2 class="section__title" translate>Transactions</h2>
 	</div>
 	<div class="section__transactions" 

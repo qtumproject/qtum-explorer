@@ -53,11 +53,10 @@
 				<div class="th" translate>Mined by</div>
 				<div class="th text_r" translate>Size</div>
 			</div>
-			<div class="tr" ng-if="BC.loading">
-				<div>
-					<span translate>Waiting for blocks...</span> 
-					<span class="loader-gif"></span>
-				</div>
+			<div class="preload__box" ng-if="BC.loading">
+				<span class="preload">
+					<span class="preloadInner"></span>
+				</span>
 			</div>
 			<div class="tr" ng-repeat='block in BC.blocks'>
 				<div class="td">

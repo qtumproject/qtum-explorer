@@ -156,7 +156,7 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		});
 	};
 
-	self.toggleStorageRowView = function(key, index) {
+	self.toggleStorageRowView = function(index) {
 
 		if(self.storage.rows[ index ].valueState + 1 < self.storageViews.length){
 

@@ -128,6 +128,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 		tx.vinSimple = _aggregateItems(tx.txid, tx.vin);
 		tx.voutSimple = _aggregateItems(tx.txid, tx.vout);
 		tx.contractBytecode = _getContractBytecode(tx);
+		self.loading = false;
 
 		if (tx.contractBytecode) {
 
@@ -213,7 +214,8 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 	};
 
 	self.findThis = function() {
-		
+
+		self.loading = true;		
 		_findTx($routeParams.txId);
 	};
 
