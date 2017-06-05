@@ -97,4 +97,52 @@ angular.module('insight')
 				});
 			}
 		};
-	}]);
+	}])
+	.directive('tooltip', function() {
+		return {
+			restrict: 'A',
+			scope: {
+				tooltipTitle: '@',
+				tooltipTitleVariable: '=',
+				tooltipOptions: "="
+			},
+			link: function(scope, element, attrs) {
+				console.log('jj')
+
+				var isTooltipDynamicVariable = (scope.tooltipTitleVariable !== undefined);
+
+				if (!scope.tooltipTitle && !isTooltipDynamicVariable) {
+					return;
+				}
+				
+				var tooltipOptions = scope.tooltipOptions || {};
+				var message = scope.tooltipTitle;
+
+				if (isTooltipDynamicVariable) {
+
+					message = scope.tooltipTitleVariable;
+
+					scope.$watch('tooltipTitleVariable', function(value) {
+
+						element.tooltipster('content', value);
+
+						if (!value) {
+
+							element.tooltipster('disable');
+						} 
+						else {
+							element.tooltipster('enable');
+						}
+					});
+				}
+
+				tooltipOptions.content = message;
+				element.tooltipster(tooltipOptions);
+
+				scope.$on("$destroy", function () {
+
+					element.tooltipster('destroy');
+				});
+			}
+		};	
+	});

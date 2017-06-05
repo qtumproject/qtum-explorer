@@ -207,7 +207,7 @@
 			'transactions__row' : tx.isCoinBase && Number(tx.fees) < 0 && !tx.contractBytecode
 		}">
 		<div ng-if="!tx.confirmations" 
-			  class="transactions__info attn" translate>
+			  class="transactions__info error" translate>
 			  Unconfirmed Transaction!
 		</div>
 		<div class="transactions__info" ng-if="tx.confirmations">

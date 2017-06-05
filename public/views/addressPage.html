@@ -87,460 +87,94 @@
 		<div class="ov">
 			<div class="pull-left">
 				<h2 class="section__title in_bl" translate>Storage</h2>
-				<span class="section__status">[{{ C.info.storageLength }} {{ 'entries' | translate }}]</span>
+				<span class="section__status">[{{ C.storage.storageLength }} {{ 'entries' | translate }}]</span>
 			</div>
-			<!--<div class="pull-right">
-				<div class="tumbler blue-gray tumbler-storage">
-					<label class="tumbler__label">
-						<input type="checkbox" class="tumbler__input js-switch-mode" checked>
-						<span class="tumbler__text" translate>
-							Smart mode
-						</span>
-						<span class="tumbler__slider"
-							  ng-click="C.toggleStorageMode()"></span>
-					</label>
-				</div>
-			</div>-->
 		</div>
 	</div>
-	<div class="storage" ng-controller="TooltipCtrl" ng-if="C.storage">
-		<!--<div class="table table-storage-def">
-			<div class="tr tr-head">
-				<div class="th" translate>KEY</div>
-				<div class="th"></div>
-				<div class="th text_r" translate>Value</div>
-			</div>
-			<div class="tr">
-				<div class="trMain">
-					<div class="td">
-						<div class="storage__tdInFirst ">
-							<a href="" class="mark-bd disabled">data member</a>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInCenter">
-							<div class="storage__num left">m_required</div>
-							<div class="storage__arrow">→</div>
-							<div class="storage__num right">2</div>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInLast ">
-							<a href="" class="mark-bd disabled">uint</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tr">
-				<div class="trMain">
-					<div class="td">
-						<div class="storage__tdInFirst ">
-							<a href="" class="mark-bd disabled">data member</a>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInCenter">
-							<div class="storage__num left">m_numOwners</div>
-							<div class="storage__arrow">→</div>
-							<div class="storage__num right">4 </div>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInLast ">
-							<a href="" class="mark-bd disabled">uint</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tr">
-				<div class="trMain">
-					<div class="td hover js-moreStorage">
-						<a href="" class="table__moreArrow">
-							<span class="table__moreArrowIcon icon-arrow-right"></span>
-						</a>
-						<div class="storage__tdInFirst ">
-							<a href="" class="mark-bd disabled">data member</a>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInCenter">
-							<div class="storage__num left">m_owners</div>
-							<div class="storage__arrow">→</div>
-							<div class="storage__num right inactive">size = 4</div>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInLast ">
-							<a href="" class="mark-bd disabled">uint[256]</a>
-						</div>
-					</div>
-				</div>
-				<div class="trMore">
-					<div class="tr">
-						<div class="td">
-							<div class="storage__tdInFirst ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInCenter">
-								<div class="storage__num left">
-									21051664487824316635<span class="attn tooltip__trigger" title-options="options" title="981914650675899789646497377648542394791002422277">[...]</span>81847331799285491814
-								</div>
-								<div class="storage__arrow">→</div>
-								<div class="storage__num right">4</div>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInLast ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-					</div>
-					<div class="tr">
-						<div class="td">
-							<div class="storage__tdInFirst ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInCenter">
-								<div class="storage__num left" >21051664487824316635<span class="attn tooltip__trigger" title-options="options" title="981914650675899789646497377648542394791002422277">[...]</span>81847331799285491814</div>
-								<div class="storage__arrow">→</div>
-								<div class="storage__num right">4</div>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInLast ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-					</div>
-					<div class="tr">
-						<div class="td">
-							<div class="storage__tdInFirst ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInCenter">
-								<div class="storage__num left">21051664487824316635<span class="attn tooltip__trigger" title-options="options" title="981914650675899789646497377648542394791002422277">[...]</span>81847331799285491814</div>
-								<div class="storage__arrow">→</div>
-								<div class="storage__num right">2</div>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInLast ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tr hover">
-				<div class="trMain">
-					<div class="td hover js-moreStorage">
-						<a href="" class="table__moreArrow ">
-							<span class="table__moreArrowIcon icon-arrow-right"></span>
-						</a>
-						<div class="storage__tdInFirst ">
-							<a href="" class="mark-bd disabled">data member</a>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInCenter">
-							<div class="storage__num left">m_ownerIndex</div>
-							<div class="storage__arrow">→</div>
-							<div class="storage__num right inactive">size = 3</div>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInLast ">
-							<a href="" class="mark-bd disabled">mapping(uint=>uint)</a>
-						</div>
-					</div>
-				</div>
-				<div class="trMore">
-					<div class="tr">
-						<div class="td">
-							<div class="storage__tdInFirst ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInCenter">
-								<div class="storage__num left">21051664487824316635<span class="attn tooltip__trigger" title-options="options" title="981914650675899789646497377648542394791002422277">[...]</span>81847331799285491814</div>
-								<div class="storage__arrow">→</div>
-								<div class="storage__num right">3</div>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInLast ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-					</div>
-					<div class="tr">
-						<div class="td">
-							<div class="storage__tdInFirst ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInCenter">
-								<div class="storage__num left">21051664487824316635<span class="attn tooltip__trigger" title-options="options" title="981914650675899789646497377648542394791002422277">[...]</span>81847331799285491814</div>
-								<div class="storage__arrow">→</div>
-								<div class="storage__num right ">4</div>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInLast ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-					</div>
-					<div class="tr">
-						<div class="td">
-							<div class="storage__tdInFirst ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInCenter">
-								<div class="storage__num left">21051664487824316635<span class="attn tooltip__trigger" title-options="options" title="981914650675899789646497377648542394791002422277">[...]</span>81847331799285491814</div>
-								<div class="storage__arrow">→</div>
-								<div class="storage__num right ">2</div>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInLast ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tr hover">
-				<div class="trMain">
-					<div class="td hover js-moreStorage">
-						<a href="" class="table__moreArrow ">
-							<span class="table__moreArrowIcon icon-arrow-right"></span>
-						</a>
-						<div class="storage__tdInFirst ">
-							<a href="" class="mark-bd disabled">data member</a>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInCenter">
-							<div class="storage__num left">m_owners</div>
-							<div class="storage__arrow">→</div>
-							<div class="storage__num right inactive">size = 4</div>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInLast ">
-							<a href="" class="mark-bd disabled">mapping(bytes32=>PendingState)</a>
-						</div>
-					</div>
-				</div>
-				<div class="trMore">
-					<div class="tr">
-						<div class="td">
-							<div class="storage__tdInFirst ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInCenter">
-								<div class="storage__num left">21051664487824316635<span class="attn tooltip__trigger" title-options="options" title="981914650675899789646497377648542394791002422277">[...]</span>81847331799285491814</div>
-								<div class="storage__arrow">→</div>
-								<div class="storage__num right ">43</div>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInLast ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-					</div>
-					<div class="tr">
-						<div class="td">
-							<div class="storage__tdInFirst ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInCenter">
-								<div class="storage__num left">21051664487824316635<span class="attn tooltip__trigger" title-options="options" title="981914650675899789646497377648542394791002422277">[...]</span>81847331799285491814</div>
-								<div class="storage__arrow">→</div>
-								<div class="storage__num right">4</div>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInLast ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-					</div>
-					<div class="tr">
-						<div class="td">
-							<div class="storage__tdInFirst ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInCenter">
-								<div class="storage__num left">21051664487824316635<span class="attn tooltip__trigger" title-options="options" title="981914650675899789646497377648542394791002422277">[...]</span>81847331799285491814</div>
-								<div class="storage__arrow">→</div>
-								<div class="storage__num right">2</div>
-							</div>
-						</div>
-						<div class="td">
-							<div class="storage__tdInLast ">
-								<a href="" class="mark-bd disabled">uint</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>-->
+	<div class="storage" ng-if="C.storage">
 		<div class="table table-smart-mode">
 			<div class="tr tr-head">
 				<div class="th" translate>KEY</div>
 				<div class="th"></div>
 				<div class="th text_r" translate>Value</div>
 			</div>
-			<div class="tr" ng-repeat="storageRow in C.info.storage">
+			<div class="tr" ng-repeat="storageRow in C.storage.rows | limitTo : C.storage.viewRows">
 				<div class="trMain">
 					<div class="td">
 						<div class="storage__tdInFirst ">
 							<a href="" 
 							   class="mark-bd"
-							   ng-click="C.toggleStorageRowView($index)" translate>
-								{{ C.storageViews[ $index ] }}
+							   ng-click="C.toggleStorageRowView('keyState', $index)" translate>
+								{{ C.storageViews[ storageRow.keyState ] }}
 							</a>
 						</div>
 					</div>
 					<div class="td">
 						<div class="storage__tdInCenter">
 							<div class="storage__num left">
-								<div class="">{{ $index }}</div>
+								<a class="storage__link"
+								   ng-class="{ 'mark' : storageRow.keyState == 3 }"
+								   href="contract/{{ storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]]}}"
+								   ng-if="storageRow.keyState == 3">
+									{{ storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]]}}
+								</a>
+								<div ng-if="!storageRow.keyState">
+									<span>{{storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]].substr(0, 20)}}</span><span class="attn tooltip__trigger" 
+									tooltip
+									tooltip-options="C.tooltipOptions" 
+									tooltip-title="{{ storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]]}}"
+									ng-if="storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]].length > 40">[...]</span><span ng-if="storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]].length > 40">{{storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]].substr(-20)}}</span>
+								</div>
+								<div ng-if="storageRow.keyState && storageRow.keyState != 3">
+									{{ storageRow[ 'key_' + C.storageViews[ storageRow.keyState ]]}}
+								</div>
 							</div>
 							<div class="storage__arrow">→</div>
 							<div class="storage__num right">
-								<div class="">{{ storageRow }}</div>
+								<a class="storage__link"
+								   ng-class="{ 'mark' : storageRow.valueState == 3 }"
+								   href="contract/{{ storageRow[ 'value_' + C.storageViews[ storageRow.valueState ]]}}"
+								   ng-if="storageRow.valueState == 3">
+									{{ storageRow[ 'value_' + C.storageViews[ storageRow.valueState ]]}}
+								</a>
+								<div ng-if="!storageRow.valueState">
+									<span>{{storageRow[ 'value_' + C.storageViews[ storageRow.valueState ]].substr(0, 20)}}</span><span class="attn tooltip__trigger" 
+									tooltip
+									tooltip-options="C.tooltipOptions" 
+									tooltip-title="{{ storageRow[ 'value_' + C.storageViestorageRow.valueState ]]}}"
+									ng-if="storageRow[ 'value_' + C.storageViews[ storageRow.valueState ]].length > 40">[...]</span><span ng-if="storageRow[ 'value_' + C.storageViews[ storageRow.valueState ]].length > 40">{{storageRow[ 'value_' + C.storageViews[ storageRow.valueState ]].substr(-20)}}</span>
+								</div>
+								<div ng-if="storageRow.valueState && storageRow.valueState != 3">
+									{{ storageRow[ 'value_' + C.storageViews[ storageRow.valueState ]]}}
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="td">
 						<div class="storage__tdInLast ">
-							<a href="" class="mark-bd">number</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tr">
-				<div class="trMain">
-					<div class="td">
-						<div class="storage__tdInFirst ">
-							<a href="" class="mark-bd">data</a>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInCenter">
-							<div class="storage__num left">21051664487824316635<span class="attn tooltip__trigger" title-options="options" title="981914650675899789646497377648542394791002422277">[...]</span>81847331799285491814</div>
-							<div class="storage__arrow">→</div>
-							<div class="storage__num right">
-								<div class="">2</div>
-							</div>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInLast ">
-							<a href="" class="mark-bd">number</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tr">
-				<div class="trMain">
-					<div class="td">
-						<div class="storage__tdInFirst ">
-							<a href="" class="mark-bd">address</a>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInCenter">
-							<div class="storage__num left">
-								<a href="" class="storage__link mark">0000000000000000000000000000000000000000</a>
-							</div>
-							<div class="storage__arrow">→</div>
-							<div class="storage__num right">
-								<div class="">2</div>
-							</div>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInLast ">
-							<a href="" class="mark-bd">number</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tr">
-				<div class="trMain">
-					<div class="td">
-						<div class="storage__tdInFirst ">
-							<a href="" class="mark-bd">string</a>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInCenter">
-							<div class="storage__num left">
-								<div class=""></div>
-							</div>
-							<div class="storage__arrow">→</div>
-							<div class="storage__num right">
-								<div class="">2</div>
-							</div>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInLast ">
-							<a href="" class="mark-bd">number</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tr">
-				<div class="trMain">
-					<div class="td">
-						<div class="storage__tdInFirst ">
-							<a href="" class="mark-bd">number</a>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInCenter">
-							<div class="storage__num left">
-								<div class="">0</div>
-							</div>
-							<div class="storage__arrow">→</div>
-							<div class="storage__num right">
-								<div class="">2</div>
-							</div>
-						</div>
-					</div>
-					<div class="td">
-						<div class="storage__tdInLast ">
-							<a href="" class="mark-bd">number</a>
+							<a href="" 
+							   class="mark-bd"
+							   ng-click="C.toggleStorageRowView('valueState', $index)">
+								{{ C.storageViews[ storageRow.valueState ] }}
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="storage__btnWrap">
-			<a href="" class="storage__btn">More</a>
-			<a href="" class="storage__btn">Show All</a>
+			<a href="" 
+			   class="storage__btn"
+			   ng-click="C.showMoreStorageRows(C.storage.viewRows + $root.Constants.STORAGE_ROWS)"
+			   translate>
+				More
+			</a>
+			<a href="" 
+			   class="storage__btn"
+			   ng-click="C.showMoreStorageRows(C.storage.storageLength)"
+			   translate>
+				Show All
+			</a>
 		</div>
 	</div>
 </div>

@@ -20,7 +20,8 @@ angular.module('insight')
 	BLOCKS_AMOUNT: 15,
 	TRANSACTION_DISPLAYED: 10,
 	BLOCKS_DISPLAYED: 5,
-	CHART_DAYS: 14
+	CHART_DAYS: 14,
+	STORAGE_ROWS: 5
 });
 
 //Setting up route

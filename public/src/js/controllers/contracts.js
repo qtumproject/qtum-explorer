@@ -7,8 +7,14 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 	var addrStr;
 	var socket = getSocket($scope);
 	self.storageViews = [ 'data', 'string', 'number', 'address' ];
-		self.storageSmartMode = true;
-		self.storageState = { };
+	self.storage = {};
+	self.params = $routeParams;
+	self.tooltipOptions = {
+		animation: 'fade',
+		theme: 'tooltipster-black',
+		trigger: 'click',
+		interactive: true
+	}
 
 	try {
 		addrStr = Contracts.getBitAddressFromContractAddress($routeParams.contractAddressStr);
@@ -21,12 +27,62 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		return false;
 	}
 
-	var _setStorageState = function() {
+	var _setStorageRowType = function(hex, type) {
+
+		switch (type){
+
+			case 'string': {
+
+				var newValue = '';
+				var i = 0; 
+				var l = hex.length;
+
+				if (hex.substring(0, 2) === '0x') {
+					i = 2;
+				}
+
+				for ( ; i < l; i += 2) {
+
+					newValue += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+				}
+				
+				return newValue;
+			}
+			case 'number': {
+
+				return parseInt(hex, 16);
+			}
+			case 'address': {
+
+				return hex.substr(-40);
+			}
+			default: {
+
+				return hex;
+			}
+		}
+	};
+
+	var _createStorage = function() {
+
+		var rows = [];
 
 		for(var I in self.info.storage){
 
-			self.storageState[I] = 0;
+			rows.push({
+				key_data: I,
+				key_number: _setStorageRowType(I, 'number'),
+				key_string: _setStorageRowType(I, 'string'),
+				key_address: _setStorageRowType(I, 'address'),
+				keyState: 0,
+				value_data: self.info.storage[ I ],
+				value_number: _setStorageRowType(self.info.storage[ I ], 'number'),
+				value_string: _setStorageRowType(self.info.storage[ I ], 'string'),
+				value_address: _setStorageRowType(self.info.storage[ I ], 'address'),
+				valueState: 0
+			});
 		}
+		return rows;
 	};
 
 	var _startSocket = function() {
@@ -50,40 +106,6 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		socket.emit('unsubscribe', 'bitcoind/addresstxid', [addrStr]);
 	};
 
-	var _parseStorage = function(hex, type) {
-
-		var newValue;
-
-		switch (type){
-
-			case 'string': {
-
-				var newValue = '';
-
-				for (var i = 0; i < hex.length; i += 2) {
-
-					newValue += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-				}
-				return newValue;
-			}
-			case 'number': {
-
-				return parseInt(hex, 16);
-			}
-			case 'address': {
-
-				return hex.substr(-40);
-			}
-			default: {
-
-				return hex;
-			}
-		}
-		// console.log(parseInt( self.info.storage['04'], 16)); // toNumber
-		// console.log(string); // to String
-		// console.log(self.info.storage['02'].substr(-40)); // to addr
-	}
-
 	socket.on('connect', function() {
 
 		_startSocket();
@@ -93,8 +115,6 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 
 		_stopSocket();
 	});
-
-	self.params = $routeParams;
 
 	self.findOne = function() {
 
@@ -117,9 +137,11 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 			self.opcodesStr = Contracts.getContractOpcodesString(info.code);
 			self.bitAddress = addrStr;
 			self.address = address;
-			self.info.storageLength = Object.keys(self.info.storage).length;
-			_setStorageState();
-			console.log(self.address, '============================================', self.info)
+			self.storage.rows = _createStorage();
+			self.storage.storageLength = Object.keys(info.storage).length;
+			self.storage.viewRows = $rootScope.Constants.STORAGE_ROWS;
+			
+			console.log(address, '============================================', info)
 		})
 		.catch(function (e) {
 
@@ -137,25 +159,18 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		});
 	};
 
-	self.toggleStorageRowView = function(key) {
+	self.toggleStorageRowView = function(key, index) {
 
-		if(self.storageState[ key ] + 1 < self.storageViews.length){
+		if(self.storage.rows[ index ][ key ] + 1 < self.storageViews.length){
 
-			self.storageState[ key ] += 1;
+			self.storage.rows[ index ][ key ] += 1;
 			return;
 		}
-		self.storageState[ key ] = 0;		
+		self.storage.rows[ index ][ key ] = 0;		
 	};
 
-	self.getStorage = function() {
+	self.showMoreStorageRows = function(limit){
 
-		StorageByAddress.get({
-			address: $routeParams.contractAddressStr
-		}, function(response) {
-
-			_parseStorage();
-
-			self.storage = response;
-		});
+		self.storage.viewRows = limit;
 	};
 });
