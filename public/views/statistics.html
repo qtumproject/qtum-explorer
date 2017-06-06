@@ -1,5 +1,5 @@
 <div data-ng-include src="'views/includes/connection.html'"></div>
-<div class="box" ng-controller="StatisticsController as SC" ng-init="SC.getStats()">
+<div class="box" ng-controller="StatisticsController as SC" ng-init="SC.get24HoursStats()">
 	<div class="heading margin1">
 		<h1 class="heading__title" translate>Stats</h1>
 		<div class="heading__sm">
@@ -103,7 +103,9 @@
 					</div>
 					<div class="list__right">
 						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
-						<div class="list__rightText">7.44 minutes</div>
+						<div class="list__rightText">
+							{{ SC.statsTotal24.number_of_transactions }}
+						</div>
 					</div>
 				</li>
 				<li class="list__item">
@@ -112,7 +114,9 @@
 					</div>
 					<div class="list__right">
 						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
-						<div class="list__rightText">2,250.00000000 BTC</div>
+						<div class="list__rightText">
+							{{ SC.statsTotal24.transaction_fees }}
+						</div>
 					</div>
 				</li>
 				<li class="list__item">
@@ -194,7 +198,9 @@
 					</div>
 					<div class="list__right">
 						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
-						<div class="list__rightText">559,970,892,890</div>
+						<div class="list__rightText">
+							{{ SC.statsTotal24.difficulty }}
+						</div>
 					</div>
 				</li>
 				<li class="list__item">

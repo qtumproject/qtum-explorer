@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.statistics').controller('StatisticsController',
-function($scope, $rootScope, $routeParams, Statistics, StatisticsByDays) {
+function($scope, $rootScope, $routeParams, Statistics, StatisticsByDays, Statistics24Hours) {
 
 	var self = this;
 		self.difficultiesOptions = {
@@ -123,15 +123,7 @@ function($scope, $rootScope, $routeParams, Statistics, StatisticsByDays) {
 		];
 		self.difficultyDays = $routeParams.days;
 
-	self.getStats = function(){
-		
-		Statistics.query({}, function(response){
-
-			self.stats = response;
-		});
-	};
-
-	self.getDifficulties = function(){
+	self.getDifficulties = function() {
 
 		StatisticsByDays.query({
 			days : $routeParams.days
@@ -159,6 +151,15 @@ function($scope, $rootScope, $routeParams, Statistics, StatisticsByDays) {
 			self.difficultiesChartStats = response;
 		});
 	};
+
+	self.get24HoursStats = function() {
+
+		Statistics24Hours.get(function(response) {
+
+			console.log(response)
+			self.statsTotal24 = response;
+		});
+	}
 });
 
 

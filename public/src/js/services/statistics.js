@@ -26,4 +26,8 @@ angular.module('insight.statistics')
 		return $resource($window.apiPrefix + '/statistics/transactions', {
 			days: '@days'
 		});
+	})
+	.factory('Statistics24Hours', function($resource, $window) {
+
+		return $resource($window.apiPrefix + '/statistics/total');
 	});
