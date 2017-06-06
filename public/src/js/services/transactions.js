@@ -39,5 +39,7 @@ angular.module('insight.transactions')
 	})
 	.factory('TransactionsByDays',
 	function($resource, $window) {
-		return $resource($window.apiPrefix + '/statistic/transactions');
+		return $resource($window.apiPrefix + '/statistics/transactions', {
+			days: '@days'
+		});
 	});

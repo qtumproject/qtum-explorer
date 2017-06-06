@@ -23,7 +23,7 @@ angular.module('insight.statistics')
 	})
 	.factory('StatisticsByDays', function($resource, $window) {
 
-		return $resource($window.apiPrefix + '/difficulties/:days', {
+		return $resource($window.apiPrefix + '/statistics/transactions', {
 			days: '@days'
 		});
 	});

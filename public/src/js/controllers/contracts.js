@@ -16,6 +16,14 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		trigger: 'click',
 		interactive: true
 	};
+	self.scrollConfig = {
+		autoHideScrollbar: false,
+		theme: 'custom',
+		advanced:{
+			updateOnContentResize: true
+		},
+		scrollInertia: 0
+	};
 
 	try {
 		addrStr = Contracts.getBitAddressFromContractAddress($routeParams.contractAddressStr);
@@ -28,7 +36,7 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		return false;
 	}
 
-	var _setStorageRowType = function(hex, type) {
+	var _parseStorageRowType = function(hex, type) {
 
 		switch (type){
 
@@ -64,20 +72,20 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		}
 	};
 
-	var _createStorage = function() {
+	var _formStorageInfo = function() {
 
 		var rows = [];
 
-		for(var I in self.info.storage){
+		for(var row in self.info.storage){
 
-			var fullHexData = hexString.substr(self.info.storage[ I ].length).concat(self.info.storage[ I ]);
+			var fullHexData = hexString.substr(self.info.storage[ row ].length).concat(self.info.storage[ row ]);
 
 			rows.push({
-				key_data: I,
+				key_data: row,
 				value_data: fullHexData,
-				value_number: _setStorageRowType(self.info.storage[ I ], 'number'),
-				value_string: _setStorageRowType(self.info.storage[ I ], 'string'),
-				value_address: _setStorageRowType(fullHexData, 'address'),
+				value_number: _parseStorageRowType(self.info.storage[ row ], 'number'),
+				value_string: _parseStorageRowType(self.info.storage[ row ], 'string'),
+				value_address: _parseStorageRowType(fullHexData, 'address'),
 				valueState: 0
 			});
 		}
@@ -136,7 +144,7 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 			self.opcodesStr = Contracts.getContractOpcodesString(info.code);
 			self.bitAddress = addrStr;
 			self.address = address;
-			self.storage.rows = _createStorage();
+			self.storage.rows = _formStorageInfo();
 			self.storage.storageLength = Object.keys(info.storage).length;
 			self.storage.viewRows = $rootScope.Constants.STORAGE_ROWS;
 		})

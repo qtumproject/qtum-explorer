@@ -143,7 +143,9 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 
 	self.getListOfTransactions = function() {
 
-		TransactionsByDays.query({},
+		TransactionsByDays.query({ 
+			days: $rootScope.Constants.CHART_DAYS 
+		},
 		function(response){
 
 			while(response.length < $rootScope.Constants.CHART_DAYS){

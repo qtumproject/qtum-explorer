@@ -1,15 +1,11 @@
 'use strict';
 
 angular.module('insight.statistics').controller('StatisticsController',
-function($scope, $routeParams, Statistics, StatisticsByDays) {
+function($scope, $rootScope, $routeParams, Statistics, StatisticsByDays) {
 
 	var self = this;
-		self.difficultiesParams = {
-			labels : ['1','2','3','4','5','6','7','8','9','10','11','12' ],
+		self.difficultiesOptions = {
 			series : ['Test'],
-			data : [
-				[200, 220,220, 250, 250,300,300, 350,360,360,375,380, 300,300, 350, 300, 450, 400, 550]
-			],
 			datasetOverride : [{
 				defaultFontFamily: 'SimplonMono',
 				yAxisID: 'y-axis-1' ,
@@ -65,20 +61,23 @@ function($scope, $routeParams, Statistics, StatisticsByDays) {
 							fontFamily: 'SimplonMono',
 							fontSize:  14,
 							padding: 20,
-							stepSize: 50,
+							stepSize: 500,
 							callback: function(value) {
 
-								return value +',000,000,000';
+								return value + ' t';
 							}
 						}
 					}],
 					xAxes: [{
 						type: 'time',
 						time: {
-							unit: 'month',
+							unit: $routeParams.days > 60 || $routeParams.days == 'all' ? 'month' : 'day',
+							unitStepSize: 1,
 							displayFormats: {
-								month: "MMM'DD"
-							}
+								month: "MMM'DD",
+								day: "MMM'DD"
+							},
+							max: Date.now()
 						},
 						gridLines: {
 							color: '#26475b',
@@ -110,11 +109,11 @@ function($scope, $routeParams, Statistics, StatisticsByDays) {
 				name: '180 Days'
 			},
 			{
-				days: 360,
+				days: 365,
 				name: '1 Year'
 			},
 			{
-				days: 720,
+				days: 730,
 				name: '2 Years'
 			},
 			{
@@ -137,6 +136,25 @@ function($scope, $routeParams, Statistics, StatisticsByDays) {
 		StatisticsByDays.query({
 			days : $routeParams.days
 		}, function(response){
+
+			while(response.length < $routeParams.days){
+
+				response.push({
+					date : moment().subtract($routeParams.days - ($routeParams.days - response.length), 'days').format('YYYY-MM-DD'),
+					transaction_count: 0
+				});
+			}
+
+			self.difficultiesChartStats = response.reverse();
+			self.difficultiesOptions.labels = 
+			self.difficultiesChartStats.map(function(item) {
+
+				return item.date;
+			});
+			self.difficultiesOptions.data = self.difficultiesChartStats.map(function(item) {
+
+				return item.transaction_count;
+			});
 
 			self.difficultiesChartStats = response;
 		});
