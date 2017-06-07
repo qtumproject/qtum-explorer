@@ -21,9 +21,33 @@ angular.module('insight.statistics')
 			}
 		});
 	})
-	.factory('StatisticsByDays', function($resource, $window) {
+	.factory('StatisticsByDaysTransactions', function($resource, $window) {
 
 		return $resource($window.apiPrefix + '/statistics/transactions', {
+			days: '@days'
+		});
+	})
+	.factory('StatisticsByDaysFees', function($resource, $window) {
+
+		return $resource($window.apiPrefix + '/statistics/fees', {
+			days: '@days'
+		});
+	})
+	.factory('StatisticsByDaysOutputs', function($resource, $window) {
+
+		return $resource($window.apiPrefix + '/statistics/outputs', {
+			days: '@days'
+		});
+	})
+	.factory('StatisticsByDaysDifficulty', function($resource, $window) {
+
+		return $resource($window.apiPrefix + '/statistics/difficulty', {
+			days: '@days'
+		});
+	})
+	.factory('StatisticsByDaysStakes', function($resource, $window) {
+
+		return $resource($window.apiPrefix + '/statistics/stake', {
 			days: '@days'
 		});
 	})

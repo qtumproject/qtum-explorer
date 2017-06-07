@@ -64,9 +64,6 @@
 				<img src="images/transition.png" alt=""/>
 			</div>
 			<h2 class="heading__title" translate>Transactions</h2>
-			<div class="heading__linkWrap">
-				<a href="txs" class="heading__link" translate>View all</a>
-			</div>
 		</div>
 		<div class="content__list content__list-transactions">
 			<div class="preload__box" ng-if="!IC.txs.length">
@@ -74,7 +71,7 @@
 					<span class="preloadInner"></span>
 				</span>
 			</div>
-			<div  class="content__listScroll"
+			<div class="content__listScroll"
 				 ng-scrollbars
 				 ng-scrollbars-config="IC.scrollConfig">
 				<ul class="list list-transactions">

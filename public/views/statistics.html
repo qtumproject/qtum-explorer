@@ -22,7 +22,9 @@
 								<b translate>Blocks Mined</b>
 							</div>
 							<div class="list__right">
-								<div class="">180</div>
+								<div class="">
+									{{ SC.statsTotal24.n_blocks_mined }}
+								</div>
 							</div>
 						</li>
 						<li class="list__item">
@@ -30,7 +32,9 @@
 								<b translate>Time Between Blocks</b>
 							</div>
 							<div class="list__right">
-								<div class="">7.44 minutes</div>
+								<div class="">
+									{{ (SC.statsTotal24.time_between_blocks / 60) | numeraljs : '0.[00]' }} minutes
+								</div>
 							</div>
 						</li>
 						<li class="list__item">
@@ -38,7 +42,9 @@
 								<b translate>Bitcoins Mined</b>
 							</div>
 							<div class="list__right">
-								<div class="">2,250.00000000 BTC</div>
+								<div class="">
+									{{ (SC.statsTotal24.mined_currency_amount / 100000000) | numeraljs:'0,0.00000000' }} BTC
+								</div>
 							</div>
 						</li>
 					</ul>
@@ -57,8 +63,8 @@
 								<b translate>Market Price</b>
 							</div>
 							<div class="list__right">
-								<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
-								<div class="list__rightText">$1,732.93</div>
+								<div class="list__rightText">
+								</div>
 							</div>
 						</li>
 						<li class="list__item">
@@ -66,7 +72,8 @@
 								<b translate>Trade Volume</b>
 							</div>
 							<div class="list__right">
-								<div class="list__rightText">$71,295,885.21</div>
+								<div class="list__rightText">
+								</div>
 							</div>
 						</li>
 						<li class="list__item">
@@ -74,7 +81,8 @@
 								<b translate>Trade Volume</b>
 							</div>
 							<div class="list__right">
-								<div class="list__rightText">41,141.79111282 BTC</div>
+								<div class="list__rightText">
+								</div>
 							</div>
 						</li>
 					</ul>
@@ -93,8 +101,10 @@
 						<b translate>Total Transaction Fees (BTC)</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
-						<div class="list__rightText">319.41170875 BTC</div>
+						<a href="difficulty/fees/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">
+							{{ SC.statsTotal24.transaction_fees / 100000000 | numeraljs : '0,0.00000000' }} BTC
+						</div>
 					</div>
 				</li>
 				<li class="list__item">
@@ -102,7 +112,7 @@
 						<b translate>Number of Transactions</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<a href="difficulty/transactions/60" class="btn btn-view-chart" translate>View Chart</a>
 						<div class="list__rightText">
 							{{ SC.statsTotal24.number_of_transactions }}
 						</div>
@@ -113,9 +123,9 @@
 						<b translate>Total Output Volume (BTC)</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<a href="difficulty/outputs/60" class="btn btn-view-chart" translate>View Chart</a>
 						<div class="list__rightText">
-							{{ SC.statsTotal24.transaction_fees }}
+							{{ SC.statsTotal24.outputs_volume / 100000000 | numeraljs : '0,0.00000000' }} BTC
 						</div>
 					</div>
 				</li>
@@ -124,8 +134,8 @@
 						<b translate>Estimated Transaction Volume (BTC)</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
-						<div class="list__rightText">332,376.43591470 BTC</div>
+						<div class="list__rightText">
+						</div>
 					</div>
 				</li>
 				<li class="list__item">
@@ -133,8 +143,8 @@
 						<b translate>Estimated Transaction Volume (USD)</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
-						<div class="list__rightText">$575,985,429.47</div>
+						<div class="list__rightText">
+						</div>
 					</div>
 				</li>
 			</ul>
@@ -152,8 +162,8 @@
 						<b translate>Total Miners Revenue (USD)</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
-						<div class="list__rightText">$4,452,613.20</div>
+						<div class="list__rightText">
+						</div>
 					</div>
 				</li>
 				<li class="list__item">
@@ -161,7 +171,8 @@
 						<b>% {{ 'Earned From Transaction Fees' | translate }}</b>
 					</div>
 					<div class="list__right">
-						<div class="list__rightText">12.43%</div>
+						<div class="list__rightText">
+						</div>
 					</div>
 				</li>
 				<li class="list__item">
@@ -169,8 +180,8 @@
 						<b>% {{ 'Of Transaction Volume' | translate }}</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
-						<div class="list__rightText">0.77%</div>
+						<div class="list__rightText">
+						</div>
 					</div>
 				</li>
 				<li class="list__item">
@@ -178,8 +189,8 @@
 						<b translate>Cost per Transaction (USD)</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
-						<div class="list__rightText">$12.27</div>
+						<div class="list__rightText">
+						</div>
 					</div>
 				</li>
 			</ul>
@@ -197,19 +208,21 @@
 						<b translate>Difficulty</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<a href="difficulty/difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
 						<div class="list__rightText">
-							{{ SC.statsTotal24.difficulty }}
+							{{ SC.statsTotal24.difficulty | numeraljs : '0,0.[00000000]' }}
 						</div>
 					</div>
 				</li>
 				<li class="list__item">
 					<div class="list__left">
-						<b translate>Hash Rate</b>
+						<b translate>Percent of staked supply</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
-						<div class="list__rightText">5,010,534,733 GH/s</div>
+						<a href="difficulty/stakes/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">
+							{{ SC.statsTotal24.stake }} %
+						</div>
 					</div>
 				</li>
 			</ul>

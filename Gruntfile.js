@@ -41,7 +41,8 @@ module.exports = function(grunt) {
 				'public/lib/clipboard/dist/clipboard.min.js',
 				'public/lib/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
 				'public/lib/chart.js/dist/Chart.min.js',
-				'public/lib/tooltipster/dist/js/tooltipster.bundle.min.js'
+				'public/lib/tooltipster/dist/js/tooltipster.bundle.min.js',
+				'public/lib/numeral/min/numeral.min.js'
 			],
 			dest: 'public/js/vendors.js'
 		},
@@ -58,7 +59,8 @@ module.exports = function(grunt) {
 				'public/lib/angular-gettext/dist/angular-gettext.min.js',
 				'public/lib/angular-moment/angular-moment.min.js',
 				'public/lib/ng-scrollbars/dist/scrollbars.min.js',
-				'public/lib/angular-chart.js/dist/angular-chart.min.js'
+				'public/lib/angular-chart.js/dist/angular-chart.min.js',
+				'public/lib/angular-numeraljs/dist/angular-numeraljs.min.js'
 			],
 			dest: 'public/js/angularjs-all.js'
 		},

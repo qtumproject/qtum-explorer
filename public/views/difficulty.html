@@ -12,7 +12,7 @@
 	<div class="section-chartDiff">
 		<div class="insight__chart">
 			<div class="insight__chartPeriodWrap">
-				<a href="difficulty/{{ button.days }}" 
+				<a href="difficulty/{{ SC.difficultyType + '/' + button.days }}" 
 				   class="insight__chartPeriod" 
 				   ng-class="{ 'active' : SC.difficultyDays == button.days }"
 				   ng-repeat="button in SC.daysButtons">
@@ -20,7 +20,7 @@
 				</a>
 			</div>
 
-			<div class="" ng-app="app">
+			<div class="">
 				<div class="">
 					<canvas id="line" 
 							class="chart chart-line" 

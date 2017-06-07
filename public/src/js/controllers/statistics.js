@@ -1,9 +1,31 @@
 'use strict';
 
 angular.module('insight.statistics').controller('StatisticsController',
-function($scope, $rootScope, $routeParams, Statistics, StatisticsByDays, Statistics24Hours) {
+function($scope, $rootScope, $routeParams, Statistics, StatisticsByDaysTransactions, StatisticsByDaysOutputs, StatisticsByDaysFees, StatisticsByDaysDifficulty, StatisticsByDaysStakes, Statistics24Hours, $filter) {
 
 	var self = this;
+	var factories = {
+		'transactions' : {
+			factory : StatisticsByDaysTransactions,
+			field : 'transaction_count'
+		},
+		'outputs' : {
+			factory : StatisticsByDaysOutputs,
+			field : 'sum'
+		},
+		'fees' : {
+			factory : StatisticsByDaysFees,
+			field : 'fee'
+		},
+		'difficulty' : {
+			factory : StatisticsByDaysDifficulty,
+			field : 'sum'
+		},
+		'stakes' : {
+			factory : StatisticsByDaysStakes,
+			field : 'sum'
+		}
+	};
 		self.difficultiesOptions = {
 			series : ['Test'],
 			datasetOverride : [{
@@ -15,13 +37,11 @@ function($scope, $rootScope, $routeParams, Statistics, StatisticsByDays, Statist
 				pointBackgroundColor: '#2e9ad0',
 				pointBorderWidth: 0,
 				pointRadius: 0,
-
 				pointHoverBackgroundColor: '#e75647',
 				pointHoverBorderColor: '#e75647',
 				pointHoverBorderWidth: 1,
 				pointHitRadius: 10,
 				pointStyle: 'rect',
-
 				lineTension: 0
 			}],
 			options : {
@@ -37,7 +57,8 @@ function($scope, $rootScope, $routeParams, Statistics, StatisticsByDays, Statist
 					bodyFontColor: '#232328',
 					caretSize: 5,
 					cornerRadius: 3,
-					displayColors: false
+					displayColors: false,
+					callbacks: { }
 				},
 				layout: {
 					padding: {
@@ -53,26 +74,20 @@ function($scope, $rootScope, $routeParams, Statistics, StatisticsByDays, Statist
 						gridLines: {
 							color: '#26475b',
 							drawBorder: false,
-							offsetGridLines:  true,
+							offsetGridLines: true,
 							zeroLineColor: '#26475b'
 						},
 						ticks: {
 							fontColor:'#2e9ad0',
 							fontFamily: 'SimplonMono',
-							fontSize:  14,
-							padding: 20,
-							stepSize: 500,
-							callback: function(value) {
-
-								return value + ' t';
-							}
+							fontSize: 14,
+							padding: 20
 						}
 					}],
 					xAxes: [{
 						type: 'time',
 						time: {
 							unit: $routeParams.days > 60 || $routeParams.days == 'all' ? 'month' : 'day',
-							unitStepSize: 1,
 							displayFormats: {
 								month: "MMM'DD",
 								day: "MMM'DD"
@@ -87,7 +102,7 @@ function($scope, $rootScope, $routeParams, Statistics, StatisticsByDays, Statist
 							zeroLineColor: '#26475b'
 						},
 						ticks: {
-							fontColor:'#2e9ad0',
+							fontColor: '#2e9ad0',
 							fontSize: 10,
 							fontFamily: 'SimplonMono'
 						}
@@ -122,44 +137,77 @@ function($scope, $rootScope, $routeParams, Statistics, StatisticsByDays, Statist
 			}
 		];
 		self.difficultyDays = $routeParams.days;
+		self.difficultyType = $routeParams.type;
+		
 
-	self.getDifficulties = function() {
+	var _loadDifficulties = function(factory, itemField, itemName) {
 
-		StatisticsByDays.query({
+		factory.query({
 			days : $routeParams.days
 		}, function(response){
 
 			while(response.length < $routeParams.days){
 
-				response.push({
-					date : moment().subtract($routeParams.days - ($routeParams.days - response.length), 'days').format('YYYY-MM-DD'),
-					transaction_count: 0
-				});
-			}
+				var emptyItem = {};
 
-			self.difficultiesChartStats = response.reverse();
-			self.difficultiesOptions.labels = 
-			self.difficultiesChartStats.map(function(item) {
+				emptyItem.date = moment().subtract($routeParams.days - ($routeParams.days - response.length), 'days').format('YYYY-MM-DD');
+				emptyItem[ itemField ] = 0;
+
+				response.unshift(emptyItem);
+			}
+			
+			self.difficultiesOptions.labels = response.map(function(item) {
 
 				return item.date;
 			});
-			self.difficultiesOptions.data = self.difficultiesChartStats.map(function(item) {
+			self.difficultiesOptions.data = response.map(function(item) {
 
-				return item.transaction_count;
+				return item[ itemField ];
 			});
+			self.difficultiesOptions.options.scales.yAxes[0].ticks.callback = function(value){
 
+				return $filter('numeraljs')(value, '0,0');
+			};
+			self.difficultiesOptions.series = [ itemName ];
+			self.difficultiesOptions.options.tooltips.callbacks.beforeTitle = function(text) {
+
+				text[0].yLabel = itemName.charAt(0).toUpperCase() + itemName.substr(1) + ': ' + $filter('numeraljs')(text[0].yLabel, '0,0.[00000000]');
+			};
 			self.difficultiesChartStats = response;
 		});
+	};
+
+	var _changeChartColor = function(chart){
+
+		var ctx = chart.chart.ctx;
+		var gradient = ctx.createLinearGradient(0, 0, 0, 600);
+
+		gradient.addColorStop(0, 'rgba(46, 154, 208,0.5)');
+		gradient.addColorStop(1, 'rgba(0, 0, 0,0.001)');
+		chart.chart.config.data.datasets[0].backgroundColor = gradient;
+	};
+
+	$scope.$on('chart-create', function (evt, chart) {
+
+		if (chart.chart.canvas.id === 'line') {
+
+			_changeChartColor(chart);
+			chart.update();
+		}
+	});
+
+	self.getDifficulties = function(){
+
+		_loadDifficulties(factories[ $routeParams.type ].factory, factories[ $routeParams.type ].field, $routeParams.type);
 	};
 
 	self.get24HoursStats = function() {
 
 		Statistics24Hours.get(function(response) {
 
-			console.log(response)
 			self.statsTotal24 = response;
 		});
-	}
+	};
 });
 
 

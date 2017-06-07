@@ -75,7 +75,7 @@ angular.module('insight').config(function($routeProvider) {
 		templateUrl: 'views/statistics.html',
 		title: 'Stats'
 	}).
-	when('/difficulty/:days', {
+	when('/difficulty/:type/:days', {
 		controller: 'StatisticsController',
 		templateUrl: 'views/difficulty.html',
 		title: 'Difficulty'

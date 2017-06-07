@@ -35,7 +35,7 @@ angular.module('insight.blocks', []);
 angular.module('insight.transactions', [ 'ngScrollbars' ]);
 angular.module('insight.address', []);
 angular.module('insight.search', []);
-angular.module('insight.statistics', []);
+angular.module('insight.statistics', [ 'ngNumeraljs' ]);
 angular.module('insight.status', []);
 angular.module('insight.connection', []);
 angular.module('insight.currency', []);
