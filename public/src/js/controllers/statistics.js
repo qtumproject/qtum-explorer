@@ -26,7 +26,7 @@ function($scope, $rootScope, $routeParams, Statistics, StatisticsByDaysTransacti
 			field : 'sum'
 		}
 	};
-		self.difficultiesOptions = {
+		self.chartOptions = {
 			series : ['Test'],
 			datasetOverride : [{
 				defaultFontFamily: 'SimplonMono',
@@ -136,8 +136,15 @@ function($scope, $rootScope, $routeParams, Statistics, StatisticsByDaysTransacti
 				name: 'All Time'
 			}
 		];
-		self.difficultyDays = $routeParams.days;
-		self.difficultyType = $routeParams.type;
+		self.chartText = {
+			fees: 'The total value of all transaction fees paid to miners (not including the coinbase value of block rewards).',
+			transactions: 'The number of daily confirmed Bitcoin transactions.',
+			outputs: 'The total value of all transaction outputs per day (includes coins returned to the sender as change).',
+			difficulty: 'A relative measure of how difficult it is to find a new block. The difficulty is adjusted periodically as a function of how much hashing power has been deployed by the network of miners.',
+			stakes: ''
+		};
+		self.chartDays = $routeParams.days;
+		self.chartType = $routeParams.type;
 		
 
 	var _loadDifficulties = function(factory, itemField, itemName) {
@@ -153,23 +160,25 @@ function($scope, $rootScope, $routeParams, Statistics, StatisticsByDaysTransacti
 				emptyItem.date = moment().subtract($routeParams.days - ($routeParams.days - response.length), 'days').format('YYYY-MM-DD');
 				emptyItem[ itemField ] = 0;
 
-				response.unshift(emptyItem);
+				response.push(emptyItem);
 			}
+
+			response.reverse();
 			
-			self.difficultiesOptions.labels = response.map(function(item) {
+			self.chartOptions.labels = response.map(function(item) {
 
 				return item.date;
 			});
-			self.difficultiesOptions.data = response.map(function(item) {
+			self.chartOptions.data = response.map(function(item) {
 
 				return item[ itemField ];
 			});
-			self.difficultiesOptions.options.scales.yAxes[0].ticks.callback = function(value){
+			self.chartOptions.options.scales.yAxes[0].ticks.callback = function(value){
 
 				return $filter('numeraljs')(value, '0,0');
 			};
-			self.difficultiesOptions.series = [ itemName ];
-			self.difficultiesOptions.options.tooltips.callbacks.beforeTitle = function(text) {
+			self.chartOptions.series = [ itemName ];
+			self.chartOptions.options.tooltips.callbacks.beforeTitle = function(text) {
 
 				text[0].yLabel = itemName.charAt(0).toUpperCase() + itemName.substr(1) + ': ' + $filter('numeraljs')(text[0].yLabel, '0,0.[00000000]');
 			};
@@ -185,7 +194,7 @@ function($scope, $rootScope, $routeParams, Statistics, StatisticsByDaysTransacti
 		gradient.addColorStop(0, 'rgba(46, 154, 208,0.5)');
 		gradient.addColorStop(1, 'rgba(0, 0, 0,0.001)');
 		chart.chart.config.data.datasets[0].backgroundColor = gradient;
-	};
+	}; 
 
 	$scope.$on('chart-create', function (evt, chart) {
 

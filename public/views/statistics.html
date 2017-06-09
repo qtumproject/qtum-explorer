@@ -43,7 +43,7 @@
 							</div>
 							<div class="list__right">
 								<div class="">
-									{{ (SC.statsTotal24.mined_currency_amount / 100000000) | numeraljs:'0,0.00000000' }} BTC
+									{{ (SC.statsTotal24.mined_currency_amount / 100000000) | numeraljs:'0,0.00000000' }} {{ $root.currency.symbol }}
 								</div>
 							</div>
 						</li>
@@ -98,12 +98,12 @@
 			<ul class="list">
 				<li class="list__item">
 					<div class="list__left">
-						<b translate>Total Transaction Fees (BTC)</b>
+						<b translate>Total Transaction Fees ({{ $root.currency.symbol }})</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/fees/60" class="btn btn-view-chart" translate>View Chart</a>
+						<a href="stats/fees/60" class="btn btn-view-chart" translate>View Chart</a>
 						<div class="list__rightText">
-							{{ SC.statsTotal24.transaction_fees / 100000000 | numeraljs : '0,0.00000000' }} BTC
+							{{ SC.statsTotal24.transaction_fees / 100000000 | numeraljs : '0,0.00000000' }} {{ $root.currency.symbol }}
 						</div>
 					</div>
 				</li>
@@ -112,7 +112,7 @@
 						<b translate>Number of Transactions</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/transactions/60" class="btn btn-view-chart" translate>View Chart</a>
+						<a href="stats/transactions/60" class="btn btn-view-chart" translate>View Chart</a>
 						<div class="list__rightText">
 							{{ SC.statsTotal24.number_of_transactions }}
 						</div>
@@ -120,18 +120,18 @@
 				</li>
 				<li class="list__item">
 					<div class="list__left">
-						<b translate>Total Output Volume (BTC)</b>
+						<b translate>Total Output Volume ({{ $root.currency.symbol }})</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/outputs/60" class="btn btn-view-chart" translate>View Chart</a>
+						<a href="stats/outputs/60" class="btn btn-view-chart" translate>View Chart</a>
 						<div class="list__rightText">
-							{{ SC.statsTotal24.outputs_volume / 100000000 | numeraljs : '0,0.00000000' }} BTC
+							{{ SC.statsTotal24.outputs_volume / 100000000 | numeraljs : '0,0.00000000' }} {{ $root.currency.symbol }}
 						</div>
 					</div>
 				</li>
 				<li class="list__item">
 					<div class="list__left">
-						<b translate>Estimated Transaction Volume (BTC)</b>
+						<b translate>Estimated Transaction Volume ({{ $root.currency.symbol }})</b>
 					</div>
 					<div class="list__right">
 						<div class="list__rightText">
@@ -208,7 +208,7 @@
 						<b translate>Difficulty</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<a href="stats/difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
 						<div class="list__rightText">
 							{{ SC.statsTotal24.difficulty | numeraljs : '0,0.[00000000]' }}
 						</div>
@@ -219,7 +219,7 @@
 						<b translate>Percent of staked supply</b>
 					</div>
 					<div class="list__right">
-						<a href="difficulty/stakes/60" class="btn btn-view-chart" translate>View Chart</a>
+						<a href="stats/stakes/60" class="btn btn-view-chart" translate>View Chart</a>
 						<div class="list__rightText">
 							{{ SC.statsTotal24.stake }} %
 						</div>
