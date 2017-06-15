@@ -55,7 +55,7 @@ angular.module('insight')
 			}
 		};
 	})
-	.directive('ngclipboard', [ '$timeout', '$window', 'gettext', 'gettextCatalog', function($timeout, gettext, gettextCatalog, $window) {
+	.directive('ngclipboard', [ '$timeout', '$window', 'gettext', 'gettextCatalog', function($timeout, $window, gettext, gettextCatalog) {
 		return {
 			restrict: 'A',
 			scope: {
@@ -66,7 +66,7 @@ angular.module('insight')
 			link: function(scope, element) {
 
 				var clipboard = new $window.Clipboard(element[0]);
-				var translate = gettextCatalog.getString(gettext('Copied'));
+				var translate = gettextCatalog.getString('Copied');
 				var copiedElement = angular.element('<div class="copied">' + translate + '</div>');
 
 				element.before(copiedElement);

@@ -180,7 +180,7 @@ msgstr "Confirmaciones"
 
 #: public/src/js/directives/directives.js
 msgid "Copied"
-msgstr ""
+msgstr "CopiedTest"
 
 #: public/views/statistics.html
 #, fuzzy

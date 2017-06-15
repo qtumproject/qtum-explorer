@@ -2,10 +2,10 @@
 
 angular.module('insight.networks')
 	.factory('Networks',
-		function(Config, Bitcorelib) {
+		function(Constants, Bitcorelib) {
 			return {
 				getCurrentNetwork: function () {
-					return Bitcorelib.Networks.get(Config.NETWORK);
+					return Bitcorelib.Networks.get(Constants.NETWORK);
 				}
 			}
 		});
