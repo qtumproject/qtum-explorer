@@ -136,6 +136,7 @@ function($scope, $rootScope, $routeParams, Statistics, StatisticsByDaysTransacti
 				name: 'All Time'
 			}
 		];
+
 		self.chartText = {
 			fees: 'The total value of all transaction fees paid to miners (not including the coinbase value of block rewards).',
 			transactions: 'The number of daily confirmed Bitcoin transactions.',

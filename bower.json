@@ -15,7 +15,7 @@
     "angular-ui-utils": "~0.1.1",
     "angular-gettext": "^2.3.9",
     "angular-moment": "^1.0.1",
-    "bitcore-lib": "^0.14.0",
+    "bitcore-lib": "git@gitlab.pixelplex.by:593_qtum/bitcore-lib.git",
     "jquery": "^3.2.1",
     "clipboard": "^1.6.1",
     "ngclipboard": "^1.1.1",
