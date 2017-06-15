@@ -55,7 +55,7 @@ angular.module('insight')
 			}
 		};
 	})
-	.directive('ngclipboard', [ '$timeout', '$window', 'gettextCatalog', function($timeout, $window, gettext, gettextCatalog) {
+	.directive('ngclipboard', [ '$timeout', '$window', 'gettextCatalog', function($timeout, $window, gettextCatalog) {
 		return {
 			restrict: 'A',
 			scope: {
