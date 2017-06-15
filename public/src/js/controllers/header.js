@@ -1,36 +1,40 @@
 'use strict';
 
 angular.module('insight.system').controller('HeaderController',
-function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block, $templateCache) {
+function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block, $templateCache, Constants) {
 
 	var self = this;
 	var socket = getSocket($scope);
-	self.defaultLanguage = defaultLanguage;
+	self.defaultLanguage = Constants.DEFAULT_LANGUAGE;
 	self.menu = [
 		{
-			'title': 'Blocks',
+			'title': gettextCatalog.getString('Blocks'),
 			'link': 'blocks'
 		}, 
 		{
-			'title': 'Status',
+			'title': gettextCatalog.getString('Status'),
 			'link': 'status'
+		}, 
+		{
+			'title': gettextCatalog.getString('Stats'),
+			'link': 'stats'
 		}
 	];
 	self.availableLanguages = [
 		{
-			name: 'Deutsch',
+			name: gettextCatalog.getString('Deutsch'),
 			isoCode: 'de_DE',
 		}, 
 		{
-			name: 'English',
+			name: gettextCatalog.getString('English'),
 			isoCode: 'en',
 		}, 
 		{
-			name: 'Spanish',
+			name: gettextCatalog.getString('Spanish'),
 			isoCode: 'es',
 		}, 
 		{
-			name: 'Japanese',
+			name: gettextCatalog.getString('Japanese'),
 			isoCode: 'ja'
 		}
 	];
@@ -58,7 +62,7 @@ function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block,
 
 		var currentPageTemplate = $route.current.templateUrl;
 
-		gettextCatalog.currentLanguage = self.defaultLanguage = defaultLanguage = isoCode;
+		gettextCatalog.currentLanguage = self.defaultLanguage = isoCode;
 		amMoment.changeLocale(isoCode);
 		localStorage.setItem('insight-language', isoCode);
 		$templateCache.remove(currentPageTemplate);

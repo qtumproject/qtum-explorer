@@ -45,11 +45,8 @@
 						<b translate>Received Time</b>
 					</div>
 					<div class="list__right">
-						<div class="" ng-if="TC.tx.time">
-							{{ TC.tx.time | amParse : 'X' | amDateFormat: 'MMMM D, YYYY h:mm:ss A' }}
-						</div>
-						<div class="" ng-if="!TC.tx.time">
-							N/A
+						<div>
+							{{ TC.tx.time ? (TC.tx.time | amParse : 'X' | amDateFormat: 'MMMM D, YYYY h:mm:ss A') : 'N/A' }}
 						</div>
 					</div>
 				</li>

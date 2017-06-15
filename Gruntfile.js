@@ -40,7 +40,9 @@ module.exports = function(grunt) {
 				'public/lib/bitcore-lib/bitcore-lib.js',
 				'public/lib/clipboard/dist/clipboard.min.js',
 				'public/lib/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
-				'public/lib/chart.js/dist/Chart.min.js'
+				'public/lib/chart.js/dist/Chart.min.js',
+				'public/lib/tooltipster/dist/js/tooltipster.bundle.min.js',
+				'public/lib/numeral/min/numeral.min.js'
 			],
 			dest: 'public/js/vendors.js'
 		},
@@ -50,16 +52,15 @@ module.exports = function(grunt) {
 				'public/lib/angular-resource/angular-resource.min.js', 
 				'public/lib/angular-route/angular-route.min.js', 
 				'public/lib/angular-qrcode/angular-qrcode.js', 
-				// 'public/lib/angular-animate/angular-animate.min.js', 
 				'public/lib/angular-moment/angular-moment.min.js',
 				'public/lib/angular-bootstrap/ui-bootstrap.js', 
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js', 
 				'public/lib/angular-ui-utils/ui-utils.min.js', 
-				// 'public/lib/ngprogress/build/ngProgress.min.js', 
 				'public/lib/angular-gettext/dist/angular-gettext.min.js',
 				'public/lib/angular-moment/angular-moment.min.js',
 				'public/lib/ng-scrollbars/dist/scrollbars.min.js',
-				'public/lib/angular-chart.js/dist/angular-chart.min.js'
+				'public/lib/angular-chart.js/dist/angular-chart.min.js',
+				'public/lib/angular-numeraljs/dist/angular-numeraljs.min.js'
 			],
 			dest: 'public/js/angularjs-all.js'
 		},
@@ -136,7 +137,7 @@ module.exports = function(grunt) {
 		nggettext_extract: {
 			pot: {
 				files: {
-					'po/template.pot': ['public/views/*.html', 'public/views/**/*.html']
+					'po/template.pot': ['public/views/*.html', 'public/views/**/*.html', 'public/src/js/**/*.js']
 				}
 			}
 		},

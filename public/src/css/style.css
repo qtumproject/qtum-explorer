@@ -617,7 +617,8 @@ b, strong {
     font-weight: 500;
     font-family: "Euclidflex", sans-serif;
     line-height: 90px;
-    letter-spacing: -1.5px; }
+    letter-spacing: -1.5px;
+    text-transform: capitalize; }
     .heading__pic ~ .heading__title {
       margin-left: 70px; }
   .heading__link {
@@ -715,6 +716,10 @@ b, strong {
 
 .tooltip__trigger {
   cursor: pointer; }
+
+.nf__link {
+  display: inline-block;
+  margin: 50px 0; }
 
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -3918,6 +3923,15 @@ corresponds to the arrow we want to display */
     font-size: 16px;
     color: #232328; }
 
+.alert {
+  padding: 20px;
+  margin: 20px 0;
+  font-size: 0.875rem;
+  border: 1px solid #e75647; }
+  .alert-danger {
+    background: rgba(231, 86, 71, 0.2);
+    color: #e75546; }
+
 .row {
   position: relative; }
 
@@ -4182,6 +4196,23 @@ corresponds to the arrow we want to display */
   .summaryAddress .col:nth-child(2) {
     padding-left: 70px; }
 
+.summaryAddress__special {
+  clear: both; }
+  .summaryAddress__specialBody {
+    margin-bottom: 28px; }
+  .summaryAddress__specialItem {
+    margin-bottom: 18px;
+    border: 1px solid #2e9ad0;
+    padding: 15px 15px 15px 20px; }
+    .summaryAddress__specialItemTitle {
+      margin-bottom: 17px; }
+    .summaryAddress__specialItemBody {
+      height: 230px;
+      overflow: auto;
+      line-height: 30px; }
+      .summaryAddress__specialItemBody .list {
+        padding-right: 20px; }
+
 .summaryBlock {
   overflow: hidden;
   margin-top: 40px;
@@ -4374,6 +4405,8 @@ corresponds to the arrow we want to display */
     background: transparent;
     border: 1px solid #2e9ad0;
     color: #2e9ad0; }
+  .transactions__info.error {
+    background: #e75647; }
 
 .transactions__contract {
   margin-bottom: 26px; }

@@ -1,11 +1,6 @@
 'use strict';
 
-
-var defaultLanguage = localStorage.getItem('insight-language') || 'en';
-var defaultCurrency = localStorage.getItem('insight-currency') || 'QTUM';
-
 angular.module('insight',[
-	// 'ngAnimate',
 	'ngResource',
 	'ngRoute',
 	'ui.bootstrap',
@@ -19,6 +14,7 @@ angular.module('insight',[
 	'insight.transactions',
 	'insight.address',
 	'insight.search',
+	'insight.statistics',
 	'insight.status',
 	'insight.connection',
 	'insight.currency',
@@ -35,6 +31,7 @@ angular.module('insight.blocks', []);
 angular.module('insight.transactions', [ 'ngScrollbars' ]);
 angular.module('insight.address', []);
 angular.module('insight.search', []);
+angular.module('insight.statistics', [ 'ngNumeraljs' ]);
 angular.module('insight.status', []);
 angular.module('insight.connection', []);
 angular.module('insight.currency', []);

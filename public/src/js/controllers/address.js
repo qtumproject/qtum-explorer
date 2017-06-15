@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.address').controller('AddressController',
-function($scope, $rootScope, $routeParams, $location, Address, getSocket) {
+function($scope, $rootScope, $document, $routeParams, $location, Address, getSocket) {
 
 	var self = this;
 	var socket = getSocket($scope);
@@ -12,8 +12,8 @@ function($scope, $rootScope, $routeParams, $location, Address, getSocket) {
 
 			if (data.address === addrStr) {
 
-				var base = document.querySelector('base');
-				var beep = new Audio(base.href + '/sound/transaction.mp3');
+				var base = $document.find('base');
+				var beep = new Audio(base[0].href + '/sound/transaction.mp3');
 
 				$rootScope.$broadcast('tx', data.txid);
 				beep.play();

@@ -27,17 +27,15 @@
 						<div class="date__text datepicker-popup datepicker">
 							<input type="text"
 								   class="date__textField"
-								   datepicker-popup="{{ BC.datepicker.format }}"
+								   uib-datepicker-popup="{{ BC.datepicker.format }}"
 								   ng-model="BC.date"
 								   is-open="BC.datepicker.isOpened"
-								   min-date="BC.datepicker.minDate"
-								   max-date="BC.datepicker.maxDate"
 								   datepicker-options="BC.datepicker.dateOptions"
 								   date-disabled="BC.disableDatepicker(date, mode)"
 								   show-button-bar="false"
 								   readonly/>
 							<div class="fsz-13" ng-if="BC.pagination.currentTs">
-								{{ BC.pagination.currentTs - 12 * 60 * 60 | amParse : 'X' | amStartOf : 'day' | amTimeAgo }}
+								{{ BC.pagination.isToday ? ('Today' | translate) : (BC.pagination.currentTs | amParse : 'X' | amStartOf : 'day' | amTimeAgo) }}
 							</div>
 						</div>
 					</div>
@@ -55,11 +53,10 @@
 				<div class="th" translate>Mined by</div>
 				<div class="th text_r" translate>Size</div>
 			</div>
-			<div class="tr" ng-if="BC.loading">
-				<div>
-					<span translate>Waiting for blocks...</span> 
-					<span class="loader-gif"></span>
-				</div>
+			<div class="preload__box" ng-if="BC.loading">
+				<span class="preload">
+					<span class="preloadInner"></span>
+				</span>
 			</div>
 			<div class="tr" ng-repeat='block in BC.blocks'>
 				<div class="td">
@@ -87,13 +84,15 @@
 		   translate>
 			Lastest block from date
 		</a>
-		<a class="btn btn-blocks" 
+		<a class="btn btn-blocks"
+		   ng-if="BC.blocks.length && BC.pagination.moreTs" 
 		   href="blocks-date/{{ BC.pagination.current }}/{{ BC.pagination.moreTs }}"
 		   translate>
 			Older blocks from this date
 		</a>
 	</div>
-	<h2 class="text-center text-muted" ng-if="!BC.blocks.length && !BC.loading"
-    translate>No blocks yet.</h2>
+	<div class="alert alert-danger" ng-if="!BC.blocks.length && !BC.loading" translate>
+		No blocks yet.
+	</div>
 </div>
 

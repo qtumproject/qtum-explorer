@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('insight.system').controller('IndexController',
-function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays) {
+function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays, Constants) {
 
 	var self = this;
 	var socket = getSocket($scope);
 		self.txs = [];
 		self.blocks = [];
+		self.chartDays = Constants.CHART_DAYS;
 		self.scrollConfig = {
 			autoHideScrollbar: false,
 			axis: 'y',
@@ -19,13 +20,14 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 				onBeforeUpdate: function() {
 
 					var maxHeight = parseInt($window.getComputedStyle(this).maxHeight),
-						list = this.getElementsByClassName('scrollList'),
+						list = this.getElementsByClassName('mCSB_container'),
 						heightList = list[0].clientHeight;
 
 					if (heightList > maxHeight) {
 						
-						this.style.height = parseInt($window.getComputedStyle(this).maxHeight) + 'px';
-					} else {
+						this.style.height = maxHeight + 'px';
+					} 
+					else {
 						this.style.height = heightList + 'px';
 					}
 				}
@@ -38,11 +40,11 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 				borderColor: '#2e9ad0',
 				borderWidth: 1,
 				fill: false,
-				pointBorderColor: "#2e9ad0",
-				pointBackgroundColor: "#2e9ad0",
+				pointBorderColor: '#2e9ad0',
+				pointBackgroundColor: '#2e9ad0',
 				pointBorderWidth: 1,
-				pointHoverBackgroundColor: "#e75647",
-				pointHoverBorderColor: "#e75647",
+				pointHoverBackgroundColor: '#e75647',
+				pointHoverBorderColor: '#e75647',
 				pointHoverBorderWidth: 1,
 				pointHitRadius: 10,
 				pointStyle: 'rect',
@@ -51,11 +53,11 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 			options : {
 				tooltips:{
 					backgroundColor: '#2e9ad0',
-					titleFontFamily: "SimplonMono",
+					titleFontFamily: 'SimplonMono',
 					titleFontSize: 12,
 					titleFontStyle: '500',
 					titleFontColor: '#232328',
-					bodyFontFamily: "SimplonMono",
+					bodyFontFamily: 'SimplonMono',
 					bodyFontSize: 12,
 					bodyFontStyle: '400',
 					bodyFontColor: '#232328',
@@ -77,7 +79,7 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 						},
 						ticks: {
 							fontColor:'#2e9ad0',
-							fontFamily: "SimplonMono",
+							fontFamily: 'SimplonMono',
 							fontSize:  14,
 							padding: 25,
 							stepSize: 500,
@@ -97,7 +99,7 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 						ticks: {
 							fontColor:'#2e9ad0',
 							fontSize: 10,
-							fontFamily: "SimplonMono"
+							fontFamily: 'SimplonMono'
 						}
 					}]
 				}
@@ -107,7 +109,7 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 	var _getBlocks = function() {
 
 		Blocks.get({
-			limit: $rootScope.Constants.BLOCKS_DISPLAYED
+			limit: Constants.BLOCKS_DISPLAYED
 		}, function(res) {
 
 			self.blocks = res.blocks;
@@ -123,9 +125,9 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 			tx.createTime = Date.now();
 			self.txs.unshift(tx);
 
-			if (self.txs.length > $rootScope.Constants.TRANSACTION_DISPLAYED) {
+			if (self.txs.length > Constants.TRANSACTION_DISPLAYED) {
 				
-				self.txs.length = $rootScope.Constants.TRANSACTION_DISPLAYED;
+				self.txs.length = Constants.TRANSACTION_DISPLAYED;
 			}
 		});
 
@@ -142,13 +144,15 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 
 	self.getListOfTransactions = function() {
 
-		TransactionsByDays.query({},
+		TransactionsByDays.query({ 
+			days: self.chartDays 
+		},
 		function(response){
 
-			while(response.length < $rootScope.Constants.CHART_DAYS){
+			while(response.length < self.chartDays){
 
 				response.push({
-					date : moment().subtract($rootScope.Constants.CHART_DAYS - ($rootScope.Constants.CHART_DAYS - response.length), 'days').format('YYYY-MM-DD'),
+					date : moment().subtract(self.chartDays - (self.chartDays - response.length), 'days').format('YYYY-MM-DD'),
 					transaction_count: 0
 				});
 			}

@@ -5,4 +5,12 @@
 		 src="'views/transaction/tx.html'">
 	</div>
 </div>
+<div class="preload__box" ng-if="TC.loading">
+	<span class="preload">
+		<span class="preloadInner"></span>
+	</span>
+</div>
+<div class="alert alert-danger" ng-if="!TC.txs.length && !TC.loading" translate>
+	There are no transactions involving this address.
+</div>
 

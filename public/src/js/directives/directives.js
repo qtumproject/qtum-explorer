@@ -55,7 +55,7 @@ angular.module('insight')
 			}
 		};
 	})
-	.directive('ngclipboard', [ '$timeout', '$filter', '$window', function($timeout, $filter, $window) {
+	.directive('ngclipboard', [ '$timeout', '$window', 'gettextCatalog', function($timeout, $window, gettextCatalog) {
 		return {
 			restrict: 'A',
 			scope: {
@@ -66,7 +66,7 @@ angular.module('insight')
 			link: function(scope, element) {
 
 				var clipboard = new $window.Clipboard(element[0]);
-				var translate = $filter('translate')('Copied');
+				var translate = gettextCatalog.getString('Copied');
 				var copiedElement = angular.element('<div class="copied">' + translate + '</div>');
 
 				element.before(copiedElement);
@@ -97,4 +97,51 @@ angular.module('insight')
 				});
 			}
 		};
-	}]);
+	}])
+	.directive('tooltip', function() {
+		return {
+			restrict: 'A',
+			scope: {
+				tooltipTitle: '@',
+				tooltipTitleVariable: '=',
+				tooltipOptions: "="
+			},
+			link: function(scope, element, attrs) {
+
+				var isTooltipDynamicVariable = (scope.tooltipTitleVariable !== undefined);
+
+				if (!scope.tooltipTitle && !isTooltipDynamicVariable) {
+					return;
+				}
+				
+				var tooltipOptions = scope.tooltipOptions || {};
+				var message = scope.tooltipTitle;
+
+				if (isTooltipDynamicVariable) {
+
+					message = scope.tooltipTitleVariable;
+
+					scope.$watch('tooltipTitleVariable', function(value) {
+
+						element.tooltipster('content', value);
+
+						if (!value) {
+
+							element.tooltipster('disable');
+						} 
+						else {
+							element.tooltipster('enable');
+						}
+					});
+				}
+
+				tooltipOptions.content = message;
+				element.tooltipster(tooltipOptions);
+
+				scope.$on("$destroy", function () {
+
+					element.tooltipster('destroy');
+				});
+			}
+		};	
+	});

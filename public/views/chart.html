@@ -1,0 +1,40 @@
+<div data-ng-include src="'views/includes/connection.html'"></div>
+<div class="box" ng-controller="StatisticsController as SC" ng-init="SC.getDifficulties()">
+	<div class="heading margin1">
+		<h1 class="heading__title">
+			{{ SC.chartType }}
+		</h1>
+		<div class="heading__sm">
+			<div class="heading__smLabeled fsz-21">
+				{{ SC.chartText[ SC.chartType ] }}
+			</div>
+		</div>
+	</div>
+
+	<div class="section-chartDiff">
+		<div class="insight__chart">
+			<div class="insight__chartPeriodWrap">
+				<a href="stats/{{ SC.chartType + '/' + button.days }}" 
+				   class="insight__chartPeriod" 
+				   ng-class="{ 'active' : SC.chartDays == button.days }"
+				   ng-repeat="button in SC.daysButtons">
+					{{ button.name }}
+				</a>
+			</div>
+
+			<div class="">
+				<div class="">
+					<canvas id="line" 
+							class="chart chart-line" 
+							chart-data="SC.chartOptions.data"
+							chart-labels="SC.chartOptions.labels" 
+							chart-series="SC.chartOptions.series" 
+							chart-options="SC.chartOptions.options"
+							chart-dataset-override="SC.chartOptions.datasetOverride"
+							height="115">
+					</canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,10 +1,6 @@
 'use strict';
 
 angular.module('insight')
-.constant('Config', {
-
-	NETWORK: 'testnet',//TODO::config
-})
 .constant('Constants', {
 
 	CURRENCY: {
@@ -20,7 +16,11 @@ angular.module('insight')
 	BLOCKS_AMOUNT: 15,
 	TRANSACTION_DISPLAYED: 10,
 	BLOCKS_DISPLAYED: 5,
-	CHART_DAYS: 14
+	CHART_DAYS: 14,
+	STORAGE_ROWS: 5,
+    NETWORK: 'testnet',//TODO::config
+    DEFAULT_LANGUAGE: localStorage.getItem('insight-language') || 'en',
+    DEFAULT_CURRENCY: localStorage.getItem('insight-currency') || 'QTUM'
 });
 
 //Setting up route
@@ -69,6 +69,15 @@ angular.module('insight').config(function($routeProvider) {
 	when('/messages/verify', {
 		templateUrl: 'views/messages_verify.html',
 		title: 'Verify Message'
+	}).
+	when('/stats', {
+		templateUrl: 'views/statistics.html',
+		title: 'Stats'
+	}).
+	when('/stats/:type/:days', {
+		controller: 'StatisticsController',
+		templateUrl: 'views/chart.html',
+		title: 'Statistics'
 	})
 	.otherwise({
 		templateUrl: 'views/404.html',
@@ -84,8 +93,8 @@ angular.module('insight')
 	})
 	.run(function($rootScope, $route, $location, $routeParams, $anchorScroll, gettextCatalog, amMoment, Constants) {
 
-		gettextCatalog.currentLanguage = defaultLanguage;
-		amMoment.changeLocale(defaultLanguage);
+		gettextCatalog.currentLanguage = Constants.DEFAULT_LANGUAGE;
+		amMoment.changeLocale(Constants.DEFAULT_LANGUAGE);
 
 		$rootScope.$on('$routeChangeSuccess', function() {
 
@@ -94,7 +103,6 @@ angular.module('insight')
 			$rootScope.title = $route.current.title;
 			$rootScope.isCollapsed = true;
 			$rootScope.currentAddr = null;
-			$rootScope.Constants = Constants;
 
 			$location.hash($routeParams.scrollTo);
 			$anchorScroll();
