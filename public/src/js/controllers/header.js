@@ -1,40 +1,40 @@
 'use strict';
 
 angular.module('insight.system').controller('HeaderController',
-function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block, $templateCache, Constants, gettext) {
+function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block, $templateCache, Constants) {
 
 	var self = this;
 	var socket = getSocket($scope);
 	self.defaultLanguage = Constants.DEFAULT_LANGUAGE;
 	self.menu = [
 		{
-			'title': gettextCatalog.getString(gettext('Blocks')),
+			'title': gettextCatalog.getString('Blocks'),
 			'link': 'blocks'
 		}, 
 		{
-			'title': gettextCatalog.getString(gettext('Status')),
+			'title': gettextCatalog.getString('Status'),
 			'link': 'status'
 		}, 
 		{
-			'title': gettextCatalog.getString(gettext('Stats')),
+			'title': gettextCatalog.getString('Stats'),
 			'link': 'stats'
 		}
 	];
 	self.availableLanguages = [
 		{
-			name: gettextCatalog.getString(gettext('Deutsch')),
+			name: gettextCatalog.getString('Deutsch'),
 			isoCode: 'de_DE',
 		}, 
 		{
-			name: gettextCatalog.getString(gettext('English')),
+			name: gettextCatalog.getString('English'),
 			isoCode: 'en',
 		}, 
 		{
-			name: gettextCatalog.getString(gettext('Spanish')),
+			name: gettextCatalog.getString('Spanish'),
 			isoCode: 'es',
 		}, 
 		{
-			name: gettextCatalog.getString(gettext('Japanese')),
+			name: gettextCatalog.getString('Japanese'),
 			isoCode: 'ja'
 		}
 	];

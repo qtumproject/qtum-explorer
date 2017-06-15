@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('insight.contracts').controller('ContractsController',
-function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddress, getSocket, ContractsInfo, Transaction, Contracts, Constants, gettext, gettextCatalog) {
+function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddress, getSocket, ContractsInfo, Transaction, Contracts, Constants, gettextCatalog) {
 
 	var self = this;
 	var addrStr;
 	var socket = getSocket($scope);
 	var hexString = '0000000000000000000000000000000000000000000000000000000000000000';
-	self.storageViews = [ gettextCatalog.getString(gettext('data')), gettextCatalog.getString(gettext('string')), gettextCatalog.getString(gettext('number')), gettextCatalog.getString(gettext('address')) ];
+	self.storageViews = [ gettextCatalog.getString('data'), gettextCatalog.getString('string'), gettextCatalog.getString('number'), gettextCatalog.getString('address') ];
 	self.storage = {};
 	self.params = $routeParams;
 	self.tooltipOptions = {
