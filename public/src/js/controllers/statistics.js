@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.statistics').controller('StatisticsController',
-function($scope, $rootScope, $routeParams, Statistics, StatisticsByDaysTransactions, StatisticsByDaysOutputs, StatisticsByDaysFees, StatisticsByDaysDifficulty, StatisticsByDaysStakes, Statistics24Hours, $filter) {
+function($scope, $routeParams, Statistics, StatisticsByDaysTransactions, StatisticsByDaysOutputs, StatisticsByDaysFees, StatisticsByDaysDifficulty, StatisticsByDaysStakes, Statistics24Hours, gettext, gettextCatalog, $filter) {
 
 	var self = this;
 	var factories = {
@@ -113,35 +113,35 @@ function($scope, $rootScope, $routeParams, Statistics, StatisticsByDaysTransacti
 		self.daysButtons = [
 			{
 				days: 30,
-				name: '30 Days'
+				name: '30 ' + gettextCatalog.getString(gettext('Days'))
 			},
 			{
 				days: 60,
-				name: '60 Days'
+				name: '60 ' + gettextCatalog.getString(gettext('Days'))
 			},
 			{
 				days: 180,
-				name: '180 Days'
+				name: '180 ' + gettextCatalog.getString(gettext('Days'))
 			},
 			{
 				days: 365,
-				name: '1 Year'
+				name: '1 ' + gettextCatalog.getString(gettext('Year'))
 			},
 			{
 				days: 730,
-				name: '2 Years'
+				name: '2 ' + gettextCatalog.getString(gettext('Years'))
 			},
 			{
 				days: 'all',
-				name: 'All Time'
+				name:  gettextCatalog.getString(gettext('All Time'))
 			}
 		];
 		self.chartText = {
-			fees: 'The total value of all transaction fees paid to miners (not including the coinbase value of block rewards).',
-			transactions: 'The number of daily confirmed Bitcoin transactions.',
-			outputs: 'The total value of all transaction outputs per day (includes coins returned to the sender as change).',
-			difficulty: 'A relative measure of how difficult it is to find a new block. The difficulty is adjusted periodically as a function of how much hashing power has been deployed by the network of miners.',
-			stakes: ''
+			fees: gettextCatalog.getString(gettext('The total value of all transaction fees paid to miners (not including the coinbase value of block rewards).')),
+			transactions: gettextCatalog.getString(gettext('The number of daily confirmed Bitcoin transactions.')),
+			outputs: gettextCatalog.getString(gettext('The total value of all transaction outputs per day (includes coins returned to the sender as change).')),
+			difficulty: gettextCatalog.getString(gettext('A relative measure of how difficult it is to find a new block. The difficulty is adjusted periodically as a function of how much hashing power has been deployed by the network of miners.')),
+			stakes: gettextCatalog.getString(gettext(''))
 		};
 		self.chartDays = $routeParams.days;
 		self.chartType = $routeParams.type;

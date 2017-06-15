@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('insight.system').controller('IndexController',
-function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays) {
+function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays, Constants) {
 
 	var self = this;
 	var socket = getSocket($scope);
 		self.txs = [];
 		self.blocks = [];
+		self.chartDays = Constants.CHART_DAYS;
 		self.scrollConfig = {
 			autoHideScrollbar: false,
 			axis: 'y',
@@ -108,7 +109,7 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 	var _getBlocks = function() {
 
 		Blocks.get({
-			limit: $rootScope.Constants.BLOCKS_DISPLAYED
+			limit: Constants.BLOCKS_DISPLAYED
 		}, function(res) {
 
 			self.blocks = res.blocks;
@@ -124,9 +125,9 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 			tx.createTime = Date.now();
 			self.txs.unshift(tx);
 
-			if (self.txs.length > $rootScope.Constants.TRANSACTION_DISPLAYED) {
+			if (self.txs.length > Constants.TRANSACTION_DISPLAYED) {
 				
-				self.txs.length = $rootScope.Constants.TRANSACTION_DISPLAYED;
+				self.txs.length = Constants.TRANSACTION_DISPLAYED;
 			}
 		});
 
@@ -144,14 +145,14 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 	self.getListOfTransactions = function() {
 
 		TransactionsByDays.query({ 
-			days: $rootScope.Constants.CHART_DAYS 
+			days: self.chartDays 
 		},
 		function(response){
 
-			while(response.length < $rootScope.Constants.CHART_DAYS){
+			while(response.length < self.chartDays){
 
 				response.push({
-					date : moment().subtract($rootScope.Constants.CHART_DAYS - ($rootScope.Constants.CHART_DAYS - response.length), 'days').format('YYYY-MM-DD'),
+					date : moment().subtract(self.chartDays - (self.chartDays - response.length), 'days').format('YYYY-MM-DD'),
 					transaction_count: 0
 				});
 			}

@@ -9,69 +9,69 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.8\n"
+"X-Generator: Poedit 2.0.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: public/views/transaction/tx.html
-msgid "(Input unconfirmed)"
-msgstr "(Entrada sin confirmar)"
 
 #: public/views/404.html
 msgid "404 Page not found :("
 msgstr "404 Página no encontrada :("
 
-#: public/views/index.html
+#: public/src/js/controllers/statistics.js
 msgid ""
-"<strong>insight</strong>  is an <a href=\"http://live.insight.is/\" target="
-"\"_blank\">open-source Quantum blockchain explorer</a> with complete REST "
-"and websocket APIs that can be used for writing web wallets and other apps  "
-"that need more advanced blockchain queries than provided by quantumd RPC.  "
-"Check out the <a href=\"https://github.com/bitpay/insight-ui\" target=\"_blank"
-"\">source code</a>."
+"A relative measure of how difficult it is to find a new block. The "
+"difficulty is adjusted periodically as a function of how much hashing power "
+"has been deployed by the network of miners."
 msgstr ""
-"<strong>insight</strong>  es un <a href=\"http://live.insight.is/\" target="
-"\"_blank\">explorador de bloques de Quantum open-source</a> con un completo "
-"conjunto de REST y APIs de websockets que pueden ser usadas para escribir "
-"monederos de Quantums y otras aplicaciones que requieran consultar un "
-"explorador de bloques.  Obtén el código en <a href=\"http://github.com/"
-"bitpay/insight\" target=\"_blank\">el repositorio abierto de Github</a>."
-
-#: public/views/index.html
-msgid ""
-"<strong>insight</strong> is still in development, so be sure to report any "
-"bugs and provide feedback for improvement at our <a href=\"https://github."
-"com/bitpay/insight/issues\" target=\"_blank\">github issue tracker</a>."
-msgstr ""
-"<strong>insight</strong> esta en desarrollo aún, por ello agradecemos que "
-"nos reporten errores o sugerencias para mejorar el software. <a href="
-"\"https://github.com/bitpay/insight-ui/issues\" target=\"_blank\">Github issue "
-"tracker</a>."
 
 #: public/views/index.html
 msgid "About"
 msgstr "Acerca de"
 
-#: public/views/address.html
+#: public/src/js/controllers/contracts.js
+#, fuzzy
+#| msgid "Address"
+msgid "address"
+msgstr "Dirección"
+
+#: public/views/addressPage.html public/views/messages_verify.html
 msgid "Address"
 msgstr "Dirección"
 
-#: public/views/index.html
-msgid "Age"
-msgstr "Edad"
+#: public/src/js/controllers/statistics.js
+msgid "All Time"
+msgstr ""
+
+#: public/views/messages_verify.html
+msgid "An error occured in the verification process."
+msgstr ""
+
+#: public/views/transaction_sendraw.html
+msgid "An error occured:<br>{{error}}"
+msgstr ""
 
 #: public/views/status.html
 msgid "Application Status"
 msgstr "Estado de la Aplicación"
 
-#: public/views/status.html
-msgid "Best Block"
-msgstr "Mejor Bloque"
+#: public/views/addressPage.html public/views/transaction/tx.html
+msgid "Asm"
+msgstr ""
 
 #: public/views/status.html
-msgid "Quantum node information"
+#, fuzzy
+#| msgid "Quantum node information"
+msgid "Bitcoin node information"
 msgstr "Información del nodo Quantum"
 
+#: public/views/statistics.html
+msgid "Bitcoins Mined"
+msgstr ""
+
 #: public/views/block.html
+msgid "Bits"
+msgstr ""
+
+#: public/views/index.html
 msgid "Block"
 msgstr "Bloque"
 
@@ -79,22 +79,48 @@ msgstr "Bloque"
 msgid "Block Reward"
 msgstr "Bloque Recompensa"
 
-#: public/views/block_list.html public/views/dummy-translations.html
-#: public/views/status.html
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Summary"
+msgid "Block Summary"
+msgstr "Resumen"
+
+#: public/views/block.html
+#, fuzzy
+#| msgid "Blocks"
+msgid "BlockHash"
+msgstr "Bloques"
+
+#: public/views/dummy-translations.html public/views/index.html
+#: public/views/status.html public/src/js/controllers/header.js
 msgid "Blocks"
 msgstr "Bloques"
 
-#: public/views/status.html
-msgid "Bytes Serialized"
-msgstr "Bytes Serializados"
+#: public/views/block_list.html
+#, fuzzy
+#| msgid "Blocks"
+msgid "Blocks by Date"
+msgstr "Bloques"
 
-#: public/views/includes/connection.html
-msgid ""
-"Can't connect to quantumd to get live updates from the p2p network. (Tried "
-"connecting to quantumd at {{host}}:{{port}} and failed.)"
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Blocks"
+msgid "Blocks Mined"
+msgstr "Bloques"
+
+#: public/views/transaction_sendraw.html
+#, fuzzy
+#| msgid "Latest Transactions"
+msgid "Broadcast Raw Transaction"
+msgstr "Últimas Transacciones"
+
+#: public/views/addressPage.html
+msgid "Bytecode"
 msgstr ""
-"No se pudo conectar a quantumd para obtener actualizaciones en vivo de la "
-"red p2p. (Se intentó conectar a quantumd de {{host}}:{{port}} y falló.)"
+
+#: public/views/transaction.html
+msgid "bytes"
+msgstr ""
 
 #: public/views/includes/connection.html
 msgid "Can't connect to insight server. Attempting to reconnect..."
@@ -104,35 +130,99 @@ msgstr "No se pudo conectar al servidor insight. Intentando re-conectar..."
 msgid "Can't connect to internet. Please, check your connection."
 msgstr "No se pudo conectar a Internet. Por favor, verifique su conexión."
 
+#: public/views/includes/connection.html
+msgid ""
+"Can't connect to quantumd to get live updates from the p2p network. (Tried "
+"connecting to quantumd at {{host}}:{{port}} and failed.)"
+msgstr ""
+"No se pudo conectar a quantumd para obtener actualizaciones en vivo de la "
+"red p2p. (Se intentó conectar a quantumd de {{host}}:{{port}} y falló.)"
+
+#: public/views/transaction.html
+msgid "Coinbase"
+msgstr ""
+
 #: public/views/status.html
 msgid "Complete"
 msgstr "Completado"
 
-#: public/views/transaction.html public/views/transaction/tx.html
+#: public/views/transaction/tx.html
+#, fuzzy
+#| msgid "Confirmations"
+msgid "confirmations"
+msgstr "Confirmaciones"
+
+#: public/views/transaction/tx.html
 msgid "Confirmations"
 msgstr "Confirmaciones"
 
-#: public/views/includes/header.html
-msgid "Conn"
-msgstr "Con"
+#: public/views/addressPage.html public/views/block.html
+#, fuzzy
+#| msgid "Unconfirmed"
+msgid "confirmed"
+msgstr "Sin confirmar"
 
 #: public/views/status.html
-msgid "Connections to other nodes"
+#, fuzzy
+#| msgid "Connections to other nodes"
+msgid "Connections to Other Nodes"
 msgstr "Conexiones a otros nodos"
 
+#: public/views/transaction/tx.html
+msgid "Contract Code"
+msgstr ""
+
+#: public/views/transaction/tx.html
+#, fuzzy
+#| msgid "Confirmations"
+msgid "Contract Creation"
+msgstr "Confirmaciones"
+
+#: public/src/js/directives/directives.js
+msgid "Copied"
+msgstr ""
+
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Latest Transactions"
+msgid "Cost per Transaction (USD)"
+msgstr "Últimas Transacciones"
+
 #: public/views/status.html
-msgid "Current Blockchain Tip (insight)"
-msgstr "Actual Blockchain Tip (insight)"
+msgid ""
+"Current Blockchain Tip \r\n"
+"\t\t\t\t\t\t\t\t<span class=\"fsz-13\">\r\n"
+"\t\t\t\t\t\t\t\t\t({{ insight | translate }})\r\n"
+"\t\t\t\t\t\t\t\t</span>"
+msgstr ""
 
 #: public/views/status.html
 msgid "Current Sync Status"
 msgstr "Actual Estado de Sincronización"
 
+#: public/src/js/controllers/contracts.js
+msgid "data"
+msgstr ""
+
+#: public/views/index.html
+#, fuzzy
+#| msgid "Transactions"
+msgid "day QTUM Transaction History"
+msgstr "Transacciones"
+
+#: public/src/js/controllers/statistics.js
+msgid "Days"
+msgstr ""
+
 #: public/views/transaction.html
 msgid "Details"
 msgstr "Detalles"
 
-#: public/views/block.html
+#: public/src/js/controllers/header.js
+msgid "Deutsch"
+msgstr ""
+
+#: public/views/block.html public/views/statistics.html
 msgid "Difficulty"
 msgstr "Dificultad"
 
@@ -140,37 +230,65 @@ msgstr "Dificultad"
 msgid "Double spent attempt detected. From tx:"
 msgstr "Intento de doble gasto detectado. De la transacción:"
 
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Latest Transactions"
+msgid "Earned From Transaction Fees"
+msgstr "Últimas Transacciones"
+
+#: public/src/js/controllers/header.js
+msgid "English"
+msgstr ""
+
+#: public/views/addressPage.html
+msgid "entries"
+msgstr ""
+
+#: public/views/messages_verify.html
+msgid "Error message:"
+msgstr ""
+
 #: public/views/includes/connection.html
 msgid "Error!"
 msgstr "¡Error!"
+
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Transaction"
+msgid "Estimated Transaction Volume"
+msgstr "Transacción"
+
+#: public/views/statistics.html
+msgid "Estimated Transaction Volume (USD)"
+msgstr ""
 
 #: public/views/transaction/tx.html
 msgid "Fee"
 msgstr "Tasa"
 
-#: public/views/address.html
+#: public/views/addressPage.html
 msgid "Final Balance"
 msgstr "Balance Final"
 
-#: public/views/status.html
-msgid "Finish Date"
-msgstr "Fecha Final"
-
 #: public/views/404.html
-msgid "Go to home"
+#, fuzzy
+#| msgid "Go to home"
+msgid "Go to Home"
 msgstr "Volver al Inicio"
 
-#: public/views/status.html
-msgid "Hash Serialized"
-msgstr "Hash Serializado"
+#: public/views/index.html
+msgid "Hash"
+msgstr ""
+
+#: public/views/statistics.html
+msgid "Hash Rate and Electricy Consumption"
+msgstr ""
 
 #: public/views/block.html public/views/block_list.html
-#: public/views/index.html public/views/status.html
-#: public/views/includes/header.html
 msgid "Height"
 msgstr "Altura"
 
-#: public/views/transaction.html public/views/transaction/tx.html
+#: public/views/transaction.html
 msgid "Included in Block"
 msgstr "Incluido en el Bloque"
 
@@ -186,93 +304,179 @@ msgstr "Errores de Información"
 msgid "Initial Block Chain Height"
 msgstr "Altura de la Cadena en Bloque Inicial"
 
-#: public/views/transaction.html
-msgid "Input"
-msgstr "Entrada"
+#: public/views/transaction/tx.html
+#, fuzzy
+#| msgid "(Input unconfirmed)"
+msgid "Input unconfirmed"
+msgstr "(Entrada sin confirmar)"
+
+#: public/views/index.html
+msgid ""
+"Insight is an\r\n"
+"\t\t\t\t<a href=\"https://insight.is/\" target=\"_blank\">open-source "
+"Quantum blockchain explorer</a>\r\n"
+"\t\t\t\twith complete REST and websocket APIs that can be used for writing "
+"web wallets and other apps that need more advanced blockchain queries than "
+"provided by quantumd RPC. Check out the\r\n"
+"\t\t\t\t<a href=\"https://github.com/bitpay/insight-ui\" target=\"_blank\" "
+"class=\"ng-scope\">source code</a>."
+msgstr ""
+"Iinsight  es un\n"
+" \t\t\t\t<a href=\"https://insight.is/\" target=\"_blank\">explorador de "
+"bloques de Quantum open-source</a>\n"
+" \t\t\t\tcon un complete conjunto de REST y APIs de websockets que pueden "
+"ser usadas para escribir monederos de Quantums y otras aplicaciones que "
+"requieran consultar in explorador de bloques.  Obtén el código en \n"
+"\t\t\t\t<a href=\"https://github.com/bitpay/insight-ui\" target=\"_blank\" "
+"class=\"ng-scope\">el repositorio abierto de Github</a>."
+
+#: public/views/index.html
+msgid ""
+"Insight is still in development, so be sure to report any bugs and provide "
+"feedback for improvement at our\r\n"
+"\t\t\t\t<a href=\"https://github.com/bitpay/insight-ui/issues\" target="
+"\"_blank\" class=\"ng-scope\">github issue tracker</a>."
+msgstr ""
+"insight esta en desarrollo aún, por ello agradecemos que nos reporten "
+"errores o sugerencias para mejorar el software. \n"
+"\t\t\t\t<a href=\"https://github.com/bitpay/insight-ui/issues\" target="
+"\"_blank\" class=\"ng-scope\">Github issue tracker</a>."
+
+#: public/src/js/controllers/header.js
+msgid "Japanese"
+msgstr ""
+
+#: public/views/addressPage.html
+msgid "KEY"
+msgstr ""
 
 #: public/views/status.html
-msgid "Last Block"
+msgid ""
+"Last Block Hash \r\n"
+"\t\t\t\t\t\t\t\t<span class=\"fsz-13\">\r\n"
+"\t\t\t\t\t\t\t\t\t({{ 'Quantumd' | translate }})\r\n"
+"\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#: public/views/status.html
+#, fuzzy
+#| msgid "Last Block"
+msgid "Last Blocks"
 msgstr "Último Bloque"
 
-#: public/views/status.html
-msgid "Last Block Hash (Quantumd)"
-msgstr "Último Bloque Hash (Quantumd)"
-
-#: public/views/index.html
-msgid "Latest Blocks"
-msgstr "Últimos Bloques"
-
-#: public/views/index.html
-msgid "Latest Transactions"
-msgstr "Últimas Transacciones"
-
-#: public/views/address.html
-msgid "Loading Address Information"
-msgstr "Cargando Información de la Dirección"
-
-#: public/views/block.html
-msgid "Loading Block Information"
-msgstr "Cargando Información del Bloque"
-
 #: public/views/block_list.html
-msgid "Loading Selected Date..."
-msgstr "Cargando Fecha Seleccionada..."
+#, fuzzy
+#| msgid "Latest Blocks"
+msgid "Lastest block from date"
+msgstr "Últimos Bloques"
 
 #: public/views/transaction.html
 msgid "Loading Transaction Details"
 msgstr "Cargando Detalles de la Transacción"
 
-#: public/views/transaction/list.html
-msgid "Loading Transactions..."
-msgstr "Cargando Transacciones..."
-
+#: public/views/messages_verify.html public/views/transaction_sendraw.html
 #: public/views/includes/infoStatus.html
 msgid "Loading..."
 msgstr "Cargando..."
+
+#: public/views/statistics.html
+msgid "Market Price"
+msgstr ""
+
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Summary"
+msgid "Market Summary"
+msgstr "Resumen"
+
+#: public/views/block.html
+msgid "Merkle Root"
+msgstr ""
+
+#: public/views/messages_verify.html
+msgid "Message"
+msgstr ""
+
+#: public/views/transaction/tx.html
+msgid "mined"
+msgstr "minado"
+
+#: public/views/block.html public/views/block_list.html public/views/index.html
+msgid "Mined by"
+msgstr "Minado por"
 
 #: public/views/transaction.html
 msgid "Mined Time"
 msgstr "Hora de Minado"
 
-#: public/views/block.html public/views/block_list.html
-#: public/views/index.html
-msgid "Mined by"
-msgstr "Minado por"
+#: public/views/statistics.html
+msgid "Mining Cost"
+msgstr ""
 
 #: public/views/status.html
 msgid "Mining Difficulty"
 msgstr "Dificultad de Minado"
 
-#: public/views/block.html
-msgid "Next Block"
-msgstr "Próximo Bloque"
+#: public/views/addressPage.html
+msgid "More"
+msgstr ""
 
-#: public/views/transaction/tx.html
-msgid "No Inputs (Newly Generated Coins)"
-msgstr "Sin Entradas (Monedas Recién Generadas)"
+#: public/views/status.html
+msgid "Network"
+msgstr ""
 
 #: public/views/block_list.html
 msgid "No blocks yet."
 msgstr "No hay bloques aún."
 
-#: public/views/includes/header.html public/views/includes/search.html
+#: public/views/transaction/tx.html
+msgid "No Inputs (Newly Generated Coins)"
+msgstr "Sin Entradas (Monedas Recién Generadas)"
+
+#: public/views/includes/search.html
 msgid "No matching records found!"
 msgstr "¡No se encontraron registros coincidentes!"
 
-#: public/views/address.html
-msgid "No. Transactions"
-msgstr "Nro. de Transacciones"
+#: public/views/block.html
+msgid "Nonce"
+msgstr ""
+
+#: public/src/js/controllers/contracts.js
+msgid "number"
+msgstr ""
+
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Number Of Transactions"
+msgid "Number of Transactions"
+msgstr "Número de Transacciones"
 
 #: public/views/block.html
 msgid "Number Of Transactions"
 msgstr "Número de Transacciones"
 
-#: public/views/transaction.html
-msgid "Output"
-msgstr "Salida"
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Transaction"
+msgid "Of Transaction Volume"
+msgstr "Transacción"
+
+#: public/views/block_list.html
+msgid "Older blocks from this date"
+msgstr ""
+
+#: public/views/404.html
+msgid "Ooops!"
+msgstr ""
+
+#: public/views/statistics.html
+msgid "Percent of staked supply"
+msgstr ""
 
 #: public/views/index.html
-msgid "Powered by"
+#, fuzzy
+#| msgid "Powered by"
+msgid "Powered  by:"
 msgstr "Funciona con"
 
 #: public/views/block.html
@@ -280,12 +484,34 @@ msgid "Previous Block"
 msgstr "Bloque Anterior"
 
 #: public/views/status.html
-msgid "Protocol version"
+#, fuzzy
+#| msgid "Protocol version"
+msgid "Protocol Version"
 msgstr "Versión del protocolo"
 
 #: public/views/status.html
-msgid "Proxy setting"
+#, fuzzy
+#| msgid "Proxy setting"
+msgid "Proxy Setting"
 msgstr "Opción de proxy"
+
+#: public/views/messages_verify.html
+msgid "Quantum comes with a way of signing arbitrary messages."
+msgstr ""
+
+#: public/views/status.html
+msgid "Quantumd"
+msgstr ""
+
+#: public/views/transaction_sendraw.html
+#, fuzzy
+#| msgid "Show Transaction Output data"
+msgid "Raw transaction data"
+msgstr "Mostrar dato de Salida de la Transacción"
+
+#: public/views/transaction_sendraw.html
+msgid "Raw transaction data must be a valid hexadecimal string."
+msgstr ""
 
 #: public/views/transaction.html
 msgid "Received Time"
@@ -295,7 +521,11 @@ msgstr "Hora de Recibido"
 msgid "Redirecting..."
 msgstr "Redireccionando..."
 
-#: public/views/includes/header.html
+#: public/views/transaction/tx.html
+msgid "scriptSig"
+msgstr ""
+
+#: public/views/includes/search.html
 msgid "Search for block, transaction or address"
 msgstr "Buscar bloques, transacciones o direcciones"
 
@@ -303,25 +533,21 @@ msgstr "Buscar bloques, transacciones o direcciones"
 msgid "See all blocks"
 msgstr "Ver todos los bloques"
 
-#: public/views/status.html
-msgid "Show Transaction Output data"
-msgstr "Mostrar dato de Salida de la Transacción"
+#: public/views/transaction_sendraw.html
+#, fuzzy
+#| msgid "Transaction"
+msgid "Send transaction"
+msgstr "Transacción"
 
-#: public/views/transaction/tx.html
-msgid "Show all"
+#: public/views/addressPage.html
+#, fuzzy
+#| msgid "Show all"
+msgid "Show All"
 msgstr "Mostrar todos"
 
-#: public/views/transaction/tx.html
-msgid "Show input"
-msgstr "Mostrar entrada"
-
-#: public/views/transaction/tx.html
-msgid "Show less"
-msgstr "Ver menos"
-
-#: public/views/transaction/tx.html
-msgid "Show more"
-msgstr "Ver más"
+#: public/views/messages_verify.html
+msgid "Signature"
+msgstr ""
 
 #: public/views/block_list.html public/views/index.html
 #: public/views/transaction.html
@@ -333,24 +559,47 @@ msgid "Size (bytes)"
 msgstr "Tamaño (bytes)"
 
 #: public/views/status.html
-msgid "Skipped Blocks (previously synced)"
-msgstr "Bloques Saltados (previamente sincronizado)"
+msgid ""
+"Skipped Blocks \r\n"
+"\t\t\t\t\t\t\t\t<span class=\"fsz-13\">\r\n"
+"\t\t\t\t\t\t\t\t\t{{ SC.sync.skippedBlocks }}\r\n"
+"\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#: public/src/js/controllers/header.js
+msgid "Spanish"
+msgstr ""
 
 #: public/views/status.html
 msgid "Start Date"
 msgstr "Fecha de Inicio"
 
-#: public/views/dummy-translations.html
+#: public/views/statistics.html public/src/js/controllers/header.js
+#, fuzzy
+#| msgid "Status"
+msgid "Stats"
+msgstr "Estado"
+
+#: public/views/dummy-translations.html public/src/js/controllers/header.js
 msgid "Status"
 msgstr "Estado"
 
-#: public/views/block.html public/views/transaction.html
+#: public/views/addressPage.html
+msgid "Storage"
+msgstr ""
+
+#: public/src/js/controllers/contracts.js
+msgid "string"
+msgstr ""
+
+#: public/views/addressPage.html public/views/block.html
+#: public/views/transaction.html
 msgid "Summary"
 msgstr "Resumen"
 
-#: public/views/address.html
-msgid "Summary <small>confirmed</small>"
-msgstr "Resumen <small>confirmados</small>"
+#: public/views/statistics.html
+msgid "Summary of QTUM statistics for the previous 24 hour period."
+msgstr ""
 
 #: public/views/status.html
 msgid "Sync Progress"
@@ -368,53 +617,102 @@ msgstr "Tipo de Sincronización"
 msgid "Synced Blocks"
 msgstr "Bloques Sincornizados"
 
-#: public/views/status.html
-msgid "Testnet"
-msgstr "Red de prueba"
+#: public/views/messages_verify.html
+msgid "The message failed to verify."
+msgstr ""
+
+#: public/views/messages_verify.html
+msgid "The message is verifiably from {{verification.address}}."
+msgstr ""
+
+#: public/src/js/controllers/statistics.js
+msgid "The number of daily confirmed Bitcoin transactions."
+msgstr ""
+
+#: public/src/js/controllers/statistics.js
+msgid ""
+"The total value of all transaction fees paid to miners (not including the "
+"coinbase value of block rewards)."
+msgstr ""
+
+#: public/src/js/controllers/statistics.js
+msgid ""
+"The total value of all transaction outputs per day (includes coins returned "
+"to the sender as change)."
+msgstr ""
 
 #: public/views/transaction/list.html
 msgid "There are no transactions involving this address."
 msgstr "No hay transacciones para esta dirección"
 
+#: public/views/transaction_sendraw.html
+msgid ""
+"This form can be used to broadcast a raw transaction in hex format over\r\n"
+"        the Quantum network."
+msgstr ""
+
+#: public/views/messages_verify.html
+msgid ""
+"This form can be used to verify that a message comes from\r\n"
+"        a specific Quantum address."
+msgstr ""
+
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Best Block"
+msgid "Time Between Blocks"
+msgstr "Mejor Bloque"
+
 #: public/views/status.html
 msgid "Time Offset"
 msgstr "Desplazamiento de hora"
 
-#: public/views/block.html
+#: public/views/block.html public/views/block_list.html
 msgid "Timestamp"
 msgstr "Fecha y hora"
 
-#: public/views/block_list.html
-msgid "Today"
-msgstr "Hoy"
+#: public/views/statistics.html
+msgid "Total Miners Revenue (USD)"
+msgstr ""
 
-#: public/views/status.html
-msgid "Total Amount"
-msgstr "Cantidad Total"
+#: public/views/statistics.html
+msgid "Total Output Volume"
+msgstr ""
 
-#: public/views/address.html
+#: public/views/addressPage.html
 msgid "Total Received"
 msgstr "Total Recibido"
 
-#: public/views/address.html
+#: public/views/addressPage.html
 msgid "Total Sent"
 msgstr "Total Enviado"
+
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "No. Transactions"
+msgid "Total Transaction Fees"
+msgstr "Nro. de Transacciones"
+
+#: public/views/statistics.html
+msgid "Trade Volume"
+msgstr ""
 
 #: public/views/transaction.html
 msgid "Transaction"
 msgstr "Transacción"
 
-#: public/views/status.html
-msgid "Transaction Output Set Information"
-msgstr "Información del Conjunto de Salida de la Transacción"
+#: public/views/transaction_sendraw.html
+msgid "Transaction succesfully broadcast.<br>Transaction id: {{txid}}"
+msgstr ""
 
-#: public/views/status.html
-msgid "Transaction Outputs"
-msgstr "Salidas de la Transacción"
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Transaction"
+msgid "Transaction Summary"
+msgstr "Transacción"
 
-#: public/views/address.html public/views/block.html
+#: public/views/addressPage.html public/views/block.html
 #: public/views/block_list.html public/views/index.html
-#: public/views/status.html
 msgid "Transactions"
 msgstr "Transacciones"
 
@@ -422,49 +720,147 @@ msgstr "Transacciones"
 msgid "Type"
 msgstr "Tipo"
 
-#: public/views/address.html
-msgid "Unconfirmed"
-msgstr "Sin confirmar"
-
-#: public/views/transaction.html public/views/transaction/tx.html
+#: public/views/transaction/tx.html
 msgid "Unconfirmed Transaction!"
 msgstr "¡Transacción sin confirmar!"
 
-#: public/views/address.html
-msgid "Unconfirmed Txs Balance"
-msgstr "Balance sin confirmar"
+#: public/views/addressPage.html
+#, fuzzy
+#| msgid "Value Out"
+msgid "Value"
+msgstr "Valor de Salida"
 
 #: public/views/index.html
-msgid "Value Out"
+#, fuzzy
+#| msgid "Value Out"
+msgid "Value Out:"
 msgstr "Valor de Salida"
+
+#: public/views/messages_verify.html
+msgid "Verify"
+msgstr ""
+
+#: public/views/messages_verify.html
+msgid "Verify signed message"
+msgstr ""
 
 #: public/views/block.html public/views/status.html
 msgid "Version"
 msgstr "Versión"
 
-#: public/views/block_list.html public/views/index.html
-msgid "Waiting for blocks..."
-msgstr "Esperando bloques..."
+#: public/views/statistics.html
+msgid "View Chart"
+msgstr ""
 
-#: public/views/index.html
-msgid "Waiting for transactions..."
-msgstr "Esperando transacciones..."
+#: public/src/js/controllers/statistics.js
+msgid "Year"
+msgstr ""
 
-#: public/views/block_list.html
-msgid "by date."
-msgstr "por fecha."
+#: public/src/js/controllers/statistics.js
+msgid "Years"
+msgstr ""
 
-#: public/views/transaction/tx.html
-msgid "first seen at"
-msgstr "Visto a"
+#~ msgid "github issue tracker"
+#~ msgstr "Github issue tracker"
 
-#: public/views/transaction/tx.html
-msgid "mined"
-msgstr "minado"
+#~ msgid "Insight is an"
+#~ msgstr "Insight  es un"
 
-#: public/views/block_list.html
-msgid "mined on:"
-msgstr "minado el:"
+#~ msgid "open-source Quantum blockchain explorer"
+#~ msgstr "explorador de bloques de Quantum open-source"
+
+#~ msgid "source code"
+#~ msgstr "el repositorio abierto de Github"
+
+#~ msgid "Age"
+#~ msgstr "Edad"
+
+#~ msgid "Bytes Serialized"
+#~ msgstr "Bytes Serializados"
+
+#~ msgid "Conn"
+#~ msgstr "Con"
+
+#~ msgid "Current Blockchain Tip (insight)"
+#~ msgstr "Actual Blockchain Tip (insight)"
+
+#~ msgid "Finish Date"
+#~ msgstr "Fecha Final"
+
+#~ msgid "Hash Serialized"
+#~ msgstr "Hash Serializado"
+
+#~ msgid "Input"
+#~ msgstr "Entrada"
+
+#~ msgid "Last Block Hash (Quantumd)"
+#~ msgstr "Último Bloque Hash (Quantumd)"
+
+#~ msgid "Loading Address Information"
+#~ msgstr "Cargando Información de la Dirección"
+
+#~ msgid "Loading Block Information"
+#~ msgstr "Cargando Información del Bloque"
+
+#~ msgid "Loading Selected Date..."
+#~ msgstr "Cargando Fecha Seleccionada..."
+
+#~ msgid "Loading Transactions..."
+#~ msgstr "Cargando Transacciones..."
+
+#~ msgid "Next Block"
+#~ msgstr "Próximo Bloque"
+
+#~ msgid "Output"
+#~ msgstr "Salida"
+
+#~ msgid "Show input"
+#~ msgstr "Mostrar entrada"
+
+#~ msgid "Show less"
+#~ msgstr "Ver menos"
+
+#~ msgid "Show more"
+#~ msgstr "Ver más"
+
+#~ msgid "Skipped Blocks (previously synced)"
+#~ msgstr "Bloques Saltados (previamente sincronizado)"
+
+#~ msgid "Summary <small>confirmed</small>"
+#~ msgstr "Resumen <small>confirmados</small>"
+
+#~ msgid "Testnet"
+#~ msgstr "Red de prueba"
+
+#~ msgid "Today"
+#~ msgstr "Hoy"
+
+#~ msgid "Total Amount"
+#~ msgstr "Cantidad Total"
+
+#~ msgid "Transaction Output Set Information"
+#~ msgstr "Información del Conjunto de Salida de la Transacción"
+
+#~ msgid "Transaction Outputs"
+#~ msgstr "Salidas de la Transacción"
+
+#~ msgid "Unconfirmed Txs Balance"
+#~ msgstr "Balance sin confirmar"
+
+#~ msgid "Waiting for blocks..."
+#~ msgstr "Esperando bloques..."
+
+#~ msgid "Waiting for transactions..."
+#~ msgstr "Esperando transacciones..."
+
+#~ msgid "by date."
+#~ msgstr "por fecha."
+
+#~ msgid "first seen at"
+#~ msgstr "Visto a"
+
+#~ msgid "mined on:"
+#~ msgstr "minado el:"
 
 #~ msgid "Waiting for blocks"
 #~ msgstr "Esperando bloques"

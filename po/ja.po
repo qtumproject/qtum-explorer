@@ -9,53 +9,36 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
-
-#: public/views/transaction/tx.html
-msgid "(Input unconfirmed)"
-msgstr "(入力は未検証です)"
+"X-Generator: Poedit 2.0.2\n"
 
 #: public/views/404.html
 msgid "404 Page not found :("
 msgstr "404 ページがみつかりません (´・ω・`)"
 
-#: public/views/index.html
+#: public/src/js/controllers/statistics.js
 msgid ""
-"<strong>insight</strong>  is an <a href=\"http://live.insight.is/\" target="
-"\"_blank\">open-source Quantum blockchain explorer</a> with complete REST "
-"and websocket APIs that can be used for writing web wallets and other apps  "
-"that need more advanced blockchain queries than provided by quantumd RPC.  "
-"Check out the <a href=\"https://github.com/bitpay/insight-ui\" target=\"_blank"
-"\">source code</a>."
+"A relative measure of how difficult it is to find a new block. The "
+"difficulty is adjusted periodically as a function of how much hashing power "
+"has been deployed by the network of miners."
 msgstr ""
-"<strong>insight</strong>は、quantumd RPCの提供するものよりも詳細なブロック"
-"チェインへの問い合わせを必要とするウェブウォレットやその他のアプリを書くのに"
-"使える、完全なRESTおよびwebsocket APIを備えた<a href=\"http://live.insight."
-"is/\" target=\"_blank\">オープンソースのビットコインブロックエクスプローラ</"
-"a>です。<a href=\"https://github.com/bitpay/insight-ui\" target=\"_blank\">ソース"
-"コード</a>を確認"
-
-#: public/views/index.html
-msgid ""
-"<strong>insight</strong> is still in development, so be sure to report any "
-"bugs and provide feedback for improvement at our <a href=\"https://github."
-"com/bitpay/insight/issues\" target=\"_blank\">github issue tracker</a>."
-msgstr ""
-"<strong>insight</strong>は現在開発中です。<a href=\"https://github.com/"
-"bitpay/insight/issues\" target=\"_blank\">githubのissueトラッカ</a>にてバグの"
-"報告や改善案の提案をお願いします。"
 
 #: public/views/index.html
 msgid "About"
 msgstr "はじめに"
 
-#: public/views/address.html public/views/messages_verify.html
+#: public/src/js/controllers/contracts.js
+#, fuzzy
+#| msgid "Address"
+msgid "address"
+msgstr "アドレス"
+
+#: public/views/addressPage.html public/views/messages_verify.html
 msgid "Address"
 msgstr "アドレス"
 
-#: public/views/index.html
-msgid "Age"
-msgstr "生成後経過時間"
+#: public/src/js/controllers/statistics.js
+msgid "All Time"
+msgstr ""
 
 #: public/views/messages_verify.html
 msgid "An error occured in the verification process."
@@ -69,19 +52,25 @@ msgstr "エラーが発生しました:<br>{{error}}"
 msgid "Application Status"
 msgstr "アプリケーションの状態"
 
-#: public/views/status.html
-msgid "Best Block"
-msgstr "最良ブロック"
-
-#: public/views/messages_verify.html
-msgid "Quantum comes with a way of signing arbitrary messages."
-msgstr "Quantumには任意のメッセージを署名する昨日が備わっています。"
+#: public/views/addressPage.html public/views/transaction/tx.html
+msgid "Asm"
+msgstr ""
 
 #: public/views/status.html
-msgid "Quantum node information"
+#, fuzzy
+#| msgid "Quantum node information"
+msgid "Bitcoin node information"
 msgstr "Quantumノード情報"
 
+#: public/views/statistics.html
+msgid "Bitcoins Mined"
+msgstr ""
+
 #: public/views/block.html
+msgid "Bits"
+msgstr "Bits"
+
+#: public/views/index.html
 msgid "Block"
 msgstr "ブロック"
 
@@ -89,26 +78,44 @@ msgstr "ブロック"
 msgid "Block Reward"
 msgstr "ブロック報酬"
 
-#: public/views/block_list.html public/views/dummy-translations.html
-#: public/views/status.html
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Summary"
+msgid "Block Summary"
+msgstr "概要"
+
+#: public/views/block.html
+msgid "BlockHash"
+msgstr "ブロックのハッシュ値"
+
+#: public/views/dummy-translations.html public/views/index.html
+#: public/views/status.html public/src/js/controllers/header.js
 msgid "Blocks"
 msgstr "ブロック"
+
+#: public/views/block_list.html
+#, fuzzy
+#| msgid "Blocks"
+msgid "Blocks by Date"
+msgstr "ブロック"
+
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Blocks <br> mined on:"
+msgid "Blocks Mined"
+msgstr "ブロック <br> 採掘日"
 
 #: public/views/transaction_sendraw.html
 msgid "Broadcast Raw Transaction"
 msgstr "生のトランザクションを配信"
 
-#: public/views/status.html
-msgid "Bytes Serialized"
-msgstr "シリアライズ後の容量 (バイト)"
-
-#: public/views/includes/connection.html
-msgid ""
-"Can't connect to quantumd to get live updates from the p2p network. (Tried "
-"connecting to quantumd at {{host}}:{{port}} and failed.)"
+#: public/views/addressPage.html
+msgid "Bytecode"
 msgstr ""
-"P2Pネットワークからライブ情報を取得するためにquantumdへ接続することができませ"
-"んでした。({{host}}:{{port}} への接続を試みましたが、失敗しました。)"
+
+#: public/views/transaction.html
+msgid "bytes"
+msgstr ""
 
 #: public/views/includes/connection.html
 msgid "Can't connect to insight server. Attempting to reconnect..."
@@ -118,41 +125,119 @@ msgstr "insight サーバに接続できません。再接続しています..."
 msgid "Can't connect to internet. Please, check your connection."
 msgstr "インターネットに接続できません。コネクションを確認してください。"
 
+#: public/views/includes/connection.html
+msgid ""
+"Can't connect to quantumd to get live updates from the p2p network. (Tried "
+"connecting to quantumd at {{host}}:{{port}} and failed.)"
+msgstr ""
+"P2Pネットワークからライブ情報を取得するためにquantumdへ接続することができませ"
+"んでした。({{host}}:{{port}} への接続を試みましたが、失敗しました。)"
+
+#: public/views/transaction.html
+msgid "Coinbase"
+msgstr "コインベース"
+
 #: public/views/status.html
 msgid "Complete"
 msgstr "完了"
 
-#: public/views/transaction.html public/views/transaction/tx.html
+#: public/views/transaction/tx.html
+#, fuzzy
+#| msgid "Confirmations"
+msgid "confirmations"
+msgstr "検証数"
+
+#: public/views/transaction/tx.html
 msgid "Confirmations"
 msgstr "検証数"
 
-#: public/views/includes/header.html
-msgid "Conn"
-msgstr "接続数"
+#: public/views/addressPage.html public/views/block.html
+#, fuzzy
+#| msgid "Unconfirmed"
+msgid "confirmed"
+msgstr "未検証"
 
 #: public/views/status.html
-msgid "Connections to other nodes"
+#, fuzzy
+#| msgid "Connections to other nodes"
+msgid "Connections to Other Nodes"
 msgstr "他ノードへの接続"
 
+#: public/views/transaction/tx.html
+msgid "Contract Code"
+msgstr ""
+
+#: public/views/transaction/tx.html
+#, fuzzy
+#| msgid "Confirmations"
+msgid "Contract Creation"
+msgstr "検証数"
+
+#: public/src/js/directives/directives.js
+msgid "Copied"
+msgstr ""
+
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Broadcast Raw Transaction"
+msgid "Cost per Transaction (USD)"
+msgstr "生のトランザクションを配信"
+
 #: public/views/status.html
-msgid "Current Blockchain Tip (insight)"
-msgstr "現在のブロックチェインのTip (insight)"
+msgid ""
+"Current Blockchain Tip \r\n"
+"\t\t\t\t\t\t\t\t<span class=\"fsz-13\">\r\n"
+"\t\t\t\t\t\t\t\t\t({{ insight | translate }})\r\n"
+"\t\t\t\t\t\t\t\t</span>"
+msgstr ""
 
 #: public/views/status.html
 msgid "Current Sync Status"
 msgstr "現在の同期状況"
 
+#: public/src/js/controllers/contracts.js
+msgid "data"
+msgstr ""
+
+#: public/views/index.html
+#, fuzzy
+#| msgid "Transactions"
+msgid "day QTUM Transaction History"
+msgstr "トランザクション"
+
+#: public/src/js/controllers/statistics.js
+msgid "Days"
+msgstr ""
+
 #: public/views/transaction.html
 msgid "Details"
 msgstr "詳細"
 
-#: public/views/block.html
+#: public/src/js/controllers/header.js
+msgid "Deutsch"
+msgstr ""
+
+#: public/views/block.html public/views/statistics.html
 msgid "Difficulty"
 msgstr "難易度"
 
 #: public/views/transaction/tx.html
 msgid "Double spent attempt detected. From tx:"
 msgstr "二重支払い攻撃をこのトランザクションから検知しました："
+
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Latest Transactions"
+msgid "Earned From Transaction Fees"
+msgstr "最新のトランザクション"
+
+#: public/src/js/controllers/header.js
+msgid "English"
+msgstr ""
+
+#: public/views/addressPage.html
+msgid "entries"
+msgstr ""
 
 #: public/views/messages_verify.html
 msgid "Error message:"
@@ -162,33 +247,43 @@ msgstr "エラーメッセージ:"
 msgid "Error!"
 msgstr "エラー！"
 
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Latest Transactions"
+msgid "Estimated Transaction Volume"
+msgstr "最新のトランザクション"
+
+#: public/views/statistics.html
+msgid "Estimated Transaction Volume (USD)"
+msgstr ""
+
 #: public/views/transaction/tx.html
 msgid "Fee"
 msgstr "手数料"
 
-#: public/views/address.html
+#: public/views/addressPage.html
 msgid "Final Balance"
 msgstr "最終残高"
 
-#: public/views/status.html
-msgid "Finish Date"
-msgstr "終了日時"
-
 #: public/views/404.html
-msgid "Go to home"
+#, fuzzy
+#| msgid "Go to home"
+msgid "Go to Home"
 msgstr "ホームへ"
 
-#: public/views/status.html
-msgid "Hash Serialized"
-msgstr "シリアライズデータのハッシュ値"
+#: public/views/index.html
+msgid "Hash"
+msgstr "ハッシュ値"
+
+#: public/views/statistics.html
+msgid "Hash Rate and Electricy Consumption"
+msgstr ""
 
 #: public/views/block.html public/views/block_list.html
-#: public/views/index.html public/views/status.html
-#: public/views/includes/header.html
 msgid "Height"
 msgstr "ブロック高"
 
-#: public/views/transaction.html public/views/transaction/tx.html
+#: public/views/transaction.html
 msgid "Included in Block"
 msgstr "取り込まれたブロック"
 
@@ -204,111 +299,199 @@ msgstr "エラー情報"
 msgid "Initial Block Chain Height"
 msgstr "起動時のブロック高"
 
-#: public/views/transaction.html
-msgid "Input"
-msgstr "入力"
+#: public/views/transaction/tx.html
+#, fuzzy
+#| msgid "(Input unconfirmed)"
+msgid "Input unconfirmed"
+msgstr "(入力は未検証です)"
+
+#: public/views/index.html
+msgid ""
+"Insight is an\r\n"
+"\t\t\t\t<a href=\"https://insight.is/\" target=\"_blank\">open-source "
+"Quantum blockchain explorer</a>\r\n"
+"\t\t\t\twith complete REST and websocket APIs that can be used for writing "
+"web wallets and other apps that need more advanced blockchain queries than "
+"provided by quantumd RPC. Check out the\r\n"
+"\t\t\t\t<a href=\"https://github.com/bitpay/insight-ui\" target=\"_blank\" "
+"class=\"ng-scope\">source code</a>."
+msgstr ""
+"Insight は、quantumd RPCの提供するものよりも詳細なブロックチェインへの問い合"
+"わせを必要とするウェブウォレットやその他のアプリを書くのに使える、完全なREST"
+"およびwebsocket APIを備えた<a href=\"http://live.insight.is/\" target="
+"\"_blank\">オープンソースのビットコインブロックエクスプローラ</a>です。<a "
+"href=\"https://github.com/bitpay/insight-ui\" target=\"_blank\">ソースコード"
+"</a>を確認"
+
+#: public/views/index.html
+msgid ""
+"Insight is still in development, so be sure to report any bugs and provide "
+"feedback for improvement at our\r\n"
+"\t\t\t\t<a href=\"https://github.com/bitpay/insight-ui/issues\" target="
+"\"_blank\" class=\"ng-scope\">github issue tracker</a>."
+msgstr ""
+"Insight は現在開発中です。<a href=\"https://github.com/bitpay/insight/issues"
+"\" target=\"_blank\">githubのissueトラッカ</a>にてバグの報告や改善案の提案を"
+"お願いします。"
+
+#: public/src/js/controllers/header.js
+msgid "Japanese"
+msgstr ""
+
+#: public/views/addressPage.html
+msgid "KEY"
+msgstr ""
 
 #: public/views/status.html
-msgid "Last Block"
+msgid ""
+"Last Block Hash \r\n"
+"\t\t\t\t\t\t\t\t<span class=\"fsz-13\">\r\n"
+"\t\t\t\t\t\t\t\t\t({{ 'Quantumd' | translate }})\r\n"
+"\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#: public/views/status.html
+#, fuzzy
+#| msgid "Last Block"
+msgid "Last Blocks"
 msgstr "直前のブロック"
 
-#: public/views/status.html
-msgid "Last Block Hash (Quantumd)"
-msgstr "直前のブロックのハッシュ値 (Quantumd)"
-
-#: public/views/index.html
-msgid "Latest Blocks"
-msgstr "最新のブロック"
-
-#: public/views/index.html
-msgid "Latest Transactions"
-msgstr "最新のトランザクション"
-
-#: public/views/address.html
-msgid "Loading Address Information"
-msgstr "アドレス情報を読み込んでいます"
-
-#: public/views/block.html
-msgid "Loading Block Information"
-msgstr "ブロック情報を読み込んでいます"
-
 #: public/views/block_list.html
-msgid "Loading Selected Date..."
-msgstr "選択されたデータを読み込んでいます..."
+#, fuzzy
+#| msgid "Latest Blocks"
+msgid "Lastest block from date"
+msgstr "最新のブロック"
 
 #: public/views/transaction.html
 msgid "Loading Transaction Details"
 msgstr "トランザクションの詳細を読み込んでいます"
-
-#: public/views/transaction/list.html
-msgid "Loading Transactions..."
-msgstr "トランザクションを読み込んでいます..."
 
 #: public/views/messages_verify.html public/views/transaction_sendraw.html
 #: public/views/includes/infoStatus.html
 msgid "Loading..."
 msgstr "ロード中..."
 
+#: public/views/statistics.html
+msgid "Market Price"
+msgstr ""
+
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Summary"
+msgid "Market Summary"
+msgstr "概要"
+
+#: public/views/block.html
+msgid "Merkle Root"
+msgstr "Merkleルート"
+
 #: public/views/messages_verify.html
 msgid "Message"
 msgstr "メッセージ"
+
+#: public/views/transaction/tx.html
+msgid "mined"
+msgstr "採掘された"
+
+#: public/views/block.html public/views/block_list.html public/views/index.html
+msgid "Mined by"
+msgstr "採掘者"
 
 #: public/views/transaction.html
 msgid "Mined Time"
 msgstr "採掘時刻"
 
-#: public/views/block.html public/views/block_list.html
-#: public/views/index.html
-msgid "Mined by"
-msgstr "採掘者"
+#: public/views/statistics.html
+msgid "Mining Cost"
+msgstr ""
 
 #: public/views/status.html
 msgid "Mining Difficulty"
 msgstr "採掘難易度"
 
-#: public/views/block.html
-msgid "Next Block"
-msgstr "次のブロック"
+#: public/views/addressPage.html
+msgid "More"
+msgstr ""
 
-#: public/views/transaction/tx.html
-msgid "No Inputs (Newly Generated Coins)"
-msgstr "入力なし (新しく生成されたコイン)"
+#: public/views/status.html
+msgid "Network"
+msgstr ""
 
 #: public/views/block_list.html
 msgid "No blocks yet."
 msgstr "ブロックはありません。"
 
+#: public/views/transaction/tx.html
+msgid "No Inputs (Newly Generated Coins)"
+msgstr "入力なし (新しく生成されたコイン)"
+
 #: public/views/includes/search.html
 msgid "No matching records found!"
 msgstr "一致するレコードはありません！"
 
-#: public/views/address.html
-msgid "No. Transactions"
+#: public/views/block.html
+msgid "Nonce"
+msgstr "Nonce"
+
+#: public/src/js/controllers/contracts.js
+msgid "number"
+msgstr ""
+
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Number Of Transactions"
+msgid "Number of Transactions"
 msgstr "トランザクション数"
 
 #: public/views/block.html
 msgid "Number Of Transactions"
 msgstr "トランザクション数"
 
-#: public/views/transaction.html
-msgid "Output"
-msgstr "出力"
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Transaction"
+msgid "Of Transaction Volume"
+msgstr "トランザクション"
+
+#: public/views/block_list.html
+msgid "Older blocks from this date"
+msgstr ""
+
+#: public/views/404.html
+msgid "Ooops!"
+msgstr "おぉっと！"
+
+#: public/views/statistics.html
+msgid "Percent of staked supply"
+msgstr ""
 
 #: public/views/index.html
-msgid "Powered by"
-msgstr "Powered by"
+msgid "Powered  by:"
+msgstr "Powered by:"
 
 #: public/views/block.html
 msgid "Previous Block"
 msgstr "前のブロック"
 
 #: public/views/status.html
-msgid "Protocol version"
+#, fuzzy
+#| msgid "Protocol version"
+msgid "Protocol Version"
 msgstr "プロトコルバージョン"
 
 #: public/views/status.html
-msgid "Proxy setting"
+#, fuzzy
+#| msgid "Proxy setting"
+msgid "Proxy Setting"
 msgstr "プロキシ設定"
+
+#: public/views/messages_verify.html
+msgid "Quantum comes with a way of signing arbitrary messages."
+msgstr "Quantumには任意のメッセージを署名する昨日が備わっています。"
+
+#: public/views/status.html
+msgid "Quantumd"
+msgstr ""
 
 #: public/views/transaction_sendraw.html
 msgid "Raw transaction data"
@@ -326,6 +509,10 @@ msgstr "受信時刻"
 msgid "Redirecting..."
 msgstr "リダイレクトしています..."
 
+#: public/views/transaction/tx.html
+msgid "scriptSig"
+msgstr "scriptSig"
+
 #: public/views/includes/search.html
 msgid "Search for block, transaction or address"
 msgstr "ブロック、トランザクション、アドレスを検索"
@@ -338,25 +525,11 @@ msgstr "すべてのブロックをみる"
 msgid "Send transaction"
 msgstr "トランザクションを送信"
 
-#: public/views/status.html
-msgid "Show Transaction Output data"
-msgstr "トランザクションの出力データをみる"
-
-#: public/views/transaction/tx.html
-msgid "Show all"
+#: public/views/addressPage.html
+#, fuzzy
+#| msgid "Show all"
+msgid "Show All"
 msgstr "すべて表示"
-
-#: public/views/transaction/tx.html
-msgid "Show input"
-msgstr "入力を表示"
-
-#: public/views/transaction/tx.html
-msgid "Show less"
-msgstr "隠す"
-
-#: public/views/transaction/tx.html
-msgid "Show more"
-msgstr "表示する"
 
 #: public/views/messages_verify.html
 msgid "Signature"
@@ -372,24 +545,47 @@ msgid "Size (bytes)"
 msgstr "サイズ (バイト)"
 
 #: public/views/status.html
-msgid "Skipped Blocks (previously synced)"
-msgstr "スキップされたブロック (同期済み)"
+msgid ""
+"Skipped Blocks \r\n"
+"\t\t\t\t\t\t\t\t<span class=\"fsz-13\">\r\n"
+"\t\t\t\t\t\t\t\t\t{{ SC.sync.skippedBlocks }}\r\n"
+"\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#: public/src/js/controllers/header.js
+msgid "Spanish"
+msgstr ""
 
 #: public/views/status.html
 msgid "Start Date"
 msgstr "開始日時"
 
-#: public/views/dummy-translations.html
+#: public/views/statistics.html public/src/js/controllers/header.js
+#, fuzzy
+#| msgid "Status"
+msgid "Stats"
+msgstr "ステータス"
+
+#: public/views/dummy-translations.html public/src/js/controllers/header.js
 msgid "Status"
 msgstr "ステータス"
 
-#: public/views/block.html public/views/transaction.html
+#: public/views/addressPage.html
+msgid "Storage"
+msgstr ""
+
+#: public/src/js/controllers/contracts.js
+msgid "string"
+msgstr ""
+
+#: public/views/addressPage.html public/views/block.html
+#: public/views/transaction.html
 msgid "Summary"
 msgstr "概要"
 
-#: public/views/address.html
-msgid "Summary <small>confirmed</small>"
-msgstr "サマリ <small>検証済み</small>"
+#: public/views/statistics.html
+msgid "Summary of QTUM statistics for the previous 24 hour period."
+msgstr ""
 
 #: public/views/status.html
 msgid "Sync Progress"
@@ -407,10 +603,6 @@ msgstr "同期タイプ"
 msgid "Synced Blocks"
 msgstr "同期されたブロック数"
 
-#: public/views/status.html
-msgid "Testnet"
-msgstr "テストネット"
-
 #: public/views/messages_verify.html
 msgid "The message failed to verify."
 msgstr "メッセージの検証に失敗しました。"
@@ -419,25 +611,55 @@ msgstr "メッセージの検証に失敗しました。"
 msgid "The message is verifiably from {{verification.address}}."
 msgstr "メッセージは{{verification.address}}により検証されました。"
 
+#: public/src/js/controllers/statistics.js
+msgid "The number of daily confirmed Bitcoin transactions."
+msgstr ""
+
+#: public/src/js/controllers/statistics.js
+msgid ""
+"The total value of all transaction fees paid to miners (not including the "
+"coinbase value of block rewards)."
+msgstr ""
+
+#: public/src/js/controllers/statistics.js
+msgid ""
+"The total value of all transaction outputs per day (includes coins returned "
+"to the sender as change)."
+msgstr ""
+
 #: public/views/transaction/list.html
 msgid "There are no transactions involving this address."
 msgstr "このアドレスに対するトランザクションはありません。"
 
 #: public/views/transaction_sendraw.html
+#, fuzzy
+#| msgid ""
+#| "This form can be used to broadcast a raw transaction in hex format over\n"
+#| "        the Quantum network."
 msgid ""
-"This form can be used to broadcast a raw transaction in hex format over\n"
+"This form can be used to broadcast a raw transaction in hex format over\r\n"
 "        the Quantum network."
 msgstr ""
 "このフォームでは、16進数フォーマットの生のトランザクションをQuantumネットワー"
 "ク上に配信することができます。"
 
 #: public/views/messages_verify.html
+#, fuzzy
+#| msgid ""
+#| "This form can be used to verify that a message comes from\n"
+#| "        a specific Quantum address."
 msgid ""
-"This form can be used to verify that a message comes from\n"
+"This form can be used to verify that a message comes from\r\n"
 "        a specific Quantum address."
 msgstr ""
 "このフォームでは、メッセージが特定のQuantumアドレスから来たかどうかを検証する"
 "ことができます。"
+
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Best Block"
+msgid "Time Between Blocks"
+msgstr "最良ブロック"
 
 #: public/views/status.html
 msgid "Time Offset"
@@ -447,41 +669,48 @@ msgstr "時間オフセット"
 msgid "Timestamp"
 msgstr "タイムスタンプ"
 
-#: public/views/block_list.html
-msgid "Today"
-msgstr "今日"
+#: public/views/statistics.html
+msgid "Total Miners Revenue (USD)"
+msgstr ""
 
-#: public/views/status.html
-msgid "Total Amount"
-msgstr "Quantum総量"
+#: public/views/statistics.html
+msgid "Total Output Volume"
+msgstr ""
 
-#: public/views/address.html
+#: public/views/addressPage.html
 msgid "Total Received"
 msgstr "総入金額"
 
-#: public/views/address.html
+#: public/views/addressPage.html
 msgid "Total Sent"
 msgstr "総送金額"
+
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "No. Transactions"
+msgid "Total Transaction Fees"
+msgstr "トランザクション数"
+
+#: public/views/statistics.html
+msgid "Trade Volume"
+msgstr ""
 
 #: public/views/transaction.html
 msgid "Transaction"
 msgstr "トランザクション"
 
-#: public/views/status.html
-msgid "Transaction Output Set Information"
-msgstr "トランザクションの出力セット情報"
-
-#: public/views/status.html
-msgid "Transaction Outputs"
-msgstr "トランザクションの出力"
-
 #: public/views/transaction_sendraw.html
 msgid "Transaction succesfully broadcast.<br>Transaction id: {{txid}}"
 msgstr "トランザクションの配信に成功しました。<br>トランザクションID: {{txid}}"
 
-#: public/views/address.html public/views/block.html
+#: public/views/statistics.html
+#, fuzzy
+#| msgid "Transaction"
+msgid "Transaction Summary"
+msgstr "トランザクション"
+
+#: public/views/addressPage.html public/views/block.html
 #: public/views/block_list.html public/views/index.html
-#: public/views/status.html
 msgid "Transactions"
 msgstr "トランザクション"
 
@@ -489,20 +718,20 @@ msgstr "トランザクション"
 msgid "Type"
 msgstr "タイプ"
 
-#: public/views/address.html
-msgid "Unconfirmed"
-msgstr "未検証"
-
-#: public/views/transaction.html public/views/transaction/tx.html
+#: public/views/transaction/tx.html
 msgid "Unconfirmed Transaction!"
 msgstr "未検証のトランザクションです！"
 
-#: public/views/address.html
-msgid "Unconfirmed Txs Balance"
-msgstr "未検証トランザクションの残高"
+#: public/views/addressPage.html
+#, fuzzy
+#| msgid "Value Out"
+msgid "Value"
+msgstr "出力値"
 
 #: public/views/index.html
-msgid "Value Out"
+#, fuzzy
+#| msgid "Value Out"
+msgid "Value Out:"
 msgstr "出力値"
 
 #: public/views/messages_verify.html
@@ -517,29 +746,110 @@ msgstr "署名済みメッセージを検証"
 msgid "Version"
 msgstr "バージョン"
 
-#: public/views/block_list.html public/views/index.html
-msgid "Waiting for blocks..."
-msgstr "ブロックを待っています..."
+#: public/views/statistics.html
+msgid "View Chart"
+msgstr ""
 
-#: public/views/index.html
-msgid "Waiting for transactions..."
-msgstr "トランザクションを待っています..."
+#: public/src/js/controllers/statistics.js
+msgid "Year"
+msgstr ""
 
-#: public/views/block_list.html
-msgid "by date."
-msgstr "日毎。"
+#: public/src/js/controllers/statistics.js
+msgid "Years"
+msgstr ""
 
-#: public/views/transaction/tx.html
-msgid "first seen at"
-msgstr "最初に発見された日時"
+#~ msgid "Age"
+#~ msgstr "生成後経過時間"
 
-#: public/views/transaction/tx.html
-msgid "mined"
-msgstr "採掘された"
+#~ msgid "Bytes Serialized"
+#~ msgstr "シリアライズ後の容量 (バイト)"
 
-#: public/views/block_list.html
-msgid "mined on:"
-msgstr "採掘日時:"
+#~ msgid "Conn"
+#~ msgstr "接続数"
+
+#~ msgid "Current Blockchain Tip (insight)"
+#~ msgstr "現在のブロックチェインのTip (insight)"
+
+#~ msgid "Finish Date"
+#~ msgstr "終了日時"
+
+#~ msgid "Hash Serialized"
+#~ msgstr "シリアライズデータのハッシュ値"
+
+#~ msgid "Input"
+#~ msgstr "入力"
+
+#~ msgid "Last Block Hash (Quantumd)"
+#~ msgstr "直前のブロックのハッシュ値 (Quantumd)"
+
+#~ msgid "Loading Address Information"
+#~ msgstr "アドレス情報を読み込んでいます"
+
+#~ msgid "Loading Block Information"
+#~ msgstr "ブロック情報を読み込んでいます"
+
+#~ msgid "Loading Selected Date..."
+#~ msgstr "選択されたデータを読み込んでいます..."
+
+#~ msgid "Loading Transactions..."
+#~ msgstr "トランザクションを読み込んでいます..."
+
+#~ msgid "Next Block"
+#~ msgstr "次のブロック"
+
+#~ msgid "Output"
+#~ msgstr "出力"
+
+#~ msgid "Show Transaction Output data"
+#~ msgstr "トランザクションの出力データをみる"
+
+#~ msgid "Show input"
+#~ msgstr "入力を表示"
+
+#~ msgid "Show less"
+#~ msgstr "隠す"
+
+#~ msgid "Show more"
+#~ msgstr "表示する"
+
+#~ msgid "Skipped Blocks (previously synced)"
+#~ msgstr "スキップされたブロック (同期済み)"
+
+#~ msgid "Summary <small>confirmed</small>"
+#~ msgstr "サマリ <small>検証済み</small>"
+
+#~ msgid "Testnet"
+#~ msgstr "テストネット"
+
+#~ msgid "Today"
+#~ msgstr "今日"
+
+#~ msgid "Total Amount"
+#~ msgstr "Quantum総量"
+
+#~ msgid "Transaction Output Set Information"
+#~ msgstr "トランザクションの出力セット情報"
+
+#~ msgid "Transaction Outputs"
+#~ msgstr "トランザクションの出力"
+
+#~ msgid "Unconfirmed Txs Balance"
+#~ msgstr "未検証トランザクションの残高"
+
+#~ msgid "Waiting for blocks..."
+#~ msgstr "ブロックを待っています..."
+
+#~ msgid "Waiting for transactions..."
+#~ msgstr "トランザクションを待っています..."
+
+#~ msgid "by date."
+#~ msgstr "日毎。"
+
+#~ msgid "first seen at"
+#~ msgstr "最初に発見された日時"
+
+#~ msgid "mined on:"
+#~ msgstr "採掘日時:"
 
 #~ msgid "(Mainchain)"
 #~ msgstr "(メインチェーン)"
@@ -547,35 +857,11 @@ msgstr "採掘日時:"
 #~ msgid "(Orphaned)"
 #~ msgstr "(孤立したブロック)"
 
-#~ msgid "Bits"
-#~ msgstr "Bits"
-
 #~ msgid "Block #{{block.height}}"
 #~ msgstr "ブロック #{{block.height}}"
 
-#~ msgid "BlockHash"
-#~ msgstr "ブロックのハッシュ値"
-
-#~ msgid "Blocks <br> mined on:"
-#~ msgstr "ブロック <br> 採掘日"
-
-#~ msgid "Coinbase"
-#~ msgstr "コインベース"
-
-#~ msgid "Hash"
-#~ msgstr "ハッシュ値"
-
 #~ msgid "LockTime"
 #~ msgstr "ロック時間"
-
-#~ msgid "Merkle Root"
-#~ msgstr "Merkleルート"
-
-#~ msgid "Nonce"
-#~ msgstr "Nonce"
-
-#~ msgid "Ooops!"
-#~ msgstr "おぉっと！"
 
 #~ msgid "Output is spent"
 #~ msgstr "出力は使用済みです"
@@ -594,9 +880,6 @@ msgstr "採掘日時:"
 
 #~ msgid "by date. {{detail}} {{before}}"
 #~ msgstr "日時順 {{detail}} {{before}}"
-
-#~ msgid "scriptSig"
-#~ msgstr "scriptSig"
 
 #~ msgid "{{tx.confirmations}} Confirmations"
 #~ msgstr "{{tx.confirmations}} 検証"

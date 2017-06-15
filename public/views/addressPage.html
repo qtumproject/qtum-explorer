@@ -23,7 +23,9 @@
 <div class="section section-summaryAddress">
 	<div class="section__heading">
 		<h2 class="section__title in_bl" translate>Summary</h2>
-		<span class="section__status" translate>(confirmed)</span>
+		<span class="section__status">
+			({{ 'confirmed' | translate }})
+		</span>
 	</div>
 	<div class="summaryAddress" ng-if="InnerContr.address.addrStr">
 		<div class="col col-5">
@@ -125,7 +127,7 @@
 				<div class="trMain">
 					<div class="td">
 						<div class="storage__tdInFirst ">
-							<span ng-click="InnerContr.toggleStorageRowView($index)" translate>
+							<span ng-click="InnerContr.toggleStorageRowView($index)">
 								{{ InnerContr.storageViews[0] }}
 							</span>
 						</div>

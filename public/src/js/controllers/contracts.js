@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('insight.contracts').controller('ContractsController',
-function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddress, getSocket, ContractsInfo, Transaction, Contracts) {
+function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddress, getSocket, ContractsInfo, Transaction, Contracts, Constants, gettext, gettextCatalog) {
 
 	var self = this;
 	var addrStr;
 	var socket = getSocket($scope);
 	var hexString = '0000000000000000000000000000000000000000000000000000000000000000';
-	self.storageViews = [ 'data', 'string', 'number', 'address' ];
+	self.storageViews = [ gettextCatalog.getString(gettext('data')), gettextCatalog.getString(gettext('string')), gettextCatalog.getString(gettext('number')), gettextCatalog.getString(gettext('address')) ];
 	self.storage = {};
 	self.params = $routeParams;
 	self.tooltipOptions = {
@@ -146,7 +146,7 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 			self.address = address;
 			self.storage.rows = _formStorageInfo();
 			self.storage.storageLength = Object.keys(info.storage).length;
-			self.storage.viewRows = $rootScope.Constants.STORAGE_ROWS;
+			self.storage.viewRows = Constants.STORAGE_ROWS;
 		})
 		.catch(function (e) {
 

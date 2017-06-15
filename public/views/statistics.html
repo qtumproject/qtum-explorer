@@ -98,7 +98,10 @@
 			<ul class="list">
 				<li class="list__item">
 					<div class="list__left">
-						<b translate>Total Transaction Fees ({{ $root.currency.symbol }})</b>
+						<b>
+							{{ 'Total Transaction Fees' | translate }}
+							({{ $root.currency.symbol }})
+						</b>
 					</div>
 					<div class="list__right">
 						<a href="stats/fees/60" class="btn btn-view-chart" translate>View Chart</a>
@@ -120,7 +123,10 @@
 				</li>
 				<li class="list__item">
 					<div class="list__left">
-						<b translate>Total Output Volume ({{ $root.currency.symbol }})</b>
+						<b>
+							{{ 'Total Output Volume' | translate }}
+							({{ $root.currency.symbol }})
+						</b>
 					</div>
 					<div class="list__right">
 						<a href="stats/outputs/60" class="btn btn-view-chart" translate>View Chart</a>
@@ -131,7 +137,10 @@
 				</li>
 				<li class="list__item">
 					<div class="list__left">
-						<b translate>Estimated Transaction Volume ({{ $root.currency.symbol }})</b>
+						<b>
+							{{ 'Estimated Transaction Volume ' | translate }}
+							({{ $root.currency.symbol }})
+						</b>
 					</div>
 					<div class="list__right">
 						<div class="list__rightText">

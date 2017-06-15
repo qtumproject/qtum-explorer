@@ -1,12 +1,12 @@
 <div data-ng-include src="'views/includes/connection.html'"></div>
 <div class="box" ng-controller="StatisticsController as SC" ng-init="SC.getDifficulties()">
 	<div class="heading margin1">
-		<h1 class="heading__title" translate>
-            {{ SC.chartType }}
-        </h1>
+		<h1 class="heading__title">
+			{{ SC.chartType }}
+		</h1>
 		<div class="heading__sm">
-			<div class="heading__smLabeled fsz-21" translate>
-                {{ SC.chartText[ SC.chartType ] }}
+			<div class="heading__smLabeled fsz-21">
+				{{ SC.chartText[ SC.chartType ] }}
 			</div>
 		</div>
 	</div>

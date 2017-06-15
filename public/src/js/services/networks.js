@@ -24,9 +24,9 @@ var Network = function(data) {
 
 angular.module('insight.networks')
     .factory('Networks',
-        function(Config) {
+        function(Constants) {
 
-            var network = new Network(networks[Config.NETWORK]);
+            var network = new Network(networks[Constants.NETWORK]);
 
             return {
                 getCurrentNetwork: function () {

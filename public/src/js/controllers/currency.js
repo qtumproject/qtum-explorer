@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('insight.currency').controller('CurrencyController',
-function($scope, $rootScope, Currency) {
+function($scope, $rootScope, Currency, Constants) {
 
 	var self = this;
 	
 	$rootScope.currency = {
-		symbol : defaultCurrency,
+		symbol : Constants.DEFAULT_CURRENCY,
 		factor : 1,
 		bitstamp : 0
 	};
@@ -28,16 +28,16 @@ function($scope, $rootScope, Currency) {
 
 			var response;
 
-			if ($rootScope.currency.symbol === $rootScope.Constants.CURRENCY.USD) {
+			if ($rootScope.currency.symbol === Constants.CURRENCY.USD) {
 
 				response = _roundFloat((value * $rootScope.currency.factor), 2);
 			} 
-			else if ($rootScope.currency.symbol === $rootScope.Constants.CURRENCY.mBTC) {
+			else if ($rootScope.currency.symbol === Constants.CURRENCY.mBTC) {
 
 				$rootScope.currency.factor = 1000;
 				response = _roundFloat((value * $rootScope.currency.factor), 5);
 			} 
-			else if ($rootScope.currency.symbol === $rootScope.Constants.CURRENCY.bits) {
+			else if ($rootScope.currency.symbol === Constants.CURRENCY.bits) {
 
 				$rootScope.currency.factor = 1000000;
 				response = _roundFloat((value * $rootScope.currency.factor), 2);
@@ -56,8 +56,8 @@ function($scope, $rootScope, Currency) {
 
 	self.setCurrency = function(currency) {
 
-		$rootScope.currency.symbol = $rootScope.Constants.CURRENCY[ currency ];
-		localStorage.setItem('insight-currency', $rootScope.Constants.CURRENCY[ currency ]);
+		$rootScope.currency.symbol = Constants.CURRENCY[ currency ];
+		localStorage.setItem('insight-currency', Constants.CURRENCY[ currency ]);
 
 		if (currency === 'USD') {
 
