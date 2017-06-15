@@ -136,6 +136,7 @@ function($scope, $routeParams, Statistics, StatisticsByDaysTransactions, Statist
 				name:  gettextCatalog.getString(gettext('All Time'))
 			}
 		];
+
 		self.chartText = {
 			fees: gettextCatalog.getString(gettext('The total value of all transaction fees paid to miners (not including the coinbase value of block rewards).')),
 			transactions: gettextCatalog.getString(gettext('The number of daily confirmed Bitcoin transactions.')),

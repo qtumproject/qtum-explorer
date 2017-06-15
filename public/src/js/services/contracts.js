@@ -15,7 +15,7 @@ angular.module('insight.contracts')
 			getBitAddressFromContractAddress: function (contractAddress) {
 
 				var network = Networks.getCurrentNetwork(),
-					networkId = network.pubkeystr,
+					networkId = network.pubkeyhash.toString(16),
 					checksum = Bitcorelib.crypto.Hash.sha256sha256(new Bitcorelib.deps.Buffer(networkId + contractAddress, 'hex')),
 					hexBitAddress = networkId + contractAddress + checksum.toString('hex').slice(0, 8);
 
