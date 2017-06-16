@@ -1,7 +1,11 @@
 'use strict';
 
 angular.module('insight.system').controller('IndexController',
-function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays, Constants) {
+function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays, Constants, gettextCatalog) {
+
+	// console.log(gettextCatalog.getString(`Insight is an<a href="https://insight.is/" target="_blank">open-source Quantum blockchain explorer</a>
+	// 			with complete REST and websocket APIs that can be used for writing web wallets and other apps that need more advanced blockchain queries than provided by quantumd RPC. Check out the
+	// 			<a href="https://github.com/bitpay/insight-ui" target="_blank" class="ng-scope">source code</a>.`))
 
 	var self = this;
 	var socket = getSocket($scope);
