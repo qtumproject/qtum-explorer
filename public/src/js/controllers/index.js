@@ -82,7 +82,6 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 							fontFamily: 'SimplonMono',
 							fontSize:  14,
 							padding: 25,
-							stepSize: 500,
 							callback: function(value) {
 								return value + ' t';
 							}
