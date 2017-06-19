@@ -38,6 +38,8 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 
 	var _parseStorageRowType = function(hex, type) {
 
+		console.log(hex)
+
 		switch (type){
 
 			case 'string': {
@@ -77,17 +79,19 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		var rows = [];
 
 		for(var row in self.info.storage){
+			for(value in self.info.storage[ row ]){
 
-			var fullHexData = hexString.substr(self.info.storage[ row ].length).concat(self.info.storage[ row ]);
+				var fullHexData = hexString.substr(self.info.storage[ row ][ value ].length).concat(self.info.storage[ row ][ value ]);
 
-			rows.push({
-				key_data: row,
-				value_data: fullHexData,
-				value_number: _parseStorageRowType(self.info.storage[ row ], 'number'),
-				value_string: _parseStorageRowType(self.info.storage[ row ], 'string'),
-				value_address: _parseStorageRowType(fullHexData, 'address'),
-				valueState: 0
-			});
+				rows.push({
+					key_data: value,
+					value_data: fullHexData,
+					value_number: _parseStorageRowType(self.info.storage[ row ][ value ], 'number'),
+					value_string: _parseStorageRowType(self.info.storage[ row ][ value ], 'string'),
+					value_address: _parseStorageRowType(fullHexData, 'address'),
+					valueState: 0
+				});
+			}
 		}
 		return rows;
 	};
