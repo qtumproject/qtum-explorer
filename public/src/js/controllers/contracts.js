@@ -38,8 +38,6 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 
 	var _parseStorageRowType = function(hex, type) {
 
-		console.log(hex)
-
 		switch (type){
 
 			case 'string': {
