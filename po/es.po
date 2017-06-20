@@ -57,16 +57,6 @@ msgstr "Estado de la Aplicación"
 msgid "Asm"
 msgstr ""
 
-#: public/views/status.html
-#, fuzzy
-#| msgid "Quantum node information"
-msgid "Bitcoin node information"
-msgstr "Información del nodo Quantum"
-
-#: public/views/statistics.html
-msgid "Bitcoins Mined"
-msgstr ""
-
 #: public/views/block.html
 msgid "Bits"
 msgstr ""
@@ -493,6 +483,16 @@ msgstr "Opción de proxy"
 #: public/views/messages_verify.html
 msgid "Quantum comes with a way of signing arbitrary messages."
 msgstr ""
+
+#: public/views/statistics.html
+msgid "Quantum Mined"
+msgstr ""
+
+#: public/views/status.html
+#, fuzzy
+#| msgid "Quantum node information"
+msgid "Quantum node information"
+msgstr "Información del nodo Quantum"
 
 #: public/views/status.html
 msgid "Quantumd"
