@@ -135,7 +135,7 @@
 		<div class="col col-5" ng-init="SC.getStatus('Info')">
 			<div class="section section-appStatus">
 				<div class="section__heading bdb">
-					<h2 class="section__title" translate>Bitcoin node information</h2>
+					<h2 class="section__title" translate>Quantum node information</h2>
 				</div>
 				<ul class="list">
 					<li	ng-include ng-if="!SC.loaded" src="'views/includes/infoStatus.html'"></li>
@@ -195,7 +195,7 @@
 						</div>
 						<div class="list__right">
 							<div class="">
-								{{ SC.info.difficulty }}
+								{{ SC.info.difficulty[ 'proof-of-stake' ] }}
 							</div>
 						</div>
 					</li>
