@@ -18,7 +18,7 @@ angular.module('insight')
 	BLOCKS_DISPLAYED: 5,
 	CHART_DAYS: 14,
 	STORAGE_ROWS: 5,
-    NETWORK: 'testnet',//TODO::config
+    NETWORK: window.current_network ? window.current_network : 'livenet',
     DEFAULT_LANGUAGE: localStorage.getItem('insight-language') || 'en',
     DEFAULT_CURRENCY: localStorage.getItem('insight-currency') || 'QTUM'
 });

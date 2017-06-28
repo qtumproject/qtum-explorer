@@ -16,6 +16,9 @@ var InsightUI = function(options) {
   } else {
     this.routePrefix = 'insight';
   }
+
+  this.network = options.node.network;
+
 };
 
 InsightUI.dependencies = ['insight-api'];
@@ -50,7 +53,8 @@ InsightUI.prototype.setupRoutes = function(app, express) {
 
 InsightUI.prototype.filterIndexHTML = function(data) {
   var transformed = data
-    .replace(/apiPrefix = '\/api'/, "apiPrefix = '/" + this.apiPrefix + "'");
+    .replace(/apiPrefix = '\/api'/, "apiPrefix = '/" + this.apiPrefix + "'")
+    .replace(/current_network = null/, "current_network = '" + (this.network.name === 'testnet' ? 'testnet' : 'livenet') + "'");
 
   if (this.routePrefix) {
     transformed = transformed.replace(/<base href=\"\/\"/, '<base href="/' + this.routePrefix + '/"');
