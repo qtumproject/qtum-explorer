@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.system').controller('IndexController',
-function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays, Constants, gettextCatalog) {
+function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays, Constants) {
 
 	var self = this;
 	var socket = getSocket($scope);

@@ -617,8 +617,9 @@ b, strong {
     font-weight: 500;
     font-family: "Euclidflex", sans-serif;
     line-height: 90px;
-    letter-spacing: -1.5px;
-    text-transform: capitalize; }
+    letter-spacing: -1.5px; }
+    .heading__title:first-letter {
+      text-transform: uppercase; }
     .heading__pic ~ .heading__title {
       margin-left: 70px; }
   .heading__link {
@@ -3044,7 +3045,7 @@ corresponds to the arrow we want to display */
 .logo {
   display: block;
   float: left;
-  margin-left: 80px; }
+  margin-left: 40px; }
   .logo img {
     vertical-align: top; }
   .logo .logoPic-hover {
@@ -3058,7 +3059,7 @@ corresponds to the arrow we want to display */
   float: left; }
   .nav__item {
     display: inline-block;
-    padding: 10px;
+    padding: 13px 10px;
     text-transform: uppercase;
     font-size: 14px;
     line-height: 14px;
