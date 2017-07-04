@@ -707,7 +707,8 @@ b, strong {
 .qr__link {
   width: 150px;
   height: 150px;
-  display: inline-block; }
+  display: inline-block;
+  border: 10px solid #2e9ad0; }
   .qr__link img {
     width: 100%;
     height: 100%; }
@@ -3052,6 +3053,8 @@ corresponds to the arrow we want to display */
     display: none; }
   .logo:hover .logoPic-def {
     display: none; }
+  .logo:hover g {
+    fill: red; }
   .logo:hover .logoPic-hover {
     display: block; }
 
@@ -4311,12 +4314,21 @@ corresponds to the arrow we want to display */
 
 .transactions__body {
   overflow: hidden; }
-  .transactions__body .col:nth-child(1) {
-    width: 53%; }
-    .transactions__body .col:nth-child(1) .transactions__row {
-      padding-right: 90px; }
-  .transactions__body .col:nth-child(2) {
-    width: 47%; }
+  .transactions__body .col {
+    position: relative; }
+    .transactions__body .col:nth-child(1) {
+      width: 53%; }
+      .transactions__body .col:nth-child(1) .transactions__row {
+        padding-right: 90px; }
+    .transactions__body .col:nth-child(2) {
+      width: 47%; }
+  .transactions__body .arrow {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    margin-right: 35px; }
+    .transactions__body .arrowIcon {
+      font-size: 20px; }
 
 .transactions__moreBtn {
   position: absolute;
@@ -4363,13 +4375,6 @@ corresponds to the arrow we want to display */
     position: relative;
     font-size: 13px;
     padding-top: 4px; }
-  .transactions__row .arrow {
-    position: absolute;
-    top: 4px;
-    right: 0;
-    margin-right: 35px; }
-    .transactions__row .arrowIcon {
-      font-size: 20px; }
   .transactions__row .special {
     color: #2ed0a0; }
 
