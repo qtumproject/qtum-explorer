@@ -123,9 +123,9 @@ angular.module('insight.contracts')
 			},
 			getContractAddress: function (txId, num) {
 				var reverseTxId = txId.match(/.{2}/g).reverse().join(""),
-					buf = new Bitcorelib.deps.Buffer(1);
+					buf = new Bitcorelib.deps.Buffer(4);
 
-				buf.writeUInt8(num, 0);
+				buf.writeUInt32LE(num, 0);
 
 				var nHex = buf.toString('hex'),
 					addr = reverseTxId + nHex,
