@@ -9,9 +9,9 @@
 		<div class="heading__smLabeled">
 			<div class=" copyParent copyParent-right">
 				<a href="" 
-					class="copyBtn icon-copy"
-					ngclipboard 
-					data-clipboard-text="{{ InnerContr.address.addrStr }}"></a>
+				   class="copyBtn icon-copy"
+				   ngclipboard 
+				   data-clipboard-text="{{ InnerContr.address.addrStr }}"></a>
 				<div class="copyText text">
 					{{ InnerContr.info.address ? InnerContr.info.address + ' (' + InnerContr.address.addrStr + ')' : InnerContr.address.addrStr }}
 				</div>
@@ -74,9 +74,9 @@
 		</div>
 		<div class="col col-5">
 			<a href='' class="qr__link">
-				<qrcode color="{{ $root.Constants.QRCOLOR.color }}" 
-						background="{{ $root.Constants.QRCOLOR.background }}"
-						size="160" 
+				<qrcode color="{{ InnerContr.qrColors.color }}" 
+						background="{{ InnerContr.qrColors.background }}"
+						size="130" 
 						data="{{ InnerContr.address.addrStr }}">
 				</qrcode>
 			</a>
@@ -86,9 +86,9 @@
 
 <div class="transactions__contractItem" ng-if="InnerContr.info.code">
 	<div class="transactions__contractItemTitle" translate>Bytecode</div>
-	<div class="transactions__contractItemBody " 
-			ng-scrollbars 
-			ng-scrollbars-config="InnerContr.scrollConfig">
+	<div class="transactions__contractItemBody" 
+		 ng-scrollbars 
+		 ng-scrollbars-config="InnerContr.scrollConfig">
 		<div class="list">
 			{{ InnerContr.info.code }}
 		</div>
@@ -98,8 +98,8 @@
 <div class="transactions__contractItem" ng-if="InnerContr.opcodesStr">
 	<div class="transactions__contractItemTitle" translate>Asm</div>
 	<div class="transactions__contractItemBody " 
-			ng-scrollbars 
-			ng-scrollbars-config="InnerContr.scrollConfig">
+		 ng-scrollbars 
+		 ng-scrollbars-config="InnerContr.scrollConfig">
 		<div class="list">
 			{{ InnerContr.opcodesStr }}
 		</div>

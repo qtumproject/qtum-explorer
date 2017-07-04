@@ -24,6 +24,10 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		},
 		scrollInertia: 0
 	};
+	self.qrColors = {
+		background: Constants.QRCOLOR.background,
+		color: Constants.QRCOLOR.color
+	};
 
 	try {
 		addrStr = Contracts.getBitAddressFromContractAddress($routeParams.contractAddressStr);

@@ -10,8 +10,8 @@ angular.module('insight')
 		bits : 'bits'
 	},
 	QRCOLOR : { 
-		color: '#2e9ad0',
-		background: '#232328'
+		color: '#232328',
+		background: '#2e9ad0'
 	},
 	BLOCKS_AMOUNT: 15,
 	TRANSACTION_DISPLAYED: 10,

@@ -1,11 +1,15 @@
 'use strict';
 
 angular.module('insight.address').controller('AddressController',
-function($scope, $rootScope, $document, $routeParams, $location, Address, getSocket) {
+function($scope, $rootScope, $document, $routeParams, $location, Address, getSocket, Constants) {
 
 	var self = this;
 	var socket = getSocket($scope);
 	var addrStr = $routeParams.addrStr;
+	self.qrColors = {
+		background: Constants.QRCOLOR.background,
+		color: Constants.QRCOLOR.color
+	};
 
 	var _startSocket = function() {
 		socket.on('bitcoind/addresstxid', function(data) {
