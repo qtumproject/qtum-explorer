@@ -62,18 +62,32 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 				return newValue;
 			}
 			case 'number': {
-
 				return parseInt(hex, 16);
 			}
 			case 'address': {
-
 				return hex.substr(-40);
 			}
 			default: {
-
 				return hex;
 			}
 		}
+	};
+
+	var _defineDefaultState = function(string, number, address){
+
+		if(string.match(/[a-zA-Z0-9;:'".,\/\]\[?!&%#@)(-_`><\s]+[a-zA-Z0-9;:'".,\/\]\[?!&%#@)(_`><]{4}[a-zA-Z0-9;:'".,\/\]\[?!&%#@)(-_`><\s]+/g)){
+			return 1;
+		}
+
+		if(+number.toFixed() === number && !~(number.toString().indexOf('e'))){
+			return 2;
+		}
+
+		if(!~(address.indexOf('00000')) && address.match(/[a-f]+/g)){
+			return 3;
+		}				
+
+		return 0;
 	};
 
 	var _formStorageInfo = function() {
@@ -81,17 +95,29 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		var rows = [];
 
 		for(var row in self.info.storage){
-			for(value in self.info.storage[ row ]){
+			for(var value in self.info.storage[ row ]){
 
-				var fullHexData = hexString.substr(self.info.storage[ row ][ value ].length).concat(self.info.storage[ row ][ value ]);
+				var fullHexDataValue = hexString.substr(self.info.storage[ row ][ value ].length).concat(self.info.storage[ row ][ value ]);
+				var number_value = _parseStorageRowType(self.info.storage[ row ][ value ], 'number');
+				var string_value = _parseStorageRowType(self.info.storage[ row ][ value ], 'string');
+				var address_value = _parseStorageRowType(fullHexDataValue, 'address');
+				
+				var fullHexDataKey = hexString.substr(value.length).concat(value);
+				var number_key = _parseStorageRowType(value, 'number');
+				var string_key = _parseStorageRowType(value, 'string');
+				var address_key = _parseStorageRowType(fullHexDataKey, 'address');				
 
 				rows.push({
-					key_data: value,
-					value_data: fullHexData,
-					value_number: _parseStorageRowType(self.info.storage[ row ][ value ], 'number'),
-					value_string: _parseStorageRowType(self.info.storage[ row ][ value ], 'string'),
-					value_address: _parseStorageRowType(fullHexData, 'address'),
-					valueState: 0
+					value_data: fullHexDataValue,
+					value_number: number_value,
+					value_string: string_value,
+					value_address: address_value,
+					valueState: _defineDefaultState(string_value, number_value, address_value),
+					key_data: fullHexDataKey,
+					key_number: number_key,
+					key_string: string_key,
+					key_address: address_key,
+					keyState: _defineDefaultState(string_key, number_key, address_key)
 				});
 			}
 		}
@@ -170,14 +196,14 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		});
 	};
 
-	self.toggleStorageRowView = function(index) {
+	self.toggleStorageRowView = function(index, stateType) {
 
-		if(self.storage.rows[ index ].valueState + 1 < self.storageViews.length){
+		if(self.storage.rows[ index ][ stateType ] + 1 < self.storageViews.length){
 
-			self.storage.rows[ index ].valueState += 1;
+			self.storage.rows[ index ][ stateType ] += 1;
 			return;
 		}
-		self.storage.rows[ index ].valueState = 0;		
+		self.storage.rows[ index ][ stateType ] = 0;		
 	};
 
 	self.showMoreStorageRows = function(limit){

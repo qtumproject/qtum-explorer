@@ -15,7 +15,6 @@ angular.module('insight.status').controller('StatusController',
 
 			self.loaded = 1;
 			angular.extend(self, d);
-			console.log(self.info)
 		},
 		function(e) {
 
