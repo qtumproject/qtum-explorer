@@ -7,7 +7,7 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 	var addrStr;
 	var socket = getSocket($scope);
 	var hexString = '0000000000000000000000000000000000000000000000000000000000000000';
-	self.storageViews = [ gettextCatalog.getString('data'), gettextCatalog.getString('string'), gettextCatalog.getString('number'), gettextCatalog.getString('address') ];
+	self.storageViews = [ 'data', 'string', 'number', 'address' ];
 	self.storage = {};
 	self.params = $routeParams;
 	self.tooltipOptions = {
@@ -108,16 +108,20 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 				var address_key = _parseStorageRowType(fullHexDataKey, 'address');				
 
 				rows.push({
-					value_data: fullHexDataValue,
-					value_number: number_value,
-					value_string: string_value,
-					value_address: address_value,
-					valueState: _defineDefaultState(string_value, number_value, address_value),
-					key_data: fullHexDataKey,
-					key_number: number_key,
-					key_string: string_key,
-					key_address: address_key,
-					keyState: _defineDefaultState(string_key, number_key, address_key)
+					values: {
+						data: fullHexDataValue,
+						number: number_value,
+						string: string_value,
+						address: address_value,
+						state: _defineDefaultState(string_value, number_value, address_value),
+					},
+					keys: {
+						data: fullHexDataKey,
+						number: number_key,
+						string: string_key,
+						address: address_key,
+						state: _defineDefaultState(string_key, number_key, address_key)
+					}
 				});
 			}
 		}
@@ -198,12 +202,12 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 
 	self.toggleStorageRowView = function(index, stateType) {
 
-		if(self.storage.rows[ index ][ stateType ] + 1 < self.storageViews.length){
+		if(self.storage.rows[ index ][ stateType ].state + 1 < self.storageViews.length){
 
-			self.storage.rows[ index ][ stateType ] += 1;
+			self.storage.rows[ index ][ stateType ].state += 1;
 			return;
 		}
-		self.storage.rows[ index ][ stateType ] = 0;		
+		self.storage.rows[ index ][ stateType ].state = 0;		
 	};
 
 	self.showMoreStorageRows = function(limit){
