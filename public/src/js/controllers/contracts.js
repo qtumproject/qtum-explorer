@@ -76,18 +76,18 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 	var _defineDefaultState = function(string, number, address){
 
 		if(string.match(/[a-zA-Z0-9;:'".,\/\]\[?!&%#@)(-_`><\s]+[a-zA-Z0-9;:'".,\/\]\[?!&%#@)(_`><]{4}[a-zA-Z0-9;:'".,\/\]\[?!&%#@)(-_`><\s]+/g)){
-			return 1;
+			return self.storageViews[1];
 		}
 
 		if(+number.toFixed() === number && !~(number.toString().indexOf('e'))){
-			return 2;
+			return self.storageViews[2];
 		}
 
 		if(!~(address.indexOf('00000')) && address.match(/[a-f]+/g)){
-			return 3;
+			return self.storageViews[3];
 		}				
 
-		return 0;
+		return self.storageViews[0];
 	};
 
 	var _formStorageInfo = function() {
@@ -95,16 +95,16 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		var rows = [];
 
 		for(var row in self.info.storage){
-			for(var value in self.info.storage[ row ]){
+			for(var key in self.info.storage[ row ]){
 
-				var fullHexDataValue = hexString.substr(self.info.storage[ row ][ value ].length).concat(self.info.storage[ row ][ value ]);
-				var number_value = _parseStorageRowType(self.info.storage[ row ][ value ], 'number');
-				var string_value = _parseStorageRowType(self.info.storage[ row ][ value ], 'string');
+				var fullHexDataValue = hexString.substr(self.info.storage[ row ][ key ].length).concat(self.info.storage[ row ][ key ]);
+				var number_value = _parseStorageRowType(self.info.storage[ row ][ key ], 'number');
+				var string_value = _parseStorageRowType(self.info.storage[ row ][ key ], 'string');
 				var address_value = _parseStorageRowType(fullHexDataValue, 'address');
 				
-				var fullHexDataKey = hexString.substr(value.length).concat(value);
-				var number_key = _parseStorageRowType(value, 'number');
-				var string_key = _parseStorageRowType(value, 'string');
+				var fullHexDataKey = hexString.substr(key.length).concat(key);
+				var number_key = _parseStorageRowType(key, 'number');
+				var string_key = _parseStorageRowType(key, 'string');
 				var address_key = _parseStorageRowType(fullHexDataKey, 'address');				
 
 				rows.push({
@@ -202,12 +202,14 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 
 	self.toggleStorageRowView = function(index, stateType) {
 
-		if(self.storage.rows[ index ][ stateType ].state + 1 < self.storageViews.length){
-
-			self.storage.rows[ index ][ stateType ].state += 1;
+		var currentStateNumber = self.storageViews.indexOf(self.storage.rows[ index ][ stateType ].state);
+		
+		if(Math.floor(currentStateNumber / (self.storageViews.length - 1))){
+			
+			self.storage.rows[ index ][ stateType ].state = self.storageViews[0];
 			return;
 		}
-		self.storage.rows[ index ][ stateType ].state = 0;		
+		self.storage.rows[ index ][ stateType ].state = self.storageViews[ currentStateNumber + 1 ];
 	};
 
 	self.showMoreStorageRows = function(limit){
