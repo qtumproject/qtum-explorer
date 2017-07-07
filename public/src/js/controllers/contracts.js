@@ -7,7 +7,14 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 	var addrStr;
 	var socket = getSocket($scope);
 	var hexString = '0000000000000000000000000000000000000000000000000000000000000000';
-	self.storageViews = [ 'data', 'string', 'number', 'address' ];
+	self.STORAGE_ROWS = Constants.STORAGE_ROWS;
+	self.STORAGE_CONST = {
+		STRING: 'string',
+		NUMBER: 'number',
+		ADDRESS: 'address',
+		DATA: 'data',
+	};
+	self.storageViews = [ self.STORAGE_CONST.DATA, self.STORAGE_CONST.STRING, self.STORAGE_CONST.NUMBER, self.STORAGE_CONST.ADDRESS ];
 	self.storage = {};
 	self.params = $routeParams;
 	self.tooltipOptions = {
@@ -47,16 +54,14 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 			case 'string': {
 
 				var newValue = '';
-				var i = 0; 
-				var l = hex.length;
+				var i = hex.substring(0, 2) === '0x' ? 2 : 0; 
 
-				if (hex.substring(0, 2) === '0x') {
-					i = 2;
-				}
+				for ( ; i < hex.length; i += 2) {
 
-				for ( ; i < l; i += 2) {
+					var symbol = String.fromCharCode(parseInt(hex.substr(i, 2), 16));
 
-					newValue += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+					symbol = !symbol.charCodeAt() ? ' ' : symbol;
+					newValue += symbol;
 				}
 				
 				return newValue;
@@ -67,6 +72,9 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 			case 'address': {
 				return hex.substr(-40);
 			}
+			case 'data': {
+				return hexString.substr(hex.length).concat(hex);
+			}
 			default: {
 				return hex;
 			}
@@ -75,19 +83,19 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 
 	var _defineDefaultState = function(string, number, address){
 
-		if(string.match(/[a-zA-Z0-9;:'".,\/\]\[?!&%#@)(-_`><\s]+[a-zA-Z0-9;:'".,\/\]\[?!&%#@)(_`><]{4}[a-zA-Z0-9;:'".,\/\]\[?!&%#@)(-_`><\s]+/g)){
-			return self.storageViews[1];
+		var stringMatchUnread = string.match(/[^a-zA-Z0-9;:'".,\/\]\[?!&%#@)(_`><\s]/g) || [];
+		var stringMatchRead = string.match(/[a-zA-Z0-9;:'".,\/\]\[?!&%#@)(_`><]/g);
+		var isLastSymbolUread = string[ string.length - 1 ] === stringMatchUnread[0];
+
+		if(!~(number.toString().indexOf('e'))){
+			return self.STORAGE_CONST.NUMBER;
 		}
 
-		if(+number.toFixed() === number && !~(number.toString().indexOf('e'))){
-			return self.storageViews[2];
+		if((isLastSymbolUread || !stringMatchUnread.length) && stringMatchRead){
+			return self.STORAGE_CONST.STRING;
 		}
 
-		if(!~(address.indexOf('00000')) && address.match(/[a-f]+/g)){
-			return self.storageViews[3];
-		}				
-
-		return self.storageViews[0];
+		return self.STORAGE_CONST.DATA;
 	};
 
 	var _formStorageInfo = function() {
@@ -96,33 +104,24 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 
 		for(var row in self.info.storage){
 			for(var key in self.info.storage[ row ]){
-
-				var fullHexDataValue = hexString.substr(self.info.storage[ row ][ key ].length).concat(self.info.storage[ row ][ key ]);
-				var number_value = _parseStorageRowType(self.info.storage[ row ][ key ], 'number');
-				var string_value = _parseStorageRowType(self.info.storage[ row ][ key ], 'string');
-				var address_value = _parseStorageRowType(fullHexDataValue, 'address');
 				
-				var fullHexDataKey = hexString.substr(key.length).concat(key);
-				var number_key = _parseStorageRowType(key, 'number');
-				var string_key = _parseStorageRowType(key, 'string');
-				var address_key = _parseStorageRowType(fullHexDataKey, 'address');				
+				var newRow = {
+					values: {},
+					keys: {}
+				};
 
-				rows.push({
-					values: {
-						data: fullHexDataValue,
-						number: number_value,
-						string: string_value,
-						address: address_value,
-						state: _defineDefaultState(string_value, number_value, address_value),
-					},
-					keys: {
-						data: fullHexDataKey,
-						number: number_key,
-						string: string_key,
-						address: address_key,
-						state: _defineDefaultState(string_key, number_key, address_key)
-					}
-				});
+				for(var CONST in self.STORAGE_CONST){
+
+					var constName = self.STORAGE_CONST[ CONST ];
+
+					newRow.values[ constName ] = _parseStorageRowType(self.info.storage[ row ][ key ], constName);
+					newRow.keys[ constName ] = _parseStorageRowType(key, constName);
+				}
+
+				newRow.values.state = _defineDefaultState(newRow.values.string, newRow.values.number, newRow.values.address);
+				newRow.keys.state = _defineDefaultState(newRow.keys.string, newRow.keys.number, newRow.keys.address);
+				
+				rows.push(newRow);
 			}
 		}
 		return rows;
@@ -203,13 +202,8 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 	self.toggleStorageRowView = function(index, stateType) {
 
 		var currentStateNumber = self.storageViews.indexOf(self.storage.rows[ index ][ stateType ].state);
-		
-		if(Math.floor(currentStateNumber / (self.storageViews.length - 1))){
-			
-			self.storage.rows[ index ][ stateType ].state = self.storageViews[0];
-			return;
-		}
-		self.storage.rows[ index ][ stateType ].state = self.storageViews[ currentStateNumber + 1 ];
+
+		self.storage.rows[ index ][ stateType ].state = self.storageViews[ (currentStateNumber + 1) % self.storageViews.length ];
 	};
 
 	self.showMoreStorageRows = function(limit){

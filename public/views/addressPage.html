@@ -138,7 +138,7 @@
 						<div class="storage__tdInCenter">
 							<div class="storage__num left">
 								<a class="storage__link"
-								   ng-class="{ 'mark' : storageRow.keys.state == 'address' }"
+								   ng-class="{ 'mark' : storageRow.keys.state === InnerContr.STORAGE_CONST.ADDRESS }"
 								   href="address/{{ storageRow.keys[ storageRow.keys.state ]}}"
 								   ng-if="storageRow.keys.state == 'address'">
 									{{ storageRow.keys[ storageRow.keys.state ]}}
@@ -150,26 +150,26 @@
 									tooltip-title="{{ storageRow.keys[ storageRow.keys.state ]}}"
 									ng-if="storageRow.keys[ storageRow.keys.state ].length > 40">[...]</span><span ng-if="storageRow.keys[ storageRow.keys.state ].length > 40">{{ storageRow.keys[ storageRow.keys.state ].substr(-20) }}</span>
 								</div>
-								<div ng-if="storageRow.keys.state !== 'data' && storageRow.keys.state != 'address'">
+								<div ng-if="storageRow.keys.state !== InnerContr.STORAGE_CONST.DATA && storageRow.keys.state != InnerContr.STORAGE_CONST.ADDRESS">
 									{{ storageRow.keys[ storageRow.keys.state ]}}
 								</div>
 							</div>
 							<div class="storage__arrow">→</div>
 							<div class="storage__num right">
 								<a class="storage__link"
-								   ng-class="{ 'mark' : storageRow.values.state == 'address' }"
+								   ng-class="{ 'mark' : storageRow.values.state == InnerContr.STORAGE_CONST.ADDRESS }"
 								   href="address/{{ storageRow.values[ storageRow.values.state ]}}"
-								   ng-if="storageRow.values.state == 'address'">
+								   ng-if="storageRow.values.state == InnerContr.STORAGE_CONST.ADDRESS">
 									{{ storageRow.values[ storageRow.values.state ]}}
 								</a>
-								<div ng-if="storageRow.values.state === 'data'">
+								<div ng-if="storageRow.values.state === InnerContr.STORAGE_CONST.DATA">
 									<span>{{ storageRow.values[ storageRow.values.state ].substr(0, 20) }}</span><span class="attn tooltip__trigger" 
 									tooltip
 									tooltip-options="InnerContr.tooltipOptions" 
 									tooltip-title="{{ storageRow.values[ storageRow.values.state ]}}"
 									ng-if="storageRow.values[ storageRow.values.state ].length > 40">[...]</span><span ng-if="storageRow.values[ storageRow.values.state ].length > 40">{{ storageRow.values[ storageRow.values.state ].substr(-20) }}</span>
 								</div>
-								<div ng-if="storageRow.values.state !== 'data' && storageRow.values.state != 'address'">
+								<div ng-if="storageRow.values.state !== InnerContr.STORAGE_CONST.DATA && storageRow.values.state != InnerContr.STORAGE_CONST.ADDRESS">
 									{{ storageRow.values[ storageRow.values.state ]}}
 								</div>
 							</div>
@@ -190,12 +190,14 @@
 		<div class="storage__btnWrap">
 			<a href="" 
 			   class="storage__btn"
-			   ng-click="InnerContr.showMoreStorageRows(InnerContr.storage.viewRows + $root.Constants.STORAGE_ROWS)"
+			   ng-if="InnerContr.storage.storageLength > InnerContr.storage.viewRows"
+			   ng-click="InnerContr.showMoreStorageRows(InnerContr.storage.viewRows + InnerContr.STORAGE_ROWS)"
 			   translate>
 				More
 			</a>
 			<a href="" 
 			   class="storage__btn"
+			   ng-if="InnerContr.storage.storageLength > InnerContr.storage.viewRows"
 			   ng-click="InnerContr.showMoreStorageRows(InnerContr.storage.storageLength)"
 			   translate>
 				Show All
