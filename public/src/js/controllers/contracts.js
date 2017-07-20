@@ -85,13 +85,13 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 
 		var stringMatchUnread = string.match(/[^a-zA-Z0-9;:'".,\/\]\[?!&%#@)(_`><\s]/g) || [];
 		var stringMatchRead = string.match(/[a-zA-Z0-9;:'".,\/\]\[?!&%#@)(_`><]/g);
-		var isLastSymbolUread = string[ string.length - 1 ] === stringMatchUnread[0];
+		var isLastSymbolUnread = string[ string.length - 1 ] === stringMatchUnread[0];
 
 		if(!~(number.toString().indexOf('e'))){
 			return self.STORAGE_CONST.NUMBER;
 		}
 
-		if((isLastSymbolUread || !stringMatchUnread.length) && stringMatchRead){
+		if((isLastSymbolUnread || !stringMatchUnread.length) && stringMatchRead){
 			return self.STORAGE_CONST.STRING;
 		}
 
@@ -103,25 +103,29 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		var rows = [];
 
 		for(var row in self.info.storage){
-			for(var key in self.info.storage[ row ]){
-				
-				var newRow = {
-					values: {},
-					keys: {}
-				};
+			if(self.info.storage.hasOwnProperty(row)){
+				for(var key in self.info.storage[ row ]){
+					
+					var newRow = {
+						values: {},
+						keys: {}
+					};
 
-				for(var CONST in self.STORAGE_CONST){
+					if(self.info.storage[ row ].hasOwnProperty(key)){
+						for(var CONST in self.STORAGE_CONST){
 
-					var constName = self.STORAGE_CONST[ CONST ];
+							var constName = self.STORAGE_CONST[ CONST ];
 
-					newRow.values[ constName ] = _parseStorageRowType(self.info.storage[ row ][ key ], constName);
-					newRow.keys[ constName ] = _parseStorageRowType(key, constName);
+							newRow.values[ constName ] = _parseStorageRowType(self.info.storage[ row ][ key ], constName);
+							newRow.keys[ constName ] = _parseStorageRowType(key, constName);
+						}
+
+						newRow.values.state = _defineDefaultState(newRow.values.string, newRow.values.number, newRow.values.address);
+						newRow.keys.state = _defineDefaultState(newRow.keys.string, newRow.keys.number, newRow.keys.address);
+						
+						rows.push(newRow);
+					}
 				}
-
-				newRow.values.state = _defineDefaultState(newRow.values.string, newRow.values.number, newRow.values.address);
-				newRow.keys.state = _defineDefaultState(newRow.keys.string, newRow.keys.number, newRow.keys.address);
-				
-				rows.push(newRow);
 			}
 		}
 		return rows;
