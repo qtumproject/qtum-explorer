@@ -127,42 +127,50 @@
 				<div class="trMain">
 					<div class="td">
 						<div class="storage__tdInFirst ">
-							<span ng-click="InnerContr.toggleStorageRowView($index)">
-								{{ InnerContr.storageViews[0] }}
-							</span>
+							<a href="" 
+							   class="mark-bd"
+							   ng-click="InnerContr.toggleStorageRowView($index, 'keys')">
+								{{ storageRow.keys.state }}
+							</a>
 						</div>
 					</div>
 					<div class="td">
 						<div class="storage__tdInCenter">
 							<div class="storage__num left">
-								<div ng-if="storageRow.key_data.length > 40">
-									<span>{{ storageRow.key_data.substr(0, 20) }}</span><span class="attn tooltip__trigger" 
+								<a class="storage__link"
+								   ng-class="{ 'mark' : storageRow.keys.state === InnerContr.STORAGE_CONST.ADDRESS }"
+								   href="address/{{ storageRow.keys[ storageRow.keys.state ]}}"
+								   ng-if="storageRow.keys.state == 'address'">
+									{{ storageRow.keys[ storageRow.keys.state ]}}
+								</a>
+								<div ng-if="storageRow.keys.state === 'data'">
+									<span>{{ storageRow.keys[ storageRow.keys.state ].substr(0, 20) }}</span><span class="attn tooltip__trigger" 
 									tooltip
 									tooltip-options="InnerContr.tooltipOptions" 
-									tooltip-title="{{ storageRow.key_data }}"
-									ng-if="storageRow.key_data.length > 40">[...]</span><span ng-if="storageRow.key_data.length > 40">{{ storageRow.key_data.substr(-20) }}</span>
+									tooltip-title="{{ storageRow.keys[ storageRow.keys.state ]}}"
+									ng-if="storageRow.keys[ storageRow.keys.state ].length > 40">[...]</span><span ng-if="storageRow.keys[ storageRow.keys.state ].length > 40">{{ storageRow.keys[ storageRow.keys.state ].substr(-20) }}</span>
 								</div>
-								<div ng-if="storageRow.key_data <= 40">
-									{{ storageRow.key_data }}
+								<div ng-if="storageRow.keys.state !== InnerContr.STORAGE_CONST.DATA && storageRow.keys.state != InnerContr.STORAGE_CONST.ADDRESS">
+									{{ storageRow.keys[ storageRow.keys.state ]}}
 								</div>
 							</div>
 							<div class="storage__arrow">→</div>
 							<div class="storage__num right">
 								<a class="storage__link"
-								   ng-class="{ 'mark' : storageRow.valueState == 3 }"
-								   href="contracts/{{ storageRow[ 'value_' + InnerContr.storageViews[ storageRow.valueState ]]}}"
-								   ng-if="storageRow.valueState == 3">
-									{{ storageRow[ 'value_' + InnerContr.storageViews[ storageRow.valueState ]]}}
+								   ng-class="{ 'mark' : storageRow.values.state == InnerContr.STORAGE_CONST.ADDRESS }"
+								   href="address/{{ storageRow.values[ storageRow.values.state ]}}"
+								   ng-if="storageRow.values.state == InnerContr.STORAGE_CONST.ADDRESS">
+									{{ storageRow.values[ storageRow.values.state ]}}
 								</a>
-								<div ng-if="!storageRow.valueState">
-									<span>{{storageRow[ 'value_' + InnerContr.storageViews[ storageRow.valueState ]].substr(0, 20)}}</span><span class="attn tooltip__trigger" 
+								<div ng-if="storageRow.values.state === InnerContr.STORAGE_CONST.DATA">
+									<span>{{ storageRow.values[ storageRow.values.state ].substr(0, 20) }}</span><span class="attn tooltip__trigger" 
 									tooltip
 									tooltip-options="InnerContr.tooltipOptions" 
-									tooltip-title="{{ storageRow[ 'value_' + InnerContr.storageViews[ storageRow.valueState ]]}}"
-									ng-if="storageRow[ 'value_' + InnerContr.storageViews[ storageRow.valueState ]].length > 40">[...]</span><span ng-if="storageRow[ 'value_' + InnerContr.storageViews[ storageRow.valueState ]].length > 40">{{storageRow[ 'value_' + InnerContr.storageViews[ storageRow.valueState ]].substr(-20)}}</span>
+									tooltip-title="{{ storageRow.values[ storageRow.values.state ]}}"
+									ng-if="storageRow.values[ storageRow.values.state ].length > 40">[...]</span><span ng-if="storageRow.values[ storageRow.values.state ].length > 40">{{ storageRow.values[ storageRow.values.state ].substr(-20) }}</span>
 								</div>
-								<div ng-if="storageRow.valueState && storageRow.valueState != 3">
-									{{ storageRow[ 'value_' + InnerContr.storageViews[ storageRow.valueState ]]}}
+								<div ng-if="storageRow.values.state !== InnerContr.STORAGE_CONST.DATA && storageRow.values.state != InnerContr.STORAGE_CONST.ADDRESS">
+									{{ storageRow.values[ storageRow.values.state ]}}
 								</div>
 							</div>
 						</div>
@@ -171,8 +179,8 @@
 						<div class="storage__tdInLast ">
 							<a href="" 
 							   class="mark-bd"
-							   ng-click="InnerContr.toggleStorageRowView($index)">
-								{{ InnerContr.storageViews[ storageRow.valueState ] }}
+							   ng-click="InnerContr.toggleStorageRowView($index, 'values')">
+								{{ storageRow.values.state }}
 							</a>
 						</div>
 					</div>
@@ -182,12 +190,14 @@
 		<div class="storage__btnWrap">
 			<a href="" 
 			   class="storage__btn"
-			   ng-click="InnerContr.showMoreStorageRows(InnerContr.storage.viewRows + $root.Constants.STORAGE_ROWS)"
+			   ng-if="InnerContr.storage.storageLength > InnerContr.storage.viewRows"
+			   ng-click="InnerContr.showMoreStorageRows(InnerContr.storage.viewRows + InnerContr.STORAGE_ROWS)"
 			   translate>
 				More
 			</a>
 			<a href="" 
 			   class="storage__btn"
+			   ng-if="InnerContr.storage.storageLength > InnerContr.storage.viewRows"
 			   ng-click="InnerContr.showMoreStorageRows(InnerContr.storage.storageLength)"
 			   translate>
 				Show All

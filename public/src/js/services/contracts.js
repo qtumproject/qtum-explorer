@@ -149,7 +149,6 @@ angular.module('insight.contracts')
 					},
 					responseError: function (res) {
 						if (res.status === 404) {
-							console.log(res)
 							return res;
 						}
 					}
