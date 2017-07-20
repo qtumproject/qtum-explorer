@@ -81,7 +81,7 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 		}
 	};
 
-	var _defineDefaultState = function(string, number, address){
+	var _defineDefaultState = function(string, number){
 
 		var stringMatchUnread = string.match(/[^a-zA-Z0-9;:'".,\/\]\[?!&%#@)(_`><\s]/g) || [];
 		var stringMatchRead = string.match(/[a-zA-Z0-9;:'".,\/\]\[?!&%#@)(_`><]/g);
