@@ -77,11 +77,18 @@ module.exports = function(grunt) {
 			],
 			dest: 'public/js/main.js'
 		},
-		css: {
-			src: [
-				'public/src/css/**/*.css'
-			],
-			dest: 'public/css/style.css'
+			css: {
+				src: [
+					'public/src/css/**/*.css',
+                    '!public/src/css/components/underAttack.css'
+				],
+				dest: 'public/css/style.css'
+			},
+            underAttack: {
+				src: [
+					'public/src/css/components/underAttack.css'
+				],
+				dest: 'public/css/underAttack.css'
 			}
 		},
 		uglify: {
@@ -106,6 +113,10 @@ module.exports = function(grunt) {
 			css: {
 				src: 'public/css/style.css',
 				dest: 'public/css/style.min.css'
+			},
+            underAttack: {
+				src: 'public/css/underAttack.css',
+				dest: 'public/css/underAttack.min.css'
 			}
 		},
 		markdown: {
