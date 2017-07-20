@@ -1,4 +1,4 @@
-<div ng-if="TC.txs.length" ng-repeat="tx in TC.txs">
+<div ng-if="TC.txs.length" ng-repeat="tx in TC.txs" when-scrolled="TC.loadMore()">
 	<div class="transactions__item" 
 		 ng-class="{ 'open' : tx.showAdditInfo }" 
 		 ng-include 
