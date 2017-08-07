@@ -27,12 +27,6 @@ msgstr ""
 msgid "About"
 msgstr "Acerca de"
 
-#: public/src/js/controllers/contracts.js
-#, fuzzy
-#| msgid "Address"
-msgid "address"
-msgstr "Dirección"
-
 #: public/views/addressPage.html public/views/messages_verify.html
 msgid "Address"
 msgstr "Dirección"
@@ -190,10 +184,6 @@ msgstr ""
 msgid "Current Sync Status"
 msgstr "Actual Estado de Sincronización"
 
-#: public/src/js/controllers/contracts.js
-msgid "data"
-msgstr ""
-
 #: public/views/index.html
 #, fuzzy
 #| msgid "Transactions"
@@ -295,35 +285,33 @@ msgid "Initial Block Chain Height"
 msgstr "Altura de la Cadena en Bloque Inicial"
 
 #: public/views/transaction/tx.html
-#, fuzzy
-#| msgid "(Input unconfirmed)"
 msgid "Input unconfirmed"
-msgstr "(Entrada sin confirmar)"
+msgstr "Entrada sin confirmar"
 
 #: public/views/index.html
 msgid ""
-"Insight is an<a href=\"https://insight.is/\" target=\"_blank\">open-source "
-"Quantum blockchain explorer</a>with complete REST and websocket APIs that "
+"Insight is an <a href=\"https://insight.is/\" target=\"_blank\">open-source "
+"Quantum blockchain explorer</a> with complete REST and websocket APIs that "
 "can be used for writing web wallets and other apps that need more advanced "
-"blockchain queries than provided by quantumd RPC. Check out the<a href="
+"blockchain queries than provided by quantumd RPC. Check out the <a href="
 "\"https://github.com/bitpay/insight-ui\" target=\"_blank\" class=\"ng-scope"
 "\">source code</a>."
 msgstr ""
-"Insight  es un<a href=\"https://insight.is/\" target=\"_blank\">explorador "
-"de bloques de Quantum open-source</a>con un complete conjunto de REST y APIs "
-"de websockets que pueden ser usadas para escribir monederos de Quantums y "
-"otras aplicaciones que requieran consultar in explorador de bloques.  Obtén "
-"el código en<a href=\"https://github.com/bitpay/insight-ui\" target=\"_blank"
-"\" class=\"ng-scope\">el repositorio abierto de Github</a>."
+"Insight  es un <a href=\"https://insight.is/\" target=\"_blank\">explorador "
+"de bloques de Quantum open-source </a>con un complete conjunto de REST y "
+"APIs de websockets que pueden ser usadas para escribir monederos de Quantums "
+"y otras aplicaciones que requieran consultar in explorador de bloques.  "
+"Obtén el código en <a href=\"https://github.com/bitpay/insight-ui\" target="
+"\"_blank\" class=\"ng-scope\">el repositorio abierto de Github</a>."
 
 #: public/views/index.html
 msgid ""
 "Insight is still in development, so be sure to report any bugs and provide "
-"feedback for improvement at our<a href=\"https://github.com/bitpay/insight-"
+"feedback for improvement at our <a href=\"https://github.com/bitpay/insight-"
 "ui/issues\" target=\"_blank\" class=\"ng-scope\">github issue tracker</a>."
 msgstr ""
-"insight esta en desarrollo aún, por ello agradecemos que nos reporten "
-"errores o sugerencias para mejorar el software.<a href=\"https://github.com/"
+"Insight esta en desarrollo aún, por ello agradecemos que nos reporten "
+"errores o sugerencias para mejorar el software. <a href=\"https://github.com/"
 "bitpay/insight-ui/issues\" target=\"_blank\" class=\"ng-scope\">Github issue "
 "tracker</a>."
 
@@ -426,10 +414,6 @@ msgstr "¡No se encontraron registros coincidentes!"
 msgid "Nonce"
 msgstr ""
 
-#: public/src/js/controllers/contracts.js
-msgid "number"
-msgstr ""
-
 #: public/views/statistics.html
 #, fuzzy
 #| msgid "Number Of Transactions"
@@ -459,10 +443,8 @@ msgid "Percent of staked supply"
 msgstr ""
 
 #: public/views/index.html
-#, fuzzy
-#| msgid "Powered by"
 msgid "Powered  by:"
-msgstr "Funciona con"
+msgstr "Funciona con:"
 
 #: public/views/block.html
 msgid "Previous Block"
@@ -477,7 +459,7 @@ msgstr "Versión del protocolo"
 #: public/views/status.html
 #, fuzzy
 #| msgid "Proxy setting"
-msgid "Proxy Setting"
+msgid "Proxy Settings"
 msgstr "Opción de proxy"
 
 #: public/views/messages_verify.html
@@ -583,10 +565,6 @@ msgstr "Estado"
 msgid "Storage"
 msgstr ""
 
-#: public/src/js/controllers/contracts.js
-msgid "string"
-msgstr ""
-
 #: public/views/addressPage.html public/views/block.html
 #: public/views/transaction.html
 msgid "Summary"
@@ -638,7 +616,7 @@ msgstr ""
 
 #: public/views/transaction/list.html
 msgid "There are no transactions involving this address."
-msgstr "No hay transacciones para esta dirección"
+msgstr "No hay transacciones para esta dirección."
 
 #: public/views/transaction_sendraw.html
 msgid ""
@@ -726,10 +704,8 @@ msgid "Value"
 msgstr "Valor de Salida"
 
 #: public/views/index.html
-#, fuzzy
-#| msgid "Value Out"
 msgid "Value Out:"
-msgstr "Valor de Salida"
+msgstr "Valor de Salida:"
 
 #: public/views/messages_verify.html
 msgid "Verify"
@@ -754,6 +730,11 @@ msgstr ""
 #: public/src/js/controllers/statistics.js
 msgid "Years"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Address"
+#~ msgid "address"
+#~ msgstr "Dirección"
 
 #~ msgid "github issue tracker"
 #~ msgstr "Github issue tracker"
