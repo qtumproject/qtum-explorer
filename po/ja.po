@@ -26,12 +26,6 @@ msgstr ""
 msgid "About"
 msgstr "はじめに"
 
-#: public/src/js/controllers/contracts.js
-#, fuzzy
-#| msgid "Address"
-msgid "address"
-msgstr "アドレス"
-
 #: public/views/addressPage.html public/views/messages_verify.html
 msgid "Address"
 msgstr "アドレス"
@@ -185,10 +179,6 @@ msgstr ""
 msgid "Current Sync Status"
 msgstr "現在の同期状況"
 
-#: public/src/js/controllers/contracts.js
-msgid "data"
-msgstr ""
-
 #: public/views/index.html
 #, fuzzy
 #| msgid "Transactions"
@@ -290,35 +280,33 @@ msgid "Initial Block Chain Height"
 msgstr "起動時のブロック高"
 
 #: public/views/transaction/tx.html
-#, fuzzy
-#| msgid "(Input unconfirmed)"
 msgid "Input unconfirmed"
-msgstr "(入力は未検証です)"
+msgstr "入力は未検証です"
 
 #: public/views/index.html
 msgid ""
-"Insight is an<a href=\"https://insight.is/\" target=\"_blank\">open-source "
-"Quantum blockchain explorer</a>with complete REST and websocket APIs that "
+"Insight is an <a href=\"https://insight.is/\" target=\"_blank\">open-source "
+"Quantum blockchain explorer</a> with complete REST and websocket APIs that "
 "can be used for writing web wallets and other apps that need more advanced "
-"blockchain queries than provided by quantumd RPC. Check out the<a href="
+"blockchain queries than provided by quantumd RPC. Check out the <a href="
 "\"https://github.com/bitpay/insight-ui\" target=\"_blank\" class=\"ng-scope"
 "\">source code</a>."
 msgstr ""
 "Insight は、quantumd RPCの提供するものよりも詳細なブロックチェインへの問い合"
 "わせを必要とするウェブウォレットやその他のアプリを書くのに使える、完全なREST"
-"およびwebsocket APIを備えた<a href=\"http://live.insight.is/\" target="
-"\"_blank\">オープンソースのビットコインブロックエクスプローラ</a>です。<a "
-"href=\"https://github.com/bitpay/insight-ui\" target=\"_blank\">ソースコード"
-"</a>を確認."
+"およびwebsocket APIを備えた <a href=\"http://live.insight.is/\" target="
+"\"_blank\">オープンソースのビットコインブロックエクスプローラ</a> です。<a "
+"href=\"https://github.com/bitpay/insight-ui\" target=\"_blank\"> ソースコード"
+"</a> を確認."
 
 #: public/views/index.html
 msgid ""
 "Insight is still in development, so be sure to report any bugs and provide "
-"feedback for improvement at our<a href=\"https://github.com/bitpay/insight-"
+"feedback for improvement at our <a href=\"https://github.com/bitpay/insight-"
 "ui/issues\" target=\"_blank\" class=\"ng-scope\">github issue tracker</a>."
 msgstr ""
-"Insight は現在開発中です。<a href=\"https://github.com/bitpay/insight/issues"
-"\" target=\"_blank\">githubのissueトラッカ</a>にてバグの報告や改善案の提案を"
+"Insight は現在開発中です。 <a href=\"https://github.com/bitpay/insight/issues"
+"\" target=\"_blank\">githubのissueトラッカ </a>にてバグの報告や改善案の提案を"
 "お願いします。."
 
 #: public/src/js/controllers/header.js
@@ -420,10 +408,6 @@ msgstr "一致するレコードはありません！"
 msgid "Nonce"
 msgstr "Nonce"
 
-#: public/src/js/controllers/contracts.js
-msgid "number"
-msgstr ""
-
 #: public/views/statistics.html
 #, fuzzy
 #| msgid "Number Of Transactions"
@@ -469,7 +453,7 @@ msgstr "プロトコルバージョン"
 #: public/views/status.html
 #, fuzzy
 #| msgid "Proxy setting"
-msgid "Proxy Setting"
+msgid "Proxy Settings"
 msgstr "プロキシ設定"
 
 #: public/views/messages_verify.html
@@ -571,10 +555,6 @@ msgstr "ステータス"
 msgid "Storage"
 msgstr ""
 
-#: public/src/js/controllers/contracts.js
-msgid "string"
-msgstr ""
-
 #: public/views/addressPage.html public/views/block.html
 #: public/views/transaction.html
 msgid "Summary"
@@ -641,10 +621,6 @@ msgstr ""
 "ク上に配信することができます。"
 
 #: public/views/messages_verify.html
-#, fuzzy
-#| msgid ""
-#| "This form can be used to verify that a message comes from\n"
-#| "        a specific Quantum address."
 msgid ""
 "This form can be used to verify that a message comes from\r\n"
 "        a specific Quantum address."
@@ -717,7 +693,7 @@ msgstr "タイプ"
 
 #: public/views/transaction/tx.html
 msgid "Unconfirmed Transaction!"
-msgstr "未検証のトランザクションです！"
+msgstr "未検証のトランザクションです!"
 
 #: public/views/addressPage.html
 #, fuzzy
@@ -726,10 +702,8 @@ msgid "Value"
 msgstr "出力値"
 
 #: public/views/index.html
-#, fuzzy
-#| msgid "Value Out"
 msgid "Value Out:"
-msgstr "出力値"
+msgstr "出力値:"
 
 #: public/views/messages_verify.html
 msgid "Verify"
@@ -754,6 +728,11 @@ msgstr ""
 #: public/src/js/controllers/statistics.js
 msgid "Years"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Address"
+#~ msgid "address"
+#~ msgstr "アドレス"
 
 #~ msgid "Age"
 #~ msgstr "生成後経過時間"
