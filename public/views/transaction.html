@@ -92,13 +92,18 @@
 			</ul>
 		</div>
 	</div>
-	<div class="section section-detailsTransactions">
+	<div class="section section-detailsTransactions" ng-repeat="tx in TC.txs">
 		<div class="section__heading">
 			<h2 class="section__title" translate>Details</h2>
 		</div>
-		<div class="section__transactions" 
-			 data-ng-include 
-			 src="'views/transaction/list.html'">
+		<div>
+			<div class="section__transactions">
+				<div class="transactions__item" 
+					ng-class="{ 'open' : tx.showAdditInfo }" 
+					ng-include 
+					src="'views/transaction/tx.html'">
+				</div>
+			</div> 
 		</div>
 	</div>
 </div>

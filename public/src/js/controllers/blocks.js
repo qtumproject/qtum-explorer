@@ -59,7 +59,7 @@ function($scope, $rootScope, $routeParams, $location, moment, Block, Blocks, Blo
 		return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
 	};
 
-	self.list = function() {
+	self.loadList = function() {
 
 		self.loading = true;
 
@@ -91,6 +91,7 @@ function($scope, $rootScope, $routeParams, $location, moment, Block, Blocks, Blo
 			self.loading = false;
 			self.date = new Date(res.pagination.current);
 			self.datepicker.date = new Date(res.pagination.current).getTime();
+			console.log(res.blocks)
 			self.blocks = res.blocks;
 			self.pagination = res.pagination;
 		});
