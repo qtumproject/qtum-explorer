@@ -34,11 +34,11 @@
 						</a>
 						<div class="list-blocks__right">
 							<div class="list__row">
-								<span translate>Mined by</span>
-								<span class="mark" 
+								<span class="mined__help" translate>Mined by</span>
+								<a class="mark disabled mined__name" 
 									  ng-if="block.minedBy">
 									{{ block.minedBy }}
-								</span>
+								</a>
 							</div>
 							<div class="list__row">
 								<span class="label">{{ 'Size' | translate }}:</span>

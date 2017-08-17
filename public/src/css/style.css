@@ -3033,7 +3033,7 @@ corresponds to the arrow we want to display */
     left: 0;
     right: 0;
     z-index: 11;
-    min-width: 1300px; }
+    min-width: 100px; }
   .header .box {
     margin: 0 260px;
     padding: 0; }
@@ -3211,6 +3211,16 @@ corresponds to the arrow we want to display */
     @media only screen and (max-width: 1024px) {
       .language-switcher__icon {
         display: none; } }
+
+@media (max-width: 1430px) {
+  .search__wrap {
+    margin-right: 0;
+    width: 60%; } }
+
+@media (max-width: 1330px) {
+  .search__wrap {
+    margin-right: 0;
+    width: 100%; } }
 
 .footer {
   position: relative;
@@ -4190,6 +4200,18 @@ corresponds to the arrow we want to display */
     text-transform: uppercase;
     margin-bottom: 20px;
     padding-left: 55px; }
+
+.mined__name {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 150px; }
+
+.mined__help {
+  display: inline-block;
+  vertical-align: middle; }
 
 .summaryAddress {
   overflow: hidden;
