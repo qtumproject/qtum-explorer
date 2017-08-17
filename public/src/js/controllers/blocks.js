@@ -91,7 +91,6 @@ function($scope, $rootScope, $routeParams, $location, moment, Block, Blocks, Blo
 			self.loading = false;
 			self.date = new Date(res.pagination.current);
 			self.datepicker.date = new Date(res.pagination.current).getTime();
-			console.log(res.blocks)
 			self.blocks = res.blocks;
 			self.pagination = res.pagination;
 		});
