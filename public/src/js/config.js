@@ -78,8 +78,8 @@ angular.module('insight').config(function($routeProvider) {
 		controller: 'StatisticsController',
 		templateUrl: 'views/chart.html',
 		title: 'Statistics'
-	})
-	.otherwise({
+	}).
+	otherwise({
 		templateUrl: 'views/404.html',
 		title: 'Error'
 	});

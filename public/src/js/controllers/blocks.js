@@ -59,7 +59,7 @@ function($scope, $rootScope, $routeParams, $location, moment, Block, Blocks, Blo
 		return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
 	};
 
-	self.list = function() {
+	self.loadList = function() {
 
 		self.loading = true;
 

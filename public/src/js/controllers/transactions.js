@@ -221,7 +221,6 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 	//Initial load
 	self.load = function(from) {
-		
 		self.loadedBy = from;
 		self.loadMore();
 	};
