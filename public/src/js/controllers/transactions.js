@@ -212,15 +212,22 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 		pagesTotal = data.pagesTotal;
 		pageNum += 1;
 
+		var promises = [];
+
 		data.txs.forEach(function(tx, idx) {
-			tx.showAdditInfo = false;
-            asyncProcessERC20TX(tx).then(function (tx) {
-                _processTX(tx);
-                self.txs[idx] = tx;
-			});
-			// _processTX(tx);
-			// self.txs.push(tx);
+
+            promises.push(asyncProcessERC20TX(tx));
+
 		});
+
+        $q.all(promises).then(function (results) {
+            results.forEach(function (tx) {
+                tx.showAdditInfo = false;
+                _processTX(tx);
+                self.txs.push(tx);
+			});
+        });
+
 	};
 
 	var _byBlock = function() {
