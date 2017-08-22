@@ -209,7 +209,7 @@
 <div class="section section-transactionsAddress" 
 	 ng-if="InnerContr.address.addrStr"
 	 ng-controller="TransactionsController as TC" 
-	 ng-init="TC.load(InnerContr.storage.rows.length ? 'contractAddress' : 'address')">
+	 ng-init="TC.load(InnerContr.storage ? 'contractAddress' : 'address')">
 	<div class="section__heading">
 		<h2 class="section__title" translate>Transactions</h2>
 	</div>
