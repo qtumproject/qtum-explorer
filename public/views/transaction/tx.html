@@ -33,8 +33,10 @@
 </div>
 <div class="transactions__body">
 	<div class="col">
+
 		<div ng-repeat="vin in tx.vinSimple" ng-if="vin.addr">
 			<div ng-repeat="item in vin.items | limitTo : !tx.showAdditInfo ? 1 : vin.items.length">
+
 				<div class="transactions__row">
 
 					<a href="address/{{ vin.addr }}" 
@@ -108,6 +110,25 @@
 				</div>
 			</div>
 		</div>
+		<div ng-repeat="ev in tx.tokenEvents" class="transactions__row">
+			<a href="address/{{ ev.addressFrom }}"
+			   class="name mark"
+			   ng-if="$root.currentAddr != ev.addressFrom || tx.showAdditInfo">
+				<span class="name__arrow">></span>
+				<span class="name__text">
+							{{ ev.addressFrom }}
+						</span>
+			</a>
+			<span class="name__text" ng-if="$root.currentAddr == ev.addressFrom && !tx.showAdditInfo">
+						{{ ev.addressFrom }}
+					</span>
+
+			<div class="data"
+				 ng-class="{ 'attn' : $root.currentAddr === ev.addressFrom }"
+				 ng-if="ev.addressFrom">
+				{{ TC.convertDecimals(ev.amount, tx.erc20ContratInfo.decimals) }} {{tx.erc20ContratInfo.symbol}}
+			</div>
+		</div>
 		<span class="arrow">
 			<span class="arrowIcon icon-arrows-right"></span>
 		</span>
@@ -177,6 +198,25 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div ng-repeat="ev in tx.tokenEvents" class="transactions__row">
+			<a href="address/{{ ev.addressTo }}"
+			   class="name mark"
+			   ng-if="$root.currentAddr != ev.addressTo || tx.showAdditInfo">
+				<span class="name__arrow">></span>
+				<span class="name__text">
+							{{ ev.addressTo }}
+						</span>
+			</a>
+			<span class="name__text" ng-if="$root.currentAddr == ev.addressTo && !tx.showAdditInfo">
+						{{ ev.addressTo }}
+					</span>
+
+			<div class="data"
+				 ng-class="{ 'attn' : $root.currentAddr === ev.addressTo }"
+				 ng-if="ev.addressTo">
+				{{ TC.convertDecimals(ev.amount, tx.erc20ContratInfo.decimals) }} {{tx.erc20ContratInfo.symbol}}
 			</div>
 		</div>
 	</div>

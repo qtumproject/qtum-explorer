@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.transactions').controller('TransactionsController',
-function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsByBlock, TransactionsByAddress, Contracts) {
+function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsByBlock, TransactionsByAddress, Contracts, $q, ERC20ContractInfo) {
 
 	var self = this;
 	var pageNum = 0;
@@ -123,6 +123,76 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 		return null;
 	};
 
+	var asyncProcessERC20TX = function(tx) {
+
+		var deferred = $q.defer();
+
+        var isTransferEvent = false;
+        var receiptItemQRC20 = false;
+
+        tx.tokenEvents = [];
+
+        if (tx.receipt && tx.receipt.length) {
+
+            for (var i = 0; i < tx.receipt.length; i++) {
+
+                var receiptItem = tx.receipt[i];
+
+                if (receiptItem && receiptItem.log && receiptItem.log.length) {
+                    for (var j = 0; j < receiptItem.log.length; j++) {
+
+                        var logItem = receiptItem.log[j];
+
+                        if (logItem && logItem.topics && logItem.topics.length === 3 && logItem.topics[0] === 'ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
+
+                            var addressFrom = logItem.topics[1];
+                            var addressTo = logItem.topics[2];
+
+                            isTransferEvent = true;
+
+                            tx.tokenEvents.push({
+                            	addressFrom: Contracts.getBitAddressFromContractAddress(addressFrom.slice(addressFrom.length - 40, addressFrom.length)),
+                            	addressTo: Contracts.getBitAddressFromContractAddress(addressTo.slice(addressTo.length - 40, addressTo.length)),
+								amount: parseInt(logItem.data, 16)
+							});
+                        }
+                    }
+                }
+
+                if (isTransferEvent) {
+                	receiptItemQRC20 = receiptItem;
+                }
+            }
+        }
+
+        if (isTransferEvent) {
+            ERC20ContractInfo.get({
+                address: receiptItemQRC20.contractAddress
+            }).$promise.then(function (data) {
+                tx.erc20ContratInfo = data;
+            	deferred.resolve(tx);
+            });
+		} else {
+            deferred.resolve(tx);
+		}
+
+        return deferred.promise;
+	};
+
+	self.convertDecimals = function (amount, decimals) {
+
+
+		if (amount > 0) {
+            var response = amount / Math.pow(10, decimals);
+
+			if (response < 1e-6) response = response.toFixed(8);
+
+			return response;
+		}
+
+		return 0;
+	};
+
 	var _processTX = function(tx) {
 
 		tx.vinSimple = _aggregateItems(tx.txid, tx.vin);
@@ -143,10 +213,13 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 		pageNum += 1;
 
 		data.txs.forEach(function(tx) {
-
 			tx.showAdditInfo = false;
-			_processTX(tx);
-			self.txs.push(tx);
+            asyncProcessERC20TX(tx).then(function (tx) {
+                _processTX(tx);
+                self.txs.push(tx);
+			});
+			// _processTX(tx);
+			// self.txs.push(tx);
 		});
 	};
 
@@ -191,9 +264,17 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 			$rootScope.titleDetail = tx.txid.substring(0,7) + '...';
 			$rootScope.flashMessage = null;
-			self.tx = tx;
-			_processTX(tx);
-			self.txs.unshift(tx);
+
+            asyncProcessERC20TX(tx).then(function (tx) {
+                self.tx = tx;
+                _processTX(tx);
+                self.txs.unshift(tx);
+                console.log('!!!', tx);
+			});
+
+			// self.tx = tx;
+			// _processTX(tx);
+			// self.txs.unshift(tx);
 
 		}, function(e) {
 
