@@ -212,11 +212,11 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 		pagesTotal = data.pagesTotal;
 		pageNum += 1;
 
-		data.txs.forEach(function(tx) {
+		data.txs.forEach(function(tx, idx) {
 			tx.showAdditInfo = false;
             asyncProcessERC20TX(tx).then(function (tx) {
                 _processTX(tx);
-                self.txs.push(tx);
+                self.txs[idx] = tx;
 			});
 			// _processTX(tx);
 			// self.txs.push(tx);
