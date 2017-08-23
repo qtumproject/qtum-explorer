@@ -208,16 +208,13 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 	var _paginate = function(data) {
 
-		self.loading = false;
 		pagesTotal = data.pagesTotal;
 		pageNum += 1;
 
 		var promises = [];
 
-		data.txs.forEach(function(tx, idx) {
-
+		data.txs.forEach(function(tx) {
             promises.push(asyncProcessERC20TX(tx));
-
 		});
 
         $q.all(promises).then(function (results) {
@@ -226,6 +223,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
                 _processTX(tx);
                 self.txs.push(tx);
 			});
+            self.loading = false;
         });
 
 	};
@@ -236,13 +234,11 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 			block: $routeParams.blockHash,
 			pageNum: pageNum
 		}, function(data) {
-
 			_paginate(data);
 		});
 	};
 
 	var _byAddress = function () {
-
 		TransactionsByAddress.get({
 			address: $routeParams.addrStr,
 			pageNum: pageNum
@@ -258,7 +254,6 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 			address: Contracts.getBitAddressFromContractAddress($routeParams.contractAddressStr),
 			pageNum: pageNum
 		}, function(data) {
-
 			_paginate(data);
 		});
 	};
@@ -276,12 +271,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
                 self.tx = tx;
                 _processTX(tx);
                 self.txs.unshift(tx);
-                console.log('!!!', tx);
 			});
-
-			// self.tx = tx;
-			// _processTX(tx);
-			// self.txs.unshift(tx);
 
 		}, function(e) {
 
