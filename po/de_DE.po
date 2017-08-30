@@ -573,7 +573,7 @@ msgid "Summary"
 msgstr "Zusammenfassung"
 
 #: public/views/statistics.html
-msgid "Summary of QTUM statistics for the previous 24 hour period."
+msgid "Summary of QTUM statistics for last 24 hours"
 msgstr ""
 
 #: public/views/status.html
