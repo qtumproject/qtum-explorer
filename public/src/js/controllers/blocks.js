@@ -87,10 +87,13 @@ function($scope, $rootScope, $routeParams, $location, moment, Block, Blocks, Blo
 			blockDate: $routeParams.blockDate,
 			startTimestamp: $routeParams.startTimestamp
 		}, function(res) {
+
+			console.log(res)
 			
 			self.loading = false;
-			self.date = new Date(res.pagination.current);
-			self.datepicker.date = new Date(res.pagination.current).getTime();
+			var date = new Date(res.pagination.current);
+			// self.date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+			// self.datepicker.date = date.getTime();
 			self.blocks = res.blocks;
 			self.pagination = res.pagination;
 		});
