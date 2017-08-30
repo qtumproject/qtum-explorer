@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.transactions').controller('TransactionsController',
-function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsByBlock, TransactionsByAddress, Contracts) {
+function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsByBlock, TransactionsByAddress, Contracts, $q, ERC20ContractInfo) {
 
 	var self = this;
 	var pageNum = 0;
@@ -123,6 +123,62 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 		return null;
 	};
 
+	var asyncProcessERC20TX = function(tx) {
+
+		var deferred = $q.defer();
+
+        var isTransferEvent = false;
+        var receiptItemQRC20 = false;
+
+        tx.tokenEvents = [];
+
+        if (tx.receipt && tx.receipt.length) {
+
+            for (var i = 0; i < tx.receipt.length; i++) {
+
+                var receiptItem = tx.receipt[i];
+
+                if (receiptItem && receiptItem.log && receiptItem.log.length) {
+                    for (var j = 0; j < receiptItem.log.length; j++) {
+
+                        var logItem = receiptItem.log[j];
+
+                        if (logItem && logItem.topics && logItem.topics.length === 3 && logItem.topics[0] === 'ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
+
+                            var addressFrom = logItem.topics[1];
+                            var addressTo = logItem.topics[2];
+
+                            isTransferEvent = true;
+
+                            tx.tokenEvents.push({
+                            	addressFrom: Contracts.getBitAddressFromContractAddress(addressFrom.slice(addressFrom.length - 40, addressFrom.length)),
+                            	addressTo: Contracts.getBitAddressFromContractAddress(addressTo.slice(addressTo.length - 40, addressTo.length)),
+								amount: parseInt(logItem.data, 16)
+							});
+                        }
+                    }
+                }
+
+                if (isTransferEvent) {
+                	receiptItemQRC20 = receiptItem;
+                }
+            }
+        }
+
+        if (isTransferEvent) {
+            ERC20ContractInfo.get({
+                address: receiptItemQRC20.contractAddress
+            }).$promise.then(function (data) {
+				tx.erc20ContractInfo = data;
+            	deferred.resolve(tx);
+            });
+		} else {
+            deferred.resolve(tx);
+		}
+
+        return deferred.promise;
+	};
+
 	var _processTX = function(tx) {
 
 		tx.vinSimple = _aggregateItems(tx.txid, tx.vin);
@@ -138,16 +194,24 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 	var _paginate = function(data) {
 
-		self.loading = false;
 		pagesTotal = data.pagesTotal;
 		pageNum += 1;
 
-		data.txs.forEach(function(tx) {
+		var promises = [];
 
-			tx.showAdditInfo = false;
-			_processTX(tx);
-			self.txs.push(tx);
+		data.txs.forEach(function(tx) {
+            promises.push(asyncProcessERC20TX(tx));
 		});
+
+        $q.all(promises).then(function (results) {
+            results.forEach(function (tx) {
+                tx.showAdditInfo = false;
+                _processTX(tx);
+                self.txs.push(tx);
+			});
+            self.loading = false;
+        });
+
 	};
 
 	var _byBlock = function() {
@@ -156,13 +220,11 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 			block: $routeParams.blockHash,
 			pageNum: pageNum
 		}, function(data) {
-
 			_paginate(data);
 		});
 	};
 
 	var _byAddress = function () {
-
 		TransactionsByAddress.get({
 			address: $routeParams.addrStr,
 			pageNum: pageNum
@@ -178,7 +240,6 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 			address: Contracts.getBitAddressFromContractAddress($routeParams.contractAddressStr),
 			pageNum: pageNum
 		}, function(data) {
-
 			_paginate(data);
 		});
 	};
@@ -191,10 +252,13 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 			$rootScope.titleDetail = tx.txid.substring(0,7) + '...';
 			$rootScope.flashMessage = null;
-			self.tx = tx;
-			console.log(tx)
-			_processTX(tx);
-			self.txs.unshift(tx);
+
+            asyncProcessERC20TX(tx).then(function (tx) {
+				
+                self.tx = tx;
+				_processTX(tx);
+                self.txs.unshift(tx);
+			});
 
 		}, function(e) {
 
@@ -212,6 +276,19 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 			$location.path('/');
 		});
+	};
+
+	self.convertDecimals = function (amount, decimals) {
+		
+		if (amount > 0) {
+			var response = amount / Math.pow(10, decimals);
+
+			if (response < 1e-6) response = response.toFixed(8);
+
+			return response;
+		}
+
+		return 0;
 	};
 
 	self.findThis = function() {

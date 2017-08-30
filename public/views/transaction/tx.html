@@ -34,125 +34,12 @@
 <div class="transactions__body">
 	<div class="transactions__bodySection limiter">
 		<div class="col">
-			<a href="" class="arrow">
-				<span class="arrowIcon icon-arrows-right"></span>
-			</a>
-			<div class="transactions__row">
-				<span class="name mark">
-					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
-				</span>
-				<div class="data">171.17 QTUM</div>
-			</div>
-		</div>
-		<div class="col">
-			<div class="transactions__row">
-				<span class="name mark">
-					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
-				</span>
-				<span class="help">Contract address</span>
-				<div class="data">
-					0 QTUM <span class="special">(U)</span>
-				</div>
-			</div>
-			<div class="transactions__row">
-				<span class="name mark">
-					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
-				</span>
-				<div class="data">
-					<span class="special">197.6 QTUM (U)</span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="transactions__bodySection">
-		<div class="transactions__bodySection-title">
-			<div class="text">
-				<span>
-					<a href="">MYQTUM</a>
-					<span class="special2">(QRC20)</span>
-				</span>
-			</div>
-		</div>
-		<div class="ov">
-			<div class="col">
-				<a href="" class="arrow">
-					<span class="arrowIcon icon-arrows-right"></span>
-				</a>
-				<div class="transactions__row">
-				<span class="name mark">
-					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
-				</span>
-					<div class="data">0.00000056 tet</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="transactions__row">
-				<span class="name mark">
-					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
-				</span>
-					<div class="data">
-						0.00000056 tet
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="ov">
-			<div class="col">
-				<a href="" class="arrow">
-					<span class="arrowIcon icon-arrows-right"></span>
-				</a>
-				<div class="transactions__row">
-				<span class="name mark">
-					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
-				</span>
-					<div class="data">0.00000056 tet</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="transactions__row">
-				<span class="name mark">
-					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
-				</span>
-					<div class="data">
-						0.00000056 tet
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="ov">
-			<div class="col">
-				<a href="" class="arrow">
-					<span class="arrowIcon icon-arrows-right"></span>
-				</a>
-				<div class="transactions__row">
-				<span class="name mark">
-					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
-				</span>
-					<div class="data">0.00000056 tet</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="transactions__row">
-				<span class="name mark">
-					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
-				</span>
-					<div class="data">
-						0.00000056 tet
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="transactions__bodySection margin">
-		<div class="col">
 			<div ng-repeat="vin in tx.vinSimple" ng-if="vin.addr">
 				<div ng-repeat="item in vin.items | limitTo : !tx.showAdditInfo ? 1 : vin.items.length">
 					<div class="transactions__row">
-
 						<a href="address/{{ vin.addr }}" 
 						class="name mark"
 						ng-if="$root.currentAddr != vin.addr || tx.showAdditInfo">
-							<span class="name__arrow">></span>
 							<span class="name__text">
 								{{ vin.addr }}
 							</span>
@@ -293,6 +180,50 @@
 			</div>
 		</div>
 	</div>
+	<div class="transactions__bodySection" ng-repeat="ev in tx.tokenEvents">
+		<div class="transactions__bodySection-title">
+			<div class="text">
+				<span>
+					<a href="token/{{ tx.receipt[$index].contractAddress }}">
+						{{ tx.receipt[$index].contractAddress }}
+					</a>
+					<span class="special2">(QRC20)</span>
+				</span>
+			</div>
+		</div>
+		<div class="ov">
+			<div class="col">
+				<a href="" class="arrow">
+					<span class="arrowIcon icon-arrows-right"></span>
+				</a>
+				<div class="transactions__row">
+				<a href="address/{{ ev.addressFrom }}" class="name mark">
+					<span class="name__text">
+						{{ ev.addressFrom }}
+					</span>
+				</a>
+					<div class="data">
+						{{ TC.convertDecimals(ev.amount, tx.erc20ContractInfo.decimals) }}
+						{{ tx.erc20ContractInfo.symbol }}
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="transactions__row">
+				<span class="name mark">
+					<span class="name__text">
+						{{ ev.addressTo }}
+					</span>
+				</span>
+					<div class="data">
+						{{ TC.convertDecimals(ev.amount, tx.erc20ContractInfo.decimals) }}
+						{{ tx.erc20ContractInfo.symbol }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="transactions__bodySection margin"></div>
 </div>
 <div class="transactions__contract" ng-if="tx.contractBytecode">
 	<div class="transactions__contractTitle" translate>Contract Creation</div>
