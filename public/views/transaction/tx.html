@@ -32,147 +32,260 @@
 	</div>
 </div>
 <div class="transactions__body">
-	<div class="col">
-		<div ng-repeat="vin in tx.vinSimple" ng-if="vin.addr">
-			<div ng-repeat="item in vin.items | limitTo : !tx.showAdditInfo ? 1 : vin.items.length">
+	<div class="transactions__bodySection limiter">
+		<div class="col">
+			<a href="" class="arrow">
+				<span class="arrowIcon icon-arrows-right"></span>
+			</a>
+			<div class="transactions__row">
+				<span class="name mark">
+					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
+				</span>
+				<div class="data">171.17 QTUM</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="transactions__row">
+				<span class="name mark">
+					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
+				</span>
+				<span class="help">Contract address</span>
+				<div class="data">
+					0 QTUM <span class="special">(U)</span>
+				</div>
+			</div>
+			<div class="transactions__row">
+				<span class="name mark">
+					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
+				</span>
+				<div class="data">
+					<span class="special">197.6 QTUM (U)</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="transactions__bodySection">
+		<div class="transactions__bodySection-title">
+			<div class="text">
+				<span>
+					<a href="">MYQTUM</a>
+					<span class="special2">(QRC20)</span>
+				</span>
+			</div>
+		</div>
+		<div class="ov">
+			<div class="col">
+				<a href="" class="arrow">
+					<span class="arrowIcon icon-arrows-right"></span>
+				</a>
 				<div class="transactions__row">
-
-					<a href="address/{{ vin.addr }}" 
-					class="name mark"
-					ng-if="$root.currentAddr != vin.addr || tx.showAdditInfo">
-						<span class="name__arrow">></span>
-						<span class="name__text">
-							{{ vin.addr }}
-						</span>
-					</a>
-					<span class="name__text" ng-if="$root.currentAddr == vin.addr && !tx.showAdditInfo">
-						{{ vin.addr }}
-					</span>
-
-					<!-- errors -->
-
-					<div ng-if="vin.unconfirmedInput" class="text-danger"> 
-						<span class="glyphicon glyphicon-warning-sign"></span> 
-						({{ 'Input unconfirmed' | translate }})
-					</div>
-
-					<div ng-if="vin.dbError" class="text-danger">
-						<span class="glyphicon glyphicon-warning-sign"></span> 
-						<span translate>Incoherence in levelDB detected:</span> 
-						{{ vin.dbError }}
-					</div>
-
-					<div ng-if="vin.doubleSpentTxID" class="text-danger"> 
-						<span class="glyphicon glyphicon-warning-sign"></span> 
-						<span translate>Double spent attempt detected. From tx:</span> 
-						<a href="tx/{{ vin.doubleSpentTxID }}">
-							{{ vin.doubleSpentTxID }},
-							{{ vin.doubleSpentIndex }}
-						</a>
-					</div>
-
-					<!-- === -->
-
-					<div class="data" 
-						ng-class="{ 'attn' : $root.currentAddr === vin.addr }" 
-						ng-if="vin.addr">
-						{{ $root.currency.getConvertion(tx.showAdditInfo ? item.value : vin.value) }}
+				<span class="name mark">
+					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
+				</span>
+					<div class="data">0.00000056 tet</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="transactions__row">
+				<span class="name mark">
+					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
+				</span>
+					<div class="data">
+						0.00000056 tet
 					</div>
 				</div>
-				<div class="transactions__addInfo">
+			</div>
+		</div>
+		<div class="ov">
+			<div class="col">
+				<a href="" class="arrow">
+					<span class="arrowIcon icon-arrows-right"></span>
+				</a>
+				<div class="transactions__row">
+				<span class="name mark">
+					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
+				</span>
+					<div class="data">0.00000056 tet</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="transactions__row">
+				<span class="name mark">
+					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
+				</span>
+					<div class="data">
+						0.00000056 tet
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ov">
+			<div class="col">
+				<a href="" class="arrow">
+					<span class="arrowIcon icon-arrows-right"></span>
+				</a>
+				<div class="transactions__row">
+				<span class="name mark">
+					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
+				</span>
+					<div class="data">0.00000056 tet</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="transactions__row">
+				<span class="name mark">
+					<span class="name__text">QfvTXBAZiBG4Y7CZ1Q5kx1Ry4oA9edxDip</span>
+				</span>
+					<div class="data">
+						0.00000056 tet
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="transactions__bodySection margin">
+		<div class="col">
+			<div ng-repeat="vin in tx.vinSimple" ng-if="vin.addr">
+				<div ng-repeat="item in vin.items | limitTo : !tx.showAdditInfo ? 1 : vin.items.length">
 					<div class="transactions__row">
-						<div class="label">
-							<b translate>Confirmations</b>:
+
+						<a href="address/{{ vin.addr }}" 
+						class="name mark"
+						ng-if="$root.currentAddr != vin.addr || tx.showAdditInfo">
+							<span class="name__arrow">></span>
+							<span class="name__text">
+								{{ vin.addr }}
+							</span>
+						</a>
+						<span class="name__text" ng-if="$root.currentAddr == vin.addr && !tx.showAdditInfo">
+							{{ vin.addr }}
+						</span>
+
+						<!-- errors -->
+
+						<div ng-if="vin.unconfirmedInput" class="text-danger"> 
+							<span class="glyphicon glyphicon-warning-sign"></span> 
+							({{ 'Input unconfirmed' | translate }})
 						</div>
-						<div class="labeled">
-							{{ tx.confirmations }}
+
+						<div ng-if="vin.dbError" class="text-danger">
+							<span class="glyphicon glyphicon-warning-sign"></span> 
+							<span translate>Incoherence in levelDB detected:</span> 
+							{{ vin.dbError }}
+						</div>
+
+						<div ng-if="vin.doubleSpentTxID" class="text-danger"> 
+							<span class="glyphicon glyphicon-warning-sign"></span> 
+							<span translate>Double spent attempt detected. From tx:</span> 
+							<a href="tx/{{ vin.doubleSpentTxID }}">
+								{{ vin.doubleSpentTxID }},
+								{{ vin.doubleSpentIndex }}
+							</a>
+						</div>
+
+						<!-- === -->
+
+						<div class="data" 
+							ng-class="{ 'attn' : $root.currentAddr === vin.addr }" 
+							ng-if="vin.addr">
+							{{ $root.currency.getConvertion(tx.showAdditInfo ? item.value : vin.value) }}
 						</div>
 					</div>
-					<div class="transactions__row" ng-if="vin.scriptSig">
-						<div class="label">
-							<b translate>scriptSig</b>
+					<div class="transactions__addInfo">
+						<div class="transactions__row">
+							<div class="label">
+								<b translate>Confirmations</b>:
+							</div>
+							<div class="labeled">
+								{{ tx.confirmations }}
+							</div>
 						</div>
-						<div class="labeled" ng-repeat="scriptSigAsm in vin.scriptSig.asm | split:' '">
-							<div class="copyParent copyParent-right">
-								<a href="" 
-								class="copyBtn icon-copy"
-								ngclipboard 
-								data-clipboard-text="{{ scriptSigAsm }}">
-								</a>
-								<span class="copyText">
-									{{ scriptSigAsm }}
-								</span>
+						<div class="transactions__row" ng-if="vin.scriptSig">
+							<div class="label">
+								<b translate>scriptSig</b>
+							</div>
+							<div class="labeled" ng-repeat="scriptSigAsm in vin.scriptSig.asm | split:' '">
+								<div class="copyParent copyParent-right">
+									<a href="" 
+									class="copyBtn icon-copy"
+									ngclipboard 
+									data-clipboard-text="{{ scriptSigAsm }}">
+									</a>
+									<span class="copyText">
+										{{ scriptSigAsm }}
+									</span>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<span class="arrow">
+				<span class="arrowIcon icon-arrows-right"></span>
+			</span>
 		</div>
-		<span class="arrow">
-			<span class="arrowIcon icon-arrows-right"></span>
-		</span>
-	</div>
-  	<div class="col" ng-repeat="vin in tx.vin" ng-if="!vin.addr">
-		<div>
-			<div class="transactions__row">
-				<span class="name__text" translate>
-					No Inputs (Newly Generated Coins)
-				</span>
+		<div class="col" ng-repeat="vin in tx.vin" ng-if="!vin.addr">
+			<div>
+				<div class="transactions__row">
+					<span class="name__text" translate>
+						No Inputs (Newly Generated Coins)
+					</span>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="col">
-		<div ng-repeat="vout in tx.voutSimple" >
-			<div ng-repeat="item in vout.items | limitTo : !tx.showAdditInfo ? 1 : vout.items.length">
-				<div class="transactions__row">
+		<div class="col">
+			<div ng-repeat="vout in tx.voutSimple" >
+				<div ng-repeat="item in vout.items | limitTo : !tx.showAdditInfo ? 1 : vout.items.length">
+					<div class="transactions__row">
 
-					<a href="address/{{ vout.addr }}" 
-					   class="name mark" 
-					   ng-if="!vout.notAddr && ($root.currentAddr !== vout.addr || tx.showAdditInfo)">
-						<span class="name__text">
+						<a href="address/{{ vout.addr }}" 
+						class="name mark" 
+						ng-if="!vout.notAddr && ($root.currentAddr !== vout.addr || tx.showAdditInfo)">
+							<span class="name__text">
+								{{ vout.addr }}
+							</span>
+						</a>
+						<a href="contracts/{{ vout.contractAddress }}" 
+						class="name mark" 
+						ng-if="vout.notAddr && vout.contractAddress && ($root.currentAddr !== vout.addr || tx.showAdditInfo)">
+							<span class="name__text">
+								{{ vout.contractAddress }}
+							</span>
+						</a>
+						<span class="name__text" ng-if="($root.currentAddr === vout.addr && !tx.showAdditInfo) || vout.notAddr && !vout.contractAddress">
 							{{ vout.addr }}
 						</span>
-					</a>
-					<a href="contracts/{{ vout.contractAddress }}" 
-					   class="name mark" 
-					   ng-if="vout.notAddr && vout.contractAddress && ($root.currentAddr !== vout.addr || tx.showAdditInfo)">
-						<span class="name__text">
-							{{ vout.contractAddress }}
-						</span>
-					</a>
-					<span class="name__text" ng-if="($root.currentAddr === vout.addr && !tx.showAdditInfo) || vout.notAddr && !vout.contractAddress">
-						{{ vout.addr }}
-					</span>
 
-					<div class="data" ng-class="{ 'special' : vout.value && !tx.showAdditInfo }">
-						{{ !tx.showAdditInfo ? $root.currency.getConvertion(vout.value) : $root.currency.getConvertion(item.value) }} 
-						<span class="special" ng-if="vout.isSpent">(S)</span>
-						<span class="special" ng-if="!vout.isSpent">(U)</span>
-					</div>
-				</div>
-				<div class="transactions__addInfo">
-					<div class="transactions__row">
-						<div class="label">
-							<b translate>Type</b>
-						</div>
-						<div class="labeled op-60">
-							{{ item.scriptPubKey.type }}
+						<div class="data" ng-class="{ 'special' : vout.value && !tx.showAdditInfo }">
+							{{ !tx.showAdditInfo ? $root.currency.getConvertion(vout.value) : $root.currency.getConvertion(item.value) }} 
+							<span class="special" ng-if="vout.isSpent">(S)</span>
+							<span class="special" ng-if="!vout.isSpent">(U)</span>
 						</div>
 					</div>
-					<div class="transactions__row">
-						<div class="label">
-							<b>scriptPubKey</b>
+					<div class="transactions__addInfo">
+						<div class="transactions__row">
+							<div class="label">
+								<b translate>Type</b>
+							</div>
+							<div class="labeled op-60">
+								{{ item.scriptPubKey.type }}
+							</div>
 						</div>
-						<div class="labeled" ng-if="item.scriptPubKey.asm">
-							<div class=" copyParent copyParent-right">
-								<a href="" 
-								   class="copyBtn icon-copy"
-								   ngclipboard 
-			  		 	   		   data-clipboard-text="{{ item.scriptPubKey.asm }}">
-								</a>
-								<span class="copyText">
-									{{ item.scriptPubKey.asm }}
-								</span>
+						<div class="transactions__row">
+							<div class="label">
+								<b>scriptPubKey</b>
+							</div>
+							<div class="labeled" ng-if="item.scriptPubKey.asm">
+								<div class=" copyParent copyParent-right">
+									<a href="" 
+									class="copyBtn icon-copy"
+									ngclipboard 
+									data-clipboard-text="{{ item.scriptPubKey.asm }}">
+									</a>
+									<span class="copyText">
+										{{ item.scriptPubKey.asm }}
+									</span>
+								</div>
 							</div>
 						</div>
 					</div>
