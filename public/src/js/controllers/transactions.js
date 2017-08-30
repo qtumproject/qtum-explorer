@@ -183,7 +183,8 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 		tx.vinSimple = _aggregateItems(tx.txid, tx.vin);
 		tx.voutSimple = _aggregateItems(tx.txid, tx.vout);
-		tx.contractBytecode = _getContractBytecode(tx);
+		tx.contractBytecode = _getContractBytecode(tx).code;
+		tx.contractBytecodeType = _getContractBytecode(tx).type;
 		self.loading = false;
 
 		if (tx.contractBytecode) {

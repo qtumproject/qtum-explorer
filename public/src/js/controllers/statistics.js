@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.statistics').controller('StatisticsController',
-function($scope, $routeParams, Statistics, StatisticsByDaysTransactions, StatisticsByDaysOutputs, StatisticsByDaysFees, StatisticsByDaysDifficulty, StatisticsByDaysStakes, Statistics24Hours, gettextCatalog, $filter) {
+function($scope, $routeParams, Statistics, StatisticsByDaysTransactions, StatisticsByDaysOutputs, StatisticsByDaysFees, StatisticsByDaysDifficulty, StatisticsByDaysStakes, Statistics24Hours, MarketPrice, gettextCatalog, $filter) {
 
 	var self = this;
 	var factories = {
@@ -216,7 +216,14 @@ function($scope, $routeParams, Statistics, StatisticsByDaysTransactions, Statist
 		Statistics24Hours.get(function(response) {
 
 			self.statsTotal24 = response;
+
+			MarketPrice.get(function(marketResponse) {
+				self.statsTotal24.marketPrice = marketResponse;
+				console.log(marketResponse)
+			})
 		});
+
+		
 	};
 });
 

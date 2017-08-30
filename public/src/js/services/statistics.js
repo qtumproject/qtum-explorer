@@ -54,4 +54,8 @@ angular.module('insight.statistics')
 	.factory('Statistics24Hours', function($resource, $window) {
 
 		return $resource($window.apiPrefix + '/statistics/total');
+	})
+	.factory('MarketPrice', function($resource, $window) {
+		
+		return $resource('https://api.coinmarketcap.com/v1/ticker/quantum');
 	});
