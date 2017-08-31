@@ -35,7 +35,7 @@
 								   show-button-bar="false"
 								   readonly/>
 							<div class="fsz-13" ng-if="BC.pagination.currentTs">
-								{{ BC.pagination.isToday ? ('Today' | translate) : (BC.pagination.currentTs | amParse : 'X' | amStartOf : 'day' | amTimeAgo) }}
+								{{ BC.pagination.isToday ? ('Today' | translate) : (BC.pagination.currentTs | amParse : 'X' | amUtc | amStartOf : 'day' | amTimeAgo) }}
 							</div>
 						</div>
 					</div>
@@ -63,13 +63,18 @@
 					<a href="block/{{ block.hash }}" class="link mark">{{ block.height }}</a>
 				</div>
 				<div class="td">
-					{{ block.time * 1000 | amDateFormat: 'MMM D, YYYY h:mm:ss A' }}
+					{{ block.time * 1000 | amUtc | amDateFormat: 'MMM D, YYYY h:mm:ss A' }} (UTC)
 				</div>
 				<div class="td text_r">
 					{{ block.txlength }}
 				</div>
 				<div class="td">
-					{{ block.minedBy ? block.minedBy : '-' }}
+					<a class="mark" ng-if="block.minedBy" href="/address/{{ block.minedBy }}">
+						{{ block.minedBy }}
+					</a>
+					<span ng-if="!block.minedBy">
+						-
+					</span>
 				</div>
 				<div class="td text_r">
 					{{ block.size }}

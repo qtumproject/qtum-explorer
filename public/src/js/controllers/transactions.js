@@ -169,7 +169,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
             ERC20ContractInfo.get({
                 address: receiptItemQRC20.contractAddress
             }).$promise.then(function (data) {
-                tx.erc20ContratInfo = data;
+				tx.erc20ContractInfo = data;
             	deferred.resolve(tx);
             });
 		} else {
@@ -179,29 +179,18 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
         return deferred.promise;
 	};
 
-	self.convertDecimals = function (amount, decimals) {
-
-
-		if (amount > 0) {
-            var response = amount / Math.pow(10, decimals);
-
-			if (response < 1e-6) response = response.toFixed(8);
-
-			return response;
-		}
-
-		return 0;
-	};
-
 	var _processTX = function(tx) {
+
+		var contractBytecodeInfo = _getContractBytecode(tx);
 
 		tx.vinSimple = _aggregateItems(tx.txid, tx.vin);
 		tx.voutSimple = _aggregateItems(tx.txid, tx.vout);
-		tx.contractBytecode = _getContractBytecode(tx);
 		self.loading = false;
 
-		if (tx.contractBytecode) {
+		if (contractBytecodeInfo) {
 
+			tx.contractBytecode = contractBytecodeInfo.code;
+			tx.contractBytecodeType = contractBytecodeInfo.type;
 			tx.contractAsm = Contracts.getContractOpcodesString(tx.contractBytecode);
 		}
 	};
@@ -268,8 +257,9 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 			$rootScope.flashMessage = null;
 
             asyncProcessERC20TX(tx).then(function (tx) {
+				
                 self.tx = tx;
-                _processTX(tx);
+				_processTX(tx);
                 self.txs.unshift(tx);
 			});
 
@@ -289,6 +279,19 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 			$location.path('/');
 		});
+	};
+
+	self.convertDecimals = function (amount, decimals) {
+		
+		if (amount > 0) {
+			var response = amount / Math.pow(10, decimals);
+
+			if (response < 1e-6) response = response.toFixed(8);
+
+			return response;
+		}
+
+		return 0;
 	};
 
 	self.findThis = function() {

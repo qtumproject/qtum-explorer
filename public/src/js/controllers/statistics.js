@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.statistics').controller('StatisticsController',
-function($scope, $routeParams, Statistics, StatisticsByDaysTransactions, StatisticsByDaysOutputs, StatisticsByDaysFees, StatisticsByDaysDifficulty, StatisticsByDaysStakes, Statistics24Hours, gettextCatalog, $filter) {
+function($scope, $routeParams, Statistics, StatisticsByDaysTransactions, StatisticsByDaysOutputs, StatisticsByDaysFees, StatisticsByDaysDifficulty, StatisticsByDaysStakes, Statistics24Hours, MarketPrice, gettextCatalog, $filter, Constants) {
 
 	var self = this;
 	var factories = {
@@ -146,7 +146,8 @@ function($scope, $routeParams, Statistics, StatisticsByDaysTransactions, Statist
 		};
 		self.chartDays = $routeParams.days;
 		self.chartType = $routeParams.type;
-		
+		self.marketCurrency = Constants.CURRENCY.USD;
+		self.marketPrice;		
 
 	var _loadDifficulties = function(factory, itemField, itemName) {
 
@@ -217,6 +218,11 @@ function($scope, $routeParams, Statistics, StatisticsByDaysTransactions, Statist
 
 			self.statsTotal24 = response;
 		});
+
+		MarketPrice.get(function(marketResponse) {
+			
+			self.marketPrice = marketResponse.USD;
+		});		
 	};
 });
 

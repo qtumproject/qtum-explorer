@@ -74,9 +74,15 @@ angular.module('insight.contracts')
 
 								switch (script.chunks[k]['opcodenum']) {
 									case  CONTRACT_CALL:
-										return script.chunks[k - 2]['buf'].toString('hex');
+										return { 
+											code: script.chunks[k - 2]['buf'].toString('hex'),
+											type: 'Call' 
+									};
 									case CONTRACT_CREATE:
-										return script.chunks[k - 1]['buf'].toString('hex');
+										return { 
+											code: script.chunks[k - 1]['buf'].toString('hex'),
+											type: 'Create' 
+										};
 								}
 
 							}
@@ -158,9 +164,7 @@ angular.module('insight.contracts')
 	})
 	.factory('ERC20ContractInfo', function($resource, $window) {
 
-		return $resource($window.apiPrefix + '/contracts/:address/get-erc20-info', {
-			address: '@address'
-		},
+		return $resource($window.apiPrefix + '/erc20/:address',
 		{
 			get: {
 				method: 'GET',

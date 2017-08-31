@@ -35,8 +35,8 @@
 						<div class="list-blocks__right">
 							<div class="list__row">
 								<span class="mined__help" translate>Mined by</span>
-								<a class="mark disabled mined__name" 
-									  ng-if="block.minedBy">
+								<a class="mark mined__name" 
+									  ng-if="block.minedBy" href="address/{{ block.minedBy }}">
 									{{ block.minedBy }}
 								</a>
 							</div>
