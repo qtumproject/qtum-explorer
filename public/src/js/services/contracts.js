@@ -4,7 +4,7 @@ angular.module('insight.contracts')
 	.factory('ContractsInfo',
 		function($resource) {
 			return $resource(window.apiPrefix + '/contracts/:contractAddressStr/info');
-		})
+	})
 	.factory('Contracts',
 	function(Bitcorelib, Opcodes, Networks) {
 
@@ -180,5 +180,27 @@ angular.module('insight.contracts')
 				}
 			}
 		});
-	});
+	})
+	.factory('ERC20Transfers', function($resource, $window) {
+		
+		return $resource($window.apiPrefix + '/erc20/:address/transfers',
+		{
+			limit: 3
+		},
+		{
+			get: {
+				method: 'GET',
+				interceptor: {
+					response: function (res) {
+						return res.data;
+					},
+					responseError: function (res) {
+						if (res.status === 404) {
+							return res;
+						}
+					}
+				}
+			}
+		});
+	})
 

@@ -22,7 +22,8 @@ angular.module('insight',[
 	'insight.bitcorelib',
 	'insight.contracts',
 	'insight.opcodes',
-	'insight.networks'
+	'insight.networks',
+	'insight.token'
 ]);
 
 angular.module('insight.system', [ 'ngScrollbars', 'chart.js' ]);
@@ -31,6 +32,7 @@ angular.module('insight.blocks', []);
 angular.module('insight.transactions', [ 'ngScrollbars' ]);
 angular.module('insight.address', []);
 angular.module('insight.search', []);
+angular.module('insight.token', [ 'ngNumeraljs' ]);
 angular.module('insight.statistics', [ 'ngNumeraljs' ]);
 angular.module('insight.status', []);
 angular.module('insight.connection', []);
