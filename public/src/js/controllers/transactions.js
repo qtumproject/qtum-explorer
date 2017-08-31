@@ -181,14 +181,16 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 	var _processTX = function(tx) {
 
+		var contractBytecodeInfo = _getContractBytecode(tx);
+
 		tx.vinSimple = _aggregateItems(tx.txid, tx.vin);
 		tx.voutSimple = _aggregateItems(tx.txid, tx.vout);
-		tx.contractBytecode = _getContractBytecode(tx).code;
-		tx.contractBytecodeType = _getContractBytecode(tx).type;
 		self.loading = false;
 
-		if (tx.contractBytecode) {
+		if (contractBytecodeInfo) {
 
+			tx.contractBytecode = contractBytecodeInfo.code;
+			tx.contractBytecodeType = contractBytecodeInfo.type;
 			tx.contractAsm = Contracts.getContractOpcodesString(tx.contractBytecode);
 		}
 	};

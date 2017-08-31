@@ -5,16 +5,16 @@
 	</div>
 	<div class="date__wrap">
 		<div class="pull-right">
-			<a href="blocks-date/{{ BC.datepicker.date - (24 * 60 * 60 * 1000) | amDateFormat: 'YYYY-MM-DD' }}" 
+			<a href="blocks-date/{{ BC.datepicker.date - (24 * 60 * 60 * 1000) | amUtc | amDateFormat: 'YYYY-MM-DD' }}" 
 			   class="date__btn prev"
 			   ng-if="BC.datepicker.date">
 				<span class="icon-arrow-left"></span>
-				{{ BC.datepicker.date - (24 * 60 * 60 * 1000) | amDateFormat: 'YYYY-MM-DD' }}
+				{{ BC.datepicker.date - (24 * 60 * 60 * 1000) | amUtc | amDateFormat: 'YYYY-MM-DD' }}
 			</a>
-			<a href="blocks-date/{{ BC.datepicker.date + (24 * 60 * 60 * 1000) | amDateFormat: 'YYYY-MM-DD' }}" 
+			<a href="blocks-date/{{ BC.datepicker.date + (24 * 60 * 60 * 1000) | amUtc | amDateFormat: 'YYYY-MM-DD' }}" 
 			   class="date__btn next"
 			   ng-if="!BC.pagination.isToday && BC.datepicker.date">
-				{{ BC.datepicker.date + (24 * 60 * 60 * 1000) | amDateFormat: 'YYYY-MM-DD' }}
+				{{ BC.datepicker.date + (24 * 60 * 60 * 1000) | amUtc | amDateFormat: 'YYYY-MM-DD' }}
 				<span class="icon-arrow-right2"></span>
 			</a>
 
@@ -35,7 +35,7 @@
 								   show-button-bar="false"
 								   readonly/>
 							<div class="fsz-13" ng-if="BC.pagination.currentTs">
-								{{ BC.pagination.isToday ? ('Today' | translate) : (BC.pagination.currentTs | amParse : 'X' | amStartOf : 'day' | amTimeAgo) }}
+								{{ BC.pagination.isToday ? ('Today' | translate) : (BC.pagination.currentTs | amParse : 'X' | amUtc | amStartOf : 'day' | amTimeAgo) }}
 							</div>
 						</div>
 					</div>
