@@ -57,5 +57,5 @@ angular.module('insight.statistics')
 	})
 	.factory('MarketPrice', function($resource, $window) {
 		
-		return $resource('https://api.coinmarketcap.com/v1/ticker/quantum');
+		return $resource('https://min-api.cryptocompare.com/data/price?fsym=QTUM&tsyms=USD');
 	});
