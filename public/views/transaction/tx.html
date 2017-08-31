@@ -185,7 +185,7 @@
 			<div class="text">
 				<span>
 					<a href="token/{{ tx.receipt[$index].contractAddress }}">
-						{{ tx.receipt[$index].contractAddress }}
+						{{ tx.erc20ContractInfo.name ? tx.erc20ContractInfo.name : 'Standart token' }}
 					</a>
 					<span class="special2">(QRC20)</span>
 				</span>

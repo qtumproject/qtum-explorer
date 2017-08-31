@@ -5,16 +5,16 @@
 	</div>
 	<div class="date__wrap">
 		<div class="pull-right">
-			<a href="blocks-date/{{ BC.datepicker.date - (24 * 60 * 60 * 1000) | amUtc | amDateFormat: 'YYYY-MM-DD' }}" 
+			<a href="blocks-date/{{ BC.datepicker.date - (24 * 60 * 60 * 1000) | amDateFormat: 'YYYY-MM-DD' }}" 
 			   class="date__btn prev"
 			   ng-if="BC.datepicker.date">
 				<span class="icon-arrow-left"></span>
-				{{ BC.datepicker.date - (24 * 60 * 60 * 1000) | amUtc | amDateFormat: 'YYYY-MM-DD' }}
+				{{ BC.datepicker.date - (24 * 60 * 60 * 1000) | amDateFormat: 'YYYY-MM-DD' }}
 			</a>
-			<a href="blocks-date/{{ BC.datepicker.date + (24 * 60 * 60 * 1000) | amUtc | amDateFormat: 'YYYY-MM-DD' }}" 
+			<a href="blocks-date/{{ BC.datepicker.date + (24 * 60 * 60 * 1000) | amDateFormat: 'YYYY-MM-DD' }}" 
 			   class="date__btn next"
 			   ng-if="!BC.pagination.isToday && BC.datepicker.date">
-				{{ BC.datepicker.date + (24 * 60 * 60 * 1000) | amUtc | amDateFormat: 'YYYY-MM-DD' }}
+				{{ BC.datepicker.date + (24 * 60 * 60 * 1000) | amDateFormat: 'YYYY-MM-DD' }}
 				<span class="icon-arrow-right2"></span>
 			</a>
 
@@ -63,13 +63,18 @@
 					<a href="block/{{ block.hash }}" class="link mark">{{ block.height }}</a>
 				</div>
 				<div class="td">
-					{{ block.time * 1000 | amDateFormat: 'MMM D, YYYY h:mm:ss A' }}
+					{{ block.time * 1000 | amUtc | amDateFormat: 'MMM D, YYYY h:mm:ss A' }} (UTC)
 				</div>
 				<div class="td text_r">
 					{{ block.txlength }}
 				</div>
 				<div class="td">
-					{{ block.minedBy ? block.minedBy : '-' }}
+					<a class="mark" ng-if="block.minedBy" href="/address/{{ block.minedBy }}">
+						{{ block.minedBy }}
+					</a>
+					<span ng-if="!block.minedBy">
+						-
+					</span>
 				</div>
 				<div class="td text_r">
 					{{ block.size }}
