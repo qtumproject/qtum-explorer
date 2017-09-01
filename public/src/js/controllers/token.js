@@ -10,18 +10,6 @@ function($routeParams, ERC20ContractInfo, ERC20Transfers) {
 	self.contractAddress = $routeParams.address;
 	self.tab = 'transfers';
 
-	self.loadTokenInfo = function() {
-
-		ERC20ContractInfo.get({
-			address: $routeParams.address
-		}).$promise.then(function (info) {
-
-			self.tokenInfo = info;
-		});
-
-		loadTabContent();
-	}
-
 	var loadTabContent = function() {
 		switch(self.tab){
 			case 'transfers': {
@@ -52,6 +40,18 @@ function($routeParams, ERC20ContractInfo, ERC20Transfers) {
 	}
 
 	var _getSmartContract = function() {
+	}
+
+	self.loadTokenInfo = function() {
+		
+		ERC20ContractInfo.get({
+			address: $routeParams.address
+		}).$promise.then(function (info) {
+
+			self.tokenInfo = info;
+		});
+
+		loadTabContent();
 	}
 
 	self.paginateTransfers = function(offset) {
