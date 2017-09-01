@@ -31,16 +31,16 @@
 			href="" 
 			ng-click="TC.paginateTransfers(TC.transfers.offset + TC.transfers.limit)"
 			class="pagination__item next" 
-			ng-class="{ 'disabled': TC.transfers.pages <= TC.transfers.offset/TC.transfers.limit + 1 }"
+			ng-class="{ 'disabled': !(TC.transfers.pages > (TC.transfers.offset / TC.transfers.limit) + 1) }"
 		>
 			<span>next</span>
 			<span class="arrow icon-arrow-right"></span>
 		</a>
 		<a 
 			href="" 
-			ng-click="TC.paginateTransfers(TC.transfers.pages * TC.transfers.limit)"
+			ng-click="TC.paginateTransfers((TC.transfers.pages - 1) * TC.transfers.limit)"
 			class="pagination__item next" 
-			ng-class="{ 'disabled': TC.transfers.pages <= TC.transfers.offset/TC.transfers.limit + 1 }"
+			ng-class="{ 'disabled': !(TC.transfers.pages > (TC.transfers.offset / TC.transfers.limit) + 1) }"
 		>
 			<span>last</span>
 			<span class="arrow icon-arrows-right"></span>
@@ -109,16 +109,16 @@
 			href="" 
 			ng-click="TC.paginateTransfers(TC.transfers.offset + TC.transfers.limit)"
 			class="pagination__item next" 
-			ng-class="{ 'disabled': TC.transfers.pages <= TC.transfers.offset/TC.transfers.limit + 1 }"
+			ng-class="{ 'disabled': !(TC.transfers.pages > (TC.transfers.offset / TC.transfers.limit) + 1) }"
 		>
 			<span>next</span>
 			<span class="arrow icon-arrow-right"></span>
 		</a>
 		<a 
 			href="" 
-			ng-click="TC.paginateTransfers(TC.transfers.pages * TC.transfers.limit)"
+			ng-click="TC.paginateTransfers((TC.transfers.pages - 1) * TC.transfers.limit)"
 			class="pagination__item next" 
-			ng-class="{ 'disabled': TC.transfers.pages <= TC.transfers.offset/TC.transfers.limit + 1 }"
+			ng-class="{ 'disabled': !(TC.transfers.pages > (TC.transfers.offset / TC.transfers.limit) + 1) }"
 		>
 			<span>last</span>
 			<span class="arrow icon-arrows-right"></span>

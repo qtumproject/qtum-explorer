@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.token').controller('TokenController',
-function($scope, $rootScope, $routeParams, $location, ERC20ContractInfo, ERC20Transfers) {
+function($routeParams, ERC20ContractInfo, ERC20Transfers) {
 
 	var self = this;
 
@@ -44,8 +44,7 @@ function($scope, $rootScope, $routeParams, $location, ERC20ContractInfo, ERC20Tr
 		}).$promise.then(function (trList) {
 
 			self.transfers = trList;
-			self.transfers.pages = Math.floor(self.transfers.count / self.transfers.limit);
-			console.log(trList)
+			self.transfers.pages = Math.ceil(self.transfers.count / self.transfers.limit);
 		});
 	}
 
@@ -57,7 +56,9 @@ function($scope, $rootScope, $routeParams, $location, ERC20ContractInfo, ERC20Tr
 
 	self.paginateTransfers = function(offset) {
 
-		_getTransfers(offset);
+		if(self.transfers.pages > offset / self.transfers.limit && offset >= 0) {
+			_getTransfers(offset);
+		}
 	}
 
 	self.setTab = function(tabname) {

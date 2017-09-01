@@ -185,7 +185,8 @@ angular.module('insight.contracts')
 		
 		return $resource($window.apiPrefix + '/erc20/:address/transfers',
 		{
-			limit: 3
+			limit: 6,
+			offset: '@offset'
 		},
 		{
 			get: {
