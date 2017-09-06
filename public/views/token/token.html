@@ -95,12 +95,12 @@
 				<li class="nav-item tab-large active" ng-class="{ 'active': TC.tab === 'transfers' }">
 					<a href="" ng-click="TC.setTab('transfers')" class="nav-link">Token Transfers</a>
 				</li>
-				<li class="nav-item tab-large" ng-class="{ 'active': TC.tab === 'holders' }">
-					<a href="" ng-click="TC.setTab('holders')" class="nav-link">Tocken Holders</a>
+				<!-- <li class="nav-item tab-large" ng-class="{ 'active': TC.tab === 'holders' }">
+					<a href="" ng-click="TC.setTab('holders')" class="nav-link">TokenTocken Holders</a>
 				</li>
 				<li class="nav-item tab-large" ng-class="{ 'active': TC.tab === 'read' }">
 					<a href="" ng-click="TC.setTab('read')" class="nav-link">Read smart contracts</a>
-				</li>
+				</li> -->
 			</ul>
 		</div>
 		<div class="tab-content">
@@ -111,7 +111,7 @@
 				ng-class="{ 'active': TC.tab === 'transfers' }"
 			>
 			</div>
-			<div 
+			<!-- <div 
 				class="tab-pane fadeEffect" 
 				ng-include 
 				src="'views/token/holders.html'" 
@@ -124,7 +124,7 @@
 				src="'views/token/read.html'" 
 				ng-class="{ 'active': TC.tab === 'read' }"
 			>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </div>
