@@ -4000,7 +4000,8 @@ corresponds to the arrow we want to display */
     height: 40px;
     background: transparent !important;
     border: 1px solid #2e9ad0 !important;
-    color: rgba(46, 154, 208, 0.2) !important; }
+    color: rgba(46, 154, 208, 0.2) !important;
+    cursor: default; }
   .pagination__item.disabled {
     cursor: default;
     background: transparent !important;
