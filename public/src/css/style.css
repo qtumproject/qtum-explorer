@@ -4431,11 +4431,11 @@ corresponds to the arrow we want to display */
     width: 20%; }
   .section-blocks .th:nth-child(3),
   .section-blocks .td:nth-child(3) {
-    padding-right: 12%;
-    width: 30%; }
+    padding-right: 8%;
+    width: 20%; }
   .section-blocks .th:nth-child(4),
   .section-blocks .td:nth-child(4) {
-    width: 20%;
+    width: 30%;
     padding-left: 4%; }
   .section-blocks .th:nth-child(5),
   .section-blocks .td:nth-child(5) {
