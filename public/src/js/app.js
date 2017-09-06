@@ -19,7 +19,7 @@ angular.module('insight',[
 	'insight.connection',
 	'insight.currency',
 	'insight.messages',
-	'insight.bitcorelib',
+	'insight.qtumcorelib',
 	'insight.contracts',
 	'insight.opcodes',
 	'insight.networks',
@@ -39,7 +39,7 @@ angular.module('insight.connection', []);
 angular.module('insight.currency', []);
 angular.module('insight.messages', []);
 angular.module('insight.messages', []);
-angular.module('insight.bitcorelib', []);
+angular.module('insight.qtumcorelib', []);
 angular.module('insight.contracts', []);
 angular.module('insight.opcodes', []);
 angular.module('insight.networks', []);

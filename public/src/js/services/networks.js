@@ -2,10 +2,10 @@
 
 angular.module('insight.networks')
 	.factory('Networks',
-		function(Constants, Bitcorelib) {
+		function(Constants, QtumCoreLib) {
 			return {
 				getCurrentNetwork: function () {
-					return Bitcorelib.Networks.get(Constants.NETWORK);
+					return QtumCoreLib.Networks.get(Constants.NETWORK);
 				}
 			}
 		});
