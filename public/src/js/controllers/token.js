@@ -56,12 +56,17 @@ function($routeParams, ERC20ContractInfo, ERC20Transfers) {
 
 	self.paginateTransfers = function(offset) {
 
-		if(self.transfers.pages > offset / self.transfers.limit && offset >= 0) {
+		if(self.transfers.limit && self.transfers.pages > offset / self.transfers.limit && offset >= 0) {
 			_getTransfers(offset);
 		}
 	}
 
 	self.setTab = function(tabname) {
+
+		if(self.tab === tabname){
+			return;
+		}
+
 		self.tab = tabname;
 		loadTabContent();
 	}
