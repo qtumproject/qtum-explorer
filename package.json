@@ -1,44 +1,23 @@
 {
-  "name": "insight-ui",
-  "description": "An open-source frontend for the Insight API. The Insight API provides you with a convenient, powerful and simple way to query and broadcast data on the bitcoin network and build your own services with it.",
-  "version": "0.4.0",
-  "repository": "git://github.com/bitpay/insight-ui.git",
-  "contributors": [
-    {
-      "name": "Matias Alejo Garcia",
-      "email": "ematiu@gmail.com"
-    },
-    {
-      "name": "Manuel Araoz",
-      "email": "manuelaraoz@gmail.com"
-    },
-    {
-      "name": "Mario Colque",
-      "email": "colquemario@gmail.com"
-    },
-    {
-      "name": "Gustavo Cortez",
-      "email": "cmgustavo83@gmail.com"
-    },
-    {
-      "name": "Juan Ignacio Sosa Lopez",
-      "email": "bechilandia@gmail.com"
-    }
-  ],
+  "name": "qtum-explorer",
+  "description": "An open-source frontend for the Insight API. The Insight API provides you with a convenient, powerful and simple way to query and broadcast data on the qtum network and build your own services with it.",
+  "version": "0.0.1",
+  "repository": "git@github.com:qtumproject/qtum-explorer.git",
+  "contributors": [],
   "bugs": {
-    "url": "https://github.com/bitpay/insight-ui/issues"
+    "url": "https://github.com/qtumproject/qtum-explorer/issues"
   },
-  "homepage": "https://github.com/bitpay/insight-ui",
+  "homepage": "https://github.com/qtumproject/qtum-explorer",
   "license": "MIT",
   "keywords": [
     "insight",
     "blockchain",
     "blockexplorer",
-    "bitcoin",
-    "bitcore",
+    "qtum",
+    "qtumcore",
     "front-end"
   ],
-  "bitcoreNode": "bitcore-node",
+  "qtumcoreNode": "qtumcore-node",
   "dependencies": {
   },
   "devDependencies": {
