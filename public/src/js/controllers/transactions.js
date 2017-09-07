@@ -232,7 +232,6 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 			address: $routeParams.addrStr,
 			pageNum: pageNum
 		}, function(data) {
-
 			_paginate(data);
 		});
 	};
