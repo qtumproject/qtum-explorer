@@ -17,7 +17,7 @@
     "qtumcore",
     "front-end"
   ],
-  "qtumcoreNode": "qtumcore-node",
+  "bitcoreNode": "bitcore-node",
   "dependencies": {
   },
   "devDependencies": {
