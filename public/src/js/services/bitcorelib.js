@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('insight.bitcorelib').factory('Bitcorelib',
+angular.module('insight.qtumcorelib').factory('QtumCoreLib',
     function() {
-        var Bitcorelib = require('bitcore-lib');
-        return Bitcorelib;
+        var QtumCoreLib = require('qtumcore-lib');
+        return QtumCoreLib;
     });
 
