@@ -2,6 +2,91 @@
 
 A QTUM blockchain explorer web application service for [Qtumcore Node](https://github.com/qtumproject/qtumcore-node) using the [QTUM API](https://github.com/qtumproject/insight-api).
 
+
+## Install SSH
+
+```
+nvm use v6
+```
+
+```
+npm install git+ssh://git@github.com:qtumproject/qtumcore-node.git
+$(npm bin)/qtumcore-node create mynode
+cd mynode 
+
+$(npm bin)/qtumcore-node install git+ssh://git@github.com:qtumproject/insight-api.git
+$(npm bin)/qtumcore-node install git+ssh://git@github.com:qtumproject/qtum-explorer.git
+
+```
+
+qtumcore-node.json:
+```
+{
+  "network": "livenet",
+  "port": 3001,
+  "services": [
+    "bitcoind",
+    "insight-api",
+    "qtum-explorer",
+    "web"
+  ],
+  "servicesConfig": {
+    "qtum-explorer": {
+      "routePrefix": ""
+    },
+    "insight-api": {
+      "rateLimiterOptions": {
+        "whitelist": ["123.456.12.34", "::ffff:123.456.12.34"],
+        "whitelistLimit": 9999999,
+        "limit": 200,
+        "interval": 60000,
+        "banInterval": 3600000
+      },
+      "db": {
+        "host": "127.0.0.1",
+        "port": "27017",
+        "database": "qtum-api",
+        "user": "",
+        "password": ""
+      },
+      "erc20": {
+        "updateFromBlockHeight": 0
+      }
+    },
+    "bitcoind": {
+      "spawn": {
+        "datadir": "/home/user/.qtum",
+        "exec": "/home/user/qtum-bitcore/src/qtumd"
+      }
+    }
+  }
+}
+```
+
+Change qtum.conf:
+```
+server=1
+whitelist=127.0.0.1
+txindex=1
+addressindex=1
+timestampindex=1
+spentindex=1
+zmqpubrawtx=tcp://127.0.0.1:28332
+zmqpubhashblock=tcp://127.0.0.1:28332
+rpcallowip=127.0.0.1
+rpcuser=user
+rpcpassword=password
+rpcport=18332
+reindex=1
+gen=0
+addrindex=1
+```
+
+```
+$(npm bin)/qtumcore-node start
+```
+
+
 ## Getting Started
 
 To manually install all of the necessary components, you can run these commands:
