@@ -6,7 +6,7 @@ angular.module('insight.contracts')
 			return $resource(window.apiPrefix + '/contracts/:contractAddressStr/info');
 	})
 	.factory('Contracts',
-	function(Bitcorelib, Opcodes, Networks) {
+	function(QtumCoreLib, Opcodes, Networks) {
 
 		var CONTRACT_CALL = 194;
 		var CONTRACT_CREATE = 193;
@@ -16,15 +16,15 @@ angular.module('insight.contracts')
 
 				var network = Networks.getCurrentNetwork(),
 					networkId = network.pubkeyhash.toString(16),
-					checksum = Bitcorelib.crypto.Hash.sha256sha256(new Bitcorelib.deps.Buffer(networkId + contractAddress, 'hex')),
+					checksum = QtumCoreLib.crypto.Hash.sha256sha256(new QtumCoreLib.deps.Buffer(networkId + contractAddress, 'hex')),
 					hexBitAddress = networkId + contractAddress + checksum.toString('hex').slice(0, 8);
 
-				return Bitcorelib.encoding.Base58.encode(new Bitcorelib.deps.Buffer(hexBitAddress, 'hex'));
+				return QtumCoreLib.encoding.Base58.encode(new QtumCoreLib.deps.Buffer(hexBitAddress, 'hex'));
 
 			},
 			getContractOpcodesString: function (hex) {
 
-				var contractCode = new Bitcorelib.deps.Buffer(hex, 'hex'),
+				var contractCode = new QtumCoreLib.deps.Buffer(hex, 'hex'),
 					ops = [];
 
 				for (var index = 0; index < contractCode.length; index++) {
@@ -64,7 +64,7 @@ angular.module('insight.contracts')
 
 				try {
 
-					var script = Bitcorelib.Script(hex);
+					var script = QtumCoreLib.Script(hex);
 
 					if (script.chunks && script.chunks.length) {
 
@@ -101,7 +101,7 @@ angular.module('insight.contracts')
 
 				try {
 
-					var script = Bitcorelib.Script(hex);
+					var script = QtumCoreLib.Script(hex);
 
 					if (script.chunks && script.chunks.length) {
 
@@ -129,13 +129,13 @@ angular.module('insight.contracts')
 			},
 			getContractAddress: function (txId, num) {
 				var reverseTxId = txId.match(/.{2}/g).reverse().join(""),
-					buf = new Bitcorelib.deps.Buffer(4);
+					buf = new QtumCoreLib.deps.Buffer(4);
 
 				buf.writeUInt32LE(num, 0);
 
 				var nHex = buf.toString('hex'),
 					addr = reverseTxId + nHex,
-					bufferAddress = Bitcorelib.crypto.Hash.sha256ripemd160(new Bitcorelib.deps.Buffer(addr, 'hex'));
+					bufferAddress = QtumCoreLib.crypto.Hash.sha256ripemd160(new QtumCoreLib.deps.Buffer(addr, 'hex'));
 
 				return bufferAddress.toString('hex');
 			}
