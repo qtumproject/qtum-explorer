@@ -1,25 +1,29 @@
 'use strict';
 
 angular.module('insight.token').controller('TokenController',
-function($routeParams, ERC20ContractInfo, ERC20Transfers) {
+function($routeParams, ERC20ContractInfo, ERC20Transfers, ERC20Holders) {
 
 	var self = this;
 
 	self.tokenInfo;
 	self.transfers;
+	self.holders;
 	self.contractAddress = $routeParams.address;
 	self.tab = 'transfers';
 
-	var loadTabContent = function() {
+	var _loadTabContent = function(offset) {
 		switch(self.tab){
 			case 'transfers': {
-				_getTransfers(0);
+				_getTransfers(offset ? offset : 0);
+				break;
 			}
 			case 'holders': {
-				_getHolders();
+				_getHolders(offset ? offset : 0);
+				break;
 			}
 			case 'read': {
-				_getSmartContract();
+				_getSmartContract(offset ? offset : 0);
+				break;
 			}
 		}
 	}
@@ -36,7 +40,16 @@ function($routeParams, ERC20ContractInfo, ERC20Transfers) {
 		});
 	}
 
-	var _getHolders = function() {
+	var _getHolders = function(offset) {
+		
+		ERC20Holders.get({
+			address: $routeParams.address,
+			offset: offset
+		}).$promise.then(function (holderList) {
+
+			self.holders = holderList;
+			self.holders.pages = Math.ceil(self.holders.count / self.holders.limit);
+		});
 	}
 
 	var _getSmartContract = function() {
@@ -51,13 +64,13 @@ function($routeParams, ERC20ContractInfo, ERC20Transfers) {
 			self.tokenInfo = info;
 		});
 
-		loadTabContent();
+		_loadTabContent();
 	}
 
-	self.paginateTransfers = function(offset) {
+	self.paginate = function(offset) {
 
-		if(self.transfers.limit && self.transfers.pages > offset / self.transfers.limit && offset >= 0) {
-			_getTransfers(offset);
+		if(self[self.tab].limit && self[self.tab].pages > offset / self[self.tab].limit && offset >= 0 && self[self.tab].offset !== offset) {
+			_loadTabContent(offset);
 		}
 	}
 
@@ -68,7 +81,7 @@ function($routeParams, ERC20ContractInfo, ERC20Transfers) {
 		}
 
 		self.tab = tabname;
-		loadTabContent();
+		_loadTabContent();
 	}
 });
 

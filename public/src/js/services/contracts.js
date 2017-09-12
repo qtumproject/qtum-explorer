@@ -204,4 +204,27 @@ angular.module('insight.contracts')
 			}
 		});
 	})
+	.factory('ERC20Holders', function($resource, $window) {
+		
+		return $resource($window.apiPrefix + '/erc20/:address/balances',
+		{
+			limit: 20,
+			offset: '@offset'
+		},
+		{
+			get: {
+				method: 'GET',
+				interceptor: {
+					response: function (res) {
+						return res.data;
+					},
+					responseError: function (res) {
+						if (res.status === 404) {
+							return res;
+						}
+					}
+				}
+			}
+		});
+	});
 

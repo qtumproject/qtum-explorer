@@ -1,24 +1,46 @@
-<!-- <div class="ov">
+<div class="ov">
 	<div class="total">A Total of 
 		<span class="special">
-			12 600 Tocken holders 
+			{{ TC.holders.count }} Token holders 
 		</span> found: 
 	</div>
 	<div class="pagination pagination-right">
-		<a href="" class="pagination__item disabled prev">
+		<a 
+			href="" 
+			ng-click="TC.paginate(0)" 
+			class="pagination__item prev" 
+			ng-class="{ 'disabled': !TC.holders.offset }"
+		>
 			<span class="arrow-left icon-arrows-right"></span>
 			<span>first</span>
 		</a>
-		<a href="" class="pagination__item disabled prev">
-			<span class="arrow-left icon-arrow-right22"></span>
+		<a 
+			href="" 
+			ng-click="TC.paginate(TC.holders.offset - TC.holders.limit)" 
+			class="pagination__item prev" 
+			ng-class="{ 'disabled': !TC.holders.offset }"
+		>
+			<span class="arrow-left icon-arrow-right"></span>
 			<span>prev</span>
 		</a>
-		<span class="pagination__item active">Page 1 of 137</span>
-		<a href="" class="pagination__item next">
+		<span class="pagination__item active">
+			Page {{ (TC.holders.offset/TC.holders.limit) + 1 }} of {{ TC.holders.pages }}
+		</span>
+		<a 
+			href="" 
+			ng-click="TC.paginate(TC.holders.offset + TC.holders.limit)"
+			class="pagination__item next" 
+			ng-class="{ 'disabled': !(TC.holders.pages > (TC.holders.offset / TC.holders.limit) + 1) }"
+		>
 			<span>next</span>
-			<span class="arrow icon-arrow-right22"></span>
+			<span class="arrow icon-arrow-right"></span>
 		</a>
-		<a href="" class="pagination__item next">
+		<a 
+			href="" 
+			ng-click="TC.paginate((TC.holders.pages - 1) * TC.holders.limit)"
+			class="pagination__item next" 
+			ng-class="{ 'disabled': !(TC.holders.pages > (TC.holders.offset / TC.holders.limit) + 1) }"
+		>
 			<span>last</span>
 			<span class="arrow icon-arrows-right"></span>
 		</a>
@@ -53,154 +75,66 @@
 			<div class="th">Quantity</div>
 			<div class="th">Percentage</div>
 		</div>
-		<div class="tr">
+		<div class="tr" ng-repeat="holder in TC.holders.items">
 			<div class="td">
-				<div class="muted">1.</div>
-			</div>
-			<div class="td">
-				<div class="muted ellipsis">
-					0xad2c737a9be70bdbf45f233e102a2f492d0xad2c737a9be70bdbf45f233e102a2f492d
+				<div class="muted">
+					{{ $index + 1 }}
 				</div>
 			</div>
 			<div class="td">
-				28023751
+				<a href="/address/{{ holder.address }}" class="muted ellipsis">
+					{{ holder.address }}
+				</a>
 			</div>
 			<div class="td">
-				28.0238%
-			</div>
-		</div>
-		<div class="tr">
-			<div class="td">
-				<div class="muted">2.</div>
+				{{ holder.amount }}
 			</div>
 			<div class="td">
-				<div class="muted ellipsis">
-					0xad2c737a9be70bdbf45f233e102a2f492d0xad2c737a9be70bdbf45f233e102a2f492d
-				</div>
-			</div>
-			<div class="td">
-				6094390.69046585
-			</div>
-			<div class="td">
-				17.0238%
-			</div>
-		</div>
-		<div class="tr">
-			<div class="td">
-				<div class="muted">3.</div>
-			</div>
-			<div class="td">
-				<div class="muted ellipsis">
-					0xad2c737a9be70bdbf45f233e102a2f492d0xad2c737a9be70bdbf45f233e102a2f492d
-				</div>
-			</div>
-			<div class="td">
-				2962889.888352
-			</div>
-			<div class="td">
-				7.0238%
-			</div>
-		</div>
-		<div class="tr">
-			<div class="td">
-				<div class="muted">4.</div>
-			</div>
-			<div class="td">
-				<div class="muted ellipsis">
-					0xad2c737a9be70bdbf45f233e102a2f492d0xad2c737a9be70bdbf45f233e102a2f492d
-				</div>
-			</div>
-			<div class="td">
-				28023751
-			</div>
-			<div class="td">
-				28.0238%
-			</div>
-		</div>
-		<div class="tr">
-			<div class="td">
-				<div class="muted">5.</div>
-			</div>
-			<div class="td">
-				<div class="muted ellipsis">
-					0xad2c737a9be70bdbf45f233e102a2f492d0xad2c737a9be70bdbf45f233e102a2f492d
-				</div>
-			</div>
-			<div class="td">
-				6094390.69046585
-			</div>
-			<div class="td">
-				17.0238%
-			</div>
-		</div>
-		<div class="tr">
-			<div class="td">
-				<div class="muted">6.</div>
-			</div>
-			<div class="td">
-				<div class="muted ellipsis">
-					0xad2c737a9be70bdbf45f233e102a2f492d0xad2c737a9be70bdbf45f233e102a2f492d
-				</div>
-			</div>
-			<div class="td">
-				2962889.888352
-			</div>
-			<div class="td">
-				7.0238%
-			</div>
-		</div>
-		<div class="tr">
-			<div class="td">
-				<div class="muted">7.</div>
-			</div>
-			<div class="td">
-				<div class="muted ellipsis">
-					0xad2c737a9be70bdbf45f233e102a2f492d0xad2c737a9be70bdbf45f233e102a2f492d
-				</div>
-			</div>
-			<div class="td">
-				28023751
-			</div>
-			<div class="td">
-				28.0238%
-			</div>
-		</div>
-		<div class="tr">
-			<div class="td">
-				<div class="muted">8.</div>
-			</div>
-			<div class="td">
-				<div class="muted ellipsis">
-					0xad2c737a9be70bdbf45f233e102a2f492d0xad2c737a9be70bdbf45f233e102a2f492d
-				</div>
-			</div>
-			<div class="td">
-				6094390.69046585
-			</div>
-			<div class="td">
-				17.0238%
+				{{ (holder.amount / TC.tokenInfo.total_supply) * 100 }}%
 			</div>
 		</div>
 	</div>
 </div>
 <div class="ov">
 	<div class="pagination pagination-right">
-		<a href="" class="pagination__item disabled prev">
+		<a 
+			href="" 
+			ng-click="TC.paginate(0)" 
+			class="pagination__item prev" 
+			ng-class="{ 'disabled': !TC.holders.offset }"
+		>
 			<span class="arrow-left icon-arrows-right"></span>
 			<span>first</span>
 		</a>
-		<a href="" class="pagination__item disabled prev">
-			<span class="arrow-left icon-arrow-right22"></span>
+		<a 
+			href="" 
+			ng-click="TC.paginate(TC.holders.offset - TC.holders.limit)" 
+			class="pagination__item prev" 
+			ng-class="{ 'disabled': !TC.holders.offset }"
+		>
+			<span class="arrow-left icon-arrow-right"></span>
 			<span>prev</span>
 		</a>
-		<span class="pagination__item active">Page 1 of 137</span>
-		<a href="" class="pagination__item next">
+		<span class="pagination__item active">
+			Page {{ (TC.holders.offset/TC.holders.limit) + 1 }} of {{ TC.holders.pages }}
+		</span>
+		<a 
+			href="" 
+			ng-click="TC.paginate(TC.holders.offset + TC.holders.limit)"
+			class="pagination__item next" 
+			ng-class="{ 'disabled': !(TC.holders.pages > (TC.holders.offset / TC.holders.limit) + 1) }"
+		>
 			<span>next</span>
-			<span class="arrow icon-arrow-right22"></span>
+			<span class="arrow icon-arrow-right"></span>
 		</a>
-		<a href="" class="pagination__item next">
+		<a 
+			href="" 
+			ng-click="TC.paginate((TC.holders.pages - 1) * TC.holders.limit)"
+			class="pagination__item next" 
+			ng-class="{ 'disabled': !(TC.holders.pages > (TC.holders.offset / TC.holders.limit) + 1) }"
+		>
 			<span>last</span>
 			<span class="arrow icon-arrows-right"></span>
 		</a>
 	</div>
-</div> -->
+</div>
