@@ -1,28 +1,32 @@
 'use strict';
 
 angular.module('insight.token').controller('TokenController',
-function($routeParams, ERC20ContractInfo, ERC20Transfers) {
+function($routeParams, ERC20ContractInfo, ERC20Transfers, ERC20Holders) {
 
 	var self = this;
 
-	self.tokenInfo;
-	self.transfers;
+	self.tokenInfo = {};
+	self.transfers = {};
+	self.holders = {};
 	self.contractAddress = $routeParams.address;
 	self.tab = 'transfers';
 
-	var loadTabContent = function() {
+	var _loadTabContent = function(offset) {
 		switch(self.tab){
 			case 'transfers': {
-				_getTransfers(0);
+				_getTransfers(offset ? offset : 0);
+				break;
 			}
 			case 'holders': {
-				_getHolders();
+				_getHolders(offset ? offset : 0);
+				break;
 			}
 			case 'read': {
-				_getSmartContract();
+				_getSmartContract(offset ? offset : 0);
+				break;
 			}
 		}
-	}
+	};
 
 	var _getTransfers = function(offset) {
 
@@ -34,15 +38,21 @@ function($routeParams, ERC20ContractInfo, ERC20Transfers) {
 			self.transfers = trList;
 			self.transfers.pages = Math.ceil(self.transfers.count / self.transfers.limit);
 		});
-	}
+	};
 
-	var _getHolders = function() {
-	}
+	var _getHolders = function(offset) {
+		
+		ERC20Holders.get({
+			address: $routeParams.address,
+			offset: offset
+		}).$promise.then(function (holderList) {
 
-	var _getSmartContract = function() {
-	}
+			self.holders = holderList;
+			self.holders.pages = Math.ceil(self.holders.count / self.holders.limit);
+		});
+	};
 
-	self.loadTokenInfo = function() {
+	var _loadTokenInfo = function() {
 		
 		ERC20ContractInfo.get({
 			address: $routeParams.address
@@ -50,26 +60,33 @@ function($routeParams, ERC20ContractInfo, ERC20Transfers) {
 
 			self.tokenInfo = info;
 		});
+	};
 
-		loadTabContent();
-	}
+	var _getSmartContract = function(offset) {
+	};
 
-	self.paginateTransfers = function(offset) {
+	self.init = function() {
 
-		if(self.transfers.limit && self.transfers.pages > offset / self.transfers.limit && offset >= 0) {
-			_getTransfers(offset);
+		_loadTokenInfo();
+		_loadTabContent();
+	};
+
+	self.paginate = function(offset) {
+
+		if (self[self.tab].limit && self[self.tab].pages > offset / self[self.tab].limit && offset >= 0 && self[self.tab].offset !== offset) {
+			_loadTabContent(offset);
 		}
-	}
+	};
 
-	self.setTab = function(tabname) {
+	self.setTab = function(tabName) {
 
-		if(self.tab === tabname){
+		if (self.tab === tabName) {
 			return;
 		}
 
-		self.tab = tabname;
-		loadTabContent();
-	}
+		self.tab = tabName;
+		_loadTabContent();
+	};
 });
 
 

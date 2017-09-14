@@ -1,14 +1,15 @@
 <div class="ov">
-	<div class="total">A Total of 
+	<div class="total">
+		<span translate>A Total of</span>
 		<span class="special">
 			{{ TC.transfers.count }}
 		</span> 
-		found
+		<span translate>found</span>
 	</div>
 	<div class="pagination pagination-right">
 		<a 
 			href="" 
-			ng-click="TC.paginateTransfers(0)" 
+			ng-click="TC.paginate(0)" 
 			class="pagination__item prev" 
 			ng-class="{ 'disabled': !TC.transfers.offset }"
 		>
@@ -17,7 +18,7 @@
 		</a>
 		<a 
 			href="" 
-			ng-click="TC.paginateTransfers(TC.transfers.offset - TC.transfers.limit)" 
+			ng-click="TC.paginate(TC.transfers.offset - TC.transfers.limit)" 
 			class="pagination__item prev" 
 			ng-class="{ 'disabled': !TC.transfers.offset }"
 		>
@@ -29,7 +30,7 @@
 		</span>
 		<a 
 			href="" 
-			ng-click="TC.paginateTransfers(TC.transfers.offset + TC.transfers.limit)"
+			ng-click="TC.paginate(TC.transfers.offset + TC.transfers.limit)"
 			class="pagination__item next" 
 			ng-class="{ 'disabled': !(TC.transfers.pages > (TC.transfers.offset / TC.transfers.limit) + 1) }"
 		>
@@ -38,7 +39,7 @@
 		</a>
 		<a 
 			href="" 
-			ng-click="TC.paginateTransfers((TC.transfers.pages - 1) * TC.transfers.limit)"
+			ng-click="TC.paginate((TC.transfers.pages - 1) * TC.transfers.limit)"
 			class="pagination__item next" 
 			ng-class="{ 'disabled': !(TC.transfers.pages > (TC.transfers.offset / TC.transfers.limit) + 1) }"
 		>
@@ -47,14 +48,14 @@
 		</a>
 	</div>
 </div>
-<div class="section section-tockenTransfers" ng-if="TC.transfers">
+<div class="section section-tockenTransfers" ng-if="TC.transfers.items">
 	<div class="table">
 		<div class="tr tr-head">
-			<div class="th">TxHash</div>
-			<div class="th">Age</div>
-			<div class="th">From</div>
-			<div class="th">To</div>
-			<div class="th">Quantity</div>
+			<div class="th" translate>TxHash</div>
+			<div class="th" translate>Age</div>
+			<div class="th" translate>From</div>
+			<div class="th" translate>To</div>
+			<div class="th" translate>Quantity</div>
 		</div>
 		<div class="tr" ng-repeat="transfer in TC.transfers.items">
 			<div class="td">
@@ -86,7 +87,7 @@
 	<div class="pagination pagination-right">
 		<a 
 			href="" 
-			ng-click="TC.paginateTransfers(0)" 
+			ng-click="TC.paginate(0)" 
 			class="pagination__item prev" 
 			ng-class="{ 'disabled': !TC.transfers.offset }"
 		>
@@ -95,7 +96,7 @@
 		</a>
 		<a 
 			href="" 
-			ng-click="TC.paginateTransfers(TC.transfers.offset - TC.transfers.limit)" 
+			ng-click="TC.paginate(TC.transfers.offset - TC.transfers.limit)" 
 			class="pagination__item prev" 
 			ng-class="{ 'disabled': !TC.transfers.offset }"
 		>
@@ -107,7 +108,7 @@
 		</span>
 		<a 
 			href="" 
-			ng-click="TC.paginateTransfers(TC.transfers.offset + TC.transfers.limit)"
+			ng-click="TC.paginate(TC.transfers.offset + TC.transfers.limit)"
 			class="pagination__item next" 
 			ng-class="{ 'disabled': !(TC.transfers.pages > (TC.transfers.offset / TC.transfers.limit) + 1) }"
 		>
@@ -116,7 +117,7 @@
 		</a>
 		<a 
 			href="" 
-			ng-click="TC.paginateTransfers((TC.transfers.pages - 1) * TC.transfers.limit)"
+			ng-click="TC.paginate((TC.transfers.pages - 1) * TC.transfers.limit)"
 			class="pagination__item next" 
 			ng-class="{ 'disabled': !(TC.transfers.pages > (TC.transfers.offset / TC.transfers.limit) + 1) }"
 		>

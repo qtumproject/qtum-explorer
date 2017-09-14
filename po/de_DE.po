@@ -23,13 +23,24 @@ msgid ""
 "has been deployed by the network of miners."
 msgstr ""
 
+#: public/views/token/holders.html public/views/token/transfers.html
+#, fuzzy
+#| msgid "Total Amount"
+msgid "A Total of"
+msgstr "Gesamtsumme"
+
 #: public/views/index.html
 msgid "About"
 msgstr "Über insight"
 
 #: public/views/addressPage.html public/views/messages_verify.html
+#: public/views/token/holders.html
 msgid "Address"
 msgstr "Adresse"
+
+#: public/views/token/transfers.html
+msgid "Age"
+msgstr "Alter"
 
 #: public/src/js/controllers/statistics.js
 msgid "All Time"
@@ -156,24 +167,20 @@ msgid "Connections to Other Nodes"
 msgstr "Verbindungen zu Nodes"
 
 #: public/views/transaction/tx.html
-msgid "Contract Code"
+msgid "Contract {{ tx.contractBytecodeType }}"
 msgstr ""
 
+#: public/views/token/token.html
+msgid "Contract Address:"
+msgstr "Bestätigungen:"
+
 #: public/views/transaction/tx.html
-#, fuzzy
-#| msgid "Confirmations"
-msgid "Contract Creation"
-msgstr "Bestätigungen"
+msgid "Contract Code"
+msgstr ""
 
 #: public/src/js/directives/directives.js
 msgid "Copied"
 msgstr ""
-
-#: public/views/statistics.html
-#, fuzzy
-#| msgid "Latest Transactions"
-msgid "Cost per Transaction (USD)"
-msgstr "Letzte Transaktionen"
 
 #: public/views/status.html
 msgid ""
@@ -213,12 +220,6 @@ msgstr "Schwierigkeit"
 msgid "Double spent attempt detected. From tx:"
 msgstr "Es wurde ein \"double Spend\" Versuch erkannt.Von tx:"
 
-#: public/views/statistics.html
-#, fuzzy
-#| msgid "Latest Transactions"
-msgid "Earned From Transaction Fees"
-msgstr "Letzte Transaktionen"
-
 #: public/src/js/controllers/header.js
 msgid "English"
 msgstr ""
@@ -252,6 +253,14 @@ msgstr "Gebühr"
 #: public/views/addressPage.html
 msgid "Final Balance"
 msgstr "Schlussbilanz"
+
+#: public/views/token/holders.html public/views/token/transfers.html
+msgid "found"
+msgstr ""
+
+#: public/views/token/transfers.html
+msgid "From"
+msgstr ""
 
 #: public/views/404.html
 #, fuzzy
@@ -386,16 +395,16 @@ msgstr "Gefunden von"
 msgid "Mined Time"
 msgstr "Block gefunden (Mining)"
 
-#: public/views/statistics.html
-msgid "Mining Cost"
-msgstr ""
-
 #: public/views/status.html
 msgid "Mining Difficulty"
 msgstr "Schwierigkeitgrad"
 
 #: public/views/addressPage.html
 msgid "More"
+msgstr ""
+
+#: public/views/token/token.html
+msgid "Name:"
 msgstr ""
 
 #: public/views/status.html
@@ -414,6 +423,10 @@ msgstr "Keine Eingänge (Neu generierte Coins)"
 msgid "No matching records found!"
 msgstr "Keine passenden Einträge gefunden!"
 
+#: public/views/token/token.html
+msgid "No.Of.Transfers:"
+msgstr ""
+
 #: public/views/block.html
 msgid "Nonce"
 msgstr ""
@@ -428,12 +441,6 @@ msgstr "Anzahl der Transaktionen"
 msgid "Number Of Transactions"
 msgstr "Anzahl der Transaktionen"
 
-#: public/views/statistics.html
-#, fuzzy
-#| msgid "Transaction"
-msgid "Of Transaction Volume"
-msgstr "Transaktion"
-
 #: public/views/block_list.html
 msgid "Older blocks from this date"
 msgstr ""
@@ -444,6 +451,10 @@ msgstr ""
 
 #: public/views/statistics.html
 msgid "Percent of staked supply"
+msgstr ""
+
+#: public/views/token/holders.html
+msgid "Percentage"
 msgstr ""
 
 #: public/views/index.html
@@ -466,6 +477,10 @@ msgstr "Protokollversion"
 msgid "Proxy Settings"
 msgstr "Proxyeinstellung"
 
+#: public/views/token/holders.html public/views/token/transfers.html
+msgid "Quantity"
+msgstr ""
+
 #: public/views/messages_verify.html
 msgid "Quantum comes with a way of signing arbitrary messages."
 msgstr ""
@@ -482,6 +497,10 @@ msgstr "Quantum-Node Info"
 
 #: public/views/status.html
 msgid "Quantumd"
+msgstr ""
+
+#: public/views/token/holders.html
+msgid "Rank"
 msgstr ""
 
 #: public/views/transaction_sendraw.html
@@ -646,8 +665,32 @@ msgstr "Zeitoffset zu UTC"
 msgid "Timestamp"
 msgstr "Zeitstempel"
 
-#: public/views/statistics.html
-msgid "Total Miners Revenue (USD)"
+#: public/views/token/transfers.html
+msgid "To"
+msgstr ""
+
+#: public/views/token/token.html
+msgid "Token Decimals:"
+msgstr ""
+
+#: public/views/token/holders.html
+msgid "Token holders"
+msgstr ""
+
+#: public/views/token/token.html
+msgid "Token Holders"
+msgstr ""
+
+#: public/views/token/token.html
+msgid "Token Holders:"
+msgstr ""
+
+#: public/views/token/token.html
+msgid "Token tracker summary"
+msgstr ""
+
+#: public/views/token/token.html
+msgid "Token Transfers"
 msgstr ""
 
 #: public/views/statistics.html
@@ -661,6 +704,10 @@ msgstr "Insgesamt empfangen"
 #: public/views/addressPage.html
 msgid "Total Sent"
 msgstr "Insgesamt gesendet"
+
+#: public/views/token/token.html
+msgid "Total Supply:"
+msgstr "Insgesamt gesendet:"
 
 #: public/views/statistics.html
 #, fuzzy
@@ -690,6 +737,10 @@ msgstr "Transaktion"
 #: public/views/block_list.html public/views/index.html
 msgid "Transactions"
 msgstr "Transaktionen"
+
+#: public/views/token/transfers.html
+msgid "TxHash"
+msgstr ""
 
 #: public/views/transaction/tx.html
 msgid "Type"
@@ -734,6 +785,21 @@ msgid "Years"
 msgstr ""
 
 #, fuzzy
+#~| msgid "Latest Transactions"
+#~ msgid "Cost per Transaction (USD)"
+#~ msgstr "Letzte Transaktionen"
+
+#, fuzzy
+#~| msgid "Latest Transactions"
+#~ msgid "Earned From Transaction Fees"
+#~ msgstr "Letzte Transaktionen"
+
+#, fuzzy
+#~| msgid "Transaction"
+#~ msgid "Of Transaction Volume"
+#~ msgstr "Transaktion"
+
+#, fuzzy
 #~| msgid "Address"
 #~ msgid "address"
 #~ msgstr "Adresse"
@@ -749,9 +815,6 @@ msgstr ""
 
 #~ msgid "source code"
 #~ msgstr " ist auf Github zu finden"
-
-#~ msgid "Age"
-#~ msgstr "Alter"
 
 #~ msgid "Bytes Serialized"
 #~ msgstr "Serialisierte Bytes"
@@ -812,9 +875,6 @@ msgstr ""
 
 #~ msgid "Today"
 #~ msgstr "Heute"
-
-#~ msgid "Total Amount"
-#~ msgstr "Gesamtsumme"
 
 #~ msgid "Transaction Output Set Information"
 #~ msgstr "Transaktions Abgänge"
