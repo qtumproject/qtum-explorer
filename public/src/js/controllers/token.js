@@ -26,7 +26,7 @@ function($routeParams, ERC20ContractInfo, ERC20Transfers, ERC20Holders) {
 				break;
 			}
 		}
-	}
+	};
 
 	var _getTransfers = function(offset) {
 
@@ -38,7 +38,7 @@ function($routeParams, ERC20ContractInfo, ERC20Transfers, ERC20Holders) {
 			self.transfers = trList;
 			self.transfers.pages = Math.ceil(self.transfers.count / self.transfers.limit);
 		});
-	}
+	};
 
 	var _getHolders = function(offset) {
 		
@@ -50,12 +50,9 @@ function($routeParams, ERC20ContractInfo, ERC20Transfers, ERC20Holders) {
 			self.holders = holderList;
 			self.holders.pages = Math.ceil(self.holders.count / self.holders.limit);
 		});
-	}
+	};
 
-	var _getSmartContract = function() {
-	}
-
-	self.loadTokenInfo = function() {
+	var _loadTokenInfo = function() {
 		
 		ERC20ContractInfo.get({
 			address: $routeParams.address
@@ -63,26 +60,33 @@ function($routeParams, ERC20ContractInfo, ERC20Transfers, ERC20Holders) {
 
 			self.tokenInfo = info;
 		});
+	};
 
+	var _getSmartContract = function(offset) {
+	};
+
+	self.init = function() {
+
+		_loadTokenInfo();
 		_loadTabContent();
-	}
+	};
 
 	self.paginate = function(offset) {
 
-		if(self[self.tab].limit && self[self.tab].pages > offset / self[self.tab].limit && offset >= 0 && self[self.tab].offset !== offset) {
+		if (self[self.tab].limit && self[self.tab].pages > offset / self[self.tab].limit && offset >= 0 && self[self.tab].offset !== offset) {
 			_loadTabContent(offset);
 		}
-	}
+	};
 
-	self.setTab = function(tabname) {
+	self.setTab = function(tabName) {
 
-		if(self.tab === tabname){
+		if (self.tab === tabName) {
 			return;
 		}
 
-		self.tab = tabname;
+		self.tab = tabName;
 		_loadTabContent();
-	}
+	};
 });
 
 

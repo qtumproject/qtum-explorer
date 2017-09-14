@@ -22,13 +22,24 @@ msgid ""
 "has been deployed by the network of miners."
 msgstr ""
 
+#: public/views/token/holders.html public/views/token/transfers.html
+#, fuzzy
+#| msgid "Total Amount"
+msgid "A Total of"
+msgstr "Quantum総量"
+
 #: public/views/index.html
 msgid "About"
 msgstr "はじめに"
 
 #: public/views/addressPage.html public/views/messages_verify.html
+#: public/views/token/holders.html
 msgid "Address"
 msgstr "アドレス"
+
+#: public/views/token/transfers.html
+msgid "Age"
+msgstr "生成後経過時間"
 
 #: public/src/js/controllers/statistics.js
 msgid "All Time"
@@ -148,24 +159,20 @@ msgid "Connections to Other Nodes"
 msgstr "他ノードへの接続"
 
 #: public/views/transaction/tx.html
-msgid "Contract Code"
+msgid "Contract {{ tx.contractBytecodeType }}"
 msgstr ""
 
+#: public/views/token/token.html
+msgid "Contract Address:"
+msgstr "検証数:"
+
 #: public/views/transaction/tx.html
-#, fuzzy
-#| msgid "Confirmations"
-msgid "Contract Creation"
-msgstr "検証数"
+msgid "Contract Code"
+msgstr ""
 
 #: public/src/js/directives/directives.js
 msgid "Copied"
 msgstr ""
-
-#: public/views/statistics.html
-#, fuzzy
-#| msgid "Broadcast Raw Transaction"
-msgid "Cost per Transaction (USD)"
-msgstr "生のトランザクションを配信"
 
 #: public/views/status.html
 msgid ""
@@ -205,12 +212,6 @@ msgstr "難易度"
 msgid "Double spent attempt detected. From tx:"
 msgstr "二重支払い攻撃をこのトランザクションから検知しました："
 
-#: public/views/statistics.html
-#, fuzzy
-#| msgid "Latest Transactions"
-msgid "Earned From Transaction Fees"
-msgstr "最新のトランザクション"
-
 #: public/src/js/controllers/header.js
 msgid "English"
 msgstr ""
@@ -244,6 +245,14 @@ msgstr "手数料"
 #: public/views/addressPage.html
 msgid "Final Balance"
 msgstr "最終残高"
+
+#: public/views/token/holders.html public/views/token/transfers.html
+msgid "found"
+msgstr ""
+
+#: public/views/token/transfers.html
+msgid "From"
+msgstr ""
 
 #: public/views/404.html
 #, fuzzy
@@ -376,16 +385,16 @@ msgstr "採掘者"
 msgid "Mined Time"
 msgstr "採掘時刻"
 
-#: public/views/statistics.html
-msgid "Mining Cost"
-msgstr ""
-
 #: public/views/status.html
 msgid "Mining Difficulty"
 msgstr "採掘難易度"
 
 #: public/views/addressPage.html
 msgid "More"
+msgstr ""
+
+#: public/views/token/token.html
+msgid "Name:"
 msgstr ""
 
 #: public/views/status.html
@@ -404,6 +413,10 @@ msgstr "入力なし (新しく生成されたコイン)"
 msgid "No matching records found!"
 msgstr "一致するレコードはありません！"
 
+#: public/views/token/token.html
+msgid "No.Of.Transfers:"
+msgstr ""
+
 #: public/views/block.html
 msgid "Nonce"
 msgstr "Nonce"
@@ -418,12 +431,6 @@ msgstr "トランザクション数"
 msgid "Number Of Transactions"
 msgstr "トランザクション数"
 
-#: public/views/statistics.html
-#, fuzzy
-#| msgid "Transaction"
-msgid "Of Transaction Volume"
-msgstr "トランザクション"
-
 #: public/views/block_list.html
 msgid "Older blocks from this date"
 msgstr ""
@@ -434,6 +441,10 @@ msgstr "おぉっと！"
 
 #: public/views/statistics.html
 msgid "Percent of staked supply"
+msgstr ""
+
+#: public/views/token/holders.html
+msgid "Percentage"
 msgstr ""
 
 #: public/views/index.html
@@ -456,6 +467,10 @@ msgstr "プロトコルバージョン"
 msgid "Proxy Settings"
 msgstr "プロキシ設定"
 
+#: public/views/token/holders.html public/views/token/transfers.html
+msgid "Quantity"
+msgstr ""
+
 #: public/views/messages_verify.html
 msgid "Quantum comes with a way of signing arbitrary messages."
 msgstr "Quantumには任意のメッセージを署名する昨日が備わっています。"
@@ -472,6 +487,10 @@ msgstr "Quantumノード情報"
 
 #: public/views/status.html
 msgid "Quantumd"
+msgstr ""
+
+#: public/views/token/holders.html
+msgid "Rank"
 msgstr ""
 
 #: public/views/transaction_sendraw.html
@@ -642,8 +661,32 @@ msgstr "時間オフセット"
 msgid "Timestamp"
 msgstr "タイムスタンプ"
 
-#: public/views/statistics.html
-msgid "Total Miners Revenue (USD)"
+#: public/views/token/transfers.html
+msgid "To"
+msgstr ""
+
+#: public/views/token/token.html
+msgid "Token Decimals:"
+msgstr ""
+
+#: public/views/token/holders.html
+msgid "Token holders"
+msgstr ""
+
+#: public/views/token/token.html
+msgid "Token Holders"
+msgstr ""
+
+#: public/views/token/token.html
+msgid "Token Holders:"
+msgstr ""
+
+#: public/views/token/token.html
+msgid "Token tracker summary"
+msgstr ""
+
+#: public/views/token/token.html
+msgid "Token Transfers"
 msgstr ""
 
 #: public/views/statistics.html
@@ -657,6 +700,10 @@ msgstr "総入金額"
 #: public/views/addressPage.html
 msgid "Total Sent"
 msgstr "総送金額"
+
+#: public/views/token/token.html
+msgid "Total Supply:"
+msgstr "総送金額:"
 
 #: public/views/statistics.html
 #, fuzzy
@@ -686,6 +733,12 @@ msgstr "トランザクション"
 #: public/views/block_list.html public/views/index.html
 msgid "Transactions"
 msgstr "トランザクション"
+
+#: public/views/token/transfers.html
+#, fuzzy
+#| msgid "Hash"
+msgid "TxHash"
+msgstr "ハッシュ値"
 
 #: public/views/transaction/tx.html
 msgid "Type"
@@ -730,12 +783,24 @@ msgid "Years"
 msgstr ""
 
 #, fuzzy
+#~| msgid "Broadcast Raw Transaction"
+#~ msgid "Cost per Transaction (USD)"
+#~ msgstr "生のトランザクションを配信"
+
+#, fuzzy
+#~| msgid "Latest Transactions"
+#~ msgid "Earned From Transaction Fees"
+#~ msgstr "最新のトランザクション"
+
+#, fuzzy
+#~| msgid "Transaction"
+#~ msgid "Of Transaction Volume"
+#~ msgstr "トランザクション"
+
+#, fuzzy
 #~| msgid "Address"
 #~ msgid "address"
 #~ msgstr "アドレス"
-
-#~ msgid "Age"
-#~ msgstr "生成後経過時間"
 
 #~ msgid "Bytes Serialized"
 #~ msgstr "シリアライズ後の容量 (バイト)"
@@ -799,9 +864,6 @@ msgstr ""
 
 #~ msgid "Today"
 #~ msgstr "今日"
-
-#~ msgid "Total Amount"
-#~ msgstr "Quantum総量"
 
 #~ msgid "Transaction Output Set Information"
 #~ msgstr "トランザクションの出力セット情報"

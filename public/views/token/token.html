@@ -1,19 +1,17 @@
 <div ng-include src="'views/includes/connection.html'"></div>
 
-<div class="box" ng-controller="TokenController as TC" ng-init="TC.loadTokenInfo()">
+<div class="box" ng-controller="TokenController as TC" ng-init="TC.init()">
 	<div class="heading margin1"></div>
 
 	<div class="section section-tockenSummary">
 		<div class="section__heading">
-			<h2 class="section__title">Token tracker summary</h2>
+			<h2 class="section__title" translate>Token tracker summary</h2>
 		</div>
 		<div class="tockenSummary">
 			<div class="col col-6">
 				<ul class="list">
 					<li class="list__item">
-						<div class="list__left">
-							Total Supply:
-						</div>
+						<div class="list__left" translate>Total Supply:</div>
 						<div class="list__right">
 							<div class="additional">
 								{{ TC.tokenInfo.total_supply | numeraljs : '0,0' }}
@@ -22,9 +20,7 @@
 						</div>
 					</li>
 					<li class="list__item">
-						<div class="list__left">
-							Token Holders:
-						</div>
+						<div class="list__left" translate>Token Holders:</div>
 						<div class="list__right">
 							<div class="additional">
 								{{ TC.tokenInfo.holders_count }}
@@ -32,9 +28,7 @@
 						</div>
 					</li>
 					<li class="list__item">
-						<div class="list__left">
-							No.Of.Transfers:
-						</div>
+						<div class="list__left" translate>No.Of.Transfers:</div>
 						<div class="list__right">
 							<div class="additional">
 								{{ TC.tokenInfo.transfers_count }}
@@ -46,9 +40,7 @@
 			<div class="col col-6">
 				<ul class="list">
 					<li class="list__item" ng-if="TC.tokenInfo.name">
-						<div class="list__left">
-							Name:
-						</div>
+						<div class="list__left" translate>Name:</div>
 						<div class="list__right">
 							<div class="additional">
 								{{ TC.tokenInfo.name }}
@@ -56,9 +48,7 @@
 						</div>
 					</li>
 					<li class="list__item">
-						<div class="list__left">
-							Contract Address:
-						</div>
+						<div class="list__left" translate>Contract Address:</div>
 						<div class="list__right">
 							<div class="">
 								<div class=" copyParent copyParent-right">
@@ -76,9 +66,7 @@
 						</div>
 					</li>
 					<li class="list__item">
-						<div class="list__left">
-							Token Decimals:
-						</div>
+						<div class="list__left" translate>Token Decimals:</div>
 						<div class="list__right">
 							<div class="additional">
 								{{ TC.tokenInfo.decimals }}
@@ -93,10 +81,10 @@
 		<div class="section__heading">
 			<ul class="nav-tabs">
 				<li class="nav-item tab-large active" ng-class="{ 'active': TC.tab === 'transfers' }">
-					<a href="" ng-click="TC.setTab('transfers')" class="nav-link">Token Transfers</a>
+					<a href="" ng-click="TC.setTab('transfers')" class="nav-link" translate>Token Transfers</a>
 				</li>
 				<li class="nav-item tab-large" ng-class="{ 'active': TC.tab === 'holders' }">
-					<a href="" ng-click="TC.setTab('holders')" class="nav-link">Token Holders</a>
+					<a href="" ng-click="TC.setTab('holders')" class="nav-link" translate>Token Holders</a>
 				</li>
 				<!-- <li class="nav-item tab-large" ng-class="{ 'active': TC.tab === 'read' }">
 					<a href="" ng-click="TC.setTab('read')" class="nav-link">Read smart contracts</a>
