@@ -5,9 +5,9 @@ function($routeParams, ERC20ContractInfo, ERC20Transfers, ERC20Holders) {
 
 	var self = this;
 
-	self.tokenInfo;
-	self.transfers;
-	self.holders;
+	self.tokenInfo = {};
+	self.transfers = {};
+	self.holders = {};
 	self.contractAddress = $routeParams.address;
 	self.tab = 'transfers';
 
