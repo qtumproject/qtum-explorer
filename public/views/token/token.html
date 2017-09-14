@@ -93,7 +93,8 @@
 		</div>
 		<div class="tab-content">
 			<div 
-				class="tab-pane fadeEffect" 
+				class="tab-pane fadeEffect"
+				ng-if="TC.transfers" 
 				ng-include 
 				src="'views/token/transfers.html'" 
 				ng-class="{ 'active': TC.tab === 'transfers' }"
@@ -101,6 +102,7 @@
 			</div>
 			<div 
 				class="tab-pane fadeEffect" 
+				ng-if="TC.holders"
 				ng-include 
 				src="'views/token/holders.html'" 
 				ng-class="{ 'active': TC.tab === 'holders' }"
@@ -108,6 +110,7 @@
 			</div>
 			<!-- <div 
 				class="tab-pane fadeEffect" 
+				ng-if="TC.smContract"
 				ng-include 
 				src="'views/token/read.html'" 
 				ng-class="{ 'active': TC.tab === 'read' }"

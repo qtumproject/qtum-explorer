@@ -70,7 +70,7 @@
 		</div>
 	</div>
 </div>
-<div class="section section-tockenHolders fadeEffect">
+<div class="section section-tockenHolders fadeEffect" ng-if="TC.holders.items">
 	<div class="table">
 		<div class="tr tr-head">
 			<div class="th" translate>Rank</div>
@@ -92,7 +92,7 @@
 			<div class="td">
 				{{ holder.amount }}
 			</div>
-			<div class="td">
+			<div class="td" ng-if="TC.tokenInfo && TC.tokenInfo.total_supply">
 				{{ (holder.amount / TC.tokenInfo.total_supply) * 100 }}%
 			</div>
 		</div>
