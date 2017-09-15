@@ -127,56 +127,56 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 		var deferred = $q.defer();
 
-        var isTransferEvent = false;
-        var receiptItemQRC20 = false;
+		var isTransferEvent = false;
+		var receiptItemQRC20 = false;
 
-        tx.tokenEvents = [];
+		tx.tokenEvents = [];
 
-        if (tx.receipt && tx.receipt.length) {
+		if (tx.receipt && tx.receipt.length) {
 
-            for (var i = 0; i < tx.receipt.length; i++) {
+			for (var i = 0; i < tx.receipt.length; i++) {
 
-                var receiptItem = tx.receipt[i];
+				var receiptItem = tx.receipt[i];
 
-                if (receiptItem && receiptItem.log && receiptItem.log.length) {
-                    for (var j = 0; j < receiptItem.log.length; j++) {
+				if (receiptItem && receiptItem.log && receiptItem.log.length) {
+					for (var j = 0; j < receiptItem.log.length; j++) {
 
-                        var logItem = receiptItem.log[j];
+						var logItem = receiptItem.log[j];
 
-                        if (logItem && logItem.topics && logItem.topics.length === 3 && logItem.topics[0] === 'ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
+						if (logItem && logItem.topics && logItem.topics.length === 3 && logItem.topics[0] === 'ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
 
-                            var addressFrom = logItem.topics[1];
-                            var addressTo = logItem.topics[2];
+							var addressFrom = logItem.topics[1];
+							var addressTo = logItem.topics[2];
 
-                            isTransferEvent = true;
+							isTransferEvent = true;
 
-                            tx.tokenEvents.push({
-                            	addressFrom: Contracts.getBitAddressFromContractAddress(addressFrom.slice(addressFrom.length - 40, addressFrom.length)),
-                            	addressTo: Contracts.getBitAddressFromContractAddress(addressTo.slice(addressTo.length - 40, addressTo.length)),
+							tx.tokenEvents.push({
+								addressFrom: Contracts.getBitAddressFromContractAddress(addressFrom.slice(addressFrom.length - 40, addressFrom.length)),
+								addressTo: Contracts.getBitAddressFromContractAddress(addressTo.slice(addressTo.length - 40, addressTo.length)),
 								amount: parseInt(logItem.data, 16)
 							});
-                        }
-                    }
-                }
+						}
+					}
+				}
 
-                if (isTransferEvent) {
-                	receiptItemQRC20 = receiptItem;
-                }
-            }
-        }
-
-        if (isTransferEvent) {
-            ERC20ContractInfo.get({
-                address: receiptItemQRC20.contractAddress
-            }).$promise.then(function (data) {
-				tx.erc20ContractInfo = data;
-            	deferred.resolve(tx);
-            });
-		} else {
-            deferred.resolve(tx);
+				if (isTransferEvent) {
+					receiptItemQRC20 = receiptItem;
+				}
+			}
 		}
 
-        return deferred.promise;
+		if (isTransferEvent) {
+			ERC20ContractInfo.get({
+				address: receiptItemQRC20.contractAddress
+			}).$promise.then(function (data) {
+				tx.erc20ContractInfo = data;
+				deferred.resolve(tx);
+			});
+		} else {
+			deferred.resolve(tx);
+		}
+
+		return deferred.promise;
 	};
 
 	var _processTX = function(tx) {
@@ -203,17 +203,17 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 		var promises = [];
 
 		data.txs.forEach(function(tx) {
-            promises.push(asyncProcessERC20TX(tx));
+			promises.push(asyncProcessERC20TX(tx));
 		});
 
-        $q.all(promises).then(function (results) {
-            results.forEach(function (tx) {
-                tx.showAdditInfo = false;
-                _processTX(tx);
+		$q.all(promises).then(function (results) {
+			results.forEach(function (tx) {
+				tx.showAdditInfo = false;
+				_processTX(tx);
 				self.txs.push(tx);
 			});
-            self.loading = false;
-        });
+			self.loading = false;
+		});
 
 	};
 
@@ -255,11 +255,11 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 			$rootScope.titleDetail = tx.txid.substring(0,7) + '...';
 			$rootScope.flashMessage = null;
 
-            asyncProcessERC20TX(tx).then(function (tx) {
+			asyncProcessERC20TX(tx).then(function (tx) {
 				
-                self.tx = tx;
+				self.tx = tx;
 				_processTX(tx);
-                self.txs.unshift(tx);
+				self.txs.unshift(tx);
 			});
 
 		}, function(e) {
