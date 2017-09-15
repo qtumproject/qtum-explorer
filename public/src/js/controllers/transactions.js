@@ -210,7 +210,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
             results.forEach(function (tx) {
                 tx.showAdditInfo = false;
                 _processTX(tx);
-                self.txs.push(tx);
+				self.txs.push(tx);
 			});
             self.loading = false;
         });
