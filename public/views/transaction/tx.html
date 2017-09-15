@@ -210,11 +210,11 @@
 			</div>
 			<div class="col">
 				<div class="transactions__row">
-				<span class="name mark">
-					<a href="address/{{ ev.addressFrom }}" class="name__text">
+				<a href="address/{{ ev.addressFrom }}" class="name mark">
+					<span class="name__text">
 						{{ ev.addressTo }}
-					</a>
-				</span>
+					</span>
+				</a>
 					<div class="data">
 						{{ TC.convertDecimals(ev.amount, tx.erc20ContractInfo.decimals) }}
 						{{ tx.erc20ContractInfo.symbol }}
