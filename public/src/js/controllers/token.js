@@ -87,6 +87,19 @@ function($routeParams, ERC20ContractInfo, ERC20Transfers, ERC20Holders) {
 		self.tab = tabName;
 		_loadTabContent();
 	};
+
+	self.convertDecimals = function (amount, decimals) {
+		
+		if (amount > 0) {
+			var response = amount / Math.pow(10, decimals);
+
+			if (response < 1e-6) response = response.toFixed(8);
+
+			return response;
+		}
+
+		return 0;
+	};
 });
 
 
