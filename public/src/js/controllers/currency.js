@@ -11,6 +11,8 @@ function($scope, $rootScope, Currency, Constants) {
 		bitstamp : 0
 	};
 
+	$rootScope.token = {};
+
 	var _roundFloat = function(x, n) {
 
 		if(!parseInt(n, 10) || !parseFloat(x)) n = 0;
@@ -53,6 +55,10 @@ function($scope, $rootScope, Currency, Constants) {
 		}
 		return 'value error';
 	};
+
+	$rootScope.token.convertDecimals = function (amount, decimals) {
+		return Number((amount * ('1e-' + decimals)).toFixed(decimals));
+	}
 
 	self.setCurrency = function(currency) {
 

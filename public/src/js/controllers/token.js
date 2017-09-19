@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.token').controller('TokenController',
-function($routeParams, ERC20ContractInfo, ERC20Transfers, ERC20Holders) {
+function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20Holders) {
 
 	var self = this;
 

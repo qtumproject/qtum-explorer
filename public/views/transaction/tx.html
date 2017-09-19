@@ -203,20 +203,20 @@
 					</span>
 				</a>
 					<div class="data">
-						{{ TC.convertDecimals(ev.amount, tx.erc20ContractInfo.decimals) }}
+						{{ $root.token.convertDecimals(ev.amount, tx.erc20ContractInfo.decimals) }}
 						{{ tx.erc20ContractInfo.symbol }}
 					</div>
 				</div>
 			</div>
 			<div class="col">
 				<div class="transactions__row">
-				<span class="name mark">
+				<a href="address/{{ ev.addressFrom }}" class="name mark">
 					<span class="name__text">
 						{{ ev.addressTo }}
 					</span>
-				</span>
+				</a>
 					<div class="data">
-						{{ TC.convertDecimals(ev.amount, tx.erc20ContractInfo.decimals) }}
+						{{ $root.token.convertDecimals(ev.amount, tx.erc20ContractInfo.decimals) }}
 						{{ tx.erc20ContractInfo.symbol }}
 					</div>
 				</div>
