@@ -54,6 +54,10 @@ function($scope, $rootScope, Currency, Constants) {
 		return 'value error';
 	};
 
+	$rootScope.token.convertDecimals = function (amount, decimals) {
+		return Number((amount * ('1e-' + decimals)).toFixed(decimals));
+	}
+
 	self.setCurrency = function(currency) {
 
 		$rootScope.currency.symbol = Constants.CURRENCY[ currency ];

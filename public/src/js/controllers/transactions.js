@@ -280,19 +280,6 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 		});
 	};
 
-	self.convertDecimals = function (amount, decimals) {
-		
-		if (amount > 0) {
-			var response = amount / Math.pow(10, decimals);
-
-			if (response < 1e-6) response = response.toFixed(8);
-
-			return response;
-		}
-
-		return 0;
-	};
-
 	self.findThis = function() {
 
 		self.loading = true;		

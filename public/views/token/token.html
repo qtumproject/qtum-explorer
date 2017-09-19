@@ -14,7 +14,7 @@
 						<div class="list__left" translate>Total Supply:</div>
 						<div class="list__right">
 							<div class="additional">
-								{{ TC.convertDecimals(TC.tokenInfo.total_supply, TC.tokenInfo.decimals) | numeraljs: '0,0.[0]' }}
+								{{ $root.token.convertDecimals(TC.tokenInfo.total_supply, TC.tokenInfo.decimals) | numeraljs: '0,0.[0]' }}
 								{{ TC.tokenInfo.symbol }}
 							</div>
 						</div>
