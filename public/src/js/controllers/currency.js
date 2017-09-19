@@ -11,6 +11,8 @@ function($scope, $rootScope, Currency, Constants) {
 		bitstamp : 0
 	};
 
+	$rootScope.token = {};
+
 	var _roundFloat = function(x, n) {
 
 		if(!parseInt(n, 10) || !parseFloat(x)) n = 0;
