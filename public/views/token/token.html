@@ -14,7 +14,7 @@
 						<div class="list__left" translate>Total Supply:</div>
 						<div class="list__right">
 							<div class="additional">
-								{{ $root.token.convertDecimals(TC.tokenInfo.total_supply, TC.tokenInfo.decimals) | numeraljs: '0,0.[0]' }}
+								{{ $root.token.convertDecimals(TC.tokenInfo.total_supply, TC.tokenInfo.decimals) }}
 								{{ TC.tokenInfo.symbol }}
 							</div>
 						</div>
@@ -86,9 +86,9 @@
 				<li class="nav-item tab-large" ng-class="{ 'active': TC.tab === 'holders' }">
 					<a href="" ng-click="TC.setTab('holders')" class="nav-link" translate>Token Holders</a>
 				</li>
-				<!-- <li class="nav-item tab-large" ng-class="{ 'active': TC.tab === 'read' }">
-					<a href="" ng-click="TC.setTab('read')" class="nav-link">Read smart contracts</a>
-				</li> -->
+				<li class="nav-item tab-large" ng-class="{ 'active': TC.tab === 'read_smart_contract' }">
+					<a href="" ng-click="TC.setTab('read_smart_contract')" class="nav-link" translate>Read smart contract</a>
+				</li>
 			</ul>
 		</div>
 		<div class="tab-content">
@@ -108,14 +108,14 @@
 				ng-class="{ 'active': TC.tab === 'holders' }"
 			>
 			</div>
-			<!-- <div 
+			<div
 				class="tab-pane fadeEffect" 
-				ng-if="TC.smContract"
+				ng-if="TC.tokenInfo"
 				ng-include 
-				src="'views/token/read.html'" 
-				ng-class="{ 'active': TC.tab === 'read' }"
+				src="'views/token/read_smart_contract.html'"
+				ng-class="{ 'active': TC.tab === 'read_smart_contract' }"
 			>
-			</div> -->
+			</div>
 		</div>
 	</div>
 </div>

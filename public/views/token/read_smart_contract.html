@@ -1,0 +1,122 @@
+<div class="section section-tockenReadSmartContracts">
+	<div class="tockenReadSmartContracts">
+		<ul class="list">
+			<li class="list__item">
+				<div class="index">1.</div>
+				<div class="text" translate>Name</div>
+				<span class="arrow icon-arrow-right2"></span>
+				<div class="text">
+					{{ TC.tokenInfo.name }} <span class="muted">string</span>
+				</div>
+			</li>
+			<li class="list__item">
+				<div class="index">2.</div>
+				<div class="text" translate>TotalSupply</div>
+				<span class="arrow icon-arrow-right2"></span>
+				<div class="text">
+					{{ TC.tokenInfo.total_supply }}
+					<span class="muted">unit256</span>
+				</div>
+			</li>
+			<li class="list__item">
+				<div class="index">3.</div>
+				<div class="text" translate>Decimals</div>
+				<span class="arrow icon-arrow-right2"></span>
+				<div class="text">
+					{{ TC.tokenInfo.decimals }} <span class="muted">unit8</span>
+				</div>
+			</li>
+			<li class="list__item">
+				<div class="index">4.</div>
+				<div class="text" translate>Version</div>
+				<span class="arrow icon-arrow-right2"></span>
+				<div class="text">
+					{{ TC.tokenInfo.version }} <span class="muted">string</span>
+				</div>
+			</li>
+			<li class="list__item">
+				<div class="index">5.</div>
+				<div class="text" translate>BalanceOf</div>
+				<span class="arrow icon-arrow-right2"></span>
+
+				<div class="field__wrap">
+					<input type="text" class="field field-transp" ng-class="{error: TC.readSmartContractTab.balanceOf.owner_error }" ng-readonly="TC.readSmartContractTab.balanceOf.inProcess" ng-model="TC.readSmartContractTab.balanceOf.owner_address" placeholder="_owner (address)">
+					<div ng-if="TC.readSmartContractTab.balanceOf.owner_error" class="error__text">{{ TC.readSmartContractTab.balanceOf.owner_error }}</div>
+				</div>
+
+				<a href="" class="btn btn-blue" ng-click="TC.getAddressBalance()" ng-if="!TC.readSmartContractTab.balanceOf.inProcess">Query</a>
+				<a href="" class="btn btn-blue" ng-if="TC.readSmartContractTab.balanceOf.inProcess"> Process... </a>
+
+				<div class="line">
+					<span class="arrow-lg icon-arrow-right3"></span>
+					<span class="text">
+						Balance  <span class="muted">unit256</span>
+					</span>
+				</div>
+
+				<div class="line line-sm" ng-if="TC.readSmartContractTab.balanceOf.requested_address">
+					<div translate>
+						[ <b>balanceOf </b> method Response ]
+					</div>
+					<div>
+						&nbsp;
+						<span class="arrows icon-arrows-right"></span>
+						<b translate>balance </b>
+						<i class="muted">unit256</i>:
+						<span>{{ TC.readSmartContractTab.balanceOf.balance }}</span> [Owner address: {{ TC.readSmartContractTab.balanceOf.requested_address }} <span ng-if="TC.readSmartContractTab.balanceOf.requested_address !== TC.readSmartContractTab.balanceOf.process_address">[{{ TC.readSmartContractTab.balanceOf.process_address }}]</span>]
+					</div>
+				</div>
+
+			</li>
+
+			<li class="list__item">
+				<div class="index">6.</div>
+				<div class="text" translate>Symbol</div>
+				<span class="arrow icon-arrow-right2"></span>
+				<div class="text">
+					{{ TC.tokenInfo.symbol }} <span class="muted">string</span>
+				</div>
+			</li>
+			<li class="list__item">
+				<div class="index">7.</div>
+				<div class="text" translate>Allowance</div>
+				<span class="arrow icon-arrow-right2"></span>
+
+				<div class="field__wrap">
+					<input type="text" class="field field-transp" ng-class="{error: TC.readSmartContractTab.allowance.owner_error }" ng-model="TC.readSmartContractTab.allowance.owner_address" placeholder="_owner (address)">
+					<div ng-if="TC.readSmartContractTab.allowance.owner_error" class="error__text">{{ TC.readSmartContractTab.allowance.owner_error }}</div>
+				</div>
+
+				<span class="text">,&nbsp;</span>
+
+				<div class="field__wrap">
+					<input type="text" class="field field-transp" ng-class="{error: TC.readSmartContractTab.allowance.spender_error }" ng-model="TC.readSmartContractTab.allowance.spender_address" placeholder="_spender (address)">
+					<div ng-if="TC.readSmartContractTab.allowance.spender_error" class="error__text">{{ TC.readSmartContractTab.allowance.spender_error }}</div>
+				</div>
+
+				<a href="" class="btn btn-blue" ng-click="TC.getAllowanceAmount()" ng-if="!TC.readSmartContractTab.allowance.inProcess">Query</a>
+				<a href="" class="btn btn-blue" ng-if="TC.readSmartContractTab.allowance.inProcess"> Process... </a>
+
+				<div class="line">
+					<span class="arrow-lg icon-arrow-right3"></span>
+					<span class="text">
+						Remaining <span class="muted">unit256</span>
+					</span>
+				</div>
+
+				<div class="line line-sm" ng-if="TC.readSmartContractTab.allowance.owner_requested_address">
+					<div translate>
+						[ <b>allowance </b> method Response ]
+					</div>
+					<div>
+						&nbsp;
+						<span class="arrows icon-arrows-right"></span>
+						<b translate> remaining </b>
+						<i class="muted">unit256</i>:
+						<span>{{ TC.readSmartContractTab.allowance.balance }}</span> [Owner address: {{ TC.readSmartContractTab.allowance.owner_requested_address }}<span ng-if="TC.readSmartContractTab.allowance.owner_requested_address !== TC.readSmartContractTab.allowance.owner_process_address"> [{{ TC.readSmartContractTab.allowance.owner_process_address }}]</span>; Spender address: {{ TC.readSmartContractTab.allowance.spender_requested_address }} <span ng-if="TC.readSmartContractTab.allowance.spender_requested_address !== TC.readSmartContractTab.allowance.spender_process_address">[{{ TC.readSmartContractTab.allowance.spender_process_address }}]</span>]
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -334,8 +334,8 @@ sub {
 
 @font-face {
   font-family: 'icomoon';
-  src: url("../fonts/iconmoon/icomoon.eot");
-  src: url("../fonts/iconmoon/icomoon.eot#iefix") format("embedded-opentype"), url("../fonts/iconmoon/icomoon.ttf") format("truetype"), url("../fonts/iconmoon/icomoon.woff") format("woff"), url("../fonts/iconmoon/icomoon.svg#icomoon") format("svg");
+  src: url("../fonts/iconmoon/icomoon.eot?s0z324");
+  src: url("../fonts/iconmoon/icomoon.eot?s0z324#iefix") format("embedded-opentype"), url("../fonts/iconmoon/icomoon.ttf?s0z324") format("truetype"), url("../fonts/iconmoon/icomoon.woff?s0z324") format("woff"), url("../fonts/iconmoon/icomoon.svg?s0z324#icomoon") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -4996,10 +4996,49 @@ corresponds to the arrow we want to display */
       padding: 0 45px;
       color: #232328;
       background: #2e9ad0; }
+  .section-tockenReadSmartContracts .field__wrap {
+    margin-top: -2px;
+    vertical-align: top !important; }
+  .section-tockenReadSmartContracts .field {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 7px;
+    width: 170px; }
+    .section-tockenReadSmartContracts .field-transp {
+      height: 40px;
+      line-height: 38px;
+      padding: 0 12px;
+      font-size: 14px;
+      border: 1px solid #2e9ad0;
+      color: #2e9ad0; }
+      .section-tockenReadSmartContracts .field-transp::-webkit-input-placeholder {
+        color: rgba(46, 154, 208, 0.2); }
+      .section-tockenReadSmartContracts .field-transp::-moz-placeholder {
+        color: rgba(46, 154, 208, 0.2); }
+      .section-tockenReadSmartContracts .field-transp:-moz-placeholder {
+        color: rgba(46, 154, 208, 0.2); }
+      .section-tockenReadSmartContracts .field-transp:-ms-input-placeholder {
+        color: rgba(46, 154, 208, 0.2) !important; }
+    .section-tockenReadSmartContracts .field.error {
+      border-color: #e75647;
+      background: transparent; }
+  .section-tockenReadSmartContracts .error__text {
+    font-size: 11px;
+    display: block;
+    color: #e75647;
+    line-height: 1.2;
+    padding-top: 4px;
+    max-width: 200px; }
   .section-tockenReadSmartContracts .line {
     display: block !important;
     padding-left: 30px;
     margin: 4px 0; }
+    .section-tockenReadSmartContracts .line-sm {
+      line-height: 1.5;
+      margin-bottom: 10px; }
+  .section-tockenReadSmartContracts .arrows {
+    color: #2ed0a0;
+    font-size: 9px; }
 
 /*pixel-ratio: 2*/
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {

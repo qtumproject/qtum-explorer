@@ -6,12 +6,15 @@ angular.module('insight.contracts')
 			return $resource(window.apiPrefix + '/contracts/:contractAddressStr/info');
 	})
 	.factory('Contracts',
-	function(QtumCoreLib, Opcodes, Networks) {
+	function(QtumCoreLib, Opcodes, Networks, Constants) {
 
 		var CONTRACT_CALL = 194;
 		var CONTRACT_CREATE = 193;
 
 		return {
+			isValidQtumAddress: function (address) {
+                return QtumCoreLib.Address.isValid(address, Constants.NETWORK)
+			},
 			getBitAddressFromContractAddress: function (contractAddress) {
 
 				var network = Networks.getCurrentNetwork(),
@@ -20,6 +23,19 @@ angular.module('insight.contracts')
 					hexBitAddress = networkId + contractAddress + checksum.toString('hex').slice(0, 8);
 
 				return QtumCoreLib.encoding.Base58.encode(new QtumCoreLib.deps.Buffer(hexBitAddress, 'hex'));
+
+			},
+            getEthAddressFromBitAddress: function (bitAddress) {
+
+                var network = Networks.getCurrentNetwork(),
+                    networkId = network.pubkeyhash.toString(16),
+                    hexBitAddress = QtumCoreLib.encoding.Base58.decode(bitAddress).toString('hex');
+
+				if (hexBitAddress.slice(0, 2) !== networkId) {
+					return null
+				}
+
+                return hexBitAddress.slice(2, -8)
 
 			},
 			getContractOpcodesString: function (hex) {
@@ -226,5 +242,27 @@ angular.module('insight.contracts')
 				}
 			}
 		});
-	});
+	}).factory('ContractRepository', function($resource, $window) {
+
+		return $resource($window.apiPrefix + '/contracts/:address/hash/:hash/call',
+			{
+                address: '@address',
+                hash: '@hash'
+			},
+			{
+				call: {
+					method: 'GET',
+					interceptor: {
+						response: function (res) {
+							return res.data;
+						},
+						responseError: function (res) {
+							if (res.status === 404) {
+								return res;
+							}
+						}
+					}
+				}
+			});
+});
 

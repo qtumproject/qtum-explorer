@@ -42,7 +42,8 @@ module.exports = function(grunt) {
 				'public/lib/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
 				'public/lib/chart.js/dist/Chart.min.js',
 				'public/lib/tooltipster/dist/js/tooltipster.bundle.min.js',
-				'public/lib/numeral/min/numeral.min.js'
+				'public/lib/numeral/min/numeral.min.js',
+				'public/src/js/lib/bundled-eth-libs.js'
 			],
 			dest: 'public/js/vendors.js'
 		},

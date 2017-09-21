@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.currency').controller('CurrencyController',
-function($scope, $rootScope, Currency, Constants) {
+function($scope, $rootScope, Currency, Constants, BigNumber) {
 
 	var self = this;
 	
@@ -57,8 +57,15 @@ function($scope, $rootScope, Currency, Constants) {
 	};
 
 	$rootScope.token.convertDecimals = function (amount, decimals) {
-		return Number((amount * ('1e-' + decimals)).toFixed(decimals));
-	}
+
+		if (!amount) {
+        	return 0;
+		}
+
+		var valueBN = new BigNumber(amount);
+
+		return valueBN.dividedBy('1e' + decimals).toString(10);
+	};
 
 	self.setCurrency = function(currency) {
 
