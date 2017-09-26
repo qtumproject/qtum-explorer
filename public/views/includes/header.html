@@ -5,7 +5,7 @@
 
 <div class="header__lang-switcher" >
 	<div class="language-switcher">
-		<div class="language-switcher__selected" 
+		<div class="language-switcher__selected"
 			 ng-repeat="language in HC.availableLanguages | filter: { isoCode: HC.defaultLanguage }">
 			{{ language.name }}
 			<span class="language-switcher__icon">
@@ -17,7 +17,7 @@
 			<a ng-repeat="language in HC.availableLanguages"
 			   ng-click="HC.setLanguage(language.isoCode)"
 			   ng-class="{ 'selected' : HC.defaultLanguage == l.isoCode }"
-			   href="#" 
+			   href="#"
 			   class="language-switcher__item">
 				{{ language.name }}
 			</a>
@@ -27,15 +27,16 @@
 
 <div class="box">
 	<nav class="nav">
-		<a ng-repeat="item in HC.menu" 
-		   ui-route="{{ item.link }}"  
-		   href="{{ item.link }}" 
+		<a ng-repeat="item in HC.menu"
+		   ui-route="{{ item.link }}"
+		   href="{{ item.link }}"
 		   class="nav__item">
 			{{ item.title }}
 		</a>
+		<a href="javascript:window.location = '/contract'" class="nav__item">Smart Contract</a>
 	</nav>
-	<div class="search__wrap" 
-		 ng-include 
+	<div class="search__wrap"
+		 ng-include
 		 src="'views/includes/search.html'">
 	</div>
 </div>

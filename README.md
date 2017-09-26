@@ -3,7 +3,7 @@
 A QTUM blockchain explorer web application service for [Qtumcore Node](https://github.com/qtumproject/qtumcore-node) using the [QTUM API](https://github.com/qtumproject/insight-api).
 
 
-## Install SSH
+## Install via SSH
 
 ```
 nvm use v6
@@ -19,7 +19,7 @@ $(npm bin)/qtumcore-node install git+ssh://git@github.com:qtumproject/qtum-explo
 
 ```
 
-qtumcore-node.json:
+Edit qtumcore-node.json:
 ```
 {
   "network": "livenet",
@@ -63,7 +63,7 @@ qtumcore-node.json:
 }
 ```
 
-Change qtum.conf:
+Edit qtum.conf:
 ```
 server=1
 whitelist=127.0.0.1
