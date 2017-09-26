@@ -1,47 +1,73 @@
 'use strict';
 
 angular.module('insight.system').controller('HeaderController',
-  function($scope, $rootScope, $modal, getSocket, Global, Block) {
-    $scope.global = Global;
+function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block, $templateCache, Constants) {
 
-    $rootScope.currency = {
-      factor: 1,
-      bitstamp: 0,
-      symbol: 'QTUM'
-    };
+	var self = this;
+	var socket = getSocket($scope);
+	self.defaultLanguage = Constants.DEFAULT_LANGUAGE;
+	self.menu = [
+		{
+			'title': gettextCatalog.getString('Blocks'),
+			'link': 'blocks'
+		}, 
+		{
+			'title': gettextCatalog.getString('Status'),
+			'link': 'status'
+		}, 
+		{
+			'title': gettextCatalog.getString('Stats'),
+			'link': 'stats'
+		}
+	];
+	self.availableLanguages = [
+		{
+			name: gettextCatalog.getString('Deutsch'),
+			isoCode: 'de_DE',
+		}, 
+		{
+			name: gettextCatalog.getString('English'),
+			isoCode: 'en',
+		}, 
+		{
+			name: gettextCatalog.getString('Spanish'),
+			isoCode: 'es',
+		}, 
+		{
+			name: gettextCatalog.getString('Japanese'),
+			isoCode: 'ja'
+		}
+	];
 
-    $scope.menu = [{
-      'title': 'Blocks',
-      'link': 'blocks'
-    }, {
-      'title': 'Status',
-      'link': 'status'
-    }];
+	var _getBlock = function(hash) {
+		Block.get({
+			blockHash: hash
+		}, function(res) {
 
-    $scope.openScannerModal = function() {
-      var modalInstance = $modal.open({
-        templateUrl: 'scannerModal.html',
-        controller: 'ScannerController'
-      });
-    };
+			self.totalBlocks = res.height;
+		});
+	};
+	
+	socket.on('connect', function() {
 
-    var _getBlock = function(hash) {
-      Block.get({
-        blockHash: hash
-      }, function(res) {
-        $scope.totalBlocks = res.height;
-      });
-    };
+		socket.emit('subscribe', 'inv');
+		socket.on('block', function(block) {
 
-    var socket = getSocket($scope);
-    socket.on('connect', function() {
-      socket.emit('subscribe', 'inv');
+			var blockHash = block.toString();
+			_getBlock(blockHash);
+		});
+	});
 
-      socket.on('block', function(block) {
-        var blockHash = block.toString();
-        _getBlock(blockHash);
-      });
-    });
+	self.setLanguage = function(isoCode) {
 
-    $rootScope.isCollapsed = true;
-  });
+		var currentPageTemplate = $route.current.templateUrl;
+
+		gettextCatalog.currentLanguage = self.defaultLanguage = isoCode;
+		amMoment.changeLocale(isoCode);
+		localStorage.setItem('insight-language', isoCode);
+		$templateCache.remove(currentPageTemplate);
+		$route.reload();
+	};
+
+	$rootScope.isCollapsed = true;
+});

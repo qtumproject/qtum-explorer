@@ -1,55 +1,63 @@
 'use strict';
 
 angular.module('insight.status').controller('StatusController',
-  function($scope, $routeParams, $location, Global, Status, Sync, getSocket) {
-    $scope.global = Global;
+	function($scope, Status, Sync, getSocket) {
 
-    $scope.getStatus = function(q) {
-      Status.get({
-          q: 'get' + q
-        },
-        function(d) {
-          $scope.loaded = 1;
-          angular.extend($scope, d);
-        },
-        function(e) {
-          $scope.error = 'API ERROR: ' + e.data;
-        });
-    };
+	var self = this;
+	var socket = getSocket($scope);
 
-    $scope.humanSince = function(time) {
-      var m = moment.unix(time / 1000);
-      return m.max().fromNow();
-    };
+	self.getStatus = function(q) {
 
-    var _onSyncUpdate = function(sync) {
-      $scope.sync = sync;
-    };
+		Status.get({
+			q: 'get' + q
+		},
+		function(d) {
 
-    var _startSocket = function () {
-      socket.emit('subscribe', 'sync');
-      socket.on('status', function(sync) {
-        _onSyncUpdate(sync);
-      });
-    };
-    
-    var socket = getSocket($scope);
-    socket.on('connect', function() {
-      _startSocket();
-    });
+			self.loaded = 1;
+			angular.extend(self, d);
+		},
+		function(e) {
 
+			self.error = 'API ERROR: ' + e.data;
+		});
+	};
 
-    $scope.getSync = function() {
-      _startSocket();
-      Sync.get({},
-        function(sync) {
-          _onSyncUpdate(sync);
-        },
-        function(e) {
-          var err = 'Could not get sync information' + e.toString();
-          $scope.sync = {
-            error: err
-          };
-        });
-    };
-  });
+	var _onSyncUpdate = function(sync) {
+
+		if(!sync.startTs){
+
+			sync.startTs = Date.now();
+		}
+
+		self.sync = sync;
+	};
+
+	var _startSocket = function () {
+
+		socket.emit('subscribe', 'sync');
+		socket.on('status', function(sync) {
+
+			_onSyncUpdate(sync);
+		});
+	};
+
+	socket.on('connect', function() {
+
+		_startSocket();
+	});
+
+	self.getSync = function() {
+
+		_startSocket();
+		Sync.get({}, function(sync) {
+
+			_onSyncUpdate(sync);
+		},
+		function(e) {
+
+			self.sync = {
+				error: 'Could not get sync information' + e.toString()
+			};
+		});
+	};
+});

@@ -1,0 +1,128 @@
+<div class="ov">
+	<div class="total">
+		<span translate>A Total of</span>
+		<span class="special">
+			{{ TC.transfers.count }}
+		</span> 
+		<span translate>found</span>
+	</div>
+	<div class="pagination pagination-right">
+		<a 
+			href="" 
+			ng-click="TC.paginate(0)" 
+			class="pagination__item prev" 
+			ng-class="{ 'disabled': !TC.transfers.offset }"
+		>
+			<span class="arrow-left icon-arrows-right"></span>
+			<span>first</span>
+		</a>
+		<a 
+			href="" 
+			ng-click="TC.paginate(TC.transfers.offset - TC.transfers.limit)" 
+			class="pagination__item prev" 
+			ng-class="{ 'disabled': !TC.transfers.offset }"
+		>
+			<span class="arrow-left icon-arrow-right"></span>
+			<span>prev</span>
+		</a>
+		<span class="pagination__item active">
+			Page {{ (TC.transfers.offset/TC.transfers.limit) + 1 }} of {{ TC.transfers.pages }}
+		</span>
+		<a 
+			href="" 
+			ng-click="TC.paginate(TC.transfers.offset + TC.transfers.limit)"
+			class="pagination__item next" 
+			ng-class="{ 'disabled': !(TC.transfers.pages > (TC.transfers.offset / TC.transfers.limit) + 1) }"
+		>
+			<span>next</span>
+			<span class="arrow icon-arrow-right"></span>
+		</a>
+		<a 
+			href="" 
+			ng-click="TC.paginate((TC.transfers.pages - 1) * TC.transfers.limit)"
+			class="pagination__item next" 
+			ng-class="{ 'disabled': !(TC.transfers.pages > (TC.transfers.offset / TC.transfers.limit) + 1) }"
+		>
+			<span>last</span>
+			<span class="arrow icon-arrows-right"></span>
+		</a>
+	</div>
+</div>
+<div class="section section-tockenTransfers" ng-if="TC.transfers.items">
+	<div class="table">
+		<div class="tr tr-head">
+			<div class="th" translate>TxHash</div>
+			<div class="th" translate>Age</div>
+			<div class="th" translate>From</div>
+			<div class="th" translate>To</div>
+			<div class="th" translate>Quantity</div>
+		</div>
+		<div class="tr" ng-repeat="transfer in TC.transfers.items">
+			<div class="td">
+				<div class="muted ellipsis">
+					{{ transfer.tx_hash }}
+				</div>
+			</div>
+			<div class="td">
+				{{ transfer.tx_time * 1000 | amTimeAgo }}
+			</div>
+			<div class="td">
+				<a href="/address/{{ transfer.from }}" class="muted ellipsis">
+					{{ transfer.from }}
+				</a>
+				<div class="arrow icon-arrow-right2"></div>
+			</div>
+			<div class="td">
+				<a href="/address/{{ transfer.to }}" class="muted ellipsis">
+					{{ transfer.to }}
+				</a>
+			</div>
+			<div class="td">
+				{{ transfer.value }}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ov">
+	<div class="pagination pagination-right">
+		<a 
+			href="" 
+			ng-click="TC.paginate(0)" 
+			class="pagination__item prev" 
+			ng-class="{ 'disabled': !TC.transfers.offset }"
+		>
+			<span class="arrow-left icon-arrows-right"></span>
+			<span>first</span>
+		</a>
+		<a 
+			href="" 
+			ng-click="TC.paginate(TC.transfers.offset - TC.transfers.limit)" 
+			class="pagination__item prev" 
+			ng-class="{ 'disabled': !TC.transfers.offset }"
+		>
+			<span class="arrow-left icon-arrow-right"></span>
+			<span>prev</span>
+		</a>
+		<span class="pagination__item active">
+			Page {{ (TC.transfers.offset/TC.transfers.limit) + 1 }} of {{ TC.transfers.pages }}
+		</span>
+		<a 
+			href="" 
+			ng-click="TC.paginate(TC.transfers.offset + TC.transfers.limit)"
+			class="pagination__item next" 
+			ng-class="{ 'disabled': !(TC.transfers.pages > (TC.transfers.offset / TC.transfers.limit) + 1) }"
+		>
+			<span>next</span>
+			<span class="arrow icon-arrow-right"></span>
+		</a>
+		<a 
+			href="" 
+			ng-click="TC.paginate((TC.transfers.pages - 1) * TC.transfers.limit)"
+			class="pagination__item next" 
+			ng-class="{ 'disabled': !(TC.transfers.pages > (TC.transfers.offset / TC.transfers.limit) + 1) }"
+		>
+			<span>last</span>
+			<span class="arrow icon-arrows-right"></span>
+		</a>
+	</div>
+</div>

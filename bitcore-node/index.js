@@ -16,6 +16,9 @@ var InsightUI = function(options) {
   } else {
     this.routePrefix = 'insight';
   }
+
+  this.network = options.node.network;
+
 };
 
 InsightUI.dependencies = ['insight-api'];
@@ -24,6 +27,7 @@ inherits(InsightUI, BaseService);
 
 InsightUI.prototype.start = function(callback) {
   this.indexFile = this.filterIndexHTML(fs.readFileSync(__dirname + '/../public/index.html', {encoding: 'utf8'}));
+  this.underAttackFile = this.filterIndexHTML(fs.readFileSync(__dirname + '/../public/under-attack.html', {encoding: 'utf8'}));
   setImmediate(callback);
 };
 
@@ -34,6 +38,14 @@ InsightUI.prototype.getRoutePrefix = function() {
 InsightUI.prototype.setupRoutes = function(app, express) {
   var self = this;
 
+  app.get('/under-attack', function(req, res) {
+
+      res.setHeader('Content-Type', 'text/html');
+
+      return res.send(self.underAttackFile);
+
+  });
+
   app.use('/', function(req, res, next){
     if (req.headers.accept && req.headers.accept.indexOf('text/html') !== -1 &&
       req.headers["X-Requested-With"] !== 'XMLHttpRequest'
@@ -42,15 +54,18 @@ InsightUI.prototype.setupRoutes = function(app, express) {
       res.setHeader('Content-Type', 'text/html');
       res.send(self.indexFile);
     } else {
-        
+
       express.static(__dirname + '/../public')(req, res, next);
     }
   });
+
+
 };
 
 InsightUI.prototype.filterIndexHTML = function(data) {
   var transformed = data
-    .replace(/apiPrefix = '\/api'/, "apiPrefix = '/" + this.apiPrefix + "'");
+    .replace(/apiPrefix = '\/api'/, "apiPrefix = '/" + this.apiPrefix + "'")
+    .replace(/current_network = null/, "current_network = '" + (this.network.name === 'testnet' ? 'testnet' : 'livenet') + "'");
 
   if (this.routePrefix) {
     transformed = transformed.replace(/<base href=\"\/\"/, '<base href="/' + this.routePrefix + '/"');

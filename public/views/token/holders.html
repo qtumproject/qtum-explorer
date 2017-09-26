@@ -1,0 +1,143 @@
+<div class="ov">
+	<div class="total">
+		<span translate>A Total of</span>
+		<span class="special">
+			{{ TC.holders.count }} 
+			<span translate>Token holders</span> 
+		</span> 
+		<span translate>found</span>:
+	</div>
+	<div class="pagination pagination-right">
+		<a 
+			href="" 
+			ng-click="TC.paginate(0)" 
+			class="pagination__item prev" 
+			ng-class="{ 'disabled': !TC.holders.offset }"
+		>
+			<span class="arrow-left icon-arrows-right"></span>
+			<span>first</span>
+		</a>
+		<a 
+			href="" 
+			ng-click="TC.paginate(TC.holders.offset - TC.holders.limit)" 
+			class="pagination__item prev" 
+			ng-class="{ 'disabled': !TC.holders.offset }"
+		>
+			<span class="arrow-left icon-arrow-right"></span>
+			<span>prev</span>
+		</a>
+		<span class="pagination__item active">
+			Page {{ (TC.holders.offset/TC.holders.limit) + 1 }} of {{ TC.holders.pages }}
+		</span>
+		<a 
+			href="" 
+			ng-click="TC.paginate(TC.holders.offset + TC.holders.limit)"
+			class="pagination__item next" 
+			ng-class="{ 'disabled': !(TC.holders.pages > (TC.holders.offset / TC.holders.limit) + 1) }"
+		>
+			<span>next</span>
+			<span class="arrow icon-arrow-right"></span>
+		</a>
+		<a 
+			href="" 
+			ng-click="TC.paginate((TC.holders.pages - 1) * TC.holders.limit)"
+			class="pagination__item next" 
+			ng-class="{ 'disabled': !(TC.holders.pages > (TC.holders.offset / TC.holders.limit) + 1) }"
+		>
+			<span>last</span>
+			<span class="arrow icon-arrows-right"></span>
+		</a>
+	</div>
+</div>
+<div class="section section-tockenPie fadeEffect none">
+	<div class="chart__left">
+		<div class="title">Top-100 Tocken holders</div>
+		<div class="text__wrap">
+			<div class="text">
+				The Top 100 holders collectively own 88.34% (88,343,470.70 Tokens) of Qtum
+			</div>
+			<div class="text">Tokens Total Supply: 100,000,000.00 Total Token Holders: 12009</div>
+		</div>
+	</div>
+	<div class="chart__right">
+		<div class="">
+			<div class="">
+				<canvas id="pie" class="chart chart-pie" chart-data="data"
+						chart-labels="labels" chart-series="series" chart-options="options"
+						chart-dataset-override="datasetOverride" chart-click="onClick" height="107">
+				</canvas>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="section section-tockenHolders fadeEffect" ng-if="TC.holders.items">
+	<div class="table">
+		<div class="tr tr-head">
+			<div class="th" translate>Rank</div>
+			<div class="th" translate>Address</div>
+			<div class="th" translate>Quantity</div>
+			<div class="th" translate>Percentage</div>
+		</div>
+		<div class="tr" ng-repeat="holder in TC.holders.items">
+			<div class="td">
+				<div class="muted">
+					{{ $index + 1 }}
+				</div>
+			</div>
+			<div class="td">
+				<a href="/address/{{ holder.address }}" class="muted ellipsis">
+					{{ holder.address }}
+				</a>
+			</div>
+			<div class="td">
+				{{ holder.amount }}
+			</div>
+			<div class="td" ng-if="TC.tokenInfo && TC.tokenInfo.total_supply">
+				{{ (holder.amount / TC.tokenInfo.total_supply) * 100 }}%
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ov">
+	<div class="pagination pagination-right">
+		<a 
+			href="" 
+			ng-click="TC.paginate(0)" 
+			class="pagination__item prev" 
+			ng-class="{ 'disabled': !TC.holders.offset }"
+		>
+			<span class="arrow-left icon-arrows-right"></span>
+			<span>first</span>
+		</a>
+		<a 
+			href="" 
+			ng-click="TC.paginate(TC.holders.offset - TC.holders.limit)" 
+			class="pagination__item prev" 
+			ng-class="{ 'disabled': !TC.holders.offset }"
+		>
+			<span class="arrow-left icon-arrow-right"></span>
+			<span>prev</span>
+		</a>
+		<span class="pagination__item active">
+			Page {{ (TC.holders.offset/TC.holders.limit) + 1 }} of {{ TC.holders.pages }}
+		</span>
+		<a 
+			href="" 
+			ng-click="TC.paginate(TC.holders.offset + TC.holders.limit)"
+			class="pagination__item next" 
+			ng-class="{ 'disabled': !(TC.holders.pages > (TC.holders.offset / TC.holders.limit) + 1) }"
+		>
+			<span>next</span>
+			<span class="arrow icon-arrow-right"></span>
+		</a>
+		<a 
+			href="" 
+			ng-click="TC.paginate((TC.holders.pages - 1) * TC.holders.limit)"
+			class="pagination__item next" 
+			ng-class="{ 'disabled': !(TC.holders.pages > (TC.holders.offset / TC.holders.limit) + 1) }"
+		>
+			<span>last</span>
+			<span class="arrow icon-arrows-right"></span>
+		</a>
+	</div>
+</div>

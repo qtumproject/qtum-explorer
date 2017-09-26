@@ -1,0 +1,186 @@
+<div data-ng-include src="'views/includes/connection.html'"></div>
+<div class="box" ng-controller="StatisticsController as SC" ng-init="SC.get24HoursStats()">
+	<div class="heading margin1">
+		<h1 class="heading__title" translate>Stats</h1>
+		<div class="heading__sm">
+			<div class="heading__smLabeled fsz-21" translate>
+				Summary of QTUM statistics for last 24 hours
+			</div>
+		</div>
+	</div>
+
+	<div class="section-statsWrap">
+		<div class="col col-5 ">
+			<div class="section section-stats">
+				<div class="section__heading">
+					<h2 class="section__title" translate>Block Summary</h2>
+				</div>
+				<div class=" summaryStats">
+					<ul class="list">
+						<li class="list__item">
+							<div class="list__left">
+								<b translate>Blocks Mined</b>
+							</div>
+							<div class="list__right">
+								<div class="">
+									{{ SC.statsTotal24.n_blocks_mined }}
+								</div>
+							</div>
+						</li>
+						<li class="list__item">
+							<div class="list__left">
+								<b translate>Time Between Blocks</b>
+							</div>
+							<div class="list__right">
+								<div class="">
+									{{ (SC.statsTotal24.time_between_blocks / 60) | numeraljs : '0.[00]' }} minutes
+								</div>
+							</div>
+						</li>
+						<li class="list__item">
+							<div class="list__left">
+								<b translate>Quantum Mined</b>
+							</div>
+							<div class="list__right">
+								<div class="">
+									{{ (SC.statsTotal24.mined_currency_amount / 100000000) | numeraljs:'0,0.00000000' }} {{ $root.currency.symbol }}
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col col-6">
+			<div class="section section-stats">
+				<div class="section__heading">
+					<h2 class="section__title" translate>Market Summary</h2>
+				</div>
+				<div class="summary-marketStats">
+					<ul class="list">
+						<li class="list__item">
+							<div class="list__left">
+								<b translate>Market Price</b>
+							</div>
+							<div class="list__right">
+								<div class="list__rightText">
+									{{ SC.marketPrice }} {{ SC.marketCurrency }}
+								</div>
+							</div>
+						</li>
+						<li class="list__item">
+							<div class="list__left">
+								<b translate>Trade Volume</b>
+							</div>
+							<div class="list__right">
+								<div class="list__rightText">
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section section-stats">
+		<div class="section__heading">
+			<h2 class="section__title" translate>Transaction Summary</h2>
+		</div>
+		<div class="transactionsStats">
+			<ul class="list">
+				<li class="list__item">
+					<div class="list__left">
+						<b>
+							{{ 'Total Transaction Fees' | translate }}
+							({{ $root.currency.symbol }})
+						</b>
+					</div>
+					<div class="list__right">
+						<a href="stats/fees/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">
+							{{ SC.statsTotal24.transaction_fees / 100000000 | numeraljs : '0,0.00000000' }} {{ $root.currency.symbol }}
+						</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Number of Transactions</b>
+					</div>
+					<div class="list__right">
+						<a href="stats/transactions/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">
+							{{ SC.statsTotal24.number_of_transactions }}
+						</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b>
+							{{ 'Total Output Volume' | translate }}
+							({{ $root.currency.symbol }})
+						</b>
+					</div>
+					<div class="list__right">
+						<a href="stats/outputs/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">
+							{{ SC.statsTotal24.outputs_volume / 100000000 | numeraljs : '0,0.00000000' }} {{ $root.currency.symbol }}
+						</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b>
+							{{ 'Estimated Transaction Volume ' | translate }}
+							({{ $root.currency.symbol }})
+						</b>
+					</div>
+					<div class="list__right">
+						<div class="list__rightText">
+						</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Estimated Transaction Volume (USD)</b>
+					</div>
+					<div class="list__right">
+						<div class="list__rightText">
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="section section-stats">
+		<div class="section__heading">
+			<h2 class="section__title" translate>Hash Rate and Electricy Consumption</h2>
+		</div>
+		<div class="rateElectricyStats">
+			<ul class="list">
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Difficulty</b>
+					</div>
+					<div class="list__right">
+						<a href="stats/difficulty/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">
+							{{ SC.statsTotal24.difficulty | numeraljs : '0,0.[00000000]' }}
+						</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Percent of staked supply</b>
+					</div>
+					<div class="list__right">
+						<a href="stats/stakes/60" class="btn btn-view-chart" translate>View Chart</a>
+						<div class="list__rightText">
+							{{ SC.statsTotal24.stake * 100 }} %
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,221 @@
+<div class="heading margin1">
+	<div class="ov">
+		<h1 class="heading__title pull-left" translate>Address</h1>
+		<div class="heading__address pull-right" ng-if="InnerContr.address.addrStr">
+			{{ $root.currency.getConvertion(InnerContr.address.balance) }}
+		</div>
+	</div>
+	<div class="heading__sm">
+		<div class="heading__smLabeled">
+			<div class=" copyParent copyParent-right">
+				<a href="" 
+				   class="copyBtn icon-copy"
+				   ngclipboard 
+				   data-clipboard-text="{{ InnerContr.address.addrStr }}"></a>
+				<div class="copyText text">
+					{{ InnerContr.info.address ? InnerContr.info.address + ' (' + InnerContr.address.addrStr + ')' : InnerContr.address.addrStr }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="section section-summaryAddress">
+	<div class="section__heading">
+		<h2 class="section__title in_bl" translate>Summary</h2>
+		<span class="section__status">
+			({{ 'confirmed' | translate }})
+		</span>
+	</div>
+	<div class="summaryAddress" ng-if="InnerContr.address.addrStr">
+		<div class="col col-5">
+			<ul class="list">
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Total Received</b>
+					</div>
+					<div class="list__right">
+						<div class="">
+							{{ $root.currency.getConvertion(InnerContr.address.totalReceived) }}
+						</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Total Sent</b>
+					</div>
+					<div class="list__right">
+						<div class="">
+							{{ $root.currency.getConvertion(InnerContr.address.totalSent) }}
+						</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b translate>Final Balance</b>
+					</div>
+					<div class="list__right">
+						<div class="">
+							{{ $root.currency.getConvertion(InnerContr.address.balance) }}
+						</div>
+					</div>
+				</li>
+				<li class="list__item">
+					<div class="list__left">
+						<b>No. Transactions</b>
+					</div>
+					<div class="list__right">
+						<div class="">
+							{{ InnerContr.address.txApperances }}
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="col col-5">
+			<a href='' class="qr__link">
+				<qrcode color="{{ InnerContr.qrColors.color }}" 
+						background="{{ InnerContr.qrColors.background }}"
+						size="130" 
+						data="{{ InnerContr.address.addrStr }}">
+				</qrcode>
+			</a>
+		</div>
+	</div>
+</div>
+
+<div class="transactions__contractItem" ng-if="InnerContr.info.code">
+	<div class="transactions__contractItemTitle" translate>Bytecode</div>
+	<div class="transactions__contractItemBody" 
+		 ng-scrollbars 
+		 ng-scrollbars-config="InnerContr.scrollConfig">
+		<div class="list">
+			{{ InnerContr.info.code }}
+		</div>
+	</div>
+</div>
+
+<div class="transactions__contractItem" ng-if="InnerContr.opcodesStr">
+	<div class="transactions__contractItemTitle" translate>Asm</div>
+	<div class="transactions__contractItemBody " 
+		 ng-scrollbars 
+		 ng-scrollbars-config="InnerContr.scrollConfig">
+		<div class="list">
+			{{ InnerContr.opcodesStr }}
+		</div>
+	</div>
+</div>
+
+<div class="section section-storage smartMode" 
+	 ng-init="InnerContr.getStorage()">
+	<div class="section__heading" ng-if="InnerContr.storage.rows.length">
+		<div class="ov">
+			<div class="pull-left">
+				<h2 class="section__title in_bl" translate>Storage</h2>
+				<span class="section__status">[{{ InnerContr.storage.storageLength }} {{ 'entries' | translate }}]</span>
+			</div>
+		</div>
+	</div>
+	<div class="storage" ng-if="InnerContr.storage.rows.length">
+		<div class="table table-smart-mode">
+			<div class="tr tr-head">
+				<div class="th" translate>KEY</div>
+				<div class="th"></div>
+				<div class="th text_r" translate>Value</div>
+			</div>
+			<div class="tr" ng-repeat="storageRow in InnerContr.storage.rows | limitTo : InnerContr.storage.viewRows">
+				<div class="trMain">
+					<div class="td">
+						<div class="storage__tdInFirst ">
+							<a href="" 
+							   class="mark-bd"
+							   ng-click="InnerContr.toggleStorageRowView($index, 'keys')">
+								{{ storageRow.keys.state }}
+							</a>
+						</div>
+					</div>
+					<div class="td">
+						<div class="storage__tdInCenter">
+							<div class="storage__num left">
+								<a class="storage__link"
+								   ng-class="{ 'mark' : storageRow.keys.state === InnerContr.STORAGE_CONST.ADDRESS }"
+								   href="address/{{ storageRow.keys[ storageRow.keys.state ]}}"
+								   ng-if="storageRow.keys.state == 'address'">
+									{{ storageRow.keys[ storageRow.keys.state ]}}
+								</a>
+								<div ng-if="storageRow.keys.state === 'data'">
+									<span>{{ storageRow.keys[ storageRow.keys.state ].substr(0, 20) }}</span><span class="attn tooltip__trigger" 
+									tooltip
+									tooltip-options="InnerContr.tooltipOptions" 
+									tooltip-title="{{ storageRow.keys[ storageRow.keys.state ]}}"
+									ng-if="storageRow.keys[ storageRow.keys.state ].length > 40">[...]</span><span ng-if="storageRow.keys[ storageRow.keys.state ].length > 40">{{ storageRow.keys[ storageRow.keys.state ].substr(-20) }}</span>
+								</div>
+								<div ng-if="storageRow.keys.state !== InnerContr.STORAGE_CONST.DATA && storageRow.keys.state != InnerContr.STORAGE_CONST.ADDRESS">
+									{{ storageRow.keys[ storageRow.keys.state ]}}
+								</div>
+							</div>
+							<div class="storage__arrow">→</div>
+							<div class="storage__num right">
+								<a class="storage__link"
+								   ng-class="{ 'mark' : storageRow.values.state == InnerContr.STORAGE_CONST.ADDRESS }"
+								   href="address/{{ storageRow.values[ storageRow.values.state ]}}"
+								   ng-if="storageRow.values.state == InnerContr.STORAGE_CONST.ADDRESS">
+									{{ storageRow.values[ storageRow.values.state ]}}
+								</a>
+								<div ng-if="storageRow.values.state === InnerContr.STORAGE_CONST.DATA">
+									<span>{{ storageRow.values[ storageRow.values.state ].substr(0, 20) }}</span><span class="attn tooltip__trigger" 
+									tooltip
+									tooltip-options="InnerContr.tooltipOptions" 
+									tooltip-title="{{ storageRow.values[ storageRow.values.state ]}}"
+									ng-if="storageRow.values[ storageRow.values.state ].length > 40">[...]</span><span ng-if="storageRow.values[ storageRow.values.state ].length > 40">{{ storageRow.values[ storageRow.values.state ].substr(-20) }}</span>
+								</div>
+								<div ng-if="storageRow.values.state !== InnerContr.STORAGE_CONST.DATA && storageRow.values.state != InnerContr.STORAGE_CONST.ADDRESS">
+									{{ storageRow.values[ storageRow.values.state ]}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="td">
+						<div class="storage__tdInLast ">
+							<a href="" 
+							   class="mark-bd"
+							   ng-click="InnerContr.toggleStorageRowView($index, 'values')">
+								{{ storageRow.values.state }}
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="storage__btnWrap">
+			<a href="" 
+			   class="storage__btn"
+			   ng-if="InnerContr.storage.storageLength > InnerContr.storage.viewRows"
+			   ng-click="InnerContr.showMoreStorageRows(InnerContr.storage.viewRows + InnerContr.STORAGE_ROWS)"
+			   translate>
+				More
+			</a>
+			<a href="" 
+			   class="storage__btn"
+			   ng-if="InnerContr.storage.storageLength > InnerContr.storage.viewRows"
+			   ng-click="InnerContr.showMoreStorageRows(InnerContr.storage.storageLength)"
+			   translate>
+				Show All
+			</a>
+		</div>
+	</div>
+</div>
+
+<div class="section section-transactionsAddress" 
+	 ng-if="InnerContr.address.addrStr"
+	 ng-controller="TransactionsController as TC" 
+	 ng-init="TC.load(InnerContr.storage ? 'contractAddress' : 'address')">
+	<div class="section__heading">
+		<h2 class="section__title" translate>Transactions</h2>
+	</div>
+	<div class="section__transactions" 
+		 when-scrolled="TC.loadMore()" 
+		 data-ng-include 
+		 src="'views/transaction/list.html'">
+	</div>
+</div>

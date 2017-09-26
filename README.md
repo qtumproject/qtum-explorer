@@ -1,22 +1,103 @@
-# Insight UI
+# Explorer
 
-A Bitcoin blockchain explorer web application service for [Bitcore Node](https://github.com/bitpay/bitcore-node) using the [Insight API](https://github.com/bitpay/insight-api).
+A QTUM blockchain explorer web application service for [Qtumcore Node](https://github.com/qtumproject/qtumcore-node) using the [QTUM API](https://github.com/qtumproject/insight-api).
 
-## Quick Start
 
-Please see the guide at [https://bitcore.io/guides/full-node](https://bitcore.io/guides/full-node) for information about getting a block explorer running. This is only the front-end component of the block explorer, and is packaged together with all of the necessary components in [Bitcore](https://github.com/bitpay/bitcore).
+## Install SSH
+
+```
+nvm use v6
+```
+
+```
+npm install git+ssh://git@github.com:qtumproject/qtumcore-node.git
+$(npm bin)/qtumcore-node create mynode
+cd mynode 
+
+$(npm bin)/qtumcore-node install git+ssh://git@github.com:qtumproject/insight-api.git
+$(npm bin)/qtumcore-node install git+ssh://git@github.com:qtumproject/qtum-explorer.git
+
+```
+
+qtumcore-node.json:
+```
+{
+  "network": "livenet",
+  "port": 3001,
+  "services": [
+    "bitcoind",
+    "insight-api",
+    "qtum-explorer",
+    "web"
+  ],
+  "servicesConfig": {
+    "qtum-explorer": {
+      "routePrefix": ""
+    },
+    "insight-api": {
+      "rateLimiterOptions": {
+        "whitelist": ["123.456.12.34", "::ffff:123.456.12.34"],
+        "whitelistLimit": 9999999,
+        "limit": 200,
+        "interval": 60000,
+        "banInterval": 3600000
+      },
+      "db": {
+        "host": "127.0.0.1",
+        "port": "27017",
+        "database": "qtum-api",
+        "user": "",
+        "password": ""
+      },
+      "erc20": {
+        "updateFromBlockHeight": 0
+      }
+    },
+    "bitcoind": {
+      "spawn": {
+        "datadir": "/home/user/.qtum",
+        "exec": "/home/user/qtum-bitcore/src/qtumd"
+      }
+    }
+  }
+}
+```
+
+Change qtum.conf:
+```
+server=1
+whitelist=127.0.0.1
+txindex=1
+addressindex=1
+timestampindex=1
+spentindex=1
+zmqpubrawtx=tcp://127.0.0.1:28332
+zmqpubhashblock=tcp://127.0.0.1:28332
+rpcallowip=127.0.0.1
+rpcuser=user
+rpcpassword=password
+rpcport=18332
+reindex=1
+gen=0
+addrindex=1
+```
+
+```
+$(npm bin)/qtumcore-node start
+```
+
 
 ## Getting Started
 
 To manually install all of the necessary components, you can run these commands:
 
 ```bash
-npm install -g bitcore-node
-bitcore-node create mynode
+npm install -g qtumcore-node
+qtumcore-node create mynode
 cd mynode
-bitcore-node install insight-api
-bitcore-node install insight-ui
-bitcore-node start
+qtumcore-node install insight-api
+qtumcore-node install qtum-explorer
+qtumcore-node start
 ```
 
 Open a web browser to `http://localhost:3001/insight/`
@@ -70,11 +151,11 @@ compile***.
 
 ## Note
 
-For more details about the [Insight API](https://github.com/bitpay/insight-api) configuration and end-points, go to [Insight API GitHub repository](https://github.com/bitpay/insight-api).
+For more details about the [QTUM API](https://github.com/qtumproject/insight-api) configuration and end-points, go to [QTUM API](https://github.com/qtumproject/insight-api).
 
 ## Contribute
 
-Contributions and suggestions are welcomed at the [Insight UI GitHub repository](https://github.com/bitpay/insight-ui).
+Contributions and suggestions are welcomed at the [Explorer GitHub repository](https://github.com/qtumproject/qtum-explorer).
 
 
 ## License

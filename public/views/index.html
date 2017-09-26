@@ -1,79 +1,160 @@
-<div class="alert alert-danger" data-ng-show="flashMessage">
-  {{$root.flashMessage}}
+<div ng-include src="'views/includes/connection.html'"></div>
+<div class="box" 
+	 ng-controller="IndexController as IC" 
+	 ng-init="IC.index()">
+	<div class="content__left">
+		<div class="heading">
+			<div class="heading__pic">
+				<img src="images/blocks.png" alt=""/>
+			</div>
+			<h2 class="heading__title" translate>Blocks</h2>
+			<div class="heading__linkWrap">
+				<a href="blocks" class="heading__link" translate>See all blocks</a>
+			</div>
+		</div>
+		<div class="content__list content__list-blocks">
+			<div class="preload__box" ng-if="!IC.blocks.length">
+				<span class="preload">
+					<span class="preloadInner"></span>
+				</span>
+			</div>
+			<div class="content__listScroll"
+				 ng-scrollbars 
+				 ng-scrollbars-config="IC.scrollConfig">
+				<ul class="list list-blocks">
+					<li class="list__item"
+						ng-repeat='block in IC.blocks'>
+						<a href="block/{{ block.hash }}" class="list-blocks__left">
+							<span class="list__row">
+								{{ 'Block' | translate }} 
+								{{ block.height }}
+							</span>
+							<span class="list__row fsz-13" am-time-ago="block.time * 1000">
+							</span>
+						</a>
+						<div class="list-blocks__right">
+							<div class="list__row">
+								<span class="mined__help" translate>Mined by</span>
+								<a class="mark mined__name" 
+									  ng-if="block.minedBy" href="address/{{ block.minedBy }}">
+									{{ block.minedBy }}
+								</a>
+							</div>
+							<div class="list__row">
+								<span class="label">{{ 'Size' | translate }}:</span>
+								<span class="labeled">
+									{{ block.size }}
+								</span>
+							</div>
+							<div class="list__row">
+								<span class="label">
+									{{ 'Transactions' | translate }}:
+								</span>
+								<span class="labeled">
+									{{ block.txlength }}
+								</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="content__right">
+		<div class="heading">
+			<div class="heading__pic">
+				<img src="images/transition.png" alt=""/>
+			</div>
+			<h2 class="heading__title" translate>Transactions</h2>
+		</div>
+		<div class="content__list content__list-transactions">
+			<div class="preload__box" ng-if="!IC.txs.length">
+				<span class="preload">
+					<span class="preloadInner"></span>
+				</span>
+			</div>
+			<div class="content__listScroll"
+				 ng-scrollbars
+				 ng-scrollbars-config="IC.scrollConfig">
+				<ul class="list list-transactions">
+					<li class="list__item"
+						ng-repeat='tx in IC.txs'>
+						<div class="list-transactions__right">
+							<div class="list__row fsz-13" am-time-ago="tx.createTime">
+							</div>
+						</div>
+						<div class="list-transactions__left">
+							<div class="list__row">
+								<span class="hash__title" translate>Hash</span>
+								<a href="tx/{{ tx.txid }}" 
+								   class="mark hash__data">
+									{{ tx.txid }}
+								</a>
+							</div>
+							<div class="list__row">
+								<span class="label" translate>Value Out:</span>
+								<span class="fsz-16 upp">
+									{{ $root.currency.getConvertion(tx.valueOut) }}
+								</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="content__left">
+		<div class="heading">
+			<h3 class="heading__title" translate>About</h3>
+		</div>
+		<div class="content__body">
+			<p translate>Insight is an <a href="https://insight.is/" target="_blank">open-source Quantum blockchain explorer</a> with complete REST and websocket APIs that can be used for writing web wallets and other apps that need more advanced blockchain queries than provided by quantumd RPC. Check out the <a href="https://github.com/bitpay/insight-ui" target="_blank" class="ng-scope">source code</a>.
+			</p>
+			<p translate>Insight is still in development, so be sure to report any bugs and provide feedback for improvement at our <a href="https://github.com/bitpay/insight-ui/issues" target="_blank" class="ng-scope">github issue tracker</a>.
+			</p>
+			<div class="powered__title" translate>
+				Powered  by:
+			</div>
+			<div class="powered__wrap">
+				<a href="http://bitcore.io" class="powered__item">
+					<img src="images/bitcore.png" alt="Bitcore" class="powered__logo"/>
+				</a>
+				<a href="http://angularjs.org" class="powered__item">
+					<img src="images/angular.png" alt="angularjs" class="powered__logo"/>
+				</a>
+				<a href="https://code.google.com/p/leveldb/" class="powered__item">
+					<img src="images/leveldb.png" alt="leveldb" class="powered__logo"/>
+				</a>
+				<a href="http://nodejs.org" class="powered__item">
+					<img src="images/nodejs.png" alt="NodeJs" class="powered__logo"/>
+				</a>
+			</div>
+		</div>
+		<div class="insight__chart" ng-init="IC.getListOfTransactions()">
+			<div 
+				class="insight__chartTitle" 
+				ng-if="IC.chartOptions.data && IC.chartOptions.labels">
+					{{ IC.chartDays }} 
+					{{ 'day QTUM Transaction History' | translate }}
+				</div>
+			<div class="" ng-if="IC.chartOptions.data && IC.chartOptions.labels">
+				<div class="">
+					<canvas id="line" 
+							class="chart chart-line"
+							chart-data="IC.chartOptions.data"
+							chart-labels="IC.chartOptions.labels" 
+							chart-series="IC.chartOptions.series" 
+							chart-options="IC.chartOptions.options"
+							chart-dataset-override="IC.chartOptions.datasetOverride"
+							height="70">
+					</canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content__right">
+		<div class="supernova__wrap">
+			<canvas id="supernova" style="width: 100%;height: 100%;" resize></canvas>
+		</div>
+	</div>
 </div>
-<div data-ng-include src="'views/includes/connection.html'"></div>
-<section data-ng-controller="IndexController" data-ng-init="index()">
-  <div class="container">
-    <div id="home" class="row">
-      <div class="col-xs-12 col-md-8">
-
-        <div id="search-form-mobile" class="visible-xs" data-ng-include src="'views/includes/search.html'"></div>
-
-        <h1 translate>Latest Blocks</h1>
-        <table class="table table-hover table-striped" style="table-layout: fixed">
-          <thead>
-            <tr>
-              <th translate>Height</th>
-              <th translate>Age</th>
-              <th class="text-right"><span class="ellipsis" translate>Transactions</span></th>
-              <th class="text-right hidden-xs"><span class="ellipsis" translate>Mined by</span></th>
-              <th class="text-right" translate>Size</th>
-            </tr>
-          </thead>
-          <tbody>
-          <tr data-ng-show="!blocks.length"><td colspan="4" translate>Waiting for blocks...</td></tr>
-          <tr class="fader" data-ng-repeat='b in blocks'>
-            <td>
-              <a href="block/{{b.hash}}">{{b.height}}</a>
-            </td>
-            <td><span class="ellipsis">{{humanSince(b.time)}}</span></td>
-            <td class="text-right">{{b.txlength}}</td>
-            <td class="text-right hidden-xs"><a href="{{b.poolInfo.url}}" title="{{b.poolInfo.poolName}}" target="_blank" data-ng-show="b.poolInfo">{{b.poolInfo.poolName}}</a></td>
-            <td class="text-right">{{b.size}}</td>
-          </tr>
-          </tbody>
-        </table>
-        <div class="btn-more">
-          <a href="blocks" class="btn btn-default" translate>See all blocks</a>
-        </div>
-
-        <h2 translate>Latest Transactions</h2>
-
-        <table class="table table-hover table-striped" style="table-layout: fixed;">
-          <thead>
-            <tr>
-              <th>Hash</th>
-              <th class="text-right" translate>Value Out</th>
-            </tr>
-          </thead>
-          <tbody>
-          <tr data-ng-show="!txs.length"><td colspan="3" translate>Waiting for transactions...</td></tr>
-          <tr class="fader" data-ng-repeat='tx in txs'>
-            <td>
-              <a class="ellipsis" href="tx/{{tx.txid}}">{{tx.txid}}</a>
-            </td>
-            <td class="text-right"><span class="ellipsis">{{$root.currency.getConvertion(tx.valueOut) || tx.valueOut + ' QTUM'}}</span></td>
-          </tr>
-          </tbody>
-        </table>
-
-      </div>
-
-      <div class="col-xs-12 col-md-4 col-gray">
-        <h2 translate>About</h2>
-        <p translate><strong>insight</strong>  is an <a href="https://insight.is/"
-          target="_blank">open-source Quantum blockchain explorer</a> with complete REST and websocket APIs that can be used for writing web wallets and other apps  that need more advanced blockchain queries than provided by quantumd RPC.  Check out the <a href="https://github.com/bitpay/insight-ui" target="_blank">source code</a>.</p>
-        <p translate><strong>insight</strong> is still in development, so be sure to report any bugs and provide feedback for improvement at our <a href="https://github.com/bitpay/insight-ui/issues" target="_blank">github issue tracker</a>.</p>
-        <div id="powered" class="row">
-          <div class="powered-text">
-            <small class="text-muted" translate>Powered by</small>
-          </div>
-          <a href="http://bitcore.io" target="_blank" class="bitcore" title="Bitcore"></a>
-          <a href="http://angularjs.org" target="_blank" class="angularjs" title="AngularJS"></a>
-          <a href="https://code.google.com/p/leveldb/" target="_blank" class="leveldb" title="LevelDB"></a>
-          <a href="http://nodejs.org" target="_blank" class="nodejs" title="NodeJs"></a>
-        </div>
-      </div> <!-- END OF COL-3 -->
-    </div>
-  </div>
-</section>

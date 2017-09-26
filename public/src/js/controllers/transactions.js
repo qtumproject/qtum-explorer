@@ -1,213 +1,332 @@
 'use strict';
 
-angular.module('insight.transactions').controller('transactionsController',
-function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress) {
-  $scope.global = Global;
-  $scope.loading = false;
-  $scope.loadedBy = null;
+angular.module('insight.transactions').controller('TransactionsController',
+function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsByBlock, TransactionsByAddress, Contracts, $q, ERC20ContractInfo) {
 
-  var pageNum = 0;
-  var pagesTotal = 1;
-  var COIN = 100000000;
+	var self = this;
+	var pageNum = 0;
+	var pagesTotal = 1;
+	var COIN = 100000000;
+	self.loading = false;
+	self.loadedBy = null;
+	self.isCopied = false;
+	self.scrollConfig = {
+		autoHideScrollbar: false,
+		theme: 'custom',
+		advanced:{
+			updateOnContentResize: true
+		},
+		scrollInertia: 0
+	};
 
-  var _aggregateItems = function(items) {
-    if (!items) return [];
+	var _aggregateItems = function(txId, items) {
 
-    var l = items.length;
+		if (!items) return [];
 
-    var ret = [];
-    var tmp = {};
-    var u = 0;
+		var l = items.length;
+		var ret = [];
+		var tmp = {};
+		var u = 0;
 
-    for(var i=0; i < l; i++) {
+		for(var i=0; i < l; i++) {
 
-      var notAddr = false;
-      // non standard input
-      if (items[i].scriptSig && !items[i].addr) {
-        items[i].addr = 'Unparsed address [' + u++ + ']';
-        items[i].notAddr = true;
-        notAddr = true;
-      }
+			var notAddr = false;
+			// non standard input
+			if (items[i].scriptSig && !items[i].addr) {
 
-      // non standard output
-      if (items[i].scriptPubKey && !items[i].scriptPubKey.addresses) {
-        items[i].scriptPubKey.addresses = ['Unparsed address [' + u++ + ']'];
-        items[i].notAddr = true;
-        notAddr = true;
-      }
+				items[i].addr = 'Unparsed address [' + u++ + ']';
+				items[i].notAddr = true;
+				notAddr = true;
+			}
+			// non standard output
+			if (items[i].scriptPubKey && !items[i].scriptPubKey.addresses) {
 
-      // multiple addr at output
-      if (items[i].scriptPubKey && items[i].scriptPubKey.addresses.length > 1) {
-        items[i].addr = items[i].scriptPubKey.addresses.join(',');
-        ret.push(items[i]);
-        continue;
-      }
+				var contractAddress;
 
-      var addr = items[i].addr || (items[i].scriptPubKey && items[i].scriptPubKey.addresses[0]);
+				if (items[i].scriptPubKey.hex) {
 
-      if (!tmp[addr]) {
-        tmp[addr] = {};
-        tmp[addr].valueSat = 0;
-        tmp[addr].count = 0;
-        tmp[addr].addr = addr;
-        tmp[addr].items = [];
-      }
-      tmp[addr].isSpent = items[i].spentTxId;
+					contractAddress = Contracts.getContractAddressByHex(txId, items[i]['n'], items[i].scriptPubKey.hex);
+				}
 
-      tmp[addr].doubleSpentTxID = tmp[addr].doubleSpentTxID   || items[i].doubleSpentTxID;
-      tmp[addr].doubleSpentIndex = tmp[addr].doubleSpentIndex || items[i].doubleSpentIndex;
-      tmp[addr].dbError = tmp[addr].dbError || items[i].dbError;
-      tmp[addr].valueSat += Math.round(items[i].value * COIN);
-      tmp[addr].items.push(items[i]);
-      tmp[addr].notAddr = notAddr;
+				if (contractAddress) {
 
-      if (items[i].unconfirmedInput)
-        tmp[addr].unconfirmedInput = true;
+					items[i].contractAddress = contractAddress;
+				}
 
-      tmp[addr].count++;
-    }
+				items[i].scriptPubKey.addresses = ['Unparsed address [' + u++ + ']'];
+				items[i].notAddr = true;
+				notAddr = true;
+			}
+			// multiple addr at output
+			if (items[i].scriptPubKey && items[i].scriptPubKey.addresses.length > 1) {
 
-    angular.forEach(tmp, function(v) {
-      v.value    = v.value || parseInt(v.valueSat) / COIN;
-      ret.push(v);
-    });
-    return ret;
-  };
+				items[i].addr = items[i].scriptPubKey.addresses.join(',');
+				ret.push(items[i]);
 
-  var _processTX = function(tx) {
-    tx.vinSimple = _aggregateItems(tx.vin);
-    tx.voutSimple = _aggregateItems(tx.vout);
-  };
+				continue;
+			}
 
-  var _paginate = function(data) {
-    $scope.loading = false;
+			var addr = items[i].addr || (items[i].scriptPubKey && items[i].scriptPubKey.addresses[0]);
 
-    pagesTotal = data.pagesTotal;
-    pageNum += 1;
+			if (!tmp[addr]) {
 
-    data.txs.forEach(function(tx) {
-      _processTX(tx);
-      $scope.txs.push(tx);
-    });
-  };
+				tmp[addr] = {};
+				tmp[addr].valueSat = 0;
+				tmp[addr].count = 0;
+				tmp[addr].addr = addr;
+				tmp[addr].items = [];
+			}
 
-  var _byBlock = function() {
-    TransactionsByBlock.get({
-      block: $routeParams.blockHash,
-      pageNum: pageNum
-    }, function(data) {
-      _paginate(data);
-    });
-  };
+			tmp[addr].isSpent = items[i].spentTxId;
+			tmp[addr].doubleSpentTxID = tmp[addr].doubleSpentTxID   || items[i].doubleSpentTxID;
+			tmp[addr].doubleSpentIndex = tmp[addr].doubleSpentIndex || items[i].doubleSpentIndex;
+			tmp[addr].dbError = tmp[addr].dbError || items[i].dbError;
+			tmp[addr].valueSat += Math.round(items[i].value * COIN);
+			tmp[addr].items.push(items[i]);
+			tmp[addr].notAddr = notAddr;
+			tmp[addr].contractAddress = items[i].contractAddress || null;
 
-  var _byAddress = function () {
-    TransactionsByAddress.get({
-      address: $routeParams.addrStr,
-      pageNum: pageNum
-    }, function(data) {
-      _paginate(data);
-    });
-  };
+			if (items[i].unconfirmedInput){
 
-  var _findTx = function(txid) {
-    Transaction.get({
-      txId: txid
-    }, function(tx) {
-      $rootScope.titleDetail = tx.txid.substring(0,7) + '...';
-      $rootScope.flashMessage = null;
-      $scope.tx = tx;
-      _processTX(tx);
-      $scope.txs.unshift(tx);
-    }, function(e) {
-      if (e.status === 400) {
-        $rootScope.flashMessage = 'Invalid Transaction ID: ' + $routeParams.txId;
-      }
-      else if (e.status === 503) {
-        $rootScope.flashMessage = 'Backend Error. ' + e.data;
-      }
-      else {
-        $rootScope.flashMessage = 'Transaction Not Found';
-      }
+				tmp[addr].unconfirmedInput = true;
+			}
 
-      $location.path('/');
-    });
-  };
+			tmp[addr].count++;
+		}
 
-  $scope.findThis = function() {
-    _findTx($routeParams.txId);
-  };
+		angular.forEach(tmp, function(v) {
 
-  //Initial load
-  $scope.load = function(from) {
-    $scope.loadedBy = from;
-    $scope.loadMore();
-  };
+			v.value    = v.value || parseInt(v.valueSat) / COIN;
+			ret.push(v);
+		});
 
-  //Load more transactions for pagination
-  $scope.loadMore = function() {
-    if (pageNum < pagesTotal && !$scope.loading) {
-      $scope.loading = true;
+		return ret;
+	};
 
-      if ($scope.loadedBy === 'address') {
-        _byAddress();
-      }
-      else {
-        _byBlock();
-      }
-    }
-  };
+	var _getContractBytecode = function (tx) {
 
-  // Highlighted txout
-  if ($routeParams.v_type == '>' || $routeParams.v_type == '<') {
-    $scope.from_vin = $routeParams.v_type == '<' ? true : false;
-    $scope.from_vout = $routeParams.v_type == '>' ? true : false;
-    $scope.v_index = parseInt($routeParams.v_index);
-    $scope.itemsExpanded = true;
-  }
-  
-  //Init without txs
-  $scope.txs = [];
+		var items = tx.vout;
+		var l = items.length;
 
-  $scope.$on('tx', function(event, txid) {
-    _findTx(txid);
-  });
+		for(var i=0; i < l; i++) {
 
+			if (items[i].scriptPubKey && items[i].scriptPubKey.hex) {
+
+				var bytecode = Contracts.getContractBytecode(items[i].scriptPubKey.hex);
+
+				if (bytecode) {
+					return bytecode;
+				}
+			}
+		}
+
+		return null;
+	};
+
+	var asyncProcessERC20TX = function(tx) {
+
+		var deferred = $q.defer();
+
+		var isTransferEvent = false;
+		var receiptItemQRC20 = false;
+
+		tx.tokenEvents = [];
+
+		if (tx.receipt && tx.receipt.length) {
+
+			for (var i = 0; i < tx.receipt.length; i++) {
+
+				var receiptItem = tx.receipt[i];
+
+				if (receiptItem && receiptItem.log && receiptItem.log.length) {
+					for (var j = 0; j < receiptItem.log.length; j++) {
+
+						var logItem = receiptItem.log[j];
+
+						if (logItem && logItem.topics && logItem.topics.length === 3 && logItem.topics[0] === 'ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
+
+							var addressFrom = logItem.topics[1];
+							var addressTo = logItem.topics[2];
+
+							isTransferEvent = true;
+
+							tx.tokenEvents.push({
+								addressFrom: Contracts.getBitAddressFromContractAddress(addressFrom.slice(addressFrom.length - 40, addressFrom.length)),
+								addressTo: Contracts.getBitAddressFromContractAddress(addressTo.slice(addressTo.length - 40, addressTo.length)),
+								amount: parseInt(logItem.data, 16)
+							});
+						}
+					}
+				}
+
+				if (isTransferEvent) {
+					receiptItemQRC20 = receiptItem;
+				}
+			}
+		}
+
+		if (isTransferEvent) {
+			ERC20ContractInfo.get({
+				address: receiptItemQRC20.contractAddress
+			}).$promise.then(function (data) {
+				tx.erc20ContractInfo = data;
+				deferred.resolve(tx);
+			});
+		} else {
+			deferred.resolve(tx);
+		}
+
+		return deferred.promise;
+	};
+
+	var _processTX = function(tx) {
+
+		var contractBytecodeInfo = _getContractBytecode(tx);
+
+		tx.vinSimple = _aggregateItems(tx.txid, tx.vin);
+		tx.voutSimple = _aggregateItems(tx.txid, tx.vout);
+		self.loading = false;
+
+		if (contractBytecodeInfo) {
+
+			tx.contractBytecode = contractBytecodeInfo.code;
+			tx.contractBytecodeType = contractBytecodeInfo.type;
+			tx.contractAsm = Contracts.getContractOpcodesString(tx.contractBytecode);
+		}
+	};
+
+	var _paginate = function(data) {
+
+		pagesTotal = data.pagesTotal;
+		pageNum += 1;
+
+		var promises = [];
+
+		data.txs.forEach(function(tx) {
+			promises.push(asyncProcessERC20TX(tx));
+		});
+
+		$q.all(promises).then(function (results) {
+			results.forEach(function (tx) {
+				tx.showAdditInfo = false;
+				_processTX(tx);
+				self.txs.push(tx);
+			});
+			self.loading = false;
+		});
+
+	};
+
+	var _byBlock = function() {
+
+		TransactionsByBlock.get({
+			block: $routeParams.blockHash,
+			pageNum: pageNum
+		}, function(data) {
+			_paginate(data);
+		});
+	};
+
+	var _byAddress = function () {
+		TransactionsByAddress.get({
+			address: $routeParams.addrStr,
+			pageNum: pageNum
+		}, function(data) {
+			_paginate(data);
+		});
+	};
+
+	var _byContractAddress = function () {
+
+		TransactionsByAddress.get({
+			address: Contracts.getBitAddressFromContractAddress($routeParams.contractAddressStr),
+			pageNum: pageNum
+		}, function(data) {
+			_paginate(data);
+		});
+	};
+
+	var _findTx = function(txid) {
+
+		Transaction.get({
+			txId: txid
+		}, function(tx) {
+
+			$rootScope.titleDetail = tx.txid.substring(0,7) + '...';
+			$rootScope.flashMessage = null;
+
+			asyncProcessERC20TX(tx).then(function (tx) {
+				
+				self.tx = tx;
+				_processTX(tx);
+				self.txs.unshift(tx);
+			});
+
+		}, function(e) {
+
+			if (e.status === 400) {
+
+				$rootScope.flashMessage = 'Invalid Transaction ID: ' + $routeParams.txId;
+			}
+			else if (e.status === 503) {
+
+				$rootScope.flashMessage = 'Backend Error. ' + e.data;
+			}
+			else {
+				$rootScope.flashMessage = 'Transaction Not Found';
+			}
+
+			$location.path('/');
+		});
+	};
+
+	self.findThis = function() {
+
+		self.loading = true;		
+		_findTx($routeParams.txId);
+	};
+
+	//Initial load
+	self.load = function(from) {
+		self.loadedBy = from;
+		self.loadMore();
+	};
+
+	//Load more transactions for pagination
+	self.loadMore = function() {
+
+		if (pageNum < pagesTotal && !self.loading) {
+		
+			self.loading = true;
+
+			switch(self.loadedBy) {
+				case 'address':
+					_byAddress();
+					break;
+				case 'contractAddress':
+					_byContractAddress();
+					break;
+				default:
+					_byBlock();
+			}
+		}
+	};
+
+	// Highlighted txout
+	if ($routeParams.v_type == '>' || $routeParams.v_type == '<') {
+
+		self.from_vin = $routeParams.v_type == '<' ? true : false;
+		self.from_vout = $routeParams.v_type == '>' ? true : false;
+		self.v_index = parseInt($routeParams.v_index);
+		self.itemsExpanded = true;
+	}
+
+	//Init without txs
+	self.txs = [];
+
+	$scope.$on('tx', function(event, txid) {
+		_findTx(txid);
+	});
 });
 
-angular.module('insight.transactions').controller('SendRawTransactionController',
-  function($scope, $http) {
-  $scope.transaction = '';
-  $scope.status = 'ready';  // ready|loading|sent|error
-  $scope.txid = '';
-  $scope.error = null;
 
-  $scope.formValid = function() {
-    return !!$scope.transaction;
-  };
-  $scope.send = function() {
-    var postData = {
-      rawtx: $scope.transaction
-    };
-    $scope.status = 'loading';
-    $http.post(window.apiPrefix + '/tx/send', postData)
-      .success(function(data, status, headers, config) {
-        if(typeof(data.txid) != 'string') {
-          // API returned 200 but the format is not known
-          $scope.status = 'error';
-          $scope.error = 'The transaction was sent but no transaction id was got back';
-          return;
-        }
-
-        $scope.status = 'sent';
-        $scope.txid = data.txid;
-      })
-      .error(function(data, status, headers, config) {
-        $scope.status = 'error';
-        if(data) {
-          $scope.error = data;
-        } else {
-          $scope.error = "No error message given (connection error?)"
-        }
-      });
-  };
-});

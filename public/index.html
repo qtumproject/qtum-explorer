@@ -1,75 +1,44 @@
 <!doctype html>
-<html lang="en" data-ng-app="insight" data-ng-csp>
-<head>
-  <base href="/" />
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<meta name="fragment" content="!">
-	<title data-ng-bind="$root.title + $root.titleDetail + ' | Insight'">Insight</title>
-	<meta name="keywords" content="quantums, transactions, blocks, address, block chain, best block, mining difficulty, hash serialized">
-	<meta name="description" content="Quantum Insight. View detailed information on all quantum transactions and block. {{ $root.title + $root.titleDetail }}">
-	<link rel="shortcut icon" href="img/icons/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,400italic">
-	<link rel="stylesheet" href="css/main.min.css">
-</head>
-<body ng-cloak class="ng-cloak">
-  <div>
-    <script type="text/ng-template" id="scannerModal.html">
-      <div class="modal-header">
-        <h3 class="modal-title">Scan Code</h3>
-      </div>
-      <div class="modal-body text-center">
-        <canvas id="qr-canvas" width="200" height="150"></canvas>
-        <div data-ng-show="isMobile">
-          <div id="file-input-wrapper" class="btn btn-primary">
-            <span class="pull-left text-center">
-              <i class="glyphicon glyphicon-refresh icon-rotate"></i>
-              Get QR code
-            </span>
-            <input id="qrcode-camera" type="file" capture="camera" accept="image/*">
-          </div>
-        </div>
-        <div data-ng-hide="isMobile">
-          <video id="qrcode-scanner-video" width="300" height="225" data-ng-hide="isMobile"></video>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-default" data-ng-click="cancel()" data-dismiss="modal">Close</button>
-      </div>
-    </script>
-  </div>
-	<div id="wrap">
-		<div class="navbar navbar-default navbar-fixed-top" data-ng-include="'views/includes/header.html'" role='navigation'></div>
-		<section class="container" data-ng-view></section>
-	</div>
-	<div id="footer" role="navigation">
-    <div class="container" data-ng-controller="FooterController">
-      <div class="links m20t pull-left">
-        <span class="languages" ng-show="availableLanguages.0">
-          [
-          <a href="#"
-            ng-click="setLanguage(l.isoCode)"
-            ng-class="{'selected': defaultLanguage == l.isoCode}"
-            ng-repeat="l in availableLanguages">
-            <span ng-show="!$first"> &middot; </span> {{l.name}}
-          </a>
-          ]
-        </span>
-        &nbsp;
-        [
-        <a href="messages/verify" translate>verify message</a>
-        <span> &middot; </span>
-        <a href="tx/send" translate>broadcast transaction</a>
-        ]
-      </div>
-      <a class="insight m10v pull-right" target="_blank" href="http://insight.is">insight <small>API v{{version}}</small></a>
-    </div>
-  </div>
-  <script language="javascript">window.apiPrefix = '/api';</script>
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="js/vendors.min.js"></script>
-	<script src="js/angularjs-all.min.js"></script>
-	<script src="js/main.min.js"></script>
-</body>
+<html lang="en" ng-app="insight" ng-csp>
+	<head>
+	<base href="/" />
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="fragment" content="!">
+		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+		<meta name="keywords" content="quantums, transactions, blocks, address, block chain, best block, mining difficulty, hash serialized">
+		<meta name="description" content="Quantum Insight. View detailed information on all quantum transactions and block. {{ $root.title + $root.titleDetail }}">
+		<link rel="stylesheet" type="text/css" href="css/style.min.css" />
+		<link type="image/x-icon" href="data:image/ico;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0JouANCaLgbQmi4i0JouHtCaLh7Qmi4h0JouG9CaLgHQmi4A0JouANCaLgDQmi4L0JouBQAAAADQmi4A0JouANCaLg/Qmi5M0JoucNCaLjXQmi4c0JouS9CaLnHQmi4z0JouBtCaLgDQmi4Z0JouN9CaLgjQmi4A0JouANCaLiLQmi440JouQtCaLhzQmi410JouI9CaLi7Qmi4q0JouPtCaLjfQmi4r0JouONCaLgrQmi4A0JouANCaLhnQmi5s0JouQdCaLlHQmi4m0JouTNCaLoPQmi400JouL9CaLlPQmi5J0JouctCaLgvQmi4AAAAAANCaLgDQmi420JouS9CaLknQmi5c0JouF9CaLj3Qmi5T0JouKtCaLiLQmi5v0JouMdCaLl3Qmi4W0JouAAAAAADQmi4E0JouPdCaLkvQmi400JouMdCaLiPQmi4x0JouDdCaLjTQmi4p0JouKtCaLkDQmi5L0JouKdCaLgDQmi4A0JouFtCaLk3Qmi500JouNtCaLjjQmi510JouM9CaLiDQmi5L0JoubtCaLiXQmi5V0JouZNCaLkXQmi4D0JouANCaLhbQmi5N0JoudNCaLjbQmi440JouddCaLjPQmi4g0JouS9CaLm7Qmi4l0JouVdCaLmTQmi5F0JouA9CaLgDQmi4E0JouPdCaLkvQmi400JouMdCaLiPQmi4x0JouDdCaLjTQmi4p0JouKtCaLkDQmi5L0JouKdCaLgDQmi4A0JouANCaLjbQmi5L0JouSdCaLlzQmi4X0JouPdCaLlPQmi4q0JouItCaLm7Qmi4x0JouXtCaLhbQmi4AAAAAANCaLgDQmi4Z0JoubNCaLkHQmi5R0JouJtCaLkzQmi6D0JouNNCaLi/Qmi5T0JouStCaLmDQmi4E0JouAAAAAADQmi4A0JouANCaLiLQmi440JouQtCaLhzQmi410JouI9CaLi3Qmi4p0JouPtCaLjjQmi4S0JouAAAAAAAAAAAAAAAAANCaLgDQmi4A0JouD9CaLkzQmi5w0JouNdCaLhzQmi5L0JoucdCaLjPQmi4G0JouAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANCaLgDQmi4G0JouItCaLh7Qmi4e0JouIdCaLhvQmi4B0JouAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAPAcAADgCAAAgAEAAIADAACAAwAAAAMAAAABAAAAAQAAAAMAAIADAACAAwAAgAcAAOAPAADwHwAA//8AAA==" rel="shortcut icon" />
+		<!--[if IE ]><link rel="shortcut icon" href="/img/favicon.ico"  type="image/x-icon" /><![endif]--> 
+		<title ng-bind="$root.title + $root.titleDetail + ' | Insight'">Insight</title>
+	</head>
+	<body ng-cloak class="ng-cloak">
+
+		<div class="wrapper wrapper-with-footer">
+			<header class="header fixed" 
+					ng-include
+					src="'views/includes/header.html'" 
+					role='navigation'
+					ng-controller="HeaderController as HC">
+			</header>
+			<section class="content" ng-view ng-controller="CurrencyController as CC">
+			</section>
+		</div>
+		<footer class="footer">
+			<div class="box">
+				<div class="copy" translate>
+					2017 QTUM Insight © All rights reserved
+				</div>
+			</div>
+		</footer>
+	
+		<script data-cfasync="false">window.apiPrefix = '/api';</script>
+		<script data-cfasync="false">window.socketUrl = null;</script>
+		<script data-cfasync="false">window.current_network = null;</script>
+		<script data-cfasync="false" src="/socket.io/socket.io.js"></script>
+		<script data-cfasync="false" src="js/vendors.min.js"></script>
+		<script data-cfasync="false" src="js/angularjs-all.min.js"></script>
+		<script data-cfasync="false" src="js/main.min.js"></script>
+	</body>
 </html>

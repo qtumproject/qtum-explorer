@@ -1,100 +1,131 @@
 'use strict';
 
 angular.module('insight.blocks').controller('BlocksController',
-  function($scope, $rootScope, $routeParams, $location, Global, Block, Blocks, BlockByHeight) {
-  $scope.global = Global;
-  $scope.loading = false;
+function($scope, $rootScope, $routeParams, $location, moment, Block, Blocks, BlockByHeight) {
 
-  if ($routeParams.blockHeight) {
-    BlockByHeight.get({
-      blockHeight: $routeParams.blockHeight
-    }, function(hash) {
-      $location.path('/block/' + hash.blockHash);
-    }, function() {
-      $rootScope.flashMessage = 'Bad Request';
-      $location.path('/');
-    });
-  }
+	var self = this;
+	self.loading = false;
+	self.date = null;
+	self.datepicker = {
+		date: null,
+		format: 'yyyy-MM-dd',
+		isOpened : false,
+		dateOptions : {
+			startingDay: 1,
+			maxDate: new Date(),
+			minDate: new Date(0),
+		}
+	};
 
-  //Datepicker
-  var _formatTimestamp = function (date) {
-    var yyyy = date.getUTCFullYear().toString();
-    var mm = (date.getUTCMonth() + 1).toString(); // getMonth() is zero-based
-    var dd  = date.getUTCDate().toString();
+	if ($routeParams.blockHeight) {
 
-    return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]); //padding
-  };
+		BlockByHeight.get({
+			blockHeight: $routeParams.blockHeight
+		}, function(hash) {
 
-  $scope.$watch('dt', function(newValue, oldValue) {
-    if (newValue !== oldValue) {
-      $location.path('/blocks-date/' + _formatTimestamp(newValue));
-    }
-  });
+			$location.path('/block/' + hash.blockHash);
+		}, function() {
 
-  $scope.openCalendar = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
+			$rootScope.flashMessage = 'Bad Request';
+			$location.path('/');
+		});
+	}
 
-    $scope.opened = true;
-  };
+	$scope.$watch(function () {
 
-  $scope.humanSince = function(time) {
-    var m = moment.unix(time).startOf('day');
-    var b = moment().startOf('day');
-    return m.max().from(b);
-  };
+		return self.date;
+	}, function(newValue, oldValue, scope) {
 
+		if (newValue !== oldValue && scope.BC.datepicker.isOpened) {
 
-  $scope.list = function() {
-    $scope.loading = true;
+			self.datepicker.date = newValue.getTime();
+			$location.path('/blocks-date/' + moment(newValue).format('YYYY-MM-DD'));
+		}
+	});
 
-    if ($routeParams.blockDate) {
-      $scope.detail = 'On ' + $routeParams.blockDate;
-    }
+	self.openDatepicker = function(e) {
 
-    if ($routeParams.startTimestamp) {
-      var d=new Date($routeParams.startTimestamp*1000);
-      var m=d.getMinutes();
-      if (m<10) m = '0' + m;
-      $scope.before = ' before ' + d.getHours() + ':' + m;
-    }
+		e.preventDefault();
+		e.stopPropagation();
 
-    $rootScope.titleDetail = $scope.detail;
+		self.datepicker.isOpened = true;
+	};
 
-    Blocks.get({
-      blockDate: $routeParams.blockDate,
-      startTimestamp: $routeParams.startTimestamp
-    }, function(res) {
-      $scope.loading = false;
-      $scope.blocks = res.blocks;
-      $scope.pagination = res.pagination;
-    });
-  };
+	self.disableDatepicker = function (data) {
 
-  $scope.findOne = function() {
-    $scope.loading = true;
+		var date = data.date,
+			mode = data.mode;
 
-    Block.get({
-      blockHash: $routeParams.blockHash
-    }, function(block) {
-      $rootScope.titleDetail = block.height;
-      $rootScope.flashMessage = null;
-      $scope.loading = false;
-      $scope.block = block;
-    }, function(e) {
-      if (e.status === 400) {
-        $rootScope.flashMessage = 'Invalid Transaction ID: ' + $routeParams.txId;
-      }
-      else if (e.status === 503) {
-        $rootScope.flashMessage = 'Backend Error. ' + e.data;
-      }
-      else {
-        $rootScope.flashMessage = 'Block Not Found';
-      }
-      $location.path('/');
-    });
-  };
+		return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+	};
 
-  $scope.params = $routeParams;
+	self.loadList = function() {
 
+		self.loading = true;
+
+		if ($routeParams.blockDate) {
+
+			self.detail = 'On ' + $routeParams.blockDate;
+		}
+
+		if ($routeParams.startTimestamp) {
+
+			var d = new Date($routeParams.startTimestamp * 1000);
+			var m = d.getMinutes();
+
+			if (m < 10){ 
+
+				m = '0' + m
+			};
+
+			self.before = ' before ' + d.getHours() + ':' + m;
+		}
+
+		$rootScope.titleDetail = self.detail;
+
+		Blocks.get({
+			blockDate: $routeParams.blockDate,
+			startTimestamp: $routeParams.startTimestamp
+		}, function(res) {
+			
+			self.loading = false;
+			var date = new Date(res.pagination.current);
+			self.date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+			self.datepicker.date = self.date.getTime();
+			self.blocks = res.blocks;
+			self.pagination = res.pagination;
+		});
+	};
+
+	self.findOne = function() {
+
+		self.loading = true;
+
+		Block.get({
+			blockHash: $routeParams.blockHash
+		}, function(block) {
+
+			$rootScope.titleDetail = block.height;
+			$rootScope.flashMessage = null;
+			self.loading = false;
+			self.block = block;
+		}, function(e) {
+
+			if (e.status === 400) {
+
+				$rootScope.flashMessage = 'Invalid Transaction ID: ' + $routeParams.txId;
+			}
+			else if (e.status === 503) {
+
+				$rootScope.flashMessage = 'Backend Error. ' + e.data;
+			}
+			else {
+				$rootScope.flashMessage = 'Block Not Found';
+			}
+
+			$location.path('/');
+		});
+	};
+
+	self.params = $routeParams;
 });
