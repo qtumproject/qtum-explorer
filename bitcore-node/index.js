@@ -46,19 +46,12 @@ InsightUI.prototype.setupRoutes = function(app, express) {
 
   });
 
-  app.use('/', function(req, res, next){
-    if (req.headers.accept && req.headers.accept.indexOf('text/html') !== -1 &&
-      req.headers["X-Requested-With"] !== 'XMLHttpRequest'
-    ) {
+  app.use(express.static(__dirname + '/../public'));
 
+  app.get('*', function(req, res) {
       res.setHeader('Content-Type', 'text/html');
       res.send(self.indexFile);
-    } else {
-
-      express.static(__dirname + '/../public')(req, res, next);
-    }
   });
-
 
 };
 
