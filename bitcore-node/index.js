@@ -48,16 +48,16 @@ InsightUI.prototype.setupRoutes = function(app, express) {
 
   app.use(express.static(__dirname + '/../public'));
 
-  app.get('*', function(req, res) {
-
+  app.use('/', function(req, res){
     if (req.headers.accept && req.headers.accept.indexOf('text/html') !== -1 &&
-          req.headers["X-Requested-With"] !== 'XMLHttpRequest'
-        ) {
+      req.headers["X-Requested-With"] !== 'XMLHttpRequest'
+    ) {
 
-          res.setHeader('Content-Type', 'text/html');
-          res.send(self.indexFile);
-        }
+      res.setHeader('Content-Type', 'text/html');
+      res.send(self.indexFile);
+    }
   });
+
 
 };
 
