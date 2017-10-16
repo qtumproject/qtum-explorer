@@ -18,10 +18,6 @@ function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block,
 		{
 			'title': gettextCatalog.getString('Stats'),
 			'link': 'stats'
-		},
-		{
-			'title': 'Smart Contract',
-			'link': 'contract'
 		}
 	];
 	self.availableLanguages = [
