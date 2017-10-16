@@ -52,6 +52,8 @@ InsightUI.prototype.setupRoutes = function(app, express) {
     if (req.headers.accept && req.headers.accept.indexOf('text/html') !== -1 &&
       req.headers["X-Requested-With"] !== 'XMLHttpRequest'
     ) {
+
+      res.setHeader('Content-Type', 'text/html');
       res.send(self.indexFile);
     }
   });
