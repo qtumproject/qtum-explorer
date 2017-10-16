@@ -147,7 +147,7 @@ function($scope, $routeParams, Statistics, StatisticsByDaysTransactions, Statist
 		self.chartDays = $routeParams.days;
 		self.chartType = $routeParams.type;
 		self.marketCurrency = Constants.CURRENCY.USD;
-		self.marketPrice;		
+		self.marketPrice = 0;
 
 	var _loadDifficulties = function(factory, itemField, itemName) {
 
@@ -175,9 +175,14 @@ function($scope, $routeParams, Statistics, StatisticsByDaysTransactions, Statist
 
 				return item[ itemField ];
 			});
+
 			self.chartOptions.options.scales.yAxes[0].ticks.callback = function(value){
 
-				return $filter('numeraljs')(value, '0,0');
+				if (value > 999) {
+					return $filter('numeraljs')(value, '0,0');
+				}
+
+				return parseFloat(value.toFixed(6));
 			};
 			self.chartOptions.series = [ itemName ];
 			self.chartOptions.options.tooltips.callbacks.beforeTitle = function(text) {
