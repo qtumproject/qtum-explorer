@@ -78,7 +78,7 @@
 				</a>
 			</div>
 			<div class="td">
-				{{ transfer.value }}
+				{{ $root.token.convertDecimals(transfer.value, TC.tokenInfo.decimals) }}
 			</div>
 		</div>
 	</div>

@@ -90,10 +90,10 @@
 				</a>
 			</div>
 			<div class="td">
-				{{ holder.amount }}
+				{{ $root.token.convertDecimals(holder.amount, TC.tokenInfo.decimals) }}
 			</div>
 			<div class="td" ng-if="TC.tokenInfo && TC.tokenInfo.total_supply">
-				{{ (holder.amount / TC.tokenInfo.total_supply) * 100 }}%
+				{{ (holder.amount && TC.tokenInfo.total_supply) ? (holder.amount / TC.tokenInfo.total_supply) * 100 : 0}} %
 			</div>
 		</div>
 	</div>
