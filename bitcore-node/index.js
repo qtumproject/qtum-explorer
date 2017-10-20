@@ -17,6 +17,12 @@ var InsightUI = function(options) {
     this.routePrefix = 'insight';
   }
 
+  if (typeof options.nodemapLink !== 'undefined') {
+      this.nodemapLink = options.nodemapLink;
+  } else {
+      this.nodemapLink = '';
+  }
+
   this.network = options.node.network;
 
 };
@@ -63,6 +69,7 @@ InsightUI.prototype.setupRoutes = function(app, express) {
 InsightUI.prototype.filterIndexHTML = function(data) {
   var transformed = data
     .replace(/apiPrefix = '\/api'/, "apiPrefix = '/" + this.apiPrefix + "'")
+    .replace(/nodemapLink = ''/, "nodemapLink = '" + this.nodemapLink + "'")
     .replace(/current_network = null/, "current_network = '" + (this.network.name === 'testnet' ? 'testnet' : 'livenet') + "'");
 
   if (this.routePrefix) {

@@ -30,6 +30,7 @@
 		<a ng-repeat="item in HC.menu"
 		   ui-route="{{ item.link }}"
 		   href="{{ item.link }}"
+		   ng-if="item.link"
 		   class="nav__item">
 			{{ item.title }}
 		</a>

@@ -18,20 +18,24 @@ function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block,
 		{
 			'title': gettextCatalog.getString('Stats'),
 			'link': 'stats'
-		}
+		},
+        {
+            'title': gettextCatalog.getString('Nodemap'),
+            'link': Constants.NODEMAP_LINK
+        }
 	];
 	self.availableLanguages = [
 		{
 			name: gettextCatalog.getString('Deutsch'),
-			isoCode: 'de_DE',
+			isoCode: 'de_DE'
 		},
 		{
 			name: gettextCatalog.getString('English'),
-			isoCode: 'en',
+			isoCode: 'en'
 		},
 		{
 			name: gettextCatalog.getString('Spanish'),
-			isoCode: 'es',
+			isoCode: 'es'
 		},
 		{
 			name: gettextCatalog.getString('Japanese'),

@@ -20,7 +20,8 @@ angular.module('insight')
 	STORAGE_ROWS: 5,
     NETWORK: window.current_network ? window.current_network : 'livenet',
     DEFAULT_LANGUAGE: localStorage.getItem('insight-language') || 'en',
-    DEFAULT_CURRENCY: localStorage.getItem('insight-currency') || 'QTUM'
+    DEFAULT_CURRENCY: localStorage.getItem('insight-currency') || 'QTUM',
+	NODEMAP_LINK: window.nodemapLink
 });
 
 //Setting up route
