@@ -55,6 +55,11 @@ angular.module('insight.statistics')
 
 		return $resource($window.apiPrefix + '/statistics/total');
 	})
+    .factory('StatisticsSupply', function($resource, $window) {
+        return $resource($window.apiPrefix + '/statistics/supply', {
+            format: '@format'
+        });
+    })
 	.factory('MarketPrice', function($resource, $window) {
 		
 		return $resource('https://min-api.cryptocompare.com/data/price?fsym=QTUM&tsyms=USD');

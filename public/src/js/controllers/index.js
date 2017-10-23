@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('insight.system').controller('IndexController',
-function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays, Constants) {
+function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays, Constants, Status, $q, StatisticsSupply) {
 
 	var self = this;
 	var socket = getSocket($scope);
+		self.blockchainInfo = null;
 		self.txs = [];
 		self.blocks = [];
 		self.chartDays = Constants.CHART_DAYS;
@@ -33,6 +34,7 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 				}
 			}
 		};
+
 		self.chartOptions = {
 			series : [ 'Transactions' ],
 			datasetOverride : [{
@@ -116,6 +118,8 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 		});
 	};
 
+	var socketRequestTimer = null;
+
 	var _startSocket = function() {
 
 		socket.emit('subscribe', 'inv');
@@ -125,19 +129,28 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 			self.txs.unshift(tx);
 
 			if (self.txs.length > Constants.TRANSACTION_DISPLAYED) {
-				
 				self.txs.length = Constants.TRANSACTION_DISPLAYED;
 			}
+
+		});
+
+		socket.on('info', function(info) {
+            self.blockchainInfo = info;
 		});
 
 		socket.on('block', function() {
 
-			_getBlocks();
+            clearTimeout(socketRequestTimer);
+
+            socketRequestTimer = setTimeout(function () {
+                _getBlocks();
+			}, Math.random() * 2000); //prevent waterfall
+
 		});
+
 	};
 
 	socket.on('connect', function() {
-
 		_startSocket();
 	});
 
@@ -168,9 +181,23 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 		});
 	};
 
-	self.index = function() {
+    var _getInfo = function() {
 
+        $q.all([Status.get({
+            q: 'getInfo'
+        }).$promise, StatisticsSupply.get({format: 'object'}).$promise]).then(function (results) {
+            if (results[0] && results[1]) {
+                self.blockchainInfo = results[0].info;
+                self.blockchainInfo.supply = results[1].supply;
+			}
+        });
+
+    };
+
+	self.index = function() {
+		_getInfo();
 		_getBlocks();
 		_startSocket();
 	};
+
 });
