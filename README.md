@@ -10,12 +10,12 @@ nvm use v6
 ```
 
 ```
-npm install git+ssh://git@github.com:qtumproject/qtumcore-node.git
+npm install git+ssh://git@github.com:qtumproject/qtumcore-node.git#master
 $(npm bin)/qtumcore-node create mynode
 cd mynode 
 
-$(npm bin)/qtumcore-node install git+ssh://git@github.com:qtumproject/insight-api.git
-$(npm bin)/qtumcore-node install git+ssh://git@github.com:qtumproject/qtum-explorer.git
+$(npm bin)/qtumcore-node install git+ssh://git@github.com:qtumproject/insight-api.git#master
+$(npm bin)/qtumcore-node install git+ssh://git@github.com:qtumproject/qtum-explorer.git#master
 
 ```
 
@@ -32,10 +32,12 @@ Edit qtumcore-node.json:
   ],
   "servicesConfig": {
     "qtum-explorer": {
-      "routePrefix": "",
+      "apiPrefix": "qtum-insight-api",
+      "routePrefix": "insight",
       "nodemapLink": "https://qtum.org/en/nodemap"
     },
-    "insight-api": {
+    "qtum-insight-api": {
+      "routePrefix": "qtum-insight-api",
       "rateLimiterOptions": {
         "whitelist": ["123.456.12.34", "::ffff:123.456.12.34"],
         "whitelistLimit": 9999999,
@@ -97,7 +99,7 @@ To manually install all of the necessary components, you can run these commands:
 npm install -g qtumcore-node
 qtumcore-node create mynode
 cd mynode
-qtumcore-node install insight-api
+qtumcore-node install qtum-insight-api
 qtumcore-node install qtum-explorer
 qtumcore-node start
 ```
