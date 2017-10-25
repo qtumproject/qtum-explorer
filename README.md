@@ -26,7 +26,7 @@ Edit qtumcore-node.json:
   "port": 3001,
   "services": [
     "qtumd",
-    "insight-api",
+    "qtum-insight-api",
     "qtum-explorer",
     "web"
   ],
