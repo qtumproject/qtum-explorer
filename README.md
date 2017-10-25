@@ -25,14 +25,15 @@ Edit qtumcore-node.json:
   "network": "livenet",
   "port": 3001,
   "services": [
-    "bitcoind",
+    "qtumd",
     "insight-api",
     "qtum-explorer",
     "web"
   ],
   "servicesConfig": {
     "qtum-explorer": {
-      "routePrefix": ""
+      "routePrefix": "",
+      "nodemapLink": "https://qtum.org/en/nodemap"
     },
     "insight-api": {
       "rateLimiterOptions": {
@@ -53,7 +54,7 @@ Edit qtumcore-node.json:
         "updateFromBlockHeight": 0
       }
     },
-    "bitcoind": {
+    "qtumd": {
       "spawn": {
         "datadir": "/home/user/.qtum",
         "exec": "/home/user/qtum-bitcore/src/qtumd"
@@ -80,6 +81,7 @@ rpcport=18332
 reindex=1
 gen=0
 addrindex=1
+logevents=1
 ```
 
 ```

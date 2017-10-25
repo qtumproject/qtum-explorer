@@ -133,7 +133,7 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 
 	var _startSocket = function() {
 
-		socket.on('bitcoind/addresstxid', function(data) {
+		socket.on('qtumd/addresstxid', function(data) {
 
 			if (data.address === addrStr) {
 
@@ -144,12 +144,12 @@ function($scope, $rootScope, $routeParams, $location, $q, Address, StorageByAddr
 			}
 		});
 
-		socket.emit('subscribe', 'bitcoind/addresstxid', [addrStr]);
+		socket.emit('subscribe', 'qtumd/addresstxid', [addrStr]);
 	};
 
 	var _stopSocket = function() {
 
-		socket.emit('unsubscribe', 'bitcoind/addresstxid', [addrStr]);
+		socket.emit('unsubscribe', 'qtumd/addresstxid', [addrStr]);
 	};
 
 	socket.on('connect', function() {
