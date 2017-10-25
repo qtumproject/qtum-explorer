@@ -27,7 +27,7 @@ var InsightUI = function(options) {
 
 };
 
-InsightUI.dependencies = ['insight-api'];
+InsightUI.dependencies = ['qtum-insight-api'];
 
 inherits(InsightUI, BaseService);
 
