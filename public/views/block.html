@@ -102,22 +102,25 @@
 							</div>
 						</div>
 					</li>
-				</ul>
-			</div>
-			<div class="col col-6">
-				<ul class="list">
 					<li class="list__item">
 						<div class="list__left">
 							<b translate>Previous Block</b>
 						</div>
 						<div class="list__right">
 							<div class="">
-								<span class="mark">
-									{{ BC.block.height - 1 }}
-								</span>
+								<a href="block/{{ BC.block.previousblockhash }}">
+									<span class="mark">
+										{{ BC.block.height - 1 }}
+									</span>
+								</a>
+
 							</div>
 						</div>
 					</li>
+				</ul>
+			</div>
+			<div class="col col-6">
+				<ul class="list">
 					<li class="list__item">
 						<div class="list__left">
 							<b translate>Difficulty</b>
@@ -165,6 +168,20 @@
 						<div class="list__right">
 							<div class="additional">
 								{{ BC.block.nonce }}
+							</div>
+						</div>
+					</li>
+					<li class="list__item" ng-if="BC.block.nextblockhash">
+						<div class="list__left">
+							<b translate>Next Block</b>
+						</div>
+						<div class="list__right">
+							<div class="">
+								<a href="block/{{ BC.block.nextblockhash }}">
+									<span class="mark">
+										{{ BC.block.height + 1 }}
+									</span>
+								</a>
 							</div>
 						</div>
 					</li>

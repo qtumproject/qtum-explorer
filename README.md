@@ -33,7 +33,7 @@ Edit qtumcore-node.json:
   "servicesConfig": {
     "qtum-explorer": {
       "apiPrefix": "qtum-insight-api",
-      "routePrefix": "insight",
+      "routePrefix": "qtum-explorer",
       "nodemapLink": "https://qtum.org/en/nodemap"
     },
     "qtum-insight-api": {
@@ -104,7 +104,7 @@ qtumcore-node install qtum-explorer
 qtumcore-node start
 ```
 
-Open a web browser to `http://localhost:3001/insight/`
+Open a web browser to `http://localhost:3001/qtum-explorer`
 
 ## Development
 
