@@ -1,11 +1,16 @@
 'use strict';
 
 angular.module('insight.system').controller('IndexController',
-function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays, Constants, Status, $q, StatisticsSupply) {
+function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays, Constants, Status, $q, StatisticsSupply, MarketsInfo) {
 
 	var self = this;
 	var socket = getSocket($scope);
 		self.blockchainInfo = null;
+		self.marketsInfo = {
+            price_usd: 0,
+            price_btc: 0,
+            market_cap_usd: 0
+		};
 		self.txs = [];
 		self.blocks = [];
 		self.chartDays = Constants.CHART_DAYS;
@@ -149,6 +154,10 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 
 		});
 
+		socket.on('markets_info', function(marketsInfo) {
+           self.marketsInfo = marketsInfo;
+		});
+
 	};
 
 	socket.on('connect', function() {
@@ -195,8 +204,17 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 
     };
 
+    var _getMarketsInfo = function () {
+        return MarketsInfo.get({}, function(response) {
+        	if (response) {
+        		self.marketsInfo = response;
+			}
+		});
+	};
+
 	self.index = function() {
 		_getInfo();
+		_getMarketsInfo();
 		_getBlocks();
 		_startSocket();
 	};

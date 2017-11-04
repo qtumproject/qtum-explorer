@@ -50,6 +50,24 @@
 					<div class="labeled" translate>Block Reward</div>
 				</div>
 			</div>
+			<div class="section__heading">
+				<div class="section__title">Value Info</div>
+			</div>
+			<div class="item item-full">
+				<div class="label">{{ IC.marketsInfo.market_cap_usd | numeraljs : '0,0' }}</div>
+				<div class="labeled">Market Cap in USD</div>
+			</div>
+			<div class="limiter"></div>
+			<div class="clearfix">
+				<div class="item">
+					<div class="label">{{ IC.marketsInfo.price_usd }}</div>
+					<div class="labeled">Price in USD</div>
+				</div>
+				<div class="item">
+					<div class="label">{{ IC.marketsInfo.price_btc }}</div>
+					<div class="labeled">Price per BTC</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="content__right">
