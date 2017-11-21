@@ -1,16 +1,37 @@
 'use strict';
 
 
-angular.module('insight.charts').controller('ChartsController', function($scope, $routeParams, BigNumber, StatisticsBalanceIntervals, StatisticsRicherThan, MarketsInfo, getSocket, $q) {
-
-        BigNumber.config({ ERRORS: false });
+angular.module('insight.charts').controller('ChartsController', function($scope, $routeParams, BigNumber, StatisticsBalanceIntervals, StatisticsByDaysSupply, StatisticsRicherThan, MarketsInfo, getSocket, $q, StatisticChart) {
 
         var self = this;
+
+        self.chartDays = $routeParams.days ? $routeParams.days : 60;
+
+        var statisticChart = new StatisticChart(self.chartDays);
+        statisticChart.load(StatisticsByDaysSupply, 'sum', 'supply', false);
+
+        $scope.$on('chart-create', function (evt, chart) {
+
+            if (chart.chart.canvas.id === 'line') {
+
+                statisticChart.changeChartColor(chart);
+
+                chart.update();
+
+            }
+        });
+
+
+        self.chartOptions = statisticChart.chartOptions;
+        self.daysButtons = statisticChart.daysButtons;
+
         self.balanceIntervals = [];
         self.marketsInfo = null;
         self.richerThanIntervals = [];
 
         var socket = getSocket($scope);
+
+
 
         self.init = function() {
             _getInfo();
@@ -18,7 +39,7 @@ angular.module('insight.charts').controller('ChartsController', function($scope,
         };
 
         var _getRicherThan = function () {
-            StatisticsRicherThan.query(function (intervals) {
+            return StatisticsRicherThan.query(function (intervals) {
                 self.richerThanIntervals = intervals;
             })
         };
@@ -80,7 +101,7 @@ angular.module('insight.charts').controller('ChartsController', function($scope,
                     self.balanceIntervals = intervals;
 
                 }
-                
+
             });
 
         };

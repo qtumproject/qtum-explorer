@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.system').controller('IndexController',
-function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays, Constants, Status, $q, StatisticsSupply, MarketsInfo) {
+function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, TransactionsByDays, Constants, Status, $q, StatisticsTotalSupply, MarketsInfo) {
 
 	var self = this;
 	var socket = getSocket($scope);
@@ -195,7 +195,7 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 
         $q.all([Status.get({
             q: 'getInfo'
-        }).$promise, StatisticsSupply.get({format: 'object'}).$promise]).then(function (results) {
+        }).$promise, StatisticsTotalSupply.get({format: 'object'}).$promise]).then(function (results) {
             if (results[0] && results[1]) {
                 self.blockchainInfo = results[0].info;
                 self.blockchainInfo.supply = results[1].supply;

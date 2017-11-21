@@ -12,17 +12,25 @@
     <div class="section-charts">
         <div class="insight__chart">
             <div class="insight__chartPeriodWrap">
-                <a href="" class="insight__chartPeriod" translate>30 Days</a>
-                <a href="" class="insight__chartPeriod active" translate>60 Days</a>
-                <a href="" class="insight__chartPeriod" translate>180 Days</a>
-                <a href="" class="insight__chartPeriod" translate>1 Year</a>
-                <a href="" class="insight__chartPeriod" translate>2 Years</a>
-                <a href="" class="insight__chartPeriod" translate>All Time</a>
+                <a href="/charts?days={{ button.days }}"
+                   class="insight__chartPeriod"
+                   ng-class="{ 'active' : CC.chartDays == button.days }"
+                   ng-repeat="button in CC.daysButtons">
+                    {{ button.name }}
+                </a>
             </div>
 
-            <div class="" >
-                <div class="" >
-
+            <div class="">
+                <div class="">
+                    <canvas id="line"
+                            class="chart chart-line"
+                            chart-data="CC.chartOptions.data"
+                            chart-labels="CC.chartOptions.labels"
+                            chart-series="CC.chartOptions.series"
+                            chart-options="CC.chartOptions.options"
+                            chart-dataset-override="CC.chartOptions.datasetOverride"
+                            height="115">
+                    </canvas>
                 </div>
             </div>
         </div>
