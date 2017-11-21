@@ -1,3 +1,6 @@
+
+/*# sourceMappingURL=../maps/components/transactions.css.map */
+
 html, body, h1, h2, h3, h4, h5, h6, p, em, strong, abbr, acronym, blockquote, q, cite, ins, del, dfn, a, div, span, pre, hr, address, br, b, i, sub, sup, big, small, tt, table, tr, caption, thead, tbody, tfoot, col, colgroup, form, input, label, textarea, button, fieldset, legend, select, option, ul, ol, li, dl, dt, dd, code, var, samp, img, object, param, map, area {
   padding: 0;
   margin: 0;
@@ -331,6 +334,10 @@ sub {
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%; }
+  .ellipsis-inline {
+    line-height: 1;
+    display: inline-block;
+    vertical-align: middle; }
 
 @font-face {
   font-family: 'icomoon';
@@ -3394,15 +3401,28 @@ corresponds to the arrow we want to display */
     text-align: right;
     line-height: 30px; }
   .list__item {
-    overflow: hidden;
     display: block;
     margin-bottom: 5px;
     padding: 5px 7px; }
+    .list__item:before, .list__item:after {
+      content: " ";
+      display: table; }
+    .list__item:after {
+      clear: both; }
     .list__item:hover {
       background: rgba(46, 154, 208, 0.12); }
+    .list__item.w-a .list__left,
+    .list__item.w-a .list__right {
+      width: auto; }
   .list__row {
     display: block;
     margin-bottom: 4px; }
+
+.list-40-60 .list__left {
+  width: 40%; }
+
+.list-40-60 .list__right {
+  width: 60%; }
 
 .smartMode .table-storage-def {
   display: none; }
@@ -4169,16 +4189,40 @@ corresponds to the arrow we want to display */
       color: #fff; }
 
 .dd {
-  position: relative; }
+  position: relative;
+  text-align: left; }
+  .dd.w-320 {
+    width: 320px; }
   .dd.open > .ddMenu {
     visibility: visible;
     opacity: 1; }
   .dd.open .ddTrigger:after {
     border-top: 0;
-    border-bottom: 7px solid #000; }
+    border-bottom: 6px solid #2e9ad0; }
+  .dd .num {
+    position: absolute;
+    z-index: 1;
+    height: 18px;
+    width: 18px;
+    color: #232328;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 18px;
+    top: -10px;
+    right: -10px;
+    background: #d45043; }
   .ddTrigger {
     position: relative;
-    border-bottom: 1px solid #e4e0e9; }
+    height: 27px;
+    line-height: 25px;
+    font-size: 16px;
+    color: #2e9ad0;
+    border: 1px solid rgba(46, 154, 208, 0.3);
+    background: #242f39;
+    padding-left: 15px;
+    padding-right: 35px;
+    cursor: pointer; }
     .ddTrigger:after {
       position: absolute;
       content: '';
@@ -4186,48 +4230,60 @@ corresponds to the arrow we want to display */
       top: 50%;
       height: 0;
       width: 0;
-      border-top: 7px solid #000;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent; }
-    .ddTrigger__label {
-      font-size: 12px;
-      color: #9a999b;
-      margin-bottom: 5px; }
-    .ddTrigger__labeled {
-      font-size: 16px;
-      color: #000;
-      padding-bottom: 10px; }
+      border-top: 6px solid #2e9ad0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      -webkit-transform: translate(0, -50%);
+      -moz-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+      -o-transform: translate(0, -50%); }
   .ddMenu {
     visibility: hidden;
     opacity: 0;
     position: absolute;
-    z-index: 1;
+    z-index: 9;
     top: 100%;
-    left: -17px;
-    right: -17px;
-    margin-top: -1px;
-    border-top: 1px solid #e4e0e9;
-    background: #fff;
-    padding: 3px 0; }
-    .ddMenu:after {
-      position: absolute;
-      content: '';
-      z-index: 1;
-      background: rgba(0, 0, 0, 0.5);
-      top: 100%;
-      left: 0;
-      right: 0; }
+    left: 0;
+    right: 0;
+    margin-top: 10px;
+    border: 1px solid rgba(46, 154, 208, 0.3);
+    background: #242f39; }
     .ddMenu__list {
       overflow-x: hidden;
       overflow-y: auto;
       max-height: 400px; }
     .ddMenu__link {
       display: block;
-      padding: 9px 17px;
-      font-size: 16px;
-      color: #000; }
-      .ddMenu__link:active {
-        background: #ece9f0; }
+      padding: 4px 15px;
+      font-size: 13px;
+      line-height: 1.25;
+      color: #2e9ad0;
+      border-bottom: 1px solid rgba(46, 154, 208, 0.3); }
+      .ddMenu__link:active, .ddMenu__link:hover {
+        background: #2e9ad0;
+        color: #232328; }
+      .ddMenu__linkRow {
+        display: block;
+        margin-bottom: 2px; }
+        .ddMenu__linkRow:before, .ddMenu__linkRow:after {
+          content: " ";
+          display: table; }
+        .ddMenu__linkRow:after {
+          clear: both; }
+        .ddMenu__linkRow.muted {
+          opacity: .6; }
+      .ddMenu__link .left {
+        float: left;
+        width: 55%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+      .ddMenu__link .right {
+        width: 45%;
+        float: right;
+        text-align: right; }
+        .ddMenu__link .right span {
+          padding-right: 3px; }
 
 .modal {
   position: fixed;
@@ -4906,13 +4962,13 @@ corresponds to the arrow we want to display */
       width: 26%; }
     .section-tockenTransfers .th:nth-child(2),
     .section-tockenTransfers .td:nth-child(2) {
-      width: 11%; }
+      width: 13%; }
     .section-tockenTransfers .th:nth-child(3),
     .section-tockenTransfers .td:nth-child(3) {
-      width: 27%; }
+      width: 26%; }
     .section-tockenTransfers .th:nth-child(4),
     .section-tockenTransfers .td:nth-child(4) {
-      width: 21%; }
+      width: 20%; }
     .section-tockenTransfers .th:nth-child(5),
     .section-tockenTransfers .td:nth-child(5) {
       width: 15%; }
@@ -5085,6 +5141,48 @@ corresponds to the arrow we want to display */
   .section-tockenReadSmartContracts .arrows {
     color: #2ed0a0;
     font-size: 9px; }
+
+.section-tokenTransfers {
+  margin: 70px 0; }
+  .section-tokenTransfers .section__heading {
+    margin-bottom: 70px; }
+  .section-tokenTransfers .th:nth-child(1),
+  .section-tokenTransfers .td:nth-child(1) {
+    width: 18%;
+    padding-right: 5%; }
+  .section-tokenTransfers .th:nth-child(2),
+  .section-tokenTransfers .td:nth-child(2) {
+    width: 20%;
+    padding-right: 1%; }
+  .section-tokenTransfers .th:nth-child(3),
+  .section-tokenTransfers .td:nth-child(3) {
+    width: 20%;
+    padding-right: 5%; }
+  .section-tokenTransfers .th:nth-child(4),
+  .section-tokenTransfers .td:nth-child(4) {
+    width: 10%; }
+  .section-tokenTransfers .th:nth-child(5),
+  .section-tokenTransfers .td:nth-child(5) {
+    width: 20%;
+    padding-right: 5%; }
+  .section-tokenTransfers .th:nth-child(6),
+  .section-tokenTransfers .td:nth-child(6) {
+    width: 12%; }
+  .section-tokenTransfers .status {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+    width: 40px;
+    height: 17px;
+    line-height: 17px;
+    text-align: center;
+    color: #232328; }
+    .section-tokenTransfers .status.bg-orange {
+      background: #de5543; }
+    .section-tokenTransfers .status.bg-green {
+      background: #2ed0a0; }
+  .section-tokenTransfers .link {
+    display: block; }
 
 .section-charts {
   margin-top: 35px;

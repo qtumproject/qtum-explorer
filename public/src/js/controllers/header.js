@@ -22,6 +22,10 @@ function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block,
         {
             'title': gettextCatalog.getString('Nodemap'),
             'link': Constants.NODEMAP_LINK
+        },
+        {
+            'title': gettextCatalog.getString('Charts'),
+            'link': 'charts'
         }
 	];
 	self.availableLanguages = [

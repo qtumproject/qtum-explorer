@@ -11,6 +11,7 @@ angular.module('insight',[
 	'insight.system',
 	'insight.socket',
 	'insight.blocks',
+	'insight.charts',
 	'insight.transactions',
 	'insight.address',
 	'insight.search',
@@ -33,6 +34,7 @@ angular.module('insight',[
 angular.module('insight.system', [ 'ngScrollbars', 'chart.js' ]);
 angular.module('insight.socket', []);
 angular.module('insight.blocks', []);
+angular.module('insight.charts', []);
 angular.module('insight.transactions', [ 'ngScrollbars' ]);
 angular.module('insight.address', []);
 angular.module('insight.search', []);
