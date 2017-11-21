@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.search').controller('SearchController',
-  function($location, $timeout, Block, Transaction, Address, BlockByHeight) {
+  function($location, $timeout, Block, Transaction, Address, BlockByHeight, ERC20ContractInfo) {
 	
 	var self = this;
 	self.loading = false;
@@ -64,8 +64,19 @@ angular.module('insight.search').controller('SearchController',
 						});
 					}
 					else {
-						self.loading = false;
-						_badQuery();
+
+                        ERC20ContractInfo.get({
+                            address: q
+                        }, function() {
+
+                            _resetSearch();
+                            $location.path('/token/' + q);
+                        }, function () {
+                            self.loading = false;
+                            _badQuery();
+						});
+
+
 					}
 				});
 			});
