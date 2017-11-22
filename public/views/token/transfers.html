@@ -60,7 +60,9 @@
 		<div class="tr" ng-repeat="transfer in TC.transfers.items">
 			<div class="td">
 				<div class="muted ellipsis">
-					{{ transfer.tx_hash }}
+					<a href="/tx/{{ transfer.tx_hash }}">
+						{{ transfer.tx_hash }}
+					</a>
 				</div>
 			</div>
 			<div class="td">
