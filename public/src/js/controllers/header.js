@@ -6,28 +6,34 @@ function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block,
 	var self = this;
 	var socket = getSocket($scope);
 	self.defaultLanguage = Constants.DEFAULT_LANGUAGE;
-	self.menu = [
-		{
-			'title': gettextCatalog.getString('Blocks'),
-			'link': 'blocks'
-		},
-		{
-			'title': gettextCatalog.getString('Status'),
-			'link': 'status'
-		},
-		{
-			'title': gettextCatalog.getString('Stats'),
-			'link': 'stats'
-		},
-        {
-            'title': gettextCatalog.getString('Nodemap'),
-            'link': Constants.NODEMAP_LINK
-        },
-        {
-            'title': gettextCatalog.getString('Charts'),
-            'link': 'charts'
-        }
-	];
+
+	self.menu = _getMenu();
+
+	function _getMenu() {
+		return [
+            {
+                'title': gettextCatalog.getString('Blocks'),
+                'link': 'blocks'
+            },
+            {
+                'title': gettextCatalog.getString('Status'),
+                'link': 'status'
+            },
+            {
+                'title': gettextCatalog.getString('Stats'),
+                'link': 'stats'
+            },
+            {
+                'title': gettextCatalog.getString('Nodemap'),
+                'link': Constants.NODEMAP_LINK
+            },
+            {
+                'title': gettextCatalog.getString('Charts'),
+                'link': 'charts'
+            }
+        ];
+	}
+
 	self.availableLanguages = [
 		{
 			name: gettextCatalog.getString('Deutsch'),
@@ -69,11 +75,11 @@ function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block,
 	self.setLanguage = function(isoCode) {
 
 		var currentPageTemplate = $route.current.templateUrl;
-
 		gettextCatalog.currentLanguage = self.defaultLanguage = isoCode;
 		amMoment.changeLocale(isoCode);
 		localStorage.setItem('insight-language', isoCode);
 		$templateCache.remove(currentPageTemplate);
+        self.menu = _getMenu();
 		$route.reload();
 	};
 
