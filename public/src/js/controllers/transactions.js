@@ -51,6 +51,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 				if (contractAddress) {
 
 					items[i].contractAddress = contractAddress;
+					items[i].contractAddressBit = Contracts.getBitAddressFromContractAddress(contractAddress);
 				}
 
 				items[i].scriptPubKey.addresses = ['Unparsed address [' + u++ + ']'];

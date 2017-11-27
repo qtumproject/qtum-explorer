@@ -13,7 +13,7 @@
 				   ngclipboard 
 				   data-clipboard-text="{{ InnerContr.address.addrStr }}"></a>
 				<div class="copyText text">
-					{{ InnerContr.info.address ? InnerContr.info.address + ' (' + InnerContr.address.addrStr + ')' : InnerContr.address.addrStr }}
+					{{ InnerContr.address.addrStr }}
 				</div>
 			</div>
 		</div>
@@ -209,7 +209,7 @@
 <div class="section section-transactionsAddress" 
 	 ng-if="InnerContr.address.addrStr"
 	 ng-controller="TransactionsController as TC" 
-	 ng-init="TC.load(InnerContr.storage ? 'contractAddress' : 'address')">
+	 ng-init="TC.load('address')">
 	<div class="section__heading">
 		<h2 class="section__title" translate>Transactions</h2>
 	</div>

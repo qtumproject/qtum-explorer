@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.search').controller('SearchController',
-  function($location, $timeout, Block, Transaction, Address, BlockByHeight, ERC20ContractInfo) {
+  function($location, $timeout, Block, Transaction, Address, BlockByHeight, ERC20ContractInfo, Contracts) {
 	
 	var self = this;
 	self.loading = false;
@@ -21,7 +21,7 @@ angular.module('insight.search').controller('SearchController',
 
 	self.search = function() {
 
-		var q = self.q;
+		var q = self.q.trim();
 
 		self.badQuery = false;
 		self.loading = true;
@@ -42,12 +42,24 @@ angular.module('insight.search').controller('SearchController',
 				$location.path('tx/' + q);
 			}, function() { //tx not found, search on Address
 
+				var bitAddress = q;
+
+                if (q.length === 40) {
+
+                    try {
+                        bitAddress = Contracts.getBitAddressFromContractAddress(q);
+                    } catch (e) {
+                        console.log(e);
+                    }
+
+                }
+
 				Address.get({
-					addrStr: q
+					addrStr: bitAddress
 				}, function() {
 
 					_resetSearch();
-					$location.path('address/' + q);
+					$location.path('address/' + bitAddress);
 				}, function() { // block by height not found
 
 					if (isFinite(q)) { // ensure that q is a finite number. A logical height value.
