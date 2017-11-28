@@ -70,6 +70,31 @@
 						</div>
 					</div>
 				</li>
+				<li class="list__item w-a">
+					<div class="list__left">
+						<b>Token Tracker</b>
+					</div>
+					<div class="list__right" ng-click="InnerContr.toggleDropdownTokenTracker()">
+						<div class="dd w-320" ng-class="{open: InnerContr.tokenDropdownOpen}">
+							<div class="num">{{ InnerContr.balances.length }}</div>
+							<div class="ddTrigger">View Tokens </div>
+							<div class="ddMenu">
+								<ul class="ddMenu__list">
+									<li class="ddMenu__item" ng-repeat="balance in InnerContr.balances">
+										<a href="token/{{ balance.contract.symbol ? balance.contract.symbol : balance.contract.contract_address }}?a={{ InnerContr.address.addrStr  }}" class="ddMenu__link">
+											<span class="ddMenu__linkRow">
+												<span class="left upp">{{ balance.contract.name ? balance.contract.name : balance.contract.symbol }}</span>
+											</span>
+											<span class="ddMenu__linkRow muted">
+												<span class="left">{{ $root.token.convertDecimals(balance.amount, balance.contract.decimals) }} {{ balance.contract.symbol }}</span>
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</li>
 			</ul>
 		</div>
 		<div class="col col-5">

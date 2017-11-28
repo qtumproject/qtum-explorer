@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.token').controller('TokenController',
-function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20Holders, ContractRepository, SolidityCoder, Web3Utils, Contracts) {
+function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20AddressBalances, ERC20Holders, ContractRepository, SolidityCoder, Web3Utils, Contracts) {
 
 	var self = this;
 	var BALANCE_OF_METHOD_HASH = '70a08231';
@@ -10,6 +10,9 @@ function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20Holde
 	self.tokenInfo = {};
 	self.transfers = {};
 	self.holders = {};
+
+    self.filterByAddress = $routeParams.a;
+    self.addressBalance = null;
 
 	self.readSmartContractTab = {
 		balanceOf: {
@@ -56,7 +59,8 @@ function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20Holde
 
 		ERC20Transfers.get({
 			address: $routeParams.address,
-			offset: offset
+			offset: offset,
+			'addresses[]': (self.filterByAddress) ? self.filterByAddress: null
 		}).$promise.then(function (trList) {
 
 			self.transfers = trList;
@@ -66,7 +70,7 @@ function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20Holde
 
 	var _getHolders = function(offset) {
 		
-		ERC20Holders.get({
+		return ERC20Holders.get({
 			address: $routeParams.address,
 			offset: offset
 		}).$promise.then(function (holderList) {
@@ -77,13 +81,27 @@ function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20Holde
 	};
 
 	var _loadTokenInfo = function() {
-		
-		ERC20ContractInfo.get({
-			address: $routeParams.address
-		}).$promise.then(function (info) {
 
-			self.tokenInfo = info;
-		});
+        ERC20ContractInfo.get({
+            contractAddress: $routeParams.address,
+            address: self.filterByAddress ? self.filterByAddress : null
+        }).$promise.then(function (info) {
+            self.tokenInfo = info;
+        });
+
+		if (self.filterByAddress) {
+
+            ERC20AddressBalances.get({
+                contractSymbol: $routeParams.address,
+                balanceAddress: self.filterByAddress
+            }).$promise.then(function (balance) {
+                self.addressBalance = balance;
+            }).catch(function (err) {
+                console.log(err);
+			})
+
+		}
+
 	};
 
 	self.init = function() {
@@ -170,10 +188,10 @@ function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20Holde
 			balanceOfData.owner_address = '';
             balanceOfData.inProcess = false;
 
-            if (info.executionResult) {
+            if (info && info.executionResult) {
                 try {
                     var decodedBalance = SolidityCoder.decodeParam("uint256", info.executionResult.output);
-                    balanceOfData.balance = decodedBalance.toString(10)
+                    balanceOfData.balance = decodedBalance.toString(10);
                 } catch (e) {
                     balanceOfData.balance = 0;
 				}

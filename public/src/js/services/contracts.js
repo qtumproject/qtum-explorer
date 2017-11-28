@@ -180,7 +180,10 @@ angular.module('insight.contracts')
 	})
 	.factory('ERC20ContractInfo', function($resource, $window) {
 
-		return $resource($window.apiPrefix + '/erc20/:address',
+		return $resource($window.apiPrefix + '/erc20/:contractAddress',
+            {
+                address: '@address'
+            },
 		{
 			get: {
 				method: 'GET',
@@ -202,7 +205,31 @@ angular.module('insight.contracts')
 		return $resource($window.apiPrefix + '/erc20/:address/transfers',
 		{
 			limit: 20,
-			offset: '@offset'
+			offset: '@offset',
+			addresses: '@addresses'
+		},
+		{
+			get: {
+				method: 'GET',
+				interceptor: {
+					response: function (res) {
+						return res.data;
+					},
+					responseError: function (res) {
+						if (res.status === 404) {
+							return res;
+						}
+					}
+				}
+			}
+		});
+	})
+	.factory('ERC20AddressBalances', function($resource, $window) {
+
+		return $resource($window.apiPrefix + '/erc20/balances',
+		{
+            balanceAddress: '@balanceAddress',
+            contractSymbol: '@contractSymbol'
 		},
 		{
 			get: {

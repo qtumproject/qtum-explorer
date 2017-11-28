@@ -4485,9 +4485,13 @@ corresponds to the arrow we want to display */
   vertical-align: middle; }
 
 .summaryAddress {
-  overflow: hidden;
   margin-top: 40px;
   margin-bottom: 95px; }
+  .summaryAddress:before, .summaryAddress:after {
+    content: " ";
+    display: table; }
+  .summaryAddress:after {
+    clear: both; }
   .summaryAddress .col:nth-child(1) {
     padding-right: 30px; }
   .summaryAddress .col:nth-child(2) {

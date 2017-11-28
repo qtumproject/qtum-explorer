@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.address').controller('AddressController',
-function($scope, $rootScope, $document, $routeParams, $location, Address, getSocket, Constants, ContractsInfo, Contracts) {
+function($scope, $rootScope, $document, $routeParams, $location, $window, Address, getSocket, Constants, ContractsInfo, Contracts, ERC20AddressBalances) {
 
 	var self = this;
 	var socket = getSocket($scope);
@@ -36,6 +36,8 @@ function($scope, $rootScope, $document, $routeParams, $location, Address, getSoc
 		background: Constants.QRCOLOR.background,
 		color: Constants.QRCOLOR.color
 	};
+
+	self.balances = [];
 
 	var _startSocket = function() {
 		socket.on('qtumd/addresstxid', function(data) {
@@ -160,6 +162,17 @@ function($scope, $rootScope, $document, $routeParams, $location, Address, getSoc
 
 		_startSocket();
 
+
+
+		ERC20AddressBalances.query({
+            balanceAddress: $routeParams.addrStr
+        }, function (balances) {
+            if (balances && balances.length) {
+                self.balances = balances;
+            }
+
+        });
+
 		Address.get({
 			addrStr: $routeParams.addrStr
 		},
@@ -213,6 +226,14 @@ function($scope, $rootScope, $document, $routeParams, $location, Address, getSoc
     self.showMoreStorageRows = function(limit){
 
         self.storage.viewRows = limit;
+    };
+
+    //TODO:: outside click
+
+    self.tokenDropdownOpen = false;
+
+    self.toggleDropdownTokenTracker = function() {
+        self.tokenDropdownOpen = !self.tokenDropdownOpen;
     };
 
 });
