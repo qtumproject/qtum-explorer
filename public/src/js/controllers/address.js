@@ -163,7 +163,6 @@ function($scope, $rootScope, $document, $routeParams, $location, $window, Addres
 		_startSocket();
 
 
-
 		ERC20AddressBalances.query({
             balanceAddress: $routeParams.addrStr
         }, function (balances) {

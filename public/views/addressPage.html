@@ -70,7 +70,7 @@
 						</div>
 					</div>
 				</li>
-				<li class="list__item w-a">
+				<li class="list__item w-a" ng-if="InnerContr.balances.length">
 					<div class="list__left">
 						<b>Token Tracker</b>
 					</div>
@@ -231,16 +231,16 @@
 	</div>
 </div>
 
-<div class="section section-transactionsAddress" 
+<div class="section section-transactionsAddress"
 	 ng-if="InnerContr.address.addrStr"
-	 ng-controller="TransactionsController as TC" 
+	 ng-controller="TransactionsController as TC"
 	 ng-init="TC.load('address')">
 	<div class="section__heading">
 		<h2 class="section__title" translate>Transactions</h2>
 	</div>
-	<div class="section__transactions" 
-		 when-scrolled="TC.loadMore()" 
-		 data-ng-include 
+	<div class="section__transactions"
+		 when-scrolled="TC.loadMore()"
+		 data-ng-include
 		 src="'views/transaction/list.html'">
 	</div>
 </div>
