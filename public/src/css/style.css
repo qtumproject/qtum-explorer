@@ -661,7 +661,7 @@ b, strong {
       clear: both; }
     .content__list-blockchain .item {
       float: left;
-      width: 47%;
+      width: 50%;
       margin: 20px 0; }
       .content__list-blockchain .item-full {
         float: none;
@@ -672,7 +672,7 @@ b, strong {
         .content__list-blockchain .item-full .labeled {
           font-size: 18px; }
     .content__list-blockchain .label {
-      font-size: 28px;
+      font-size: 27px;
       font-family: "SimplonMono", sans-serif;
       margin-bottom: 5px; }
     .content__list-blockchain .labeled {
