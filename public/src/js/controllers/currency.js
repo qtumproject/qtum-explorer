@@ -64,7 +64,7 @@ function($scope, $rootScope, Currency, Constants, BigNumber) {
 
 		var valueBN = new BigNumber(amount);
 
-		return valueBN.dividedBy('1e' + decimals).toString(10);
+		return valueBN.dividedBy('1e' + (decimals ? decimals : 0)).toString(10);
 	};
 
 	self.setCurrency = function(currency) {

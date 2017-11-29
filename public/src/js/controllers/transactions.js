@@ -52,6 +52,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 					items[i].contractAddress = contractAddress;
 					items[i].contractAddressBit = Contracts.getBitAddressFromContractAddress(contractAddress);
+
 				}
 
 				items[i].scriptPubKey.addresses = ['Unparsed address [' + u++ + ']'];
@@ -86,6 +87,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 			tmp[addr].items.push(items[i]);
 			tmp[addr].notAddr = notAddr;
 			tmp[addr].contractAddress = items[i].contractAddress || null;
+			tmp[addr].contractAddressBit = items[i].contractAddressBit || null;
 
 			if (items[i].unconfirmedInput){
 

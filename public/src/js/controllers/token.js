@@ -85,8 +85,19 @@ function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20Addre
         ERC20ContractInfo.get({
             contractAddress: $routeParams.address,
             address: self.filterByAddress ? self.filterByAddress : null
-        }).$promise.then(function (info) {
-            self.tokenInfo = info;
+        }, function (info) {
+
+            if (info) {
+                self.tokenInfo = info;
+
+                try {
+                    self.tokenInfo.contract_address_base = Contracts.getBitAddressFromContractAddress(self.tokenInfo.contract_address);
+                } catch (e) {
+                    console.log('Error convert', self.tokenInfo);
+                }
+
+            }
+
         });
 
 		if (self.filterByAddress) {

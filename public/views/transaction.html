@@ -68,9 +68,10 @@
 						<b translate>Included in Block</b>
 					</div>
 					<div class="list__right">
-						<a href="block/{{ TC.tx.blockhash }}" class="mark">
+						<a ng-if="TC.tx.blockhash" href="block/{{ TC.tx.blockhash }}" class="mark">
 							{{ TC.tx.blockhash }}
 						</a>
+						<a ng-if="!TC.tx.blockhash" translate>Unconfirmed</a>
 					</div>
 				</li>
 				<li class="list__item" ng-if="TC.tx.isCoinBase">

@@ -143,7 +143,7 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
 		socket.on('info', function(data) {
             self.blockchainInfo = data.info;
             self.blockchainInfo.supply = data.supply;
-            self.blockchainInfo.miningInfo = data.miningInfo;
+            self.blockchainInfo.stakingInfo = data.stakingInfo;
 		});
 
 		socket.on('block', function() {
@@ -198,13 +198,12 @@ function($scope, $rootScope, $window, $timeout, moment, getSocket, Blocks, Trans
         $q.all([Status.get({
             q: 'getInfo'
         }).$promise, StatisticsTotalSupply.get({format: 'object'}).$promise, Status.get({
-            q: 'getMiningInfo'
+            q: 'getStakingInfo'
         }).$promise]).then(function (results) {
             if (results[0] && results[1] && results[2]) {
                 self.blockchainInfo = results[0].info;
-                self.blockchainInfo.miningInfo = results[2];
+                self.blockchainInfo.stakingInfo = results[2];
                 self.blockchainInfo.supply = results[1].supply;
-
 			}
         });
 

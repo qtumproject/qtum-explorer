@@ -30,12 +30,12 @@
 					<div class="labeled" translate>Relay Fee</div>
 				</div>
 				<div class="item">
-					<div class="label">{{ IC.blockchainInfo.difficulty['proof-of-stake'] }}</div>
+					<div class="label">{{ IC.blockchainInfo.difficulty['proof-of-stake'] | numeraljs : '0,0[.][00000000]' }}</div>
 					<div class="labeled" translate>Difficulty</div>
 				</div>
 				<div class="item">
-					<div class="label">{{ IC.blockchainInfo.version }}</div>
-					<div class="labeled" translate>Version</div>
+					<div class="label">{{ IC.blockchainInfo.stakingInfo && IC.blockchainInfo.stakingInfo.weight ? IC.blockchainInfo.stakingInfo.weight / 1e8 : 0 | numeraljs : '0,0[.][00000000]' }}</div>
+					<div class="labeled" translate>Network Weight</div>
 				</div>
 				<div class="item">
 					<div class="label">{{ IC.blockchainInfo.connections }}</div>
@@ -48,10 +48,6 @@
 				<div class="item">
 					<div class="label">{{ IC.blockchainInfo.reward ? IC.blockchainInfo.reward / 1e8 : 0 }} {{ IC.rewardCurrency }}</div> 
 					<div class="labeled" translate>Block Reward</div>
-				</div>
-				<div class="item">
-					<div class="label">{{ IC.blockchainInfo.miningInfo && IC.blockchainInfo.miningInfo.netstakeweight ? IC.blockchainInfo.miningInfo.netstakeweight / 1e8 : 0 | numeraljs : '0,0'}}</div>
-					<div class="labeled" translate>Network Weight</div>
 				</div>
 			</div>
 			<div class="section__heading">

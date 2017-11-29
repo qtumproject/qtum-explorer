@@ -132,11 +132,11 @@
 								{{ vout.addr }}
 							</span>
 						</a>
-						<a href="address/{{ vout.contractAddressBit }}"
+						<a href="address/{{ vout.contractAddressBit }}?contract=1"
 						class="name mark" 
 						ng-if="vout.notAddr && vout.contractAddress && ($root.currentAddr !== vout.addr || tx.showAdditInfo)">
 							<span class="name__text">
-								{{ vout.contractAddress }}
+								{{ vout.contractAddressBit }}
 							</span>
 						</a>
 						<span class="name__text" ng-if="($root.currentAddr === vout.addr && !tx.showAdditInfo) || vout.notAddr && !vout.contractAddress">
