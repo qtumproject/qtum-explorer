@@ -17,25 +17,38 @@ angular.module('insight.contracts')
 			},
 			getBitAddressFromContractAddress: function (contractAddress) {
 
-				var network = Networks.getCurrentNetwork(),
-					networkId = network.pubkeyhash.toString(16),
-					checksum = QtumCoreLib.crypto.Hash.sha256sha256(new QtumCoreLib.deps.Buffer(networkId + contractAddress, 'hex')),
-					hexBitAddress = networkId + contractAddress + checksum.toString('hex').slice(0, 8);
+				try {
 
-				return QtumCoreLib.encoding.Base58.encode(new QtumCoreLib.deps.Buffer(hexBitAddress, 'hex'));
+                    var network = Networks.getCurrentNetwork(),
+                        networkId = network.pubkeyhash.toString(16),
+                        checksum = QtumCoreLib.crypto.Hash.sha256sha256(new QtumCoreLib.deps.Buffer(networkId + contractAddress, 'hex')),
+                        hexBitAddress = networkId + contractAddress + checksum.toString('hex').slice(0, 8);
+
+                    return QtumCoreLib.encoding.Base58.encode(new QtumCoreLib.deps.Buffer(hexBitAddress, 'hex'));
+
+				} catch (e) {
+					return null;
+				}
 
 			},
             getEthAddressFromBitAddress: function (bitAddress) {
 
-                var network = Networks.getCurrentNetwork(),
-                    networkId = network.pubkeyhash.toString(16),
-                    hexBitAddress = QtumCoreLib.encoding.Base58.decode(bitAddress).toString('hex');
+				try {
 
-				if (hexBitAddress.slice(0, 2) !== networkId) {
-					return null
+                    var network = Networks.getCurrentNetwork(),
+                        networkId = network.pubkeyhash.toString(16),
+                        hexBitAddress = QtumCoreLib.encoding.Base58.decode(bitAddress).toString('hex');
+
+                    if (hexBitAddress.slice(0, 2) !== networkId) {
+                        return null
+                    }
+
+                    return hexBitAddress.slice(2, -8);
+
+				} catch (e) {
+
+					return null;
 				}
-
-                return hexBitAddress.slice(2, -8)
 
 			},
 			getContractOpcodesString: function (hex) {
@@ -229,7 +242,7 @@ angular.module('insight.contracts')
 		return $resource($window.apiPrefix + '/erc20/balances',
 		{
             balanceAddress: '@balanceAddress',
-            contractSymbol: '@contractSymbol'
+            contractAddress: '@contractAddress'
 		},
 		{
 			get: {

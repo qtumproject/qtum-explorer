@@ -166,8 +166,18 @@ function($scope, $rootScope, $document, $routeParams, $location, $window, Addres
 		ERC20AddressBalances.query({
             balanceAddress: $routeParams.addrStr
         }, function (balances) {
-            if (balances && balances.length) {
-                self.balances = balances;
+
+		    if (balances && balances.length) {
+
+                self.balances = balances.map(function (balance) {
+
+                    if (balance.contract) {
+                        balance.contract.contract_address_base = Contracts.getBitAddressFromContractAddress(balance.contract.contract_address);
+                    }
+
+                    return balance;
+                });
+
             }
 
         });

@@ -81,7 +81,7 @@
 							<div class="ddMenu">
 								<ul class="ddMenu__list">
 									<li class="ddMenu__item" ng-repeat="balance in InnerContr.balances">
-										<a href="token/{{ balance.contract.symbol ? balance.contract.symbol : balance.contract.contract_address }}?a={{ InnerContr.address.addrStr  }}" class="ddMenu__link">
+										<a href="token/{{ balance.contract.contract_address_base }}?a={{ InnerContr.address.addrStr  }}" class="ddMenu__link">
 											<span class="ddMenu__linkRow">
 												<span class="left upp">{{ balance.contract.name ? balance.contract.name : balance.contract.symbol }}</span>
 											</span>

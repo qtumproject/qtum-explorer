@@ -1,7 +1,26 @@
 'use strict';
 
 angular.module('insight.token').controller('TokenController',
-function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20AddressBalances, ERC20Holders, ContractRepository, SolidityCoder, Web3Utils, Contracts) {
+function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers, ERC20AddressBalances, ERC20Holders, ContractRepository, SolidityCoder, Web3Utils, Contracts) {
+
+	if (!Web3Utils.isAddress($routeParams.address) && !Contracts.isValidQtumAddress($routeParams.address)) {
+
+		$rootScope.flashMessage = 'Invalid Address: ' + $routeParams.address;
+        $location.path('/e404').replace();
+
+        return false;
+
+	}
+
+    if (Web3Utils.isAddress($routeParams.address)) {
+
+        var addrStr = Contracts.getBitAddressFromContractAddress($routeParams.address);
+
+        $location.path('/token/' + addrStr).replace();
+
+        return false;
+
+    }
 
 	var self = this;
 	var BALANCE_OF_METHOD_HASH = '70a08231';
@@ -36,7 +55,10 @@ function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20Addre
 		}
 	};
 
+    var contractEthAddress = Contracts.getEthAddressFromBitAddress($routeParams.address);
+
 	self.contractAddress = $routeParams.address;
+
 	self.tab = 'transfers';
 
 	var _loadTabContent = function(offset) {
@@ -58,32 +80,30 @@ function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20Addre
 	var _getTransfers = function(offset) {
 
 		ERC20Transfers.get({
-			address: $routeParams.address,
+			address: contractEthAddress,
 			offset: offset,
 			'addresses[]': (self.filterByAddress) ? self.filterByAddress: null
 		}).$promise.then(function (trList) {
-
 			self.transfers = trList;
-			self.transfers.pages = Math.ceil(self.transfers.count / self.transfers.limit);
+			self.transfers.pages = self.transfers.count && self.transfers.limit ? Math.ceil(self.transfers.count / self.transfers.limit) : 0;
 		});
 	};
 
 	var _getHolders = function(offset) {
 		
 		return ERC20Holders.get({
-			address: $routeParams.address,
+			address: contractEthAddress,
 			offset: offset
 		}).$promise.then(function (holderList) {
-
 			self.holders = holderList;
-			self.holders.pages = Math.ceil(self.holders.count / self.holders.limit);
+			self.holders.pages = self.holders.count && self.holders.limit ? Math.ceil(self.holders.count / self.holders.limit) : 0;
 		});
 	};
 
 	var _loadTokenInfo = function() {
 
         ERC20ContractInfo.get({
-            contractAddress: $routeParams.address,
+            contractAddress: contractEthAddress,
             address: self.filterByAddress ? self.filterByAddress : null
         }, function (info) {
 
@@ -103,7 +123,7 @@ function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20Addre
 		if (self.filterByAddress) {
 
             ERC20AddressBalances.get({
-                contractSymbol: $routeParams.address,
+                contractAddress: contractEthAddress,
                 balanceAddress: self.filterByAddress
             }).$promise.then(function (balance) {
                 self.addressBalance = balance;
@@ -189,7 +209,7 @@ function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20Addre
         balanceOfData.inProcess = true;
 
         return ContractRepository.call({
-        	address: self.contractAddress,
+        	address: contractEthAddress,
 			hash: BALANCE_OF_METHOD_HASH + SolidityCoder.encodeParam('address', Web3Utils.toAddress(processAddress))
 		}).$promise.then(function (info) {
 
@@ -246,7 +266,7 @@ function($routeParams, $rootScope, ERC20ContractInfo, ERC20Transfers, ERC20Addre
         allowanceData.inProcess = false;
 
         return ContractRepository.call({
-            address: self.contractAddress,
+            address: contractEthAddress,
             hash: ALLOWANCE_METHOD_HASH + SolidityCoder.encodeParam('address', Web3Utils.toAddress(processOwnerAddress)) + SolidityCoder.encodeParam('address', Web3Utils.toAddress(processSpenderAddress))
         }).$promise.then(function (info) {
 
