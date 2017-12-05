@@ -34,12 +34,12 @@
 					<div class="labeled" translate>Difficulty</div>
 				</div>
 				<div class="item">
-					<div class="label">{{ IC.blockchainInfo.stakingInfo && IC.blockchainInfo.stakingInfo.weight ? IC.blockchainInfo.stakingInfo.weight / 1e8 : 0 | numeraljs : '0,0[.][00000000]' }}</div>
-					<div class="labeled" translate>Network Weight</div>
-				</div>
-				<div class="item">
 					<div class="label">{{ IC.blockchainInfo.connections }}</div>
 					<div class="labeled" translate>Connections</div>
+				</div>
+				<div class="item">
+					<div class="label">{{ IC.blockchainInfo.stakingInfo && IC.blockchainInfo.stakingInfo.netstakeweight ? IC.blockchainInfo.stakingInfo.netstakeweight / 1e8 : 0 | numeraljs : '0,0[.][00000000]' }}</div>
+					<div class="labeled" translate>Network Weight</div>
 				</div>
 				<div class="item">
 					<div class="label">{{ IC.blockchainInfo.blocks | numeraljs : '0,0'}}</div>
