@@ -99,14 +99,14 @@
 	<div class="section section-tockenTabs">
 		<div class="section__heading">
 			<ul class="nav-tabs">
-				<li class="nav-item tab-large active" ng-class="{ 'active': TC.tab === 'transfers' }">
+				<li class="nav-item tab-large" ng-class="{ 'active': TC.tab === 'transfers' }">
 					<a href="" ng-click="TC.setTab('transfers')" class="nav-link" translate>Token Transfers</a>
 				</li>
 				<li ng-if="!TC.filterByAddress" class="nav-item tab-large" ng-class="{ 'active': TC.tab === 'holders' }">
 					<a href="" ng-click="TC.setTab('holders')" class="nav-link" translate>Token Holders</a>
 				</li>
-				<li class="nav-item tab-large" ng-class="{ 'active': TC.tab === 'read_smart_contract' }">
-					<a href="" ng-click="TC.setTab('read_smart_contract')" class="nav-link" translate>Read smart contract</a>
+				<li class="nav-item tab-large" ng-class="{ 'active': TC.tab === 'read-smart-contract' }">
+					<a href="" ng-click="TC.setTab('read-smart-contract')" class="nav-link" translate>Read smart contract</a>
 				</li>
 			</ul>
 		</div>
@@ -132,7 +132,7 @@
 				ng-if="TC.tokenInfo"
 				ng-include 
 				src="'views/token/read_smart_contract.html'"
-				ng-class="{ 'active': TC.tab === 'read_smart_contract' }"
+				ng-class="{ 'active': TC.tab === 'read-smart-contract' }"
 			>
 			</div>
 		</div>

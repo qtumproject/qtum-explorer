@@ -59,7 +59,7 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
 
 	self.contractAddress = $routeParams.address;
 
-	self.tab = 'transfers';
+	self.tab = $routeParams.tab && ['transfers', 'holders', 'read-smart-contract'].indexOf($routeParams.tab) !== -1 ? $routeParams.tab : 'transfers';
 
 	var _loadTabContent = function(offset) {
 		switch(self.tab){
@@ -71,7 +71,7 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
 				_getHolders(offset ? offset : 0);
 				break;
 			}
-			case 'read_smart_contract': {
+			case 'read-smart-contract': {
 				break;
 			}
 		}
@@ -154,6 +154,7 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
 		}
 
 		self.tab = tabName;
+        $location.path('/token/' + $routeParams.address + '/' + tabName, false);
 		_loadTabContent();
 
 	};

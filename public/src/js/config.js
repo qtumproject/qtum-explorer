@@ -84,7 +84,7 @@ angular.module('insight').config(function($routeProvider) {
 		templateUrl: 'views/chart.html',
 		title: 'Statistics'
 	}).
-	when('/token/:address', {
+	when('/token/:address/:tab?', {
 		controller: 'TokenController',
 		templateUrl: 'views/token/token.html',
 		title: 'Token'
@@ -106,6 +106,19 @@ angular.module('insight')
 		$locationProvider.hashPrefix('!');
 	})
 	.run(function($rootScope, $route, $location, $routeParams, $anchorScroll, gettextCatalog, amMoment, Constants) {
+
+        var original = $location.path;
+        $location.path = function (path, reload) {
+            if (reload === false) {
+                var lastRoute = $route.current;
+                var un = $rootScope.$on('$locationChangeSuccess', function () {
+                    $route.current = lastRoute;
+                    un();
+                });
+            }
+            return original.apply($location, [path]);
+        };
+
 
 		gettextCatalog.currentLanguage = Constants.DEFAULT_LANGUAGE;
 		amMoment.changeLocale(Constants.DEFAULT_LANGUAGE);
