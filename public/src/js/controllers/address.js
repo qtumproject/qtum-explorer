@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.address').controller('AddressController',
-function($scope, $rootScope, $document, $routeParams, $location, $window, Address, getSocket, Constants, ContractsInfo, Contracts, ERC20AddressBalances) {
+function($scope, $rootScope, $document, $routeParams, $location, $window, Address, getSocket, Constants, ContractsInfo, Contracts, ERC20AddressBalances, ERC20ContractInfo) {
 
 	var self = this;
 	var socket = getSocket($scope);
@@ -18,6 +18,7 @@ function($scope, $rootScope, $document, $routeParams, $location, $window, Addres
     self.storageViews = [ self.STORAGE_CONST.DATA, self.STORAGE_CONST.STRING, self.STORAGE_CONST.NUMBER, self.STORAGE_CONST.ADDRESS ];
     self.storage = {};
 	self.info = null;
+	self.erc20ContractInfo = null;
     self.scrollConfig = {
         autoHideScrollbar: false,
         theme: 'custom',
@@ -192,20 +193,33 @@ function($scope, $rootScope, $document, $routeParams, $location, $window, Addres
 
 			self.address = address;
 
-            ContractsInfo.get({
-                contractAddressStr: Contracts.getEthAddressFromBitAddress($routeParams.addrStr)
-            }, function (info) {
-                if (info) {
-                	self.info = info;
-                    self.opcodesStr = Contracts.getContractOpcodesString(info.code);
-                    self.storage.rows = _formStorageInfo();
-                    self.storage.storageLength = Object.keys(info.storage).length;
-                    self.storage.viewRows = Constants.STORAGE_ROWS;
-				}
-            }, function (e) {
-                console.log('e', e);
-            });
+            var ethAddress = Contracts.getEthAddressFromBitAddress($routeParams.addrStr);
 
+            if (ethAddress) {
+
+                ERC20ContractInfo.get({
+                    contractAddress: ethAddress
+                }, function (data) {
+                    if (data) {
+                        self.erc20ContractInfo = data;
+                    }
+                });
+
+                ContractsInfo.get({
+                    contractAddressStr: ethAddress
+                }, function (info) {
+                    if (info) {
+                        self.info = info;
+                        self.opcodesStr = Contracts.getContractOpcodesString(info.code);
+                        self.storage.rows = _formStorageInfo();
+                        self.storage.storageLength = Object.keys(info.storage).length;
+                        self.storage.viewRows = Constants.STORAGE_ROWS;
+                    }
+                }, function (e) {
+                    console.log('e', e);
+                });
+
+            }
 
 		},
 		function(e) {

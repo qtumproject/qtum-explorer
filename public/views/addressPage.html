@@ -70,6 +70,16 @@
 						</div>
 					</div>
 				</li>
+				<li class="list__item" ng-if="InnerContr.erc20ContractInfo">
+					<div class="list__left">
+						<b>QRC 20 Token</b>
+					</div>
+					<div class="list__right">
+						<div class="">
+							<a href="token/{{ InnerContr.address.addrStr }}">{{ InnerContr.erc20ContractInfo.symbol }}</a>
+						</div>
+					</div>
+				</li>
 				<li class="list__item w-a" ng-if="InnerContr.balances.length">
 					<div class="list__left">
 						<b>Token Tracker</b>
