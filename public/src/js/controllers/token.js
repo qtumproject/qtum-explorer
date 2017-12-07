@@ -79,7 +79,8 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
 
 	self.getPercent = function (total, amount) {
 		var amountBN = new BigNumber(amount);
-		return amountBN.dividedBy(total).toString(10);
+
+		return amountBN.dividedBy(total).mul(100).toString(10);
 	};
 
 	var _getTransfers = function(offset) {
