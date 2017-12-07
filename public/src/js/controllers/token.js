@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.token').controller('TokenController',
-function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers, ERC20AddressBalances, ERC20Holders, ContractRepository, SolidityCoder, Web3Utils, Contracts) {
+function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers, ERC20AddressBalances, ERC20Holders, ContractRepository, SolidityCoder, Web3Utils, Contracts, BigNumber) {
 
 	if (!Web3Utils.isAddress($routeParams.address) && !Contracts.isValidQtumAddress($routeParams.address)) {
 
@@ -77,6 +77,10 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
 		}
 	};
 
+	self.getPercent = function (total, amount) {
+		var amountBN = new BigNumber(amount);
+		return amountBN.dividedBy(total).toString(10);
+	};
 
 	var _getTransfers = function(offset) {
 
