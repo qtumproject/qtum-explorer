@@ -20,8 +20,12 @@
 		</div>
 		<div class="content__list content__list-blockchain" ng-if="IC.blockchainInfo">
 			<div class="item item-full">
-				<div class="label">{{ IC.blockchainInfo.supply | numeraljs : '0,0[.][00000000]' }}</div>
-				<div class="labeled" translate>Supply</div>
+				<div class="label">{{ IC.blockchainInfo.supply | numeraljs : '0,0[.][00000000]' }} QTUM</div>
+				<div class="labeled" translate>Total Supply</div>
+			</div>
+			<div class="item item-full" ng-if="IC.marketsInfo">
+				<div class="label">{{ IC.marketsInfo.available_supply | numeraljs : '0,0[.][00000000]' }} QTUM</div>
+				<div class="labeled" translate>Circulating Supply</div>
 			</div>
 			<div class="limiter"></div>
 			<div class="clearfix">

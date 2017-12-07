@@ -77,6 +77,7 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
 		}
 	};
 
+
 	var _getTransfers = function(offset) {
 
 		ERC20Transfers.get({
@@ -90,7 +91,7 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
 	};
 
 	var _getHolders = function(offset) {
-		
+
 		return ERC20Holders.get({
 			address: contractEthAddress,
 			offset: offset
@@ -98,6 +99,7 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
 			self.holders = holderList;
 			self.holders.pages = self.holders.count && self.holders.limit ? Math.ceil(self.holders.count / self.holders.limit) : 0;
 		});
+
 	};
 
 	var _loadTokenInfo = function() {
