@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.token').controller('TokenController',
-function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers, ERC20AddressBalances, ERC20Holders, ContractRepository, SolidityCoder, Web3Utils, Contracts, BigNumber) {
+function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers, ERC20AddressBalances, ERC20Holders, ContractsRepository, SolidityCoder, Web3Utils, Contracts, BigNumber) {
 
 	if (!Web3Utils.isAddress($routeParams.address) && !Contracts.isValidQtumAddress($routeParams.address)) {
 
@@ -216,7 +216,7 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
         balanceOfData.owner_error = "";
         balanceOfData.inProcess = true;
 
-        return ContractRepository.call({
+        return ContractsRepository.call.get({
         	address: contractEthAddress,
 			hash: BALANCE_OF_METHOD_HASH + SolidityCoder.encodeParam('address', Web3Utils.toAddress(processAddress))
 		}).$promise.then(function (info) {
@@ -273,7 +273,7 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
 
         allowanceData.inProcess = false;
 
-        return ContractRepository.call({
+        return ContractsRepository.call.get({
             address: contractEthAddress,
             hash: ALLOWANCE_METHOD_HASH + SolidityCoder.encodeParam('address', Web3Utils.toAddress(processOwnerAddress)) + SolidityCoder.encodeParam('address', Web3Utils.toAddress(processSpenderAddress))
         }).$promise.then(function (info) {

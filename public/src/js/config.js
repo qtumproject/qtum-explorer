@@ -84,6 +84,11 @@ angular.module('insight').config(function($routeProvider) {
 		templateUrl: 'views/chart.html',
 		title: 'Statistics'
 	}).
+	when('/tokens/search', {
+		controller: 'TokensSearchController',
+		templateUrl: 'views/tokens_search.html',
+		title: 'Tokens Search'
+	}).
 	when('/token/:address/:tab?', {
 		controller: 'TokenController',
 		templateUrl: 'views/token/token.html',

@@ -282,27 +282,47 @@ angular.module('insight.contracts')
 				}
 			}
 		});
-	}).factory('ContractRepository', function($resource, $window) {
-
-		return $resource($window.apiPrefix + '/contracts/:address/hash/:hash/call',
-			{
-                address: '@address',
-                hash: '@hash'
-			},
-			{
-				call: {
-					method: 'GET',
-					interceptor: {
-						response: function (res) {
-							return res.data;
-						},
-						responseError: function (res) {
-							if (res.status === 404) {
-								return res;
+	}).factory('ContractsRepository', function($resource, $window) {
+		return {
+			call: $resource($window.apiPrefix + '/contracts/:address/hash/:hash/call',
+				{
+					address: '@address',
+					hash: '@hash'
+				},
+				{
+					get: {
+						method: 'GET',
+						interceptor: {
+							response: function (res) {
+								return res.data;
+							},
+							responseError: function (res) {
+								if (res.status === 404) {
+									return res;
+								}
 							}
 						}
 					}
-				}
-			});
+				}),
+			search: $resource($window.apiPrefix + '/erc20/search',
+				{
+					query: '@query'
+				},
+				{
+					get: {
+						method: 'GET',
+						interceptor: {
+							response: function (res) {
+								return res.data;
+							},
+							responseError: function (res) {
+								if (res.status === 404) {
+									return res;
+								}
+							}
+						}
+					}
+				})
+		};
 });
 

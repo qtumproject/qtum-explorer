@@ -42,6 +42,21 @@
     line-height: 300px;
     text-align: center;
     font-size: 0; }
+  .preload-btn {
+    position: relative;
+    cursor: default; }
+  .preload-pos-abs {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto; }
+  .preload-sm {
+    width: 19px;
+    height: 19px; }
+  .preload-dark {
+    border-color: #232328; }
   .preloadInner {
     vertical-align: top;
     display: inline-block;

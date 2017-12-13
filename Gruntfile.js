@@ -61,7 +61,8 @@ module.exports = function(grunt) {
 				'public/lib/angular-moment/angular-moment.min.js',
 				'public/lib/ng-scrollbars/dist/scrollbars.min.js',
 				'public/lib/angular-chart.js/dist/angular-chart.min.js',
-				'public/lib/angular-numeraljs/dist/angular-numeraljs.min.js'
+				'public/lib/angular-numeraljs/dist/angular-numeraljs.min.js',
+				'public/lib/ng-lodash/build/ng-lodash.min.js'
 			],
 			dest: 'public/js/angularjs-all.js'
 		},

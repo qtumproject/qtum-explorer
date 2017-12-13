@@ -25,6 +25,7 @@
     "angular-chart.js": "^1.1.1",
     "tooltipster": "^4.2.5",
     "numeral": "^2.0.6",
-    "angular-numeraljs": "^2.0.1"
+    "angular-numeraljs": "^2.0.1",
+    "ng-lodash": "^0.5.0"
   }
 }

@@ -3,6 +3,7 @@
 angular.module('insight',[
 	'ngResource',
 	'ngRoute',
+	'ngLodash',
 	'ui.bootstrap',
 	'ui.route',
 	'monospaced.qrcode',

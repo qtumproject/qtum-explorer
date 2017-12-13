@@ -30,6 +30,10 @@ function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block,
             {
                 'title': gettextCatalog.getString('Charts'),
                 'link': 'charts'
+            },
+            {
+                'title': gettextCatalog.getString('Tokens'),
+                'link': 'tokens/search'
             }
         ];
 	}

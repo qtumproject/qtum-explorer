@@ -1,0 +1,42 @@
+<div data-ng-include src="'views/includes/connection.html'"></div>
+
+<div class="box" ng-controller="TokensSearchController as TSC" ng-init="TSC.init()">
+    <div class="heading margin1">
+        <div class="ov">
+            <h1 class="heading__title">Search for Token Contract</h1>
+        </div>
+    </div>
+    <div class="search__box">
+        <div class="search__wrap search__wrap-token">
+            <div ng-if="TSC.error" class="error__text fsz-12 c-red pos-abs-top-right">{{ TSC.error }}</div>
+            <input autocomplete="off" type="text" name="query" ng-model="TSC.query" ng-change="TSC.changeQuery()" class="field search__field" ng-class="{'error': TSC.error}" placeholder="Enter an ERC20 Contract Address or Token Name">
+
+            <div class="search__results active" ng-if="TSC.searchResult && TSC.searchResult.items.length">
+                <div class="ddMenu">
+                    <ul class="ddMenu__list">
+                        <li class="ddMenu__item" ng-repeat="item in TSC.searchResult.items">
+                            <a href="/token/{{ item.contract_address_base }}" class="ddMenu__link">
+                                <span class="ddMenu__linkRow">{{ item.name ? item.name : item.contract_address_base }} {{ item.symbol ? '(' + item.symbol + ')' : '' }}</span>
+                                <span class="ddMenu__linkRow muted">
+										ERC20 TOKEN: {{ item.contract_address_base }}
+									</span>
+                                <span class="ddMenu__linkRow muted">
+										{{ $root.token.convertDecimals(item.total_supply, item.decimals) }} {{ item.symbol }}
+									</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="search__notFound active" ng-if="TSC.query && !TSC.inProcess && (!TSC.searchResult || !TSC.searchResult.items.length)">
+                <p>No matching records found!</p>
+            </div>
+        </div>
+        <div class="search__btnBox">
+            <button class="btn btn-blue btn-h-lg" ng-click="TSC.search()" ng-if="!TSC.inProcess">Search</button>
+            <button class="btn btn-blue btn-h-lg preload-btn" ng-if="TSC.inProcess"><span class="preload preload-sm preload-dark preload-pos-abs" ></span></button>
+            <button class="btn btn-transp btn-h-lg" ng-click="TSC.reset()">Reset</button>
+        </div>
+    </div>
+</div>

@@ -31,7 +31,8 @@ table {
   border-spacing: 0; }
 
 input[type=button], input[type=submit], button {
-  cursor: pointer; }
+  cursor: pointer;
+  border-radius: 0; }
 
 button {
   border: 0; }
@@ -3114,10 +3115,26 @@ corresponds to the arrow we want to display */
       margin: 50px 0 20px; }
     .btn-blocks:hover {
       background: #e75647; }
+  .btn-h-lg {
+    height: 40px;
+    line-height: 40px; }
+  .btn-blue {
+    background: #2e9ad0;
+    color: #232328; }
+    .btn-blue:not(.preload-btn):hover {
+      background: #e75647; }
+  .btn-transp {
+    background: transparent;
+    color: #2e9ad0; }
+    .btn-transp:hover {
+      color: #e75647; }
 
 .header {
-  padding: 50px 0;
-  background: #232328; }
+  background: #232328;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 155px; }
   .header:before, .header:after {
     content: " ";
     display: table; }
@@ -3131,8 +3148,13 @@ corresponds to the arrow we want to display */
     z-index: 11;
     min-width: 100px; }
   .header .box {
-    margin: 0 260px;
-    padding: 0; }
+    margin: 0;
+    padding: 0;
+    order: 2;
+    display: flex;
+    justify-content: space-between;
+    max-width: inherit;
+    width: 100%; }
     .header .box:before, .header .box:after {
       content: " ";
       display: table; }
@@ -3142,7 +3164,9 @@ corresponds to the arrow we want to display */
 .logo {
   display: block;
   float: left;
-  margin-left: 40px; }
+  margin-left: 40px;
+  margin-right: 10px;
+  order: 0; }
   .logo img {
     vertical-align: top; }
   .logo .logoPic-hover {
@@ -3171,73 +3195,14 @@ corresponds to the arrow we want to display */
       color: #232328;
       background-color: #e75647; }
 
-.search__wrap {
-  position: relative;
-  float: right;
-  width: 50%;
-  max-width: 570px;
-  margin-right: 160px;
-  background: url("../images/search.png") 13px 50% no-repeat; }
-
-.search__field {
-  padding-left: 50px; }
-
-.search__notFound {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  padding: 10px;
-  z-index: 2;
-  background: #2e9ad0;
-  color: #232328;
-  display: none; }
-  .search__notFound.active {
-    display: block; }
-
-.search__del {
-  display: none;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  line-height: 38px;
-  right: 15px;
-  font-size: 16px;
-  color: #2e9ad0;
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  transition: all 0.2s ease; }
-  .search__del:hover {
-    opacity: .6; }
-  .search__del.active {
-    display: block; }
-
-.search__results {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  background: #2e9ad0;
-  display: none; }
-  .search__results.active {
-    display: block; }
-  .search__resultsItemLink {
-    display: block;
-    padding: 15px 18px;
-    font-size: 16px;
-    color: #232328; }
-    .search__resultsItemLink:hover {
-      color: #e75647;
-      background-color: #232328; }
-
 .header__lang-switcher {
+  order: 3;
   float: right;
   width: 12.5%;
   vertical-align: middle;
   font-size: 14px;
-  padding-right: 20px; }
+  padding-right: 20px;
+  margin-left: 10px; }
 
 .language-switcher {
   position: relative; }
@@ -3309,14 +3274,10 @@ corresponds to the arrow we want to display */
         display: none; } }
 
 @media (max-width: 1430px) {
-  .search__wrap {
-    margin-right: 0;
-    width: 60%; } }
-
-@media (max-width: 1330px) {
-  .search__wrap {
-    margin-right: 0;
-    width: 100%; } }
+  .header .box {
+    flex-direction: column;
+    margin: auto;
+    width: auto; } }
 
 .footer {
   position: relative;
@@ -3808,6 +3769,21 @@ corresponds to the arrow we want to display */
     line-height: 300px;
     text-align: center;
     font-size: 0; }
+  .preload-btn {
+    position: relative;
+    cursor: default; }
+  .preload-pos-abs {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto; }
+  .preload-sm {
+    width: 19px;
+    height: 19px; }
+  .preload-dark {
+    border-color: #232328; }
   .preloadInner {
     vertical-align: top;
     display: inline-block;
@@ -4092,6 +4068,19 @@ corresponds to the arrow we want to display */
     vertical-align: middle;
     font-size: 16px;
     color: #232328; }
+    .error__text.fsz-12 {
+      font-size: 12px; }
+    .error__text.c-red {
+      color: #e75647; }
+    .error__text.pos-abs-top-right {
+      position: absolute;
+      bottom: 100%;
+      right: 0;
+      text-align: right; }
+
+.search__field.error {
+  background: inherit;
+  border-color: #e75647; }
 
 .alert {
   padding: 20px;
@@ -4446,6 +4435,136 @@ corresponds to the arrow we want to display */
     transition: all 0.2s ease; }
     .nav-item.tab-large .nav-link:hover {
       opacity: .8; }
+
+.table__sortingTrigger {
+  line-height: 0;
+  white-space: nowrap; }
+  .table__sortingTrigger:hover .table__sortingUp,
+  .table__sortingTrigger:hover .table__sortingDown {
+    opacity: 1; }
+  .table__sortingTrigger.desc {
+    cursor: default; }
+    .table__sortingTrigger.desc .table__sortingUp,
+    .table__sortingTrigger.desc .table__sortingDown {
+      opacity: 1; }
+    .table__sortingTrigger.desc .table__sortingUp {
+      display: none; }
+    .table__sortingTrigger.desc .table__sortingBox {
+      height: 4px; }
+  .table__sortingTrigger.asc {
+    cursor: default; }
+    .table__sortingTrigger.asc .table__sortingUp,
+    .table__sortingTrigger.asc .table__sortingDown {
+      opacity: 1; }
+    .table__sortingTrigger.asc .table__sortingDown {
+      display: none; }
+    .table__sortingTrigger.asc .table__sortingBox {
+      height: 4px; }
+  .table__sortingTrigger > * {
+    vertical-align: middle; }
+
+.table__sortingBox {
+  display: inline-block;
+  width: 10px;
+  height: 11px;
+  position: relative; }
+
+.table__sortingUp, .table__sortingDown {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  right: 0;
+  opacity: 0; }
+
+.table__sortingUp {
+  border-width: 0 3px 4px 3px;
+  border-color: transparent transparent #2e9ad0 transparent;
+  top: 0; }
+
+.table__sortingDown {
+  border-width: 4px 3px 0 3px;
+  border-color: #2e9ad0 transparent transparent transparent;
+  bottom: 0; }
+
+.search__wrap {
+  position: relative;
+  float: right;
+  background: url("../images/search.png") 13px 50% no-repeat;
+  min-width: 450px; }
+  .search__wrap-token {
+    max-width: 725px;
+    width: 100%;
+    float: none; }
+    .search__wrap-token .ddMenu {
+      opacity: 1;
+      visibility: visible;
+      margin-top: 0;
+      margin-bottom: 20px; }
+
+.search__field {
+  padding-left: 50px; }
+  .search__fieldWrap {
+    overflow: hidden; }
+
+.search__notFound {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  z-index: 2;
+  background: #2e9ad0;
+  color: #232328;
+  display: none; }
+  .search__notFound.active {
+    display: block; }
+
+.search__del {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  line-height: 38px;
+  right: 15px;
+  font-size: 16px;
+  color: #2e9ad0;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease; }
+  .search__del:hover {
+    opacity: .6; }
+  .search__del.active {
+    display: block; }
+
+.search__results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background: #2e9ad0;
+  display: none; }
+  .search__results.active {
+    display: block; }
+  .search__resultsItemLink {
+    display: block;
+    padding: 15px 18px;
+    font-size: 16px;
+    color: #232328; }
+    .search__resultsItemLink:hover {
+      color: #e75647;
+      background-color: #232328; }
+
+.search__box {
+  display: flex;
+  margin: 90px 0; }
+
+.search__btnBox .btn {
+  width: 95px;
+  text-align: center;
+  vertical-align: top; }
 
 .supernova__wrap {
   width: 640px;
