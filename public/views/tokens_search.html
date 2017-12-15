@@ -9,7 +9,7 @@
     <div class="search__box">
         <div class="search__wrap search__wrap-token">
             <div ng-if="TSC.error" class="error__text fsz-12 c-red pos-abs-top-right">{{ TSC.error }}</div>
-            <input autocomplete="off" type="text" name="query" ng-model="TSC.query" ng-change="TSC.changeQuery()" class="field search__field" ng-class="{'error': TSC.error}" placeholder="Enter an ERC20 Contract Address or Token Name">
+            <input autocomplete="off" type="text" name="query" ng-model="TSC.query" ng-change="TSC.changeQuery()" class="field search__field" ng-class="{'error': TSC.error}" placeholder="Enter an QRC20 Contract Address or Token Name">
 
             <div class="search__results active" ng-if="TSC.searchResult && TSC.searchResult.items.length">
                 <div class="ddMenu">
@@ -18,7 +18,7 @@
                             <a href="/token/{{ item.contract_address_base }}" class="ddMenu__link">
                                 <span class="ddMenu__linkRow">{{ item.name ? item.name : item.contract_address_base }} {{ item.symbol ? '(' + item.symbol + ')' : '' }}</span>
                                 <span class="ddMenu__linkRow muted">
-										ERC20 TOKEN: {{ item.contract_address_base }}
+										QRC20 TOKEN: {{ item.contract_address_base }}
 									</span>
                                 <span class="ddMenu__linkRow muted">
 										{{ $root.token.convertDecimals(item.total_supply, item.decimals) }} {{ item.symbol }}
