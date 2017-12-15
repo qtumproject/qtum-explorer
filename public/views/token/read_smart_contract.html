@@ -15,7 +15,7 @@
 				<span class="arrow icon-arrow-right2"></span>
 				<div class="text">
 					{{ TC.tokenInfo.total_supply }}
-					<span class="muted">unit256</span>
+					<span class="muted">uint256</span>
 				</div>
 			</li>
 			<li class="list__item">
@@ -23,7 +23,7 @@
 				<div class="text" translate>Decimals</div>
 				<span class="arrow icon-arrow-right2"></span>
 				<div class="text">
-					{{ TC.tokenInfo.decimals }} <span class="muted">unit8</span>
+					{{ TC.tokenInfo.decimals }} <span class="muted">uint8</span>
 				</div>
 			</li>
 			<li class="list__item">
@@ -50,7 +50,7 @@
 				<div class="line">
 					<span class="arrow-lg icon-arrow-right3"></span>
 					<span class="text">
-						Balance  <span class="muted">unit256</span>
+						Balance  <span class="muted">uint256</span>
 					</span>
 				</div>
 
@@ -62,7 +62,7 @@
 						&nbsp;
 						<span class="arrows icon-arrows-right"></span>
 						<b translate>balance </b>
-						<i class="muted">unit256</i>:
+						<i class="muted">uint256</i>:
 						<span>{{ TC.readSmartContractTab.balanceOf.balance }}</span> [Owner address: {{ TC.readSmartContractTab.balanceOf.requested_address }} <span ng-if="TC.readSmartContractTab.balanceOf.requested_address !== TC.readSmartContractTab.balanceOf.process_address">[{{ TC.readSmartContractTab.balanceOf.process_address }}]</span>]
 					</div>
 				</div>
@@ -100,7 +100,7 @@
 				<div class="line">
 					<span class="arrow-lg icon-arrow-right3"></span>
 					<span class="text">
-						Remaining <span class="muted">unit256</span>
+						Remaining <span class="muted">uint256</span>
 					</span>
 				</div>
 
@@ -112,7 +112,7 @@
 						&nbsp;
 						<span class="arrows icon-arrows-right"></span>
 						<b translate> remaining </b>
-						<i class="muted">unit256</i>:
+						<i class="muted">uint256</i>:
 						<span>{{ TC.readSmartContractTab.allowance.balance }}</span> [Owner address: {{ TC.readSmartContractTab.allowance.owner_requested_address }}<span ng-if="TC.readSmartContractTab.allowance.owner_requested_address !== TC.readSmartContractTab.allowance.owner_process_address"> [{{ TC.readSmartContractTab.allowance.owner_process_address }}]</span>; Spender address: {{ TC.readSmartContractTab.allowance.spender_requested_address }} <span ng-if="TC.readSmartContractTab.allowance.spender_requested_address !== TC.readSmartContractTab.allowance.spender_process_address">[{{ TC.readSmartContractTab.allowance.spender_process_address }}]</span>]
 					</div>
 				</div>
