@@ -170,7 +170,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 		if (isTransferEvent) {
 			ERC20ContractInfo.get({
-				address: receiptItemQRC20.contractAddress
+				contractAddress: receiptItemQRC20.contractAddress
 			}).$promise.then(function (data) {
 				tx.erc20ContractInfo = data;
 				deferred.resolve(tx);
