@@ -4573,7 +4573,8 @@ corresponds to the arrow we want to display */
     right: 0;
     overflow: hidden;
     width: 640px;
-    height: 640px; }
+    height: 640px;
+    pointer-events: none; }
     .supernova__wrapBox .supernova__wrap {
       position: absolute;
       bottom: -250px;
@@ -5328,8 +5329,7 @@ corresponds to the arrow we want to display */
       width: 30%; }
     .section-tokenSearchTable .th .title,
     .section-tokenSearchTable .td .title {
-      display: inline-block;
-      margin: -1px 0 5px; }
+      display: inline-block; }
     .section-tokenSearchTable .th .muted,
     .section-tokenSearchTable .td .muted {
       font-size: 12px;
