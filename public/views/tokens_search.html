@@ -52,9 +52,9 @@
                     <div class="">
                         <a href="/token/{{ contract.contract_address_base }}" class="ellipsis mark title">{{ contract.symbol }} {{ contract.name ? ((contract.symbol ? '- ' : '') + contract.name) : '' }}</a>
                     </div>
-                    <!--<div class="descr muted">-->
-                    <!--Augur combines the magic of prediction markets with the power of a decentralized network to create a stunningly accurate forecasting tool-->
-                    <!--</div>-->
+                    <div ng-if="contract.description" class="descr muted">
+                        {{ contract.description }}
+                    </div>
                 </div>
                 <div class="td">{{ $root.token.convertDecimals(contract.total_supply, contract.decimals) }}</div>
                 <div class="td">{{ contract.count_holders | numeraljs : '0,0[.][00000000]' }}</div>

@@ -36,7 +36,10 @@ angular.module('insight.system').controller('TokensSearchController',
                         }
                     });
 
-                    self.contractsList = transformedItems;
+                    self.contractsList = _.sortBy(transformedItems, function(item) {
+                        return -item.count_holders;
+                    });
+
                 }
             });
         };
