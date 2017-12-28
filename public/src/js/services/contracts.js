@@ -322,7 +322,24 @@ angular.module('insight.contracts')
 							}
 						}
 					}
-				})
+				}),
+			contractsList: $resource($window.apiPrefix + '/tokens',
+                {},
+                {
+                    get: {
+                        method: 'GET',
+                        interceptor: {
+                            response: function (res) {
+                                return res.data;
+                            },
+                            responseError: function (res) {
+                                if (res.status === 404) {
+                                    return res;
+                                }
+                            }
+                        }
+                    }
+                })
 		};
 });
 

@@ -4559,7 +4559,7 @@ corresponds to the arrow we want to display */
 
 .search__box {
   display: flex;
-  margin: 90px 0; }
+  margin: 90px 0 105px; }
 
 .search__btnBox .btn {
   width: 95px;
@@ -4657,7 +4657,7 @@ corresponds to the arrow we want to display */
     width: 20%; }
   .section-blocks .th:nth-child(3),
   .section-blocks .td:nth-child(3) {
-    padding-right: 8%;
+    padding-right: 7%;
     width: 20%; }
   .section-blocks .th:nth-child(4),
   .section-blocks .td:nth-child(4) {
@@ -5306,6 +5306,37 @@ corresponds to the arrow we want to display */
       background: #2ed0a0; }
   .section-tokenTransfers .link {
     display: block; }
+
+.section-tokenSearchTable {
+  margin-bottom: 100px; }
+  .section-tokenSearchTable .tr {
+    padding: 15px 2px; }
+  .section-tokenSearchTable .th,
+  .section-tokenSearchTable .td {
+    text-align: right;
+    padding-left: 1%; }
+    .section-tokenSearchTable .th:nth-child(1),
+    .section-tokenSearchTable .td:nth-child(1) {
+      width: 30%;
+      text-align: left;
+      padding-left: 0; }
+    .section-tokenSearchTable .th:nth-child(2),
+    .section-tokenSearchTable .td:nth-child(2) {
+      width: 20%; }
+    .section-tokenSearchTable .th:nth-child(3),
+    .section-tokenSearchTable .td:nth-child(3) {
+      width: 20%; }
+    .section-tokenSearchTable .th:nth-child(4),
+    .section-tokenSearchTable .td:nth-child(4) {
+      width: 30%; }
+    .section-tokenSearchTable .th .title,
+    .section-tokenSearchTable .td .title {
+      display: inline-block;
+      margin: -1px 0 5px; }
+    .section-tokenSearchTable .th .muted,
+    .section-tokenSearchTable .td .muted {
+      font-size: 12px;
+      opacity: .5; }
 
 .section-charts {
   margin-top: 35px;

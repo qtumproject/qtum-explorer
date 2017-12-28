@@ -6,7 +6,7 @@ angular.module('insight.system').controller('TokensSearchController',
         var self = this;
 
         self.init = function () {
-            console.log('TokensSearchController Init');
+            getContractsList();
         };
 
         var currentRequestUniqueId;
@@ -22,6 +22,24 @@ angular.module('insight.system').controller('TokensSearchController',
         self.inProcess = false;
         self.searchResult = getDefaultSearchResult();
 
+        self.contractsList = [];
+
+        var getContractsList = function () {
+            ContractsRepository.contractsList.get({}, function (res) {
+                console.log(res);
+                if (res && res.count && res.items) {
+                    var transformedItems = [];
+
+                    res.items.forEach(function (item) {
+                        if (!item.exception && (item.name || item.symbol)) {
+                            transformedItems.push(item);
+                        }
+                    });
+
+                    self.contractsList = transformedItems;
+                }
+            });
+        };
 
         var debounced = lodash.debounce(function (requestId) {
 
