@@ -62,18 +62,25 @@ function($scope, $rootScope, $document, $routeParams, $location, $window, Addres
 
             case 'string': {
 
-                var newValue = '';
-                var i = hex.substring(0, 2) === '0x' ? 2 : 0;
+                var str = "";
+                var i = 0, l = hex.length;
 
-                for ( ; i < hex.length; i += 2) {
-
-                    var symbol = String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-
-                    symbol = !symbol.charCodeAt() ? ' ' : symbol;
-                    newValue += symbol;
+                if (hex.substring(0, 2) === '0x') {
+                    i = 2;
                 }
 
-                return newValue;
+                for (; i < l; i+=2) {
+
+                    var code = parseInt(hex.substr(i, 2), 16);
+
+                    if (code === 0 && str)
+                        break;
+
+                    str += String.fromCharCode(code);
+                }
+
+                return str;
+                
             }
             case 'number': {
                 return parseInt(hex, 16);
