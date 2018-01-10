@@ -6,6 +6,11 @@ var fs = require('fs');
 
 var InsightUI = function(options) {
   BaseService.call(this, options);
+
+  var packageJSON = JSON.parse(fs.readFileSync(__dirname + '/../package.json'));
+
+  this.packageVersion = packageJSON.version;
+
   if (typeof options.apiPrefix !== 'undefined') {
     this.apiPrefix = options.apiPrefix;
   } else {
@@ -68,6 +73,7 @@ InsightUI.prototype.setupRoutes = function(app, express) {
 
 InsightUI.prototype.filterIndexHTML = function(data) {
   var transformed = data
+    .replace(/{{version}}/, 'v' + this.packageVersion)
     .replace(/apiPrefix = '\/api'/, "apiPrefix = '/" + this.apiPrefix + "'")
     .replace(/nodemapLink = ''/, "nodemapLink = '" + this.nodemapLink + "'")
     .replace(/current_network = null/, "current_network = '" + (this.network.name === 'testnet' ? 'testnet' : 'livenet') + "'");
