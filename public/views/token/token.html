@@ -78,7 +78,20 @@
 										data-clipboard-text="{{ TC.tokenInfo.contract_address_base }}"
 									></a>
 									<div class="copyText text additional">
-										<a href="address/{{ TC.tokenInfo.contract_address_base }}">{{ TC.tokenInfo.contract_address_base }}</a>
+										<a href="address/{{ TC.tokenInfo.contract_address_base }}">[base58] {{ TC.tokenInfo.contract_address_base }}</a>
+									</div>
+								</div>
+							</div>
+							<div class="">
+								<div class=" copyParent copyParent-right">
+									<a
+											href=""
+											class="copyBtn icon-copy"
+											ngclipboard
+											data-clipboard-text="{{ TC.tokenInfo.contract_address }}"
+									></a>
+									<div class="copyText text additional">
+										<a href="address/{{ TC.tokenInfo.contract_address_base }}">[hex] {{ TC.tokenInfo.contract_address }}</a>
 									</div>
 								</div>
 							</div>
