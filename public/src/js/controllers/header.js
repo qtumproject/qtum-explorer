@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.system').controller('HeaderController',
-function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block, $templateCache, Constants) {
+function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block, $templateCache, Constants, $location) {
 
 	var self = this;
 	var socket = getSocket($scope);
@@ -9,31 +9,41 @@ function($scope, $rootScope, $route, gettextCatalog, amMoment, getSocket, Block,
 
 	self.menu = _getMenu();
 
+	self.isActiveMenuItem = function (item) {
+        return $location.path().search(item) !== -1 ? 'active': ''
+	};
+
 	function _getMenu() {
 		return [
             {
                 'title': gettextCatalog.getString('Blocks'),
-                'link': 'blocks'
+                'link': 'blocks',
+				'active_part': '/block'
             },
             {
                 'title': gettextCatalog.getString('Status'),
-                'link': 'status'
+                'link': 'status',
+                'active_part': '/status'
             },
             {
                 'title': gettextCatalog.getString('Stats'),
-                'link': 'stats'
+                'link': 'stats',
+                'active_part': '/stats'
             },
             {
                 'title': gettextCatalog.getString('Nodemap'),
-                'link': Constants.NODEMAP_LINK
+                'link': Constants.NODEMAP_LINK,
+                'active_part': '/nodemap'
             },
             {
                 'title': gettextCatalog.getString('Charts'),
-                'link': 'charts'
+                'link': 'charts',
+                'active_part': '/charts'
             },
             {
                 'title': gettextCatalog.getString('Tokens'),
-                'link': 'tokens/search'
+                'link': 'tokens/search',
+                'active_part': '/token'
             }
         ];
 	}

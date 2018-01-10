@@ -31,7 +31,8 @@
 		   ui-route="{{ item.link }}"
 		   href="{{ item.link }}"
 		   ng-if="item.link"
-		   class="nav__item">
+		   class="nav__item"
+		   ng-class="HC.isActiveMenuItem(item.active_part)">
 			{{ item.title }}
 		</a>
 	</nav>
