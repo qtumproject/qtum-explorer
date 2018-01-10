@@ -301,4 +301,41 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
 
 	};
 
+    /**
+	 * Transfer Paginate input
+     *
+     */
+
+	self.transfer_paginate_has_error = false;
+	self.transfer_paginate_page = '';
+
+	self.setTransferPaginateError = function (hasError) {
+        self.transfer_paginate_has_error = hasError;
+	};
+
+	self.resetTransferPaginate = function () {
+        self.transfer_paginate_has_error = false;
+        self.transfer_paginate_page = '';
+	};
+
+    self.changeTransfersPage = function (e) {
+
+        var countPages = self.transfers.count && self.transfers.limit ? Math.ceil(self.transfers.count / self.transfers.limit) : 0,
+			value = e.target.value;
+
+        if (!/^\d+$/.test(value)) {
+			return self.setTransferPaginateError(true);
+		}
+
+        value = parseInt(e.target.value, 10);
+
+        if (value && !isNaN(value) && countPages >= value) {
+            self.paginate(self.transfers.limit * (value - 1));
+            this.resetTransferPaginate();
+		} else {
+            self.setTransferPaginateError(true);
+		}
+
+	};
+
 });

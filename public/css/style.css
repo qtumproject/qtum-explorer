@@ -3182,18 +3182,23 @@ corresponds to the arrow we want to display */
   float: left; }
   .nav__item {
     display: inline-block;
-    padding: 13px 10px;
+    padding: 13px 5px;
+    margin: 0 5px;
     text-transform: uppercase;
     font-size: 14px;
     line-height: 14px;
     font-weight: 500;
+    border-top: 3px solid transparent;
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease; }
     .nav__item:hover {
       color: #232328;
-      background-color: #e75647; }
+      background-color: #e75647;
+      border-color: transparent; }
+    .nav__item.active {
+      border-color: #e75647; }
 
 .header__lang-switcher {
   order: 3;
@@ -4030,9 +4035,10 @@ corresponds to the arrow we want to display */
     line-height: 38px;
     height: 40px;
     background: transparent !important;
-    border: 1px solid #2e9ad0 !important;
-    color: rgba(46, 154, 208, 0.2) !important;
-    cursor: default; }
+    border: none;
+    color: rgba(46, 154, 208, 0.5) !important;
+    cursor: default;
+    padding: 0; }
   .pagination__item.disabled {
     cursor: default;
     background: transparent !important;
@@ -4053,6 +4059,29 @@ corresponds to the arrow we want to display */
     background-color: #e75647;
     color: #232328;
     border-color: #e75647; }
+  .pagination__itemField {
+    color: #2e9ad0;
+    width: 50px;
+    text-transform: none;
+    font-size: 14px;
+    line-height: 38px;
+    height: 40px;
+    background: transparent !important;
+    border: 1px solid #2e9ad0;
+    text-align: center;
+    padding: 0 2px; }
+    .pagination__itemField::-webkit-input-placeholder {
+      color: rgba(46, 154, 208, 0.2); }
+    .pagination__itemField::-moz-placeholder {
+      color: rgba(46, 154, 208, 0.2); }
+    .pagination__itemField:-moz-placeholder {
+      color: rgba(46, 154, 208, 0.2); }
+    .pagination__itemField:-ms-input-placeholder {
+      color: rgba(46, 154, 208, 0.2) !important; }
+    .pagination__itemField.error {
+      border-color: #e75647; }
+  .pagination__itemText {
+    padding: 0 5px; }
 
 .error {
   display: inline-block;
