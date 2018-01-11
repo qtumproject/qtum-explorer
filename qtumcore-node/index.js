@@ -74,6 +74,7 @@ InsightUI.prototype.setupRoutes = function(app, express) {
 InsightUI.prototype.filterIndexHTML = function(data) {
   var transformed = data
     .replace(/{{version}}/, 'v' + this.packageVersion)
+    .replace(/{{year}}/, (new Date()).getFullYear())
     .replace(/apiPrefix = '\/api'/, "apiPrefix = '/" + this.apiPrefix + "'")
     .replace(/nodemapLink = ''/, "nodemapLink = '" + this.nodemapLink + "'")
     .replace(/current_network = null/, "current_network = '" + (this.network.name === 'testnet' ? 'testnet' : 'livenet') + "'");
