@@ -27,7 +27,9 @@
 			<span>prev</span>
 		</a>
 		<span class="pagination__item active">
-			Page {{ (TC.holders.offset/TC.holders.limit) + 1 }} of {{ TC.holders.pages }}
+			<span class="pagination__itemText">Page</span>
+			<input class="pagination__itemField" ng-class="{'error': TC.paginateData.holders.paginate_has_error}" ng-model="TC.paginateData.holders.paginate_page" ng-blur="TC.resetPaginate()" ng-keyup="$event.keyCode == 13 && TC.changePage($event)" placeholder="{{ (TC.holders.offset/TC.holders.limit) + 1 }}"/>
+			<span class="pagination__itemText">of {{ TC.holders.pages }}</span>
 		</span>
 		<a 
 			href="" 
@@ -119,7 +121,9 @@
 			<span>prev</span>
 		</a>
 		<span class="pagination__item active">
-			Page {{ (TC.holders.offset/TC.holders.limit) + 1 }} of {{ TC.holders.pages }}
+			<span class="pagination__itemText">Page</span>
+			<input class="pagination__itemField" ng-class="{'error': TC.paginateData.holders.paginate_has_error}" ng-model="TC.paginateData.holders.paginate_page" ng-blur="TC.resetPaginate()" ng-keyup="$event.keyCode == 13 && TC.changePage($event)" placeholder="{{ (TC.holders.offset/TC.holders.limit) + 1 }}"/>
+			<span class="pagination__itemText">of {{ TC.holders.pages }}</span>
 		</span>
 		<a 
 			href="" 

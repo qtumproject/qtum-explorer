@@ -1,7 +1,7 @@
 {
   "name": "qtum-explorer",
   "description": "An open-source frontend for the Insight API. The Insight API provides you with a convenient, powerful and simple way to query and broadcast data on the qtum network and build your own services with it.",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "repository": "git@github.com:qtumproject/qtum-explorer.git",
   "contributors": [],
   "bugs": {

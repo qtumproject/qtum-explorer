@@ -302,38 +302,47 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
 	};
 
     /**
-	 * Transfer Paginate input
+	 * Paginate input
      *
      */
 
-	self.transfer_paginate_has_error = false;
-	self.transfer_paginate_page = '';
 
-	self.setTransferPaginateError = function (hasError) {
-        self.transfer_paginate_has_error = hasError;
+    self.paginateData = {
+    	transfers: {
+            paginate_has_error: false,
+            paginate_page: ''
+		},
+        holders: {
+            paginate_has_error: false,
+            paginate_page: ''
+        }
 	};
 
-	self.resetTransferPaginate = function () {
-        self.transfer_paginate_has_error = false;
-        self.transfer_paginate_page = '';
+	self.setPaginateError = function (hasError) {
+        self.paginateData[self.tab].paginate_has_error = hasError;
 	};
 
-    self.changeTransfersPage = function (e) {
+	self.resetPaginate = function () {
+        self.paginateData[self.tab].paginate_has_error = false;
+        self.paginateData[self.tab].paginate_page = '';
+	};
 
-        var countPages = self.transfers.count && self.transfers.limit ? Math.ceil(self.transfers.count / self.transfers.limit) : 0,
+    self.changePage = function (e) {
+
+        var countPages = self[self.tab].count && self[self.tab].limit ? Math.ceil(self[self.tab].count / self[self.tab].limit) : 0,
 			value = e.target.value;
 
         if (!/^\d+$/.test(value)) {
-			return self.setTransferPaginateError(true);
+			return self.setPaginateError(true);
 		}
 
         value = parseInt(e.target.value, 10);
 
         if (value && !isNaN(value) && countPages >= value) {
-            self.paginate(self.transfers.limit * (value - 1));
-            this.resetTransferPaginate();
+            self.paginate(self[self.tab].limit * (value - 1));
+            this.resetPaginate();
 		} else {
-            self.setTransferPaginateError(true);
+            self.setPaginateError(true);
 		}
 
 	};

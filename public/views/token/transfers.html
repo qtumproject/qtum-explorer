@@ -27,7 +27,7 @@
 		</a>
 		<span class="pagination__item active">
 			<span class="pagination__itemText">Page</span>
-			<input class="pagination__itemField" ng-class="{'error': TC.transfer_paginate_has_error}" ng-model="TC.transfer_paginate_page" ng-blur="TC.resetTransferPaginate()" ng-keyup="$event.keyCode == 13 && TC.changeTransfersPage($event)" placeholder="{{ (TC.transfers.offset/TC.transfers.limit) + 1 }}"/>
+			<input class="pagination__itemField" ng-class="{'error': TC.paginateData.transfers.paginate_has_error}" ng-model="TC.paginateData.transfers.paginate_page" ng-blur="TC.resetPaginate()" ng-keyup="$event.keyCode == 13 && TC.changePage($event)" placeholder="{{ (TC.transfers.offset/TC.transfers.limit) + 1 }}"/>
 			<span class="pagination__itemText">of {{ TC.transfers.pages }}</span>
 		</span>
 		<a 
@@ -109,7 +109,7 @@
 		</a>
 		<span class="pagination__item active">
 			<span class="pagination__itemText">Page</span>
-			<input class="pagination__itemField" ng-class="{'error': TC.transfer_paginate_has_error}" ng-model="TC.transfer_paginate_page" ng-blur="TC.resetTransferPaginate()" ng-keyup="$event.keyCode == 13 && TC.changeTransfersPage($event)" placeholder="{{ (TC.transfers.offset/TC.transfers.limit) + 1 }}"/>
+			<input class="pagination__itemField" ng-class="{'error': TC.paginateData.transfers.paginate_has_error}" ng-model="TC.paginateData.transfers.paginate_page" ng-blur="TC.resetPaginate()" ng-keyup="$event.keyCode == 13 && TC.changePage($event)" placeholder="{{ (TC.transfers.offset/TC.transfers.limit) + 1 }}"/>
 			<span class="pagination__itemText">of {{ TC.transfers.pages }}</span>
 		</span>
 		<a 
