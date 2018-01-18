@@ -126,6 +126,8 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 		return null;
 	};
 
+	var contractsInfoCache = {};
+
 	var asyncProcessERC20TX = function(tx) {
 
 		var deferred = $q.defer();
@@ -169,12 +171,18 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 		}
 
 		if (isTransferEvent) {
-			ERC20ContractInfo.get({
-				contractAddress: receiptItemQRC20.contractAddress
-			}).$promise.then(function (data) {
+
+            if (!contractsInfoCache[receiptItemQRC20.contractAddress]) {
+                contractsInfoCache[receiptItemQRC20.contractAddress] = ERC20ContractInfo.get({
+                    contractAddress: receiptItemQRC20.contractAddress
+                });
+			}
+
+            contractsInfoCache[receiptItemQRC20.contractAddress].$promise.then(function (data) {
 				tx.erc20ContractInfo = data;
 				deferred.resolve(tx);
 			});
+
 		} else {
 			deferred.resolve(tx);
 		}

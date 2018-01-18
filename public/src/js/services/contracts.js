@@ -193,7 +193,7 @@ angular.module('insight.contracts')
 	})
 	.factory('ERC20ContractInfo', function($resource, $window) {
 
-		return $resource($window.apiPrefix + '/erc20/:contractAddress',
+		return $resource($window.apiPrefix + '/qrc20/:contractAddress',
             {
                 address: '@address'
             },
