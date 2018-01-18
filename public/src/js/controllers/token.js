@@ -12,15 +12,20 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
 
 	}
 
-    if (Web3Utils.isAddress($routeParams.address)) {
+    var contractEthAddress = $routeParams.address;
 
-        var addrStr = Contracts.getBitAddressFromContractAddress($routeParams.address);
 
-        $location.path('/token/' + addrStr).replace();
+    if (!Web3Utils.isAddress(contractEthAddress)) {
+
+        contractEthAddress = Contracts.getEthAddressFromBitAddress($routeParams.address);
+
+        $location.path('/token/' + contractEthAddress).replace();
 
         return false;
 
     }
+
+    var contractBase58Address = Contracts.getBitAddressFromContractAddress($routeParams.address);
 
 	var self = this;
 	var BALANCE_OF_METHOD_HASH = '70a08231';
@@ -30,7 +35,20 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
 	self.transfers = {};
 	self.holders = {};
 
-    self.filterByAddress = $routeParams.a;
+    self.filterByAddress = null;
+
+    if ($routeParams.a) {
+
+        if (Web3Utils.isAddress($routeParams.a)) {
+            self.filterByAddress = Contracts.getBitAddressFromContractAddress($routeParams.a);
+        }
+
+        if (Contracts.isValidQtumAddress($routeParams.a)) {
+            self.filterByAddress = $routeParams.a;
+        }
+
+    }
+
     self.addressBalance = null;
 
 	self.readSmartContractTab = {
@@ -55,7 +73,7 @@ function($routeParams, $rootScope, $location, ERC20ContractInfo, ERC20Transfers,
 		}
 	};
 
-    var contractEthAddress = Contracts.getEthAddressFromBitAddress($routeParams.address);
+
 
 	self.contractAddress = $routeParams.address;
 

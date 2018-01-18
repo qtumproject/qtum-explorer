@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.transactions').controller('TransactionsController',
-function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsByBlock, TransactionsByAddress, Contracts, $q, ERC20ContractInfo) {
+function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsByBlock, TransactionsByAddress, Contracts, $q, ERC20ContractInfo, Web3Utils) {
 
 	var self = this;
 	var pageNum = 0;
@@ -239,8 +239,15 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 	};
 
 	var _byAddress = function () {
+
+		var address = $routeParams.addrStr;
+
+		if (Web3Utils.isAddress(address)) {
+            address = Contracts.getBitAddressFromContractAddress(address)
+		}
+
 		TransactionsByAddress.get({
-			address: $routeParams.addrStr,
+			address: address,
 			pageNum: pageNum
 		}, function(data) {
 			_paginate(data);

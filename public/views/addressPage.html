@@ -11,9 +11,9 @@
 				<a href="" 
 				   class="copyBtn icon-copy"
 				   ngclipboard 
-				   data-clipboard-text="{{ InnerContr.address.addrStr }}"></a>
+				   data-clipboard-text="{{ InnerContr.contractAddress ? InnerContr.contractAddress : InnerContr.address.addrStr }}"></a>
 				<div class="copyText text">
-					{{ InnerContr.address.addrStr }}
+					{{ InnerContr.contractAddress ? InnerContr.contractAddress : InnerContr.address.addrStr }}
 				</div>
 			</div>
 		</div>
@@ -76,7 +76,7 @@
 					</div>
 					<div class="list__right">
 						<div class="">
-							<a href="token/{{ InnerContr.address.addrStr }}">{{ InnerContr.erc20ContractInfo.symbol }}</a>
+							<a href="token/{{ InnerContr.contractAddress ? InnerContr.contractAddress : InnerContr.address.addrStr }}">{{ InnerContr.erc20ContractInfo.symbol }}</a>
 						</div>
 					</div>
 				</li>
@@ -91,7 +91,7 @@
 							<div class="ddMenu">
 								<ul class="ddMenu__list">
 									<li class="ddMenu__item" ng-repeat="balance in InnerContr.balances">
-										<a href="token/{{ balance.contract.contract_address_base }}?a={{ InnerContr.address.addrStr  }}" class="ddMenu__link">
+										<a href="token/{{ balance.contract.contract_address }}?a={{ InnerContr.contractAddress ? InnerContr.contractAddress : InnerContr.address.addrStr  }}" class="ddMenu__link">
 											<span class="ddMenu__linkRow">
 												<span class="left upp">{{ balance.contract.name ? balance.contract.name : balance.contract.symbol }}</span>
 											</span>
