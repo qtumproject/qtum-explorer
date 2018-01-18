@@ -44,16 +44,6 @@ angular.module('insight.search').controller('SearchController',
 
 				var bitAddress = q;
 
-                if (q.length === 40) {
-
-                    try {
-                        bitAddress = Contracts.getBitAddressFromContractAddress(q);
-                    } catch (e) {
-                        console.log(e);
-                    }
-
-                }
-
 				Address.get({
 					addrStr: bitAddress
 				}, function() {
@@ -78,7 +68,7 @@ angular.module('insight.search').controller('SearchController',
 					else {
 
                         ERC20ContractInfo.get({
-                            address: q
+                            contractAddress: q
                         }, function() {
 
                             _resetSearch();
