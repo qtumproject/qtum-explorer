@@ -343,7 +343,7 @@ msgstr "直前のブロック"
 #: public/views/block_list.html
 #, fuzzy
 #| msgid "Latest Blocks"
-msgid "Lastest block from date"
+msgid "Latest blocks from this date"
 msgstr "最新のブロック"
 
 #: public/views/transaction.html

@@ -353,7 +353,7 @@ msgstr "Letzter Block"
 #: public/views/block_list.html
 #, fuzzy
 #| msgid "Latest Blocks"
-msgid "Lastest block from date"
+msgid "Latest blocks from this date"
 msgstr "Letzte Blöcke"
 
 #: public/views/transaction.html
