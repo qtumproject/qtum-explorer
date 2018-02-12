@@ -14,6 +14,7 @@ angular.module('insight',[
 	'insight.blocks',
     'insight.chart',
 	'insight.charts',
+	'insight.richList',
 	'insight.transactions',
 	'insight.address',
 	'insight.search',
@@ -38,6 +39,7 @@ angular.module('insight.socket', []);
 angular.module('insight.blocks', []);
 angular.module('insight.charts', []);
 angular.module('insight.chart', []);
+angular.module('insight.richList', []);
 angular.module('insight.transactions', [ 'ngScrollbars' ]);
 angular.module('insight.address', []);
 angular.module('insight.search', []);

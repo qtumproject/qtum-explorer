@@ -98,6 +98,11 @@ angular.module('insight').config(function($routeProvider) {
         templateUrl: 'views/404.html',
         title: 'Error'
     }).
+    when('/rich-list', {
+        controller: 'RichListController',
+        templateUrl: 'views/rich_list.html',
+        title: 'Rich List'
+    }).
 	otherwise({
 		templateUrl: 'views/404.html',
 		title: 'Error'

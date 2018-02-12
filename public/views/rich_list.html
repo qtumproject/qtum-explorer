@@ -1,0 +1,31 @@
+<div data-ng-include src="'views/includes/connection.html'"></div>
+<div class="box" ng-controller="RichListController as RL" ng-init="RL.init()">
+
+    <div class="heading margin1">
+        <h1 class="heading__title">Richest Addresses</h1>
+    </div>
+
+    <div class="section section-adresses">
+        <div class="table">
+            <div class="tr tr-head">
+                <div class="th">Address</div>
+                <div class="th">
+                    <div class="centerMode ">Balance</div>
+                </div>
+                <div class="th">Blocks Mined</div>
+            </div>
+            <div class="tr" ng-repeat="item in RL.items">
+                <div class="td">
+                    <a href="/address/{{ item.address }}" class="link mark">{{ item.address }}</a>
+                </div>
+                <div class="td">
+                    <div class="centerMode">
+                        {{ item.balance | numeraljs : '0,0[.][00000000]' }} QTUM
+                    </div>
+                </div>
+                <div class="td">{{ item.blocks_mined ? item.blocks_mined : 0 }}</div>
+            </div>
+        </div>
+    </div>
+
+</div>

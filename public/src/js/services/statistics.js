@@ -70,4 +70,6 @@ angular.module('insight.statistics')
     	return $resource($window.apiPrefix + '/statistics/balance-intervals');
 	}).factory('StatisticsRicherThan', function($resource, $window) {
     	return $resource($window.apiPrefix + '/statistics/richer-than');
+	}).factory('StatisticsRichestList', function($resource, $window) {
+    	return $resource($window.apiPrefix + '/statistics/richest-addresses-list');
 	});

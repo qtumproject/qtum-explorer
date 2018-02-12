@@ -4666,6 +4666,37 @@ corresponds to the arrow we want to display */
       .summaryAddress__specialItemBody .list {
         padding-right: 20px; }
 
+.section-adresses {
+  margin-bottom: 110px; }
+  .section-adresses .tr {
+    margin: 0 0 6px; }
+  .section-adresses .th,
+  .section-adresses .td {
+    text-align: right;
+    width: 33%; }
+    .section-adresses .th:first-child,
+    .section-adresses .td:first-child {
+      text-align: left; }
+    .section-adresses .th:last-child,
+    .section-adresses .td:last-child {
+      text-align: right; }
+    .section-adresses .th .centerMode,
+    .section-adresses .td .centerMode {
+      max-width: 200px;
+      margin: auto; }
+  .section-adresses .link {
+    padding: 0 2px;
+    font-size: 14px; }
+  .section-adresses.twoColumn .th,
+  .section-adresses.twoColumn .td {
+    width: 50%; }
+    .section-adresses.twoColumn .th:first-child,
+    .section-adresses.twoColumn .td:first-child {
+      text-align: left; }
+    .section-adresses.twoColumn .th:last-child,
+    .section-adresses.twoColumn .td:last-child {
+      text-align: right; }
+
 .summaryBlock {
   overflow: hidden;
   margin-top: 40px;
