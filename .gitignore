@@ -50,3 +50,5 @@ po/*
 !po/*.po
 
 .idea/
+
+package-lock.json
