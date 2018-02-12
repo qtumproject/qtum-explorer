@@ -608,7 +608,7 @@ msgid "The message is verifiably from {{verification.address}}."
 msgstr "メッセージは{{verification.address}}により検証されました。"
 
 #: public/src/js/controllers/statistics.js
-msgid "The number of daily confirmed Bitcoin transactions."
+msgid "The number of daily confirmed QTUM transactions."
 msgstr ""
 
 #: public/src/js/controllers/statistics.js
