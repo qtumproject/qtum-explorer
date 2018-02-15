@@ -51,7 +51,7 @@ function($scope, $rootScope, Currency, Constants, BigNumber) {
 		// prevent sci notation
 			if (response < 1e-7) response = response.toFixed(8);
 
-			return response + ' ' + $rootScope.currency.symbol;
+			return numeral(response).format('0,0[.][00000000]') + ' ' + $rootScope.currency.symbol;
 		}
 		return 'value error';
 	};
