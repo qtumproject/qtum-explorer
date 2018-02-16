@@ -49,7 +49,9 @@ function($scope, $rootScope, Currency, Constants, BigNumber, $filter) {
 				response = value;
 			}
 		// prevent sci notation
-			if (response < 1e-7) response = response.toFixed(8);
+			if (response < 1e-7) {
+				response = response.toFixed(8);
+			}
 
 			return $filter('numeraljs')(response, '0,0[.][00000000]') + ' ' + $rootScope.currency.symbol;
 		}
