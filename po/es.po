@@ -832,7 +832,7 @@ msgstr ""
 #~ msgid "Input"
 #~ msgstr "Entrada"
 
-#~ msgid "Last Block Hash (Quantumd)"
+#~ msgid "Last Block Hash (Qtum)"
 #~ msgstr "Último Bloque Hash (Quantumd)"
 
 #~ msgid "Loading Address Information"
