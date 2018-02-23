@@ -184,8 +184,8 @@
 		<div class="transactions__bodySection-title">
 			<div class="text">
 				<span>
-					<a href="token/{{ tx.receipt[$index].contractAddress }}">
-						{{ tx.erc20ContractInfo.name ? tx.erc20ContractInfo.name : 'Standart token' }}
+					<a href="token/{{ ev.contractInfo.contract_address }}">
+						{{ ev.contractInfo.name ? ev.contractInfo.name : 'Standard token' }}
 					</a>
 					<span class="special2">(QRC20)</span>
 				</span>
@@ -203,8 +203,8 @@
 					</span>
 				</a>
 					<div class="data">
-						{{ $root.token.convertDecimals(ev.amount, tx.erc20ContractInfo.decimals) }}
-						{{ tx.erc20ContractInfo.symbol }}
+						{{ $root.token.convertDecimals(ev.amount, ev.contractInfo.decimals) }}
+						{{ ev.contractInfo.symbol }}
 					</div>
 				</div>
 			</div>
@@ -216,8 +216,8 @@
 					</span>
 				</a>
 					<div class="data">
-						{{ $root.token.convertDecimals(ev.amount, tx.erc20ContractInfo.decimals) }}
-						{{ tx.erc20ContractInfo.symbol }}
+						{{ $root.token.convertDecimals(ev.amount, ev.contractInfo.decimals) }}
+						{{ ev.contractInfo.symbol }}
 					</div>
 				</div>
 			</div>

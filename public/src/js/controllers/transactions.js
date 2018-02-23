@@ -130,10 +130,8 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 	var asyncProcessERC20TX = function(tx) {
 
-		var deferred = $q.defer();
-
-		var isTransferEvent = false;
-		var receiptItemQRC20 = false;
+		var deferred = $q.defer(),
+        	tokenPromises = [];
 
 		tx.tokenEvents = [];
 
@@ -150,44 +148,44 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 						if (logItem && logItem.topics && logItem.topics.length === 3 && logItem.topics[0] === 'ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
 
-							var addressFrom = logItem.topics[1];
-							var addressTo = logItem.topics[2];
+                            if (!contractsInfoCache[logItem.address]) {
+                                contractsInfoCache[logItem.address] = ERC20ContractInfo.get({
+                                    contractAddress: logItem.address
+                                });
+                            }
 
-							isTransferEvent = true;
+                            contractsInfoCache[logItem.address].$promise.then(function (data) {
 
-							tx.tokenEvents.push({
-								addressFrom: Contracts.getBitAddressFromContractAddress(addressFrom.slice(addressFrom.length - 40, addressFrom.length)),
-								addressTo: Contracts.getBitAddressFromContractAddress(addressTo.slice(addressTo.length - 40, addressTo.length)),
-								amount: parseInt(logItem.data, 16)
-							});
+                                var addressFrom = logItem.topics[1],
+                                	addressTo = logItem.topics[2],
+                                	amount = parseInt(logItem.data, 16);
+
+                                var tokenEvent = {
+                                    addressFrom: Contracts.getBitAddressFromContractAddress(addressFrom.slice(addressFrom.length - 40, addressFrom.length)),
+                                    addressTo: Contracts.getBitAddressFromContractAddress(addressTo.slice(addressTo.length - 40, addressTo.length)),
+                                    amount: amount,
+                                    contractInfo: data
+                                };
+
+                                tx.tokenEvents.push(tokenEvent);
+
+                            });
+
+                            tokenPromises.push(contractsInfoCache[logItem.address].$promise);
+
 						}
 					}
 				}
 
-				if (isTransferEvent) {
-					receiptItemQRC20 = receiptItem;
-				}
 			}
 		}
 
-		if (isTransferEvent) {
-
-            if (!contractsInfoCache[receiptItemQRC20.contractAddress]) {
-                contractsInfoCache[receiptItemQRC20.contractAddress] = ERC20ContractInfo.get({
-                    contractAddress: receiptItemQRC20.contractAddress
-                });
-			}
-
-            contractsInfoCache[receiptItemQRC20.contractAddress].$promise.then(function (data) {
-				tx.erc20ContractInfo = data;
-				deferred.resolve(tx);
-			});
-
-		} else {
-			deferred.resolve(tx);
-		}
+        $q.all(tokenPromises).then(function () {
+            deferred.resolve(tx);
+		});
 
 		return deferred.promise;
+
 	};
 
 	var _processTX = function(tx) {
