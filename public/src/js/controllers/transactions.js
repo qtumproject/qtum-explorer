@@ -128,6 +128,26 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 	var contractsInfoCache = {};
 
+    var addEvent = function(tx, logItem) {
+
+        contractsInfoCache[logItem.address].$promise.then(function (data) {
+
+            var addressFrom = logItem.topics[1],
+                addressTo = logItem.topics[2],
+                amount = parseInt(logItem.data, 16);
+
+            var tokenEvent = {
+                addressFrom: Contracts.getBitAddressFromContractAddress(addressFrom.slice(addressFrom.length - 40, addressFrom.length)),
+                addressTo: Contracts.getBitAddressFromContractAddress(addressTo.slice(addressTo.length - 40, addressTo.length)),
+                amount: amount,
+                contractInfo: data
+            };
+
+            tx.tokenEvents.push(tokenEvent);
+
+        });
+    };
+
 	var asyncProcessERC20TX = function(tx) {
 
 		var deferred = $q.defer(),
@@ -154,22 +174,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
                                 });
                             }
 
-                            contractsInfoCache[logItem.address].$promise.then(function (data) {
-
-                                var addressFrom = logItem.topics[1],
-                                	addressTo = logItem.topics[2],
-                                	amount = parseInt(logItem.data, 16);
-
-                                var tokenEvent = {
-                                    addressFrom: Contracts.getBitAddressFromContractAddress(addressFrom.slice(addressFrom.length - 40, addressFrom.length)),
-                                    addressTo: Contracts.getBitAddressFromContractAddress(addressTo.slice(addressTo.length - 40, addressTo.length)),
-                                    amount: amount,
-                                    contractInfo: data
-                                };
-
-                                tx.tokenEvents.push(tokenEvent);
-
-                            });
+                            addEvent(tx, logItem);
 
                             tokenPromises.push(contractsInfoCache[logItem.address].$promise);
 
