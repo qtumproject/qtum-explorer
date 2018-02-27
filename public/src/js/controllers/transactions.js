@@ -130,22 +130,39 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
     var addEvent = function(tx, logItem) {
 
-        contractsInfoCache[logItem.address].$promise.then(function (data) {
+    	return $q(function (resolve) {
 
-            var addressFrom = logItem.topics[1],
-                addressTo = logItem.topics[2],
-                amount = parseInt(logItem.data, 16);
+            if (!contractsInfoCache[logItem.address]) {
+                contractsInfoCache[logItem.address] = ERC20ContractInfo.get({
+                    contractAddress: logItem.address
+                });
+            }
 
-            var tokenEvent = {
-                addressFrom: Contracts.getBitAddressFromContractAddress(addressFrom.slice(addressFrom.length - 40, addressFrom.length)),
-                addressTo: Contracts.getBitAddressFromContractAddress(addressTo.slice(addressTo.length - 40, addressTo.length)),
-                amount: amount,
-                contractInfo: data
-            };
+            contractsInfoCache[logItem.address].$promise.then(function (data) {
 
-            tx.tokenEvents.push(tokenEvent);
+            	if (data && data.contract_address) {
+                    var addressFrom = logItem.topics[1],
+                        addressTo = logItem.topics[2],
+                        amount = parseInt(logItem.data, 16);
 
-        });
+                    var tokenEvent = {
+                        addressFrom: Contracts.getBitAddressFromContractAddress(addressFrom.slice(addressFrom.length - 40, addressFrom.length)),
+                        addressTo: Contracts.getBitAddressFromContractAddress(addressTo.slice(addressTo.length - 40, addressTo.length)),
+                        amount: amount,
+                        contractInfo: data
+                    };
+
+                    tx.tokenEvents.push(tokenEvent);
+				}
+
+                return resolve();
+
+            }).catch(function () {
+                return resolve();
+			});
+
+		});
+    	
     };
 
 	var asyncProcessERC20TX = function(tx) {
@@ -168,15 +185,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 						if (logItem && logItem.topics && logItem.topics.length === 3 && logItem.topics[0] === 'ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
 
-                            if (!contractsInfoCache[logItem.address]) {
-                                contractsInfoCache[logItem.address] = ERC20ContractInfo.get({
-                                    contractAddress: logItem.address
-                                });
-                            }
-
-                            addEvent(tx, logItem);
-
-                            tokenPromises.push(contractsInfoCache[logItem.address].$promise);
+                            tokenPromises.push(addEvent(tx, logItem));
 
 						}
 					}
