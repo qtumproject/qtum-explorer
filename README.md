@@ -6,16 +6,15 @@ A QTUM blockchain explorer web application service for [Qtumcore Node](https://g
 ## Getting Started
 
 Install nvm https://github.com/creationix/nvm
-```
+```bash
 nvm i v6
 nvm use v6
-
 ```
 Install mongo https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 Install qtum-bitcore https://github.com/qtumproject/qtum-bitcore - with ZMQ (sudo apt-get install libzmq3-dev) !
 
 Install qtumcore-node
-```
+```bash
 npm i https://github.com/qtumproject/qtumcore-node.git#master
 
 $(npm bin)/qtumcore-node create mynode
@@ -24,11 +23,10 @@ cd mynode
 
 $(npm bin)/qtumcore-node install https://github.com/qtumproject/insight-api.git#master
 $(npm bin)/qtumcore-node install https://github.com/qtumproject/qtum-explorer.git#master
-
 ```
 
 Edit qtumcore-node.json
-```
+```json
 {
   "network": "livenet",
   "port": 3001,
@@ -80,7 +78,6 @@ Edit qtumcore-node.json
 
 Edit qtum.conf
 ```
-
 server=1
 whitelist=127.0.0.1
 txindex=1
@@ -97,86 +94,15 @@ reindex=1
 gen=0
 addrindex=1
 logevents=1
-
 ```
 
-Start node
-
-```
+```bash
 npm install git+ssh://git@github.com:qtumproject/qtumcore-node.git#master
 $(npm bin)/qtumcore-node create mynode
 cd mynode 
 
 $(npm bin)/qtumcore-node install git+ssh://git@github.com:qtumproject/insight-api.git#master
 $(npm bin)/qtumcore-node install git+ssh://git@github.com:qtumproject/qtum-explorer.git#master
-
-```
-
-Edit qtumcore-node.json:
-```
-{
-  "network": "livenet",
-  "port": 3001,
-  "services": [
-    "qtumd",
-    "qtum-insight-api",
-    "qtum-explorer",
-    "web"
-  ],
-  "servicesConfig": {
-    "qtum-explorer": {
-      "apiPrefix": "qtum-insight-api",
-      "routePrefix": "qtum-explorer",
-      "nodemapLink": "https://qtum.org/en/nodemap"
-    },
-    "qtum-insight-api": {
-      "routePrefix": "qtum-insight-api",
-      "rateLimiterOptions": {
-        "whitelist": ["123.456.12.34", "::ffff:123.456.12.34"],
-        "whitelistLimit": 9999999,
-        "limit": 200,
-        "interval": 60000,
-        "banInterval": 3600000
-      },
-      "db": {
-        "host": "127.0.0.1",
-        "port": "27017",
-        "database": "qtum-api",
-        "user": "",
-        "password": ""
-      },
-      "erc20": {
-        "updateFromBlockHeight": 0
-      }
-    },
-    "qtumd": {
-      "spawn": {
-        "datadir": "/home/user/.qtum",
-        "exec": "/home/user/qtum-bitcore/src/qtumd"
-      }
-    }
-  }
-}
-```
-
-Edit qtum.conf
-```
-server=1
-whitelist=127.0.0.1
-txindex=1
-addressindex=1
-timestampindex=1
-spentindex=1
-zmqpubrawtx=tcp://127.0.0.1:28332
-zmqpubhashblock=tcp://127.0.0.1:28332
-rpcallowip=127.0.0.1
-rpcuser=user
-rpcpassword=password
-rpcport=18332
-reindex=1
-gen=0
-addrindex=1
-logevents=1
 ```
 
 Run node
