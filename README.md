@@ -12,7 +12,6 @@ nvm i v6
 nvm use v6
 ```
 2. Install mongo https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/  
-
 3. Install qtum-bitcore https://github.com/qtumproject/qtum-bitcore - with ZMQ ! 
 
 ```bash
@@ -83,6 +82,7 @@ $(npm bin)/qtumcore-node install https://github.com/qtumproject/qtum-explorer.gi
 
 ```
 6. Edit qtum.conf  
+
 ```
 server=1
 whitelist=127.0.0.1
