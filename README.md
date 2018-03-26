@@ -11,7 +11,11 @@ nvm i v6
 nvm use v6
 ```
 Install mongo https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
-Install qtum-bitcore https://github.com/qtumproject/qtum-bitcore - with ZMQ (sudo apt-get install libzmq3-dev) !
+Install qtum-bitcore https://github.com/qtumproject/qtum-bitcore - with ZMQ !
+```bash
+# with ZMQ
+sudo apt-get install libzmq3-dev 
+```
 
 Install qtumcore-node
 ```bash
