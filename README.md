@@ -11,6 +11,7 @@ A QTUM blockchain explorer web application service for [Qtumcore Node](https://g
 nvm i v6
 nvm use v6
 ```
+
 2. Install mongo https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/  
 3. Install qtum-bitcore https://github.com/qtumproject/qtum-bitcore - with ZMQ ! 
 
