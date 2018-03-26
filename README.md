@@ -5,20 +5,23 @@ A QTUM blockchain explorer web application service for [Qtumcore Node](https://g
 
 ## Getting Started
 
-1. Install nvm https://github.com/creationix/nvm
+1. Install nvm https://github.com/creationix/nvm  
+
 ```bash
 nvm i v6
 nvm use v6
 ```
 2. Install mongo https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/  
 
-3. Install qtum-bitcore https://github.com/qtumproject/qtum-bitcore - with ZMQ !  
+3. Install qtum-bitcore https://github.com/qtumproject/qtum-bitcore - with ZMQ ! 
+
 ```bash
 # with ZMQ
 sudo apt-get install libzmq3-dev 
 ```
 
 4. Install qtumcore-node  
+
 ```bash
 npm i https://github.com/qtumproject/qtumcore-node.git#master
 
@@ -31,6 +34,7 @@ $(npm bin)/qtumcore-node install https://github.com/qtumproject/qtum-explorer.gi
 ```
 
 5. Edit qtumcore-node.json  
+
 ```json
 {
   "network": "livenet",
