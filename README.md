@@ -5,19 +5,20 @@ A QTUM blockchain explorer web application service for [Qtumcore Node](https://g
 
 ## Getting Started
 
-Install nvm https://github.com/creationix/nvm
+1. Install nvm https://github.com/creationix/nvm
 ```bash
 nvm i v6
 nvm use v6
 ```
-Install mongo https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/  
-Install qtum-bitcore https://github.com/qtumproject/qtum-bitcore - with ZMQ !  
+2. Install mongo https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/  
+
+3. Install qtum-bitcore https://github.com/qtumproject/qtum-bitcore - with ZMQ !  
 ```bash
 # with ZMQ
 sudo apt-get install libzmq3-dev 
 ```
 
-Install qtumcore-node  
+4. Install qtumcore-node  
 ```bash
 npm i https://github.com/qtumproject/qtumcore-node.git#master
 
@@ -29,7 +30,7 @@ $(npm bin)/qtumcore-node install https://github.com/qtumproject/insight-api.git#
 $(npm bin)/qtumcore-node install https://github.com/qtumproject/qtum-explorer.git#master
 ```
 
-Edit qtumcore-node.json
+5. Edit qtumcore-node.json  
 ```json
 {
   "network": "livenet",
@@ -80,7 +81,7 @@ Edit qtumcore-node.json
 
 ```
 
-Edit qtum.conf
+6. Edit qtum.conf  
 ```
 server=1
 whitelist=127.0.0.1
@@ -100,12 +101,12 @@ addrindex=1
 logevents=1
 ```
 
-Run node
+7. Run Node  
 ```
 $(npm bin)/qtumcore-node start
 ```
 
-Open a web browser to `http://localhost:3001/qtum-explorer` or `http://localhost:3001/qtum-insight-api`
+8. Open a web browser to `http://localhost:3001/qtum-explorer` or `http://localhost:3001/qtum-insight-api`
 
 ## Development
 
