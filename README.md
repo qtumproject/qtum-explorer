@@ -96,15 +96,6 @@ addrindex=1
 logevents=1
 ```
 
-```bash
-npm install git+ssh://git@github.com:qtumproject/qtumcore-node.git#master
-$(npm bin)/qtumcore-node create mynode
-cd mynode 
-
-$(npm bin)/qtumcore-node install git+ssh://git@github.com:qtumproject/insight-api.git#master
-$(npm bin)/qtumcore-node install git+ssh://git@github.com:qtumproject/qtum-explorer.git#master
-```
-
 Run node
 ```
 $(npm bin)/qtumcore-node start
