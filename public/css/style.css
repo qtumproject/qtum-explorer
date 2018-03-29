@@ -651,6 +651,9 @@ b, strong {
     float: right;
     width: 47%;
     padding-top: 115px; }
+  .content__full {
+    float: left;
+    width: 100%; }
   .content__list-transactions {
     padding-top: 15px; }
   .content__listScroll {
@@ -720,6 +723,8 @@ b, strong {
       text-transform: uppercase; }
     .heading__pic ~ .heading__title {
       margin-left: 70px; }
+  .heading__desc {
+    margin: 30px 0 35px; }
   .heading__link {
     font-size: 16px; }
     .heading__linkWrap {
@@ -819,6 +824,9 @@ b, strong {
 .nf__link {
   display: inline-block;
   margin: 50px 0; }
+
+.air-b {
+  margin-bottom: 150px; }
 
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -4635,6 +4643,51 @@ corresponds to the arrow we want to display */
 .mined__help {
   display: inline-block;
   vertical-align: middle; }
+
+.error-msg {
+  display: none; }
+
+.trans-textarea {
+  margin-bottom: 18px;
+  border: 1px solid #2e9ad0;
+  padding: 15px 15px 15px 20px; }
+  .trans-textarea.error {
+    border: 1px solid #e75647;
+    background-color: transparent;
+    display: block;
+    position: relative; }
+    .trans-textarea.error .error-msg {
+      display: block;
+      position: absolute;
+      right: 0;
+      bottom: 100%;
+      color: #e75647;
+      margin: 0 0 5px 0;
+      font-size: 14px; }
+  .trans-textarea .title {
+    margin-bottom: 17px; }
+  .trans-textarea .body {
+    height: 230px;
+    overflow: auto;
+    line-height: 30px; }
+    .trans-textarea .body .list {
+      padding-right: 20px; }
+
+.btn-wrap {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  padding: 0; }
+  .btn-wrap .error-msg {
+    display: block;
+    color: #e75647;
+    font-size: 14px;
+    margin: 0 0 0 50px; }
+
+.success {
+  height: 30px;
+  display: flex;
+  align-items: center; }
 
 .summaryAddress {
   margin-top: 40px;
