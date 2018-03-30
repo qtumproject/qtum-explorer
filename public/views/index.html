@@ -242,7 +242,7 @@
 			</div>
 		</div>
 		<div class="btn-wrap" ng-class="{'error': isStatusError()}">
-			<a href="" class="btn btn-blocks" ng-click="send()">Send transaction</a>
+			<a href="" class="btn btn-blocks" ng-click="send()">{{ isStatusError() ? 'Try again' : 'Send transaction' }}</a>
 			<span class="error-msg" ng-if="isStatusError()">Transaction can not be sent{{error}}</span>
 		</div>
 		<span class="success" ng-if="isStatusSent()">Transaction has been successfully sent! {{txid}}</span>

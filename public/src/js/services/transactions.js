@@ -42,4 +42,21 @@ angular.module('insight.transactions')
 		return $resource($window.apiPrefix + '/statistics/transactions', {
 			days: '@days'
 		});
+	})
+	.factory('SendRawTransaction',
+	function($resource, $window) {
+		return $resource($window.apiPrefix + '/tx/send', {},
+			{
+				send: {
+					method: 'POST',
+					interceptor: {
+						response: function (res) {
+							return res.data;
+						},
+						responseError: function (res) {
+							return res.data;
+						}
+					}
+				}
+			});
 	});

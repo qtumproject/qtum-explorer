@@ -1,5 +1,7 @@
 angular.module('insight.transactions').controller('SendRawTransactionController',
-	function ($scope, $http, $filter, lodash) {
+	function ($scope, $http, $filter, SendRawTransaction, lodash) {
+
+		var $cachedTextarea = null;
 
 		$scope.status = 'ready';  // ready|sent|error
 		$scope.txid = '';
@@ -34,12 +36,13 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 			}
 
 			var postData = {
-				rawtx: $scope.rawTransaction,
+				rawtx: $scope.rawTransaction.trim(),
 			};
 
-			$http.post(window.apiPrefix + '/tx/send', postData)
-				.success(function (data, status, headers, config) {
-					if (typeof (data.txid) != 'string') {
+			SendRawTransaction.send(postData,
+				function (successfullResponse) {
+
+					if (typeof (successfullResponse.txid) != 'string') {
 						// API returned 200 but the format is not known
 						$scope.status = 'error';
 						$scope.error = ': the transaction was sent but no transaction id was got back';
@@ -48,9 +51,13 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 					}
 
 					$scope.status = 'sent';
-					$scope.txid = data.txid;
-				})
-				.error(function (data, status, headers, config) {
+					$scope.txid = successfullResponse.txid;
+
+					clearAfterSuccessFullSend();
+
+				}, function (errorResponse) {
+
+					var data = errorResponse.data;
 
 					$scope.status = 'error';
 
@@ -61,6 +68,7 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 					}
 
 				});
+
 		};
 
 
@@ -77,10 +85,15 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 		}
 
 		$scope.autosize = function () {
-			var el = angular.element('.sendrawtransaction-textarea');
 
-			el[0].style.cssText = 'height: 215px; padding: 0';
-			el[0].style.cssText = 'height:' + el[0].scrollHeight + 'px';
+			if (!$cachedTextarea) {
+				$cachedTextarea = getElementByClassName('.sendrawtransaction-textarea');
+			}
+
+			$cachedTextarea.css('height', '215px');
+			$cachedTextarea.css('padding', '0');
+
+			$cachedTextarea.css('height', $cachedTextarea[0].scrollHeight + 'px');
 		};
 
 		var clearState = function () {
@@ -89,12 +102,8 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 			$scope.error = null;
 		}
 
-		var getTrxHex = function () {
-			var rawTrx = angular.element('#sendrawtransaction-data-div').text();
-
-			rawTrx = rawTrx.trim();
-
-			return rawTrx;
+		var getElementByClassName = function(className) {
+			return angular.element(className);
 		}
 
 		var validateRawTransaction = function () {
@@ -115,6 +124,17 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 			}
 
 			return true;
+		}
+
+		var clearDataAfterSuccessFullSend = function() {
+
+			$scope.rawTransaction = null;
+
+			setTimeout(function() {
+				$scope.status = 'ready';
+				$scope.$apply();
+			}, 2 * 60 * 1000);
+
 		}
 
 	});
