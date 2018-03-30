@@ -1,27 +1,41 @@
 angular.module('insight.transactions').controller('SendRawTransactionController',
-	function($scope, $http, $filter, lodash) {
+	function ($scope, $http, $filter, lodash) {
 
-		$scope.status = 'ready';  // ready|loading|sent|error
+		$scope.status = 'ready';  // ready|sent|error
 		$scope.txid = '';
 		$scope.error = null;
 		$scope.isEmpty = false;
+		$scope.rawTransaction;
+		$scope.txid = '';
 
-		$scope.send = function() {
+		$scope.scrollConfig = {
+			autoHideScrollbar: false,
+			theme: 'custom',
+			mouseWheel: {
+				preventDefault: true,
+				// ["select","option","keygen","datalist","textarea"]
+				// if u want to enable over scrolling
+				// just replace the array item on needed position with null (actually any replacement works)
+				disableOver: ['select', 'option', 'keygen', 'datalist', null]
+			},
+			advanced: {
+				updateOnContentResize: true,
+				autoScrollOnFocus: false,
+			},
+			scrollInertia: 0
+		};
+
+		$scope.send = function () {
 
 			clearState();
 
-			var rawTrx = getTrxHex();
-
-			if (!validateRawTransaction(rawTrx)) {
-				console.log('bad trx');
+			if (!validateRawTransaction()) {
 				return;
 			}
 
 			var postData = {
-				rawtx: rawTrx
+				rawtx: $scope.rawTransaction,
 			};
-
-			$scope.status = 'loading';
 
 			$http.post(window.apiPrefix + '/tx/send', postData)
 				.success(function (data, status, headers, config) {
@@ -34,8 +48,7 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 					}
 
 					$scope.status = 'sent';
-					console.log('[ON SUCCESS]', JSON.stringify(data, null, 2));
-					// $scope.txid = data.txid;
+					$scope.txid = data.txid;
 				})
 				.error(function (data, status, headers, config) {
 
@@ -43,7 +56,6 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 
 					if (data) {
 						$scope.error = ': ' + data;
-						console.log('[ON ERROR]', JSON.stringify(data, null, 2));
 					} else {
 						$scope.error = "no error message given (connection error?)"
 					}
@@ -52,27 +64,32 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 		};
 
 
-		$scope.isStatusError = function() {
+		$scope.isStatusError = function () {
 			return $scope.status === 'error' ? true : false;
 		}
 
-		$scope.checkIsEmpty = function() {
+		$scope.checkIsEmpty = function () {
 			return $scope.isEmpty;
 		}
 
-		$scope.stripFormat = function ($html) {
-			console.log('qwert');
-			console.log($html);
-			return  $html ? String($html).replace(/<[^>]+>/gm, '') : '';
+		$scope.isStatusSent = function () {
+			return $scope.status === 'sent' ? true : false;
+		}
+
+		$scope.autosize = function () {
+			var el = angular.element('.sendrawtransaction-textarea');
+
+			el[0].style.cssText = 'height: 215px; padding: 0';
+			el[0].style.cssText = 'height:' + el[0].scrollHeight + 'px';
 		};
 
-		var clearState = function() {
+		var clearState = function () {
 			$scope.status = 'ready';
 			$scope.isEmpty = false;
 			$scope.error = null;
 		}
 
-		var getTrxHex = function() {
+		var getTrxHex = function () {
 			var rawTrx = angular.element('#sendrawtransaction-data-div').text();
 
 			rawTrx = rawTrx.trim();
@@ -80,17 +97,20 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 			return rawTrx;
 		}
 
-		var validateRawTransaction = function(rawTrx) {
-			
+		var validateRawTransaction = function () {
+
+			var rawTrx = $scope.rawTransaction;
+
 			if (!rawTrx) {
 				$scope.isEmpty = true;
+
 				return false;
 			}
 
 			if (!lodash.isString(rawTrx) || !(/^[0-9a-fA-F]+$/.test(rawTrx))) {
-				console.log('lodash is stirng', lodash.isString(rawTrx));
 				$scope.status = 'error';
 				$scope.error = ': the transaction hex is not valid';
+
 				return false;
 			}
 

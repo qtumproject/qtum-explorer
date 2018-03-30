@@ -235,9 +235,9 @@
 			<div class="trans-textarea" ng-class="{'error': checkIsEmpty()}">
 				<span class="error-msg">Transaction is required</span>
 				<div class="title">Type here your TX hex</div>
-				<div class="body " ng-scrollbars ng-scrollbars-config="config">
-					<div class="list" id="sendrawtransaction-data-div" contenteditable="true" ng-paste="stripFormat($html)" style="height:230px;">
-					</div>
+				<div class="body"  ng-scrollbars ng-scrollbars-config="scrollConfig">
+					<textarea class="sendrawtransaction-textarea" ng-model="rawTransaction" ng-change="autosize()">  
+					</textarea>
 				</div>
 			</div>
 		</div>
@@ -245,7 +245,7 @@
 			<a href="" class="btn btn-blocks" ng-click="send()">Send transaction</a>
 			<span class="error-msg" ng-if="isStatusError()">Transaction can not be sent{{error}}</span>
 		</div>
-		<span class="success" ng-if="SRTC.status==='sent'">Transaction has been successfully sent!</span>
+		<span class="success" ng-if="isStatusSent()">Transaction has been successfully sent! {{txid}}</span>
 	</div>
 	<div class="supernova__wrapBox">
 		<div class="supernova__wrap">

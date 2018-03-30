@@ -127,5 +127,15 @@ function($scope, $rootScope, $routeParams, $location, moment, Block, Blocks, Blo
 		});
 	};
 
+	self.calcDatesDifference = function() {
+		
+		var present = new Date();
+		
+		var presentDate = moment.utc([present.getUTCFullYear(), present.getUTCMonth(), present.getUTCDate()]);
+		var currentDate = moment.utc(self.pagination.current);
+
+		return currentDate.from(presentDate);
+	}
+
 	self.params = $routeParams;
 });

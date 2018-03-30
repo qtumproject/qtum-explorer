@@ -35,7 +35,7 @@
 								   show-button-bar="false"
 								   readonly/>
 							<div class="fsz-13" ng-if="BC.pagination.currentTs">
-								{{ BC.pagination.isToday ? ('Today' | translate) : (BC.pagination.currentTs | amParse : 'X' | amUtc | amStartOf : 'day' | amTimeAgo) }}
+								{{ BC.pagination.isToday ? ('Today' | translate) : BC.calcDatesDifference() }}
 							</div>
 						</div>
 					</div>
