@@ -26,7 +26,6 @@ angular.module('insight.system').controller('TokensSearchController',
 
         var getContractsList = function () {
             ContractsRepository.contractsList.get({}, function (res) {
-                console.log(res);
                 if (res && res.count && res.items) {
                     var transformedItems = [];
 

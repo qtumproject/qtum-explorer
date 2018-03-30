@@ -4689,6 +4689,18 @@ corresponds to the arrow we want to display */
   display: flex;
   align-items: center; }
 
+.sendrawtransaction-textarea {
+  height: 215px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  vertical-align: baseline;
+  background: transparent;
+  color: #2e9ad0;
+  overflow: hidden; }
+
 .summaryAddress {
   margin-top: 40px;
   margin-bottom: 95px; }
