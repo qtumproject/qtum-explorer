@@ -31,7 +31,7 @@ module.exports = function(grunt) {
 				'public/lib/qrcode-generator/js/qrcode.js', 
 				'public/lib/qrcode-generator/js/qrcode_UTF8.js', 
 				'public/lib/jquery/dist/jquery.min.js',
-				'public/lib/moment/min/moment.min.js', 
+				'public/lib/moment/min/moment.min.js',
 				'public/lib/moment/locale/de.js',
 				'public/lib/moment/locale/en-gb.js',
 				'public/lib/moment/locale/es.js',
@@ -62,7 +62,8 @@ module.exports = function(grunt) {
 				'public/lib/ng-scrollbars/dist/scrollbars.min.js',
 				'public/lib/angular-chart.js/dist/angular-chart.min.js',
 				'public/lib/angular-numeraljs/dist/angular-numeraljs.min.js',
-				'public/lib/ng-lodash/build/ng-lodash.min.js'
+				'public/lib/ng-lodash/build/ng-lodash.min.js',
+				'public/lib/jquery.scrollbar/jquery.scrollbar.min.js'
 			],
 			dest: 'public/js/angularjs-all.js'
 		},

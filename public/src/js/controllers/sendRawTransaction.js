@@ -6,27 +6,12 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 		var timeoutId = null;
 
 		$scope.status = 'ready';  // ready|sent|error
-		$scope.txid = '';
 		$scope.error = null;
 		$scope.isEmpty = false;
 		$scope.rawTransaction;
+		$scope.txid = '';
 
-		$scope.scrollConfig = {
-			autoHideScrollbar: false,
-			theme: 'custom',
-			mouseWheel: {
-				preventDefault: true,
-				// ["select","option","keygen","datalist","textarea"]
-				// if u want to enable over scrolling
-				// just replace the array item on needed position with null (actually any replacement works)
-				disableOver: ['select', 'option', 'keygen', 'datalist', null]
-			},
-			advanced: {
-				updateOnContentResize: true,
-				autoScrollOnFocus: false,
-			},
-			scrollInertia: 0
-		};
+		$scope.jqueryScrollbarOptions = { };
 
 		$scope.send = function () {
 
@@ -85,19 +70,7 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 			return $scope.status === 'sent' ? true : false;
 		}
 
-		$scope.autosize = function () {
-
-			if (!$cachedTextarea) {
-				$cachedTextarea = getElementByClassName('.sendrawtransaction-textarea');
-			}
-
-			$cachedTextarea.css('height', '215px');
-			$cachedTextarea.css('padding', '0');
-
-			$cachedTextarea.css('height', $cachedTextarea[0].scrollHeight + 'px');
-		};
-
-		$scope.$on('$destroy', function() {
+		$scope.$on('$destroy', function () {
 			clearState();
 		});
 
@@ -110,7 +83,7 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 			clearTimeout(timeoutId);
 		}
 
-		var getElementByClassName = function(className) {
+		var getElementByClassName = function (className) {
 			return angular.element(className);
 		}
 
@@ -134,9 +107,9 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 			return true;
 		}
 
-		
 
-		var clearDataAfterSuccessfullSend = function() {
+
+		var clearDataAfterSuccessfullSend = function () {
 
 			$scope.rawTransaction = null;
 
