@@ -3,12 +3,13 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 
 		var $cachedTextarea = null;
 
+		var timeoutId = null;
+
 		$scope.status = 'ready';  // ready|sent|error
 		$scope.txid = '';
 		$scope.error = null;
 		$scope.isEmpty = false;
 		$scope.rawTransaction;
-		$scope.txid = '';
 
 		$scope.scrollConfig = {
 			autoHideScrollbar: false,
@@ -53,7 +54,7 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 					$scope.status = 'sent';
 					$scope.txid = successfullResponse.txid;
 
-					clearAfterSuccessFullSend();
+					clearDataAfterSuccessfullSend();
 
 				}, function (errorResponse) {
 
@@ -96,10 +97,17 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 			$cachedTextarea.css('height', $cachedTextarea[0].scrollHeight + 'px');
 		};
 
+		$scope.$on('$destroy', function() {
+			clearState();
+		});
+
 		var clearState = function () {
 			$scope.status = 'ready';
 			$scope.isEmpty = false;
 			$scope.error = null;
+			$scope.txid = '';
+
+			clearTimeout(timeoutId);
 		}
 
 		var getElementByClassName = function(className) {
@@ -126,12 +134,14 @@ angular.module('insight.transactions').controller('SendRawTransactionController'
 			return true;
 		}
 
-		var clearDataAfterSuccessFullSend = function() {
+		
+
+		var clearDataAfterSuccessfullSend = function() {
 
 			$scope.rawTransaction = null;
 
-			setTimeout(function() {
-				$scope.status = 'ready';
+			timeoutId = setTimeout(function() {
+				clearState();
 				$scope.$apply();
 			}, 2 * 60 * 1000);
 
