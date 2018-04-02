@@ -235,9 +235,8 @@
 			<div class="trans-textarea" ng-class="{'error': checkIsEmpty()}">
 				<span class="error-msg">Transaction is required</span>
 				<div class="title">Type here your TX hex</div>
-				<div class="body"  ng-scrollbars ng-scrollbars-config="scrollConfig">
-					<textarea class="sendrawtransaction-textarea" ng-model="rawTransaction" ng-change="autosize()">  
-					</textarea>
+				<div class="body">
+					<textarea class="textarea-scrollbar scrollbar-outer" data-jquery-scrollbar="jqueryScrollbarOptions" ng-model="rawTransaction"></textarea>
 				</div>
 			</div>
 		</div>

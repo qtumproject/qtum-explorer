@@ -40,7 +40,7 @@ angular.module('insight.blocks', []);
 angular.module('insight.charts', []);
 angular.module('insight.chart', []);
 angular.module('insight.richList', []);
-angular.module('insight.transactions', ['ngScrollbars']);
+angular.module('insight.transactions', ['ngScrollbars', 'jQueryScrollbar']);
 angular.module('insight.address', []);
 angular.module('insight.search', []);
 angular.module('insight.token', ['ngNumeraljs']);
