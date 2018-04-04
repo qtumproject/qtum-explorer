@@ -74,6 +74,16 @@
 						<a ng-if="!TC.tx.blockhash" translate>Unconfirmed</a>
 					</div>
 				</li>
+				<li class="list__item" ng-if="TC.tx.receipt && TC.tx.receipt[0]">
+					<div class="list__left">
+						<b translate>TxReceiptStatus</b>
+					</div>
+					<div class="list__right">
+						<div>
+							{{ showTxReceiptStatus() }}
+						</div>
+					</div>
+				</li>
 				<li class="list__item" ng-if="TC.tx.isCoinBase">
 					<div class="list__left">
 						<b translate>Coinbase</b>

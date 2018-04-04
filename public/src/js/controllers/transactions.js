@@ -357,6 +357,25 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 	$scope.$on('tx', function(event, txid) {
 		_findTx(txid);
 	});
+
+
+	$scope.showTxReceiptStatus = function() {
+		
+		var receipt = {};
+		var status;
+
+		if (self.tx.receipt && self.tx.receipt[0]) {
+			receipt = self.tx.receipt[0];
+
+			if (receipt.excepted.toLowerCase() === 'none') {
+				status = 'Success';
+			} else {
+				status = 'Fail(' + receipt.excepted + ')';
+			}
+
+			return status;
+		}
+	}
 });
 
 
