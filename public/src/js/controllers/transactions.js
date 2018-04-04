@@ -359,7 +359,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 	});
 
 
-	$scope.showTxReceiptStatus = function() {
+	self.showTxReceiptStatus = function() {
 		
 		var receipt = {};
 		var status;
@@ -375,6 +375,16 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 
 			return status;
 		}
+	}
+
+	self.isReceiptExists = function() {
+		var tx = self.tx;
+		
+		if (Array.isArray(tx.receipt) && tx.receipt.length) {
+			return true;
+		}
+
+		return false;
 	}
 });
 
