@@ -357,35 +357,7 @@ function($scope, $rootScope, $routeParams, $location, Transaction, TransactionsB
 	$scope.$on('tx', function(event, txid) {
 		_findTx(txid);
 	});
-
-
-	self.showTxReceiptStatus = function() {
-		
-		var receipt = {};
-		var status;
-
-		if (self.tx.receipt && self.tx.receipt[0]) {
-			receipt = self.tx.receipt[0];
-
-			if (receipt.excepted.toLowerCase() === 'none') {
-				status = 'Success';
-			} else {
-				status = 'Fail(' + receipt.excepted + ')';
-			}
-
-			return status;
-		}
-	}
-
-	self.isReceiptExists = function() {
-		var tx = self.tx;
-		
-		if (Array.isArray(tx.receipt) && tx.receipt.length) {
-			return true;
-		}
-
-		return false;
-	}
+	
 });
 
 
